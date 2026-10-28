@@ -1,0 +1,38 @@
+---
+name: md-hoi4-country-content
+description: Workflow, style rules and balance numbers for writing and auditing country content (focus trees, national spirits/ideas, events, localisation) for Millennium Dawn / MDC and similar Hearts of Iron IV mods. Use this whenever the user mentions HOI4 or Hearts of Iron modding, Millennium Dawn, MD, MDC, focus trees, national spirits or ideas, event chains, .yml localisation, scripted localisation, tech bonuses, MIO, or wants a country branch reworked, balanced or checked for bugs - even if they only paste a focus block or a loc line.
+---
+
+# MD / HOI4 country content skill
+
+IMPORTANT: this skill is a distilled snapshot of one long working session (Kazakhstan branch rework). It is NOT perfect and NOT a spec. Every number is a recommendation, every rule can be overridden by the user or by the target mod's own conventions. When the user's files, the mod wiki or in-game behaviour contradict this skill, trust them and tell the user. Update the skill after each project.
+
+## 1. Start of work
+1. Ask for (or locate) the country's focus tree, events, ideas, loc .yml, scripted loc, history file, and the project brief. List what is missing once; do not keep asking.
+2. Build an index so you never re-read big files: `python scripts/mdindex.py build` then `get ID`, `loc REGEX`, `find REGEX`, `check`. (Set MD_UPLOADS / MD_INDEX env vars.) If files are re-uploaded, rebuild; duplicates with different upload prefixes must be resolved by newest mtime.
+3. Keep a backlog file (bugs found, decisions, unverified items) and a style card. Memory may be off: files are the memory.
+4. Reference countries (other trees/ideas/events/loc) are for FORM and numbers, not quality. Measure them (see references/balance.md) and check their loc for filler before imitating.
+
+## 2. Work loop per focus
+1. View code + loc + the ideas/events it touches (compact dump, not the whole file).
+2. Check: log id = focus id, prerequisites exist, available is satisfiable, effects match tooltip and text, DLC guards, double bonuses, idea exists, scripted loc shows hidden ideas.
+3. Research real-world basis (ONE search per focus, only for facts that enter the text). Say what is sourced and what is the player's intent.
+4. Write description (references/loc-style.md), adjust numbers to medians (references/balance.md), fix code (references/code-patterns.md).
+5. Verify mechanically (brace balance, tabs, unique loc keys, lengths) with a script before delivering.
+6. Deliver only changed lines; put anything over ~30 lines into a file. End with what is unverified.
+
+## 3. Hard-learned principles
+- Texts follow reality: problem that really existed -> "we will" intent -> short consequence. Facts must be date-independent (sandbox: a focus can be taken at any date). No future-focus spoilers. No hardcoded capital / country adjectives.
+- Gates in `available` are real gameplay conditions (partner has the tech, opinion, no war, completed prerequisite focus), not dates.
+- Events only where there is a real choice or real flavour value. Proposal chains: focus sends proposal to partner, accept sends reply to FROM, decline uses generic reply; bot always accepts when the focus gate passed (decline has has_opinion factor 0). Never give the same bonus twice.
+- One spirit = one profile; modifiers should match the focus name and not repeat in sibling positive spirits.
+- Keep answers short (token budget). Use files for bulk. Never re-dump what was summarised.
+
+## 4. References (read when needed)
+- references/loc-style.md - description/title/event wording, banned phrases, yml rules.
+- references/code-patterns.md - focus/event/idea code patterns and guards.
+- references/balance.md - modifier medians from four countries and focus/event effect sizes.
+- references/pitfalls.md - bug patterns found, audit checklist, unverified items, process lessons.
+
+## 5. Adapting this skill
+If the user states a preference (e.g. "events only for real choices", "no years in descriptions"), add it to pitfalls.md under "User decisions" and follow it above this file. Keep SKILL.md short; move detail to references.
