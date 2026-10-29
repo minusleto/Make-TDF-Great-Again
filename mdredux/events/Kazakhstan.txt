@@ -3262,7 +3262,7 @@ country_event = {
         }
 	}
 }
-#Buying Tech Israel
+#Skylark UAV Cooperation
 country_event = {
 	id = kaz_army.8
 	title = kaz_army.8.t
@@ -3280,7 +3280,7 @@ country_event = {
 		}
 	}
 }
-#Selling Tech Israel
+#Elbit Systems Reviews Cooperation
 country_event = {
 	id = kaz_army.9
 	title = kaz_army.9.t
@@ -3324,7 +3324,7 @@ country_event = {
 		}
 	}	
 }
-#Israel Accepted
+#Elbit Systems Accepted
 country_event = {
 	id = kaz_army.10
 	title = kaz_army.10.t
@@ -3359,7 +3359,7 @@ country_event = {
 		}
 	}
 }
-#Israel Poslal
+#Elbit Systems Rejected
 country_event = {
 	id = kaz_army.11
 	title = kaz_army.11.t
