@@ -4139,8 +4139,21 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_air_forces"
+			air_experience = 25
+			add_daily_mastery = {
+				amount = 0.5
+				days = 150
+				name = KAZ_new_air_forces
+				track = fighter_aircraft
+			}
+			add_daily_mastery = {
+				amount = 0.5
+				days = 150
+				name = KAZ_new_air_forces
+				track = multirole_aircraft
+			}
 			add_ideas = KAZ_modern_air_forces
-			one_random_arms_factory = yes
+			newline = yes
 		}
 
 		ai_will_do = {
