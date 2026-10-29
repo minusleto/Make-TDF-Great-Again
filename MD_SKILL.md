@@ -26,6 +26,7 @@ IMPORTANT: this skill is a distilled snapshot of one long working session (Kazak
 - Gates in `available` are real gameplay conditions (partner has the tech, opinion, no war, completed prerequisite focus), not dates.
 - Events only where there is a real choice or real flavour value. Proposal chains: focus sends proposal to partner, accept sends reply to FROM, decline uses generic reply; bot always accepts when the focus gate passed (decline has has_opinion factor 0). Never give the same bonus twice.
 - One spirit = one profile; modifiers should match the focus name and not repeat in sibling positive spirits.
+- Before writing or revising focus descriptions, inspect the exact `completion_reward` and any ideas/events it grants. Every described outcome must be supported by an actual effect; never invent runway extensions, hangars, dispersal facilities, training systems, or other rewards that the focus does not provide. Conversely, make the prose explain the actual reward in natural flavour text, without mechanically listing every effect.
 - Keep answers short (token budget). Use files for bulk. Never re-dump what was summarised.
 
 ## 4. References (read when needed)
