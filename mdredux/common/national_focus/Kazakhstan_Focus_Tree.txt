@@ -4154,7 +4154,6 @@ focus_tree = {
 			}
 			newline = yes
 			add_ideas = KAZ_modern_air_forces
-			newline = yes
 		}
 
 		ai_will_do = {
