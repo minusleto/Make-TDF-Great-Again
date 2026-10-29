@@ -4116,56 +4116,6 @@ focus_tree = {
     	}
 	}
 
-#Decommission Old Planes
-	
-
-#Creation of the Airborne Forces
-	
-
-#New Doctrine of the Air Defense Forces
-	
-
-#Complete the Aircraft Deal with Russia
-	
-
-#Retraining of Officers
-	
-
-#Redevelopment of Air Corps Basing Areas
-	
-
-#Skylark UAV Cooperation
-	
-
-#Create AHKE
-	
-
-#Buy Planes from China
-	
-
-#New Air Forces
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	focus = {
 		id = KAZ_Kazakhstan_Engineering
 		icon = kaz_ke_start
