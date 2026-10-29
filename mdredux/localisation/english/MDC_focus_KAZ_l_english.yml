@@ -866,7 +866,7 @@
  KAZ_Kazakhstan_Engineering: "Create Kazakhstan Engineering"
  KAZ_create_kazakhstan_paramount_engineering: "Create Kazakhstan Paramount Engineering"
  KAZ_decommission_old_planes: "Decommission Old Planes"
- KAZ_decommission_old_planes_desc: "Operating outdated Soviet aircraft is becoming too expensive. It is time to decommission the old machinery to free up resources and bases for next-generation aviation."
+ KAZ_decommission_old_planes_desc: "Our air force still relies on ageing Soviet-era aircraft. Their upkeep consumes scarce funds while spare parts become harder to source. Retiring the least viable airframes will ease the burden on maintenance crews and free resources for a more capable fleet."
  KAZ_btr_barys_6x6: "Agreement with South Africa on \"Barys 6x6\" APC"
  KAZ_arlan: "Creation of \"Arlan\" Heavy Armored Vehicle"
  KAZ_naiza_israel: "Development of \"Naiza\" MLRS"
@@ -1820,10 +1820,7 @@
  KAZ_outdate_wings_idea: "Legacy of Soviet Aviation"
 
  #Army Tooltips
- KAZ_army_tt: "[KAZ_outdated_army_loc][KAZ_modern_uniform_loc][KAZ_modern_communication_systems_loc][KAZ_foreign_equipment_loc][KAZ_regional_commands_loc][KAZ_logistics_reorganization_loc][KAZ_sso_loc]"
-  KAZ_airforce_tt: "[KAZ_outdate_wings_loc]"
-  KAZ_outdate_wings_loc1: "\n§gLEGACY OF SOVIET AVIATION§!: \n$air_attack_factor$: §R-15.0%§!\n$air_defence_factor$: §R-15.0%§!\n$air_maximum_speed_factor$: §R-18.0%§!\n$army_bonus_air_superiority_factor$: §R-12.0%§!\n$air_cas_efficiency$: §R-12.0%§!\n"
-  KAZ_outdate_wings_loc2: "\n§gLEGACY OF SOVIET AVIATION§!: \n$air_attack_factor$: §R-7.0%§!\n$air_defence_factor$: §R-7.0%§!\n$air_maximum_speed_factor$: §R-10.0%§!\n$army_bonus_air_superiority_factor$: §R-5.0%§!\n$air_cas_efficiency$: §R-5.0%§!\n"
+ KAZ_army_tt: "[KAZ_outdated_army_loc][KAZ_modern_uniform_loc][KAZ_modern_communication_systems_loc][KAZ_foreign_equipment_loc][KAZ_regional_commands_loc][KAZ_logistics_reorganization_loc][KAZ_sso_loc][KAZ_outdate_wings_loc]"  KAZ_outdate_wings_loc1: "\n§gLEGACY OF SOVIET AVIATION§!: \n$air_attack_factor$: §R-15.0%§!\n$air_defence_factor$: §R-15.0%§!\n$air_maximum_speed_factor$: §R-18.0%§!\n$army_bonus_air_superiority_factor$: §R-12.0%§!\n$air_cas_efficiency$: §R-12.0%§!\n"  KAZ_outdate_wings_loc2: "\n§gLEGACY OF SOVIET AVIATION§!: \n$air_attack_factor$: §R-7.0%§!\n$air_defence_factor$: §R-7.0%§!\n$air_maximum_speed_factor$: §R-10.0%§!\n$army_bonus_air_superiority_factor$: §R-5.0%§!\n$air_cas_efficiency$: §R-5.0%§!\n"
  KAZ_outdated_army_loc1: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-20.0%§!\n$army_defence_factor$: §R-20.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-15.0%§!\n$army_personnel_cost_multiplier_modifier$: §R+7.0%§!\n"
  KAZ_outdated_army_loc2: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-15.0%§!\n$army_defence_factor$: §R-15.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-10.0%§!\n$army_personnel_cost_multiplier_modifier$: §R+3.0%§!\n"
  KAZ_outdated_army_loc3: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-10.0%§!\n$army_defence_factor$: §R-10.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-5.0%§!\n"
