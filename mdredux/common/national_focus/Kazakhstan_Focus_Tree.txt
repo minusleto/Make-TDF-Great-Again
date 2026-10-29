@@ -3942,11 +3942,11 @@ focus_tree = {
 				name = KAZ_retraining_officers
 				folder = air
 			}
+			set_temp_variable = { temp_opinion = 2 }
+			change_the_military_opinion = yes
 			add_ideas = KAZ_trained_officer_corps
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
-			set_temp_variable = { temp_opinion = 2 }
-			change_the_military_opinion = yes
 		}
 
 		ai_will_do = {
