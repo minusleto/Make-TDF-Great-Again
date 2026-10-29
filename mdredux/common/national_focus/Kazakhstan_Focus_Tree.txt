@@ -3773,6 +3773,348 @@ focus_tree = {
 	}
 
 	focus = {
+		id = KAZ_decommission_old_planes
+		icon = decommission_old_planes
+
+		x = 10
+		y = 1
+		relative_position_id = KAZ_our_military_forces
+
+		cost = 5
+
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_decommission_old_planes"
+    		set_temp_variable = { treasury_change = -4.5 }
+			modify_treasury_effect = yes
+    		add_ideas = GENERIC_airforce_idea
+    		set_temp_variable = { temp_opinion = 1 }
+    		change_the_military_opinion = yes
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_new_doctrine_air
+		icon = generic_army_antiaircraft
+
+		x = 0
+		y = 1
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+    	prerequisite = { focus = KAZ_decommission_old_planes }
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_doctrine_air"
+			air_experience = 25
+			set_temp_variable = { treasury_change = -7.5 }
+			modify_treasury_effect = yes
+			remove_ideas = KAZ_outdate_wings
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_complete_aircraft_russia
+		icon = mig29
+
+		x = 2
+		y = 1
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+    	prerequisite = { focus = KAZ_decommission_old_planes }
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	available = {
+	        country_exists = SOV
+			NOT = {
+				has_idea = paralyzing_corruption
+				has_idea = crippling_corruption
+				has_idea = rampant_corruption
+
+			}
+			OR = {
+				NOT = {
+					has_war_with = SOV
+				}
+			}
+		}
+
+		bypass = {
+			OR = {
+				NOT = {
+					country_exists = SOV
+				}
+			}
+		}
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
+			country_event = kaz_army.6
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_creation_airborne_forces
+		icon = generic_army_airplanes
+
+		x = -2
+		y = 1
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+    	prerequisite = { focus = KAZ_decommission_old_planes }
+		search_filters = { FOCUS_FILTER_ARMY }
+
+		available = {
+			has_completed_focus = KAZ_reorganization_infantry
+		}
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_creation_airborne_forces"
+			KAZ = { country_event = KAZ_army.4 }
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_create_AHKE
+		icon = kaz_ke_airbus
+
+		x = 0
+		y = 3
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+		prerequisite = { focus = KAZ_retraining_officers }
+		prerequisite = { focus = KAZ_redevelopment_air_areas }
+		search_filters = { FOCUS_FILTER_ARMY }
+
+		available = {
+			has_completed_focus = KAZ_Kazakhstan_Engineering
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_AHKE"
+			add_tech_bonus = {
+				name = KAZ_create_AHKE
+				bonus = 0.50
+				uses = 1
+				category = CAT_trans_heli
+				category = CAT_heli
+			}
+			mio:KAZ_Kazakhstan_Engineering_manufacturing = {
+                add_mio_funds = 200
+            }
+			one_random_arms_factory = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = KAZ_skylark_uav_cooperation
+		icon = por_army_buy_isr_drone
+
+		x = -2
+		y = 3
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+    	prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_creation_airborne_forces }
+		prerequisite = { focus = KAZ_complete_aircraft_russia}
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	available = {
+	        country_exists = ISR
+			NOT = { has_war_with = ISR }
+		}
+
+		bypass = {
+			OR = {
+				NOT = {
+					country_exists = ISR
+				}
+			}
+		}
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_uav_cooperation"
+			KAZ = { country_event = kaz_army.8 }
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_buy_planes_from_china
+		icon = buy_chinese_j7iii
+
+		x = 2
+		y = 3
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+    	prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_creation_airborne_forces }
+		prerequisite = { focus = KAZ_complete_aircraft_russia}
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	available = {
+	        country_exists = CHI
+			OR = {
+				NOT = {
+					has_war_with = CHI
+				}
+			}
+		}
+
+		bypass = {
+			OR = {
+				NOT = {
+					country_exists = CHI
+				}
+			}
+		}
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_buy_planes_from_china"
+			CHI = {
+    			country_event = kaz_army.1
+    		}
+    		custom_effect_tooltip = effect_if_they_accept_TT
+    		effect_tooltip = {
+    			set_temp_variable = { treasury_change = -8.00 }
+    			modify_treasury_effect = yes
+    			country_event = kaz_army.2
+    			add_equipment_to_stockpile = {
+    				type = small_plane_airframe_2
+    				amount = 60
+    				variant_name = "MiG-29 Fulcrum"
+    				producer = SOV
+    			}
+    		}
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_retraining_officers
+		icon = generic_army_pilots
+
+		x = -1
+		y = 2
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 10
+
+		prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_creation_airborne_forces }
+
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_retraining_officers"
+			air_experience = 50
+			set_temp_variable = { treasury_change = -5 }
+			modify_treasury_effect = yes
+    		add_ideas = KAZ_trained_officer_corps
+    		set_temp_variable = { temp_opinion = 2 }
+    		change_the_military_opinion = yes
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_redevelopment_air_areas
+		icon = generic_army_airbase
+
+		x = 1
+		y = 2
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+		prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_complete_aircraft_russia }
+
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_redevelopment_air_areas"
+			add_command_power = 15
+			two_air_base = yes
+			two_air_base = yes
+    		set_temp_variable = { temp_opinion = 2 }
+    		change_the_military_opinion = yes
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
+		id = KAZ_new_air_forces
+		icon = aviation_army
+
+		x = 0
+		y = 4
+		relative_position_id = KAZ_decommission_old_planes
+
+		cost = 5
+
+    	prerequisite = { focus = KAZ_retraining_officers }
+		prerequisite = { focus = KAZ_redevelopment_air_areas }
+		prerequisite = { focus = KAZ_create_AHKE }
+		search_filters = { FOCUS_FILTER_ARMY }
+
+    	completion_reward = {
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_air_forces"
+			add_ideas = KAZ_modern_air_forces
+			one_random_arms_factory = yes
+    	}
+
+    	ai_will_do = {
+    		base = 1.5
+    	}
+	}
+
+	focus = {
 		id = KAZ_Kazakhstan_Engineering
 		icon = kaz_ke_start
 
@@ -4428,348 +4770,25 @@ focus_tree = {
     	}
 	}
 
-	focus = {
-		id = KAZ_decommission_old_planes
-		icon = decommission_old_planes
+	
 
-		x = 0
-		y = 1
-		relative_position_id = KAZ_professional_readiness
+	
 
-		cost = 5
+	
 
-    	prerequisite = { focus = KAZ_professional_readiness }
-		search_filters = { FOCUS_FILTER_ARMY }
+	
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_decommission_old_planes"
-    		set_temp_variable = { treasury_change = -4.5 }
-			modify_treasury_effect = yes
-    		add_ideas = GENERIC_airforce_idea
-    		set_temp_variable = { temp_opinion = 1 }
-    		change_the_military_opinion = yes
-    	}
+	
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
+	
 
-	focus = {
-		id = KAZ_new_doctrine_air
-		icon = generic_army_antiaircraft
+	
 
-		x = 0
-		y = 1
-		relative_position_id = KAZ_decommission_old_planes
+	
 
-		cost = 5
+	
 
-    	prerequisite = { focus = KAZ_decommission_old_planes }
-		search_filters = { FOCUS_FILTER_ARMY }
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_doctrine_air"
-			air_experience = 25
-			set_temp_variable = { treasury_change = -7.5 }
-			modify_treasury_effect = yes
-			remove_ideas = KAZ_outdate_wings
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_complete_aircraft_russia
-		icon = mig29
-
-		x = 2
-		y = 1
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 5
-
-    	prerequisite = { focus = KAZ_decommission_old_planes }
-		search_filters = { FOCUS_FILTER_ARMY }
-
-    	available = {
-	        country_exists = SOV
-			NOT = {
-				has_idea = paralyzing_corruption
-				has_idea = crippling_corruption
-				has_idea = rampant_corruption
-
-			}
-			OR = {
-				NOT = {
-					has_war_with = SOV
-				}
-			}
-		}
-
-		bypass = {
-			OR = {
-				NOT = {
-					country_exists = SOV
-				}
-			}
-		}
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
-			country_event = kaz_army.6
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_creation_airborne_forces
-		icon = generic_army_airplanes
-
-		x = -2
-		y = 1
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 5
-
-    	prerequisite = { focus = KAZ_decommission_old_planes }
-		search_filters = { FOCUS_FILTER_ARMY }
-
-		available = {
-			has_completed_focus = KAZ_reorganization_infantry
-		}
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_creation_airborne_forces"
-			KAZ = { country_event = KAZ_army.4 }
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_create_AHKE
-		icon = kaz_ke_airbus
-
-		x = 0
-		y = 3
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 5
-
-		prerequisite = { focus = KAZ_retraining_officers }
-		prerequisite = { focus = KAZ_redevelopment_air_areas }
-		search_filters = { FOCUS_FILTER_ARMY }
-
-		available = {
-			has_completed_focus = KAZ_Kazakhstan_Engineering
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_AHKE"
-			add_tech_bonus = {
-				name = KAZ_create_AHKE
-				bonus = 0.50
-				uses = 1
-				category = CAT_trans_heli
-				category = CAT_heli
-			}
-			mio:KAZ_Kazakhstan_Engineering_manufacturing = {
-                add_mio_funds = 200
-            }
-			one_random_arms_factory = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = KAZ_skylark_uav_cooperation
-		icon = por_army_buy_isr_drone
-
-		x = -2
-		y = 3
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 5
-
-    	prerequisite = { focus = KAZ_new_doctrine_air }
-		prerequisite = { focus = KAZ_creation_airborne_forces }
-		prerequisite = { focus = KAZ_complete_aircraft_russia}
-		search_filters = { FOCUS_FILTER_ARMY }
-
-    	available = {
-	        country_exists = ISR
-			NOT = { has_war_with = ISR }
-		}
-
-		bypass = {
-			OR = {
-				NOT = {
-					country_exists = ISR
-				}
-			}
-		}
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_uav_cooperation"
-			KAZ = { country_event = kaz_army.8 }
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_buy_planes_from_china
-		icon = buy_chinese_j7iii
-
-		x = 2
-		y = 3
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 5
-
-    	prerequisite = { focus = KAZ_new_doctrine_air }
-		prerequisite = { focus = KAZ_creation_airborne_forces }
-		prerequisite = { focus = KAZ_complete_aircraft_russia}
-		search_filters = { FOCUS_FILTER_ARMY }
-
-    	available = {
-	        country_exists = CHI
-			OR = {
-				NOT = {
-					has_war_with = CHI
-				}
-			}
-		}
-
-		bypass = {
-			OR = {
-				NOT = {
-					country_exists = CHI
-				}
-			}
-		}
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_buy_planes_from_china"
-			CHI = {
-    			country_event = kaz_army.1
-    		}
-    		custom_effect_tooltip = effect_if_they_accept_TT
-    		effect_tooltip = {
-    			set_temp_variable = { treasury_change = -8.00 }
-    			modify_treasury_effect = yes
-    			country_event = kaz_army.2
-    			add_equipment_to_stockpile = {
-    				type = small_plane_airframe_2
-    				amount = 60
-    				variant_name = "MiG-29 Fulcrum"
-    				producer = SOV
-    			}
-    		}
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_retraining_officers
-		icon = generic_army_pilots
-
-		x = -1
-		y = 2
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 10
-
-		prerequisite = { focus = KAZ_new_doctrine_air }
-		prerequisite = { focus = KAZ_creation_airborne_forces }
-
-		search_filters = { FOCUS_FILTER_ARMY }
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_retraining_officers"
-			air_experience = 50
-			set_temp_variable = { treasury_change = -5 }
-			modify_treasury_effect = yes
-    		add_ideas = KAZ_trained_officer_corps
-    		set_temp_variable = { temp_opinion = 2 }
-    		change_the_military_opinion = yes
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_redevelopment_air_areas
-		icon = generic_army_airbase
-
-		x = 1
-		y = 2
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 5
-
-		prerequisite = { focus = KAZ_new_doctrine_air }
-		prerequisite = { focus = KAZ_complete_aircraft_russia }
-
-		search_filters = { FOCUS_FILTER_ARMY }
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_redevelopment_air_areas"
-			add_command_power = 15
-			two_air_base = yes
-			two_air_base = yes
-    		set_temp_variable = { temp_opinion = 2 }
-    		change_the_military_opinion = yes
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_new_air_forces
-		icon = aviation_army
-
-		x = 0
-		y = 4
-		relative_position_id = KAZ_decommission_old_planes
-
-		cost = 5
-
-    	prerequisite = { focus = KAZ_retraining_officers }
-		prerequisite = { focus = KAZ_redevelopment_air_areas }
-		prerequisite = { focus = KAZ_create_AHKE }
-		search_filters = { FOCUS_FILTER_ARMY }
-
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_air_forces"
-			add_ideas = KAZ_modern_air_forces
-			one_random_arms_factory = yes
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
-	}
+	
 
 	focus = {
 		id = KAZ_Choose_New_Doctrine
