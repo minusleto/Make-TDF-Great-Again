@@ -3740,7 +3740,6 @@ focus_tree = {
 		prerequisite = { focus = KAZ_creation_of_sso }
     	prerequisite = { focus = KAZ_machine_guns }
 		prerequisite = { focus = KAZ_modern_mortars }
-		prerequisite = { focus = KAZ_create_AHKE }
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	completion_reward = {
