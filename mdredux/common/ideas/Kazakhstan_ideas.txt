@@ -1350,7 +1350,9 @@ ideas = {
                 supply_consumption_factor = -0.10
             }
         }
-        KAZ_outdate_wings = {
+        KAZ_outdate_wings_idea = {
+            name = KAZ_outdate_wings_idea
+            desc = KAZ_outdate_wings_idea_loc
             modifier = {
                 air_attack_factor = -0.15
                 air_defence_factor = -0.15
@@ -1359,7 +1361,9 @@ ideas = {
                 air_cas_efficiency = -0.12
             }
         }
-        KAZ_outdate_wings_1 = {
+        KAZ_outdate_wings_1_idea = {
+            name = KAZ_outdate_wings_idea
+            desc = KAZ_outdate_wings_idea_loc
             modifier = {
                 air_attack_factor = -0.07
                 air_defence_factor = -0.07

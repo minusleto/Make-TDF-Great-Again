@@ -68,7 +68,7 @@
 		KAZ_kazakhstan_economy_idea
 		KAZ_army_idea
 		KAZ_outdated_army_idea
-		KAZ_outdate_wings
+		KAZ_outdate_wings_idea
 
 		crippling_corruption
 		sunni

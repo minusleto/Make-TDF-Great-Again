@@ -3791,10 +3791,9 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -4.5 }
 			modify_treasury_effect = yes
 			swap_ideas = {
-				remove_idea = KAZ_outdate_wings
-				add_idea = KAZ_outdate_wings_1
+				remove_idea = KAZ_outdate_wings_idea
+				add_idea = KAZ_outdate_wings_1_idea
 			}
-			add_ideas = GENERIC_airforce_idea
 			air_experience = 25
 			set_temp_variable = { temp_opinion = 1 }
 			change_the_military_opinion = yes
@@ -3850,7 +3849,7 @@ focus_tree = {
 			air_experience = 25
 			set_temp_variable = { treasury_change = -7.5 }
 			modify_treasury_effect = yes
-			remove_ideas = KAZ_outdate_wings
+			remove_ideas = KAZ_outdate_wings_1_idea
 		}
 
 		ai_will_do = {
