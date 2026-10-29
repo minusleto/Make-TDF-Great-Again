@@ -3790,7 +3790,12 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_decommission_old_planes"
 			set_temp_variable = { treasury_change = -4.5 }
 			modify_treasury_effect = yes
+			swap_ideas = {
+				remove_idea = KAZ_outdate_wings
+				add_idea = KAZ_outdate_wings_1
+			}
 			add_ideas = GENERIC_airforce_idea
+			air_experience = 25
 			set_temp_variable = { temp_opinion = 1 }
 			change_the_military_opinion = yes
 		}
