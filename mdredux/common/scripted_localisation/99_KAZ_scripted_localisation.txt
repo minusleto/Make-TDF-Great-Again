@@ -1,4 +1,202 @@
 defined_text = {
+	name = KAZ_consequences_of_hyperinflation_idea_loc
+	text = {
+		trigger = {
+			has_idea = KAZ_consequences_of_hyperinflation_idea
+		}
+		localization_key = KAZ_consequences_of_hyperinflation_idea_loc1
+	}
+}
+defined_text = {
+	name = KAZ_olig_system_loc
+	text = {
+		trigger = {
+			has_idea = KAZ_olig_system
+		}
+		localization_key = KAZ_olig_system_loc1
+	}
+}
+defined_text = {
+	name = KAZ_old_elite_alash_idea_loc
+	text = {
+		trigger = {
+			has_idea = KAZ_old_elite_alash_idea
+		}
+		localization_key = KAZ_old_elite_alash_idea_loc1
+	}
+}
+#CAS
+defined_text = {
+	name = KAZ_cas_transport_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_single_transport_space_idea }
+		localization_key = KAZ_cas_transport_loc1
+	}
+}
+defined_text = {
+	name = KAZ_cas_single_market_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_single_market_idea }
+		localization_key = KAZ_cas_single_market_loc1
+	}
+}
+defined_text = {
+	name = KAZ_cas_energy_union_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_energy_union_idea }
+		localization_key = KAZ_cas_energy_union_loc1
+	}
+}
+defined_text = {
+	name = KAZ_cas_altyn_bank_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_altyn_bank_idea }
+		localization_key = KAZ_cas_altyn_bank_loc1
+	}
+}
+defined_text = {
+	name = KAZ_cas_food_security_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_food_security_idea }
+		localization_key = KAZ_cas_food_security_loc1
+	}
+}
+defined_text = {
+	name = KAZ_cas_made_in_central_asia_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_made_in_central_asia_idea }
+		localization_key = KAZ_cas_made_in_central_asia_loc1
+	}
+}
+defined_text = {
+	name = KAZ_cas_altyn_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_altyn_idea }
+		localization_key = KAZ_cas_altyn_loc1
+	}
+}
+#CAS Military
+defined_text = {
+	name = KAZ_cas_shield_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_shield_1_idea }
+		localization_key = KAZ_cas_shield_loc1
+	}
+	text = {
+		trigger = { has_idea = KAZ_cas_shield_2_idea }
+		localization_key = KAZ_cas_shield_loc2
+	}
+	text = {
+		trigger = { has_idea = KAZ_cas_shield_3_idea }
+		localization_key = KAZ_cas_shield_loc3
+	}
+	text = {
+		trigger = { has_idea = KAZ_cas_shield_4_idea }
+		localization_key = KAZ_cas_shield_loc4
+	}
+}
+defined_text = {
+	name = KAZ_cas_peacekeeping_corps_loc
+	text = {
+		trigger = { has_idea = KAZ_cas_peacekeeping_corps_idea }
+		localization_key = KAZ_cas_peacekeeping_corps_loc1
+	}
+}
+#China Strategic Partnership Tooltips
+defined_text = {
+	name = KAZ_lovol_tractor_loc
+	text = {
+		trigger = { has_idea = KAZ_lovol_tractor_idea }
+		localization_key = KAZ_lovol_tractor_loc1
+	}
+}
+defined_text = {
+	name = KAZ_citic_fertilizer_loc
+	text = {
+		trigger = { has_idea = KAZ_citic_fertilizer_idea }
+		localization_key = KAZ_citic_fertilizer_loc1
+	}
+}
+defined_text = {
+	name = KAZ_hengtong_data_loc
+	text = {
+		trigger = { has_idea = KAZ_hengtong_data_idea }
+		localization_key = KAZ_hengtong_data_loc1
+	}
+}
+#Army Ideas
+defined_text = {
+	name = KAZ_outdated_army_loc
+	text = {
+		trigger = { has_idea = KAZ_outdated_army_idea }
+		localization_key = KAZ_outdated_army_loc1
+	}
+	text = {
+		trigger = { has_idea = KAZ_outdated_army_1_idea }
+		localization_key = KAZ_outdated_army_loc2
+	}
+	text = {
+		trigger = { has_idea = KAZ_outdated_army_2_idea }
+		localization_key = KAZ_outdated_army_loc3
+	}
+	text = {
+		trigger = { has_idea = KAZ_outdated_army_3_idea }
+		localization_key = KAZ_outdated_army_loc4
+	}
+	text = {
+		trigger = { has_idea = KAZ_professional_army_idea }
+		localization_key = KAZ_professional_army_loc1
+	}
+}
+defined_text = {
+	name = KAZ_modern_communication_systems_loc
+	text = {
+		trigger = { has_idea = KAZ_modern_communication_systems }
+		localization_key = KAZ_modern_communication_systems_loc1
+	}
+}
+defined_text = {
+	name = KAZ_foreign_equipment_loc
+	text = {
+		trigger = {
+			has_idea = KAZ_foreign_equipment_idea
+		}
+		localization_key = KAZ_foreign_equipment_loc1
+	}
+}
+defined_text = {
+	name = KAZ_regional_commands_loc
+	text = {
+		trigger = {
+			has_idea = KAZ_regional_commands_idea
+		}
+		localization_key = KAZ_regional_commands_loc1
+	}
+}
+defined_text = {
+	name = KAZ_logistics_reorganization_loc
+	text = {
+		trigger = {
+			has_idea = KAZ_logistics_reorganization_idea
+			}
+		localization_key = KAZ_logistics_reorganization_loc1
+	}
+}
+defined_text = {
+	name = KAZ_sso_loc
+	text = {
+		trigger = { has_idea = KAZ_sso_idea }
+		localization_key = KAZ_sso_loc1
+	}
+}
+defined_text = {
+	name = KAZ_modern_uniform_loc
+	text = {
+		trigger = { has_idea = KAZ_modern_uniform }
+		localization_key = KAZ_modern_uniform_loc1
+	}
+}
+defined_text = {
 	name = KAZ_outdate_wings_loc
 	text = {
 		trigger = {
