@@ -3795,6 +3795,7 @@ focus_tree = {
 				remove_idea = KAZ_outdate_wings_idea
 				add_idea = KAZ_outdate_wings_1_idea
 			}
+			newline = yes
 			set_temp_variable = { treasury_change = -1.75 }
 			modify_treasury_effect = yes
 		}
@@ -3859,10 +3860,12 @@ focus_tree = {
 				uses = 2
 				category = CAT_air_doctrine
 			}
+			newline = yes
 			swap_ideas = {
 				remove_idea = KAZ_outdate_wings_1_idea
 				add_idea = KAZ_outdate_wings_2_idea
 			}
+			newline = yes
 			set_temp_variable = { treasury_change = -3 }
 			modify_treasury_effect = yes
 		}
@@ -3944,7 +3947,9 @@ focus_tree = {
 			}
 			set_temp_variable = { temp_opinion = 2 }
 			change_the_military_opinion = yes
+			newline = yes
 			add_ideas = KAZ_trained_officer_corps
+			newline = yes
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
 		}
