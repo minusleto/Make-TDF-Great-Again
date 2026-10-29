@@ -1,15 +1,15 @@
 defined_text = {
-	name = KAZ_outdate_wings_idea_loc
+	name = KAZ_outdate_wings_loc
 	text = {
 		trigger = {
 			has_idea = KAZ_outdate_wings_idea
 		}
-		localization_key = KAZ_outdate_wings_idea_loc1
+		localization_key = KAZ_outdate_wings_loc1
 	}
 	text = {
 		trigger = {
 			has_idea = KAZ_outdate_wings_1_idea
 		}
-		localization_key = KAZ_outdate_wings_idea_loc2
+		localization_key = KAZ_outdate_wings_loc2
 	}
 }

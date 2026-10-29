@@ -1351,8 +1351,7 @@ ideas = {
             }
         }
         KAZ_outdate_wings_idea = {
-            name = KAZ_outdate_wings_idea
-            desc = KAZ_outdate_wings_idea_loc
+            allowed_civil_war = { always = yes }
             modifier = {
                 air_attack_factor = -0.15
                 air_defence_factor = -0.15
@@ -1362,8 +1361,7 @@ ideas = {
             }
         }
         KAZ_outdate_wings_1_idea = {
-            name = KAZ_outdate_wings_idea
-            desc = KAZ_outdate_wings_idea_loc
+            allowed_civil_war = { always = yes }
             modifier = {
                 air_attack_factor = -0.07
                 air_defence_factor = -0.07
