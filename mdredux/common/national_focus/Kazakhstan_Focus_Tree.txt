@@ -3929,7 +3929,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = KAZ_decommission_old_planes
 
-		cost = 10
+		cost = 5
 
 		prerequisite = { focus = KAZ_new_doctrine_air }
 		prerequisite = { focus = KAZ_creation_airborne_forces }
