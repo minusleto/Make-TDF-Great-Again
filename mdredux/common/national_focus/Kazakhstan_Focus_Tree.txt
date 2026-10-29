@@ -3889,26 +3889,17 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			country_exists = SOV
-			NOT = {
-				has_idea = paralyzing_corruption
-				has_idea = crippling_corruption
-				has_idea = rampant_corruption
-
-			}
-			OR = {
-				NOT = {
-					has_war_with = SOV
+			SOV = {
+				has_opinion = {
+					target = KAZ
+					value > 49
 				}
 			}
+			NOT = { has_war_with = SOV }
 		}
 
 		bypass = {
-			OR = {
-				NOT = {
-					country_exists = SOV
-				}
-			}
+			NOT = { country_exists = SOV }
 		}
 
 		completion_reward = {
