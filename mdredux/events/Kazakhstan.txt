@@ -3207,47 +3207,6 @@ country_event = {
         add_ideas = KAZ_regional_commands_idea
     }
 }
-#Deal with russia
-country_event = {
-	id = kaz_army.6
-	title = kaz_army.6.t
-	desc = kaz_army.6.d
-	picture = GFX_POL_mig_29_event
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.6.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.6.a executed"
-		SOV = {
-			country_event = kaz_army.7
-		}
-		set_temp_variable = { treasury_change = -10.00 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = {
-			type = small_plane_airframe_2
-			amount = 20
-			variant_name = "Su-30SM"
-			producer = SOV
-		}
-		add_tech_bonus = {
-			name = KAZ_complete_aircraft_russia_fighter
-			bonus = 0.75
-			uses = 1
-			category = CAT_fighter
-		}
-		add_tech_bonus = {
-			name = KAZ_complete_aircraft_russia_engine
-			bonus = 0.75
-			uses = 1
-			category = CAT_air_engine
-		}
-
-		ai_chance = {
-			base = 100
-		}
-	}
-}
 #Aircraft Deal (ONLY FOR RUSSIA)
 country_event = {
 	id = kaz_army.7

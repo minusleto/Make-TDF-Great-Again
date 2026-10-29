@@ -3904,7 +3904,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
-			country_event = kaz_army.6
+			SOV = { country_event = kaz_army.7 }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				add_equipment_to_stockpile = {
