@@ -3725,43 +3725,7 @@ focus_tree = {
     		base = 2
     	}
 	}
-	#Create AHKE
-	focus = {
-		id = KAZ_create_AHKE
-		icon = kaz_ke_airbus
 
-		x = 3
-		y = 3
-		relative_position_id = KAZ_reorganization_infantry
-
-		cost = 5
-
-		prerequisite = { focus = KAZ_logistics_reorganization }
-		search_filters = { FOCUS_FILTER_ARMY }
-
-		available = {
-			has_completed_focus = KAZ_Kazakhstan_Engineering
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_AHKE"
-			add_tech_bonus = {
-				name = KAZ_create_AHKE
-				bonus = 0.50
-				uses = 1
-				category = CAT_trans_heli
-				category = CAT_heli
-			}
-			mio:KAZ_Kazakhstan_Engineering_manufacturing = {
-                add_mio_funds = 200
-            }
-			one_random_arms_factory = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 	#Bring Our Army to Professional Readiness
 	focus = {
 		id = KAZ_professional_readiness
@@ -4592,54 +4556,49 @@ focus_tree = {
 	}
 
 	focus = {
-		id = KAZ_joint_xp_usa
-		icon = f16_falcon
+		id = KAZ_create_AHKE
+		icon = kaz_ke_airbus
 
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = KAZ_Decommission_Old_Planes
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_new_doctrine_air }
-		prerequisite = { focus = KAZ_creation_airborne_forces }
-		prerequisite = { focus = KAZ_complete_aircraft_russia}
+		prerequisite = { focus = KAZ_retraining_officers }
+		prerequisite = { focus = KAZ_redevelopment_air_areas }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
-	        country_exists = USA
-			OR = {
-				NOT = {
-					has_war_with = USA
-				}
-			}
+		available = {
+			has_completed_focus = KAZ_Kazakhstan_Engineering
 		}
 
-		bypass = {
-			OR = {
-				NOT = {
-					country_exists = USA
-				}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_AHKE"
+			add_tech_bonus = {
+				name = KAZ_create_AHKE
+				bonus = 0.50
+				uses = 1
+				category = CAT_trans_heli
+				category = CAT_heli
 			}
+			mio:KAZ_Kazakhstan_Engineering_manufacturing = {
+                add_mio_funds = 200
+            }
+			one_random_arms_factory = yes
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_joint_xp_usa"
-			KAZ = { country_event = kaz_army.12 }
-			custom_effect_tooltip = KAZ_jointxp_usa
-    	}
-
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = KAZ_buying_tech_iran
-		icon = Iranian_missiles
+		icon = por_army_buy_isr_drone
 
 		x = -2
-		y = 2
+		y = 3
 		relative_position_id = KAZ_Decommission_Old_Planes
 
 		cost = 5
@@ -4650,14 +4609,14 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	available = {
-	        country_exists = PER
-			NOT = { has_war_with = PER }
+	        country_exists = ISR
+			NOT = { has_war_with = ISR }
 		}
 
 		bypass = {
 			OR = {
 				NOT = {
-					country_exists = PER
+					country_exists = ISR
 				}
 			}
 		}
@@ -4677,7 +4636,7 @@ focus_tree = {
 		icon = buy_chinese_j7iii
 
 		x = 2
-		y = 2
+		y = 3
 		relative_position_id = KAZ_Decommission_Old_Planes
 
 		cost = 5
@@ -4733,14 +4692,14 @@ focus_tree = {
 		icon = generic_army_pilots
 
 		x = -1
-		y = 3
+		y = 2
 		relative_position_id = KAZ_Decommission_Old_Planes
 
 		cost = 10
 
-    	prerequisite = { focus = KAZ_buying_tech_iran }
-		prerequisite = { focus = KAZ_joint_xp_usa }
-		prerequisite = { focus = KAZ_buy_planes_from_china }
+		prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_creation_airborne_forces }
+
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	completion_reward = {
@@ -4763,14 +4722,14 @@ focus_tree = {
 		icon = generic_army_airbase
 
 		x = 1
-		y = 3
+		y = 2
 		relative_position_id = KAZ_Decommission_Old_Planes
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_buying_tech_iran }
-		prerequisite = { focus = KAZ_joint_xp_usa }
-		prerequisite = { focus = KAZ_buy_planes_from_china }
+		prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_complete_aircraft_russia }
+
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	completion_reward = {
@@ -4799,6 +4758,7 @@ focus_tree = {
 
     	prerequisite = { focus = KAZ_retraining_officers }
 		prerequisite = { focus = KAZ_redevelopment_air_areas }
+		prerequisite = { focus = KAZ_create_AHKE }
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	completion_reward = {
