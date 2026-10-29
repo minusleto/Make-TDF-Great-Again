@@ -130,22 +130,27 @@ defined_text = {
 	text = {
 		trigger = { has_idea = KAZ_outdated_army_idea }
 		localization_key = KAZ_outdated_army_loc1
+		newline = yes
 	}
 	text = {
 		trigger = { has_idea = KAZ_outdated_army_1_idea }
 		localization_key = KAZ_outdated_army_loc2
+		newline = yes
 	}
 	text = {
 		trigger = { has_idea = KAZ_outdated_army_2_idea }
 		localization_key = KAZ_outdated_army_loc3
+		newline = yes
 	}
 	text = {
 		trigger = { has_idea = KAZ_outdated_army_3_idea }
 		localization_key = KAZ_outdated_army_loc4
+		newline = yes
 	}
 	text = {
 		trigger = { has_idea = KAZ_professional_army_idea }
 		localization_key = KAZ_professional_army_loc1
+		newline = yes
 	}
 }
 defined_text = {
@@ -153,6 +158,7 @@ defined_text = {
 	text = {
 		trigger = { has_idea = KAZ_modern_communication_systems }
 		localization_key = KAZ_modern_communication_systems_loc1
+		newline = yes
 	}
 }
 defined_text = {
@@ -162,6 +168,7 @@ defined_text = {
 			has_idea = KAZ_foreign_equipment_idea
 		}
 		localization_key = KAZ_foreign_equipment_loc1
+		newline = yes
 	}
 }
 defined_text = {
@@ -171,6 +178,7 @@ defined_text = {
 			has_idea = KAZ_regional_commands_idea
 		}
 		localization_key = KAZ_regional_commands_loc1
+		newline = yes
 	}
 }
 defined_text = {
@@ -180,6 +188,7 @@ defined_text = {
 			has_idea = KAZ_logistics_reorganization_idea
 			}
 		localization_key = KAZ_logistics_reorganization_loc1
+		newline = yes
 	}
 }
 defined_text = {
@@ -187,6 +196,7 @@ defined_text = {
 	text = {
 		trigger = { has_idea = KAZ_sso_idea }
 		localization_key = KAZ_sso_loc1
+		newline = yes
 	}
 }
 defined_text = {
@@ -194,6 +204,7 @@ defined_text = {
 	text = {
 		trigger = { has_idea = KAZ_modern_uniform }
 		localization_key = KAZ_modern_uniform_loc1
+		newline = yes
 	}
 }
 defined_text = {
