@@ -3262,7 +3262,7 @@ country_event = {
         }
 	}
 }
-#Buying Tech Iran
+#Buying Tech Israel
 country_event = {
 	id = kaz_army.8
 	title = kaz_army.8.t
@@ -3274,13 +3274,13 @@ country_event = {
 	option = {
 		name = kaz_army.8.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.8.a executed"
-		PER = { country_event = kaz_army.9 }
+		ISR = { country_event = kaz_army.9 }
 		ai_chance = {
 			base = 100
 		}
 	}
 }
-#Selling Tech Iran
+#Selling Tech Israel
 country_event = {
 	id = kaz_army.9
 	title = kaz_army.9.t
@@ -3292,7 +3292,7 @@ country_event = {
 	option = {
 		name = kaz_army.9.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.9.a executed"
-		PER = {
+		ISR = {
 		    set_temp_variable = { treasury_change = 15 }
 			modify_treasury_effect = yes
 		}
@@ -3324,7 +3324,7 @@ country_event = {
 		}
 	}	
 }
-#Iran Accepted
+#Israel Accepted
 country_event = {
 	id = kaz_army.10
 	title = kaz_army.10.t
@@ -3351,7 +3351,7 @@ country_event = {
             category = CAT_air_engine
         }
 		set_temp_variable = { percent_change = 5 }
-		set_temp_variable = { tag_index = PER }
+		set_temp_variable = { tag_index = ISR }
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
 		ai_chance = {
@@ -3359,7 +3359,7 @@ country_event = {
 		}
 	}
 }
-#Iran Poslal
+#Israel Poslal
 country_event = {
 	id = kaz_army.11
 	title = kaz_army.11.t
