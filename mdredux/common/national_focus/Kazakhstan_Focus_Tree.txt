@@ -10645,7 +10645,7 @@ focus_tree = {
 	#Modernization of Air Defense Shield
 	focus = {
 		id = KAZ_air_defense_modernization
-		icon = iskander # TODO заменить иконку на ПВО
+		icon = russianBUK
 
 		x = -1
 		y = 1
