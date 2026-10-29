@@ -3225,8 +3225,8 @@ country_event = {
 		set_temp_variable = { treasury_change = -10.00 }
 		modify_treasury_effect = yes
 		add_equipment_to_stockpile = {
-			type = small_plane_airframe_3
-			amount = 6
+			type = small_plane_airframe_2
+			amount = 20
 			variant_name = "Su-30SM"
 			producer = SOV
 		}
@@ -3263,7 +3263,7 @@ country_event = {
 		set_temp_variable = { treasury_change = 10.00 }
 		modify_treasury_effect = yes
 		add_equipment_to_stockpile = {
-			type = small_plane_airframe_3
+			type = small_plane_airframe_2
 			amount = -50
 			variant_name = "Su-30SM"
 			producer = SOV
