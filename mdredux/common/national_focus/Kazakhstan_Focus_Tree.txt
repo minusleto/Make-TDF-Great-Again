@@ -4139,7 +4139,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_air_forces"
-			air_experience = 25
+			air_experience = 50
 			add_daily_mastery = {
 				amount = 0.5
 				days = 150
@@ -4150,8 +4150,9 @@ focus_tree = {
 				amount = 0.5
 				days = 150
 				name = KAZ_new_air_forces
-				track = multirole_aircraft
+				folder = air
 			}
+			newline = yes
 			add_ideas = KAZ_modern_air_forces
 			newline = yes
 		}
