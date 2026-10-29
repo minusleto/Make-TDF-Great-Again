@@ -3905,6 +3905,27 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
 			country_event = kaz_army.6
+			custom_effect_tooltip = effect_if_they_accept_TT
+			effect_tooltip = {
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_2
+					amount = 20
+					variant_name = "Su-30SM"
+					producer = SOV
+				}
+				add_tech_bonus = {
+					name = KAZ_complete_aircraft_russia_fighter
+					bonus = 0.75
+					uses = 1
+					category = CAT_fighter
+				}
+				add_tech_bonus = {
+					name = KAZ_complete_aircraft_russia_engine
+					bonus = 0.75
+					uses = 1
+					category = CAT_air_engine
+				}
+			}
 		}
 
 		ai_will_do = {
