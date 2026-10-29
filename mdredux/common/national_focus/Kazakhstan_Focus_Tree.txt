@@ -3382,19 +3382,19 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_our_military_forces }
+		prerequisite = { focus = KAZ_our_military_forces }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Forces"
-    		one_random_dockyard = yes
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Forces"
 			one_random_dockyard = yes
-    		navy_experience = 20
-    	}
+			one_random_dockyard = yes
+			navy_experience = 20
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#Reorganization of the Infantry
 	focus = {
@@ -3407,11 +3407,11 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_our_military_forces }
+		prerequisite = { focus = KAZ_our_military_forces }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_reorganization_infantry"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_reorganization_infantry"
 			swap_ideas = {
 				remove_idea = KAZ_outdated_army_idea
 				add_idea = KAZ_outdated_army_1_idea
@@ -3426,13 +3426,13 @@ focus_tree = {
 				idea = GENERIC_army_reform_up_idea
 				days = 300
 			}
-    		set_temp_variable = { temp_opinion = 2 }
-    		change_the_military_opinion = yes
-    	}
+			set_temp_variable = { temp_opinion = 2 }
+			change_the_military_opinion = yes
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Arsenal Update
 	focus = {
@@ -3445,25 +3445,25 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_reorganization_infantry }
+		prerequisite = { focus = KAZ_reorganization_infantry }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_arsenal_update"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_arsenal_update"
 			add_tech_bonus = {
-    			name = KAZ_arsenal_update
-    			bonus = 0.75
-    			category = CAT_inf
+				name = KAZ_arsenal_update
+				bonus = 0.75
+				category = CAT_inf
 				category = CAT_inf_wep
 				category = CAT_support_weapons
-    		}
+			}
 			swap_ideas = {
 				remove_idea = KAZ_outdated_army_1_idea
 				add_idea = KAZ_outdated_army_2_idea
 			}
 			set_temp_variable = { treasury_change = -2.5 }
 			modify_treasury_effect = yes
-    	}
+		}
 
 		ai_will_do = {
 			base = 2
@@ -3480,27 +3480,27 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_reorganization_infantry }
+		prerequisite = { focus = KAZ_reorganization_infantry }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_military_uniform"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_military_uniform"
 			add_tech_bonus = {
 				name = KAZ_new_military_uniform
 				bonus = 0.75
 				technology = camouflage3
 				technology = camouflage4
 			}
-    		set_temp_variable = { temp_opinion = 1 }
-    		change_the_military_opinion = yes
+			set_temp_variable = { temp_opinion = 1 }
+			change_the_military_opinion = yes
 			add_ideas = KAZ_modern_uniform
 			set_temp_variable = { treasury_change = -2.5 }
 			modify_treasury_effect = yes
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Updating Communication Systems
 	focus = {
@@ -3513,11 +3513,11 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_reorganization_infantry }
+		prerequisite = { focus = KAZ_reorganization_infantry }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_communication_systems"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_communication_systems"
 			if = {
 				limit = { has_tech = tech_combat_radar  }
 				add_tech_bonus = {
@@ -3537,11 +3537,11 @@ focus_tree = {
 			change_the_military_opinion = yes
 			add_ideas = KAZ_modern_communication_systems
 			two_radar_station = yes
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Modernization of Foreign Equipment
 	focus = {
@@ -3646,22 +3646,22 @@ focus_tree = {
 		prerequisite = { focus = KAZ_foreign_equipment }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_modern_mortars"
-    		add_tech_bonus = {
-    			name = KAZ_modern_mortars
-    			bonus = 0.5
-    			uses = 2
-    			category = CAT_l_at
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_modern_mortars"
+			add_tech_bonus = {
+				name = KAZ_modern_mortars
+				bonus = 0.5
+				uses = 2
+				category = CAT_l_at
 				category = CAT_artillery
-    		}
+			}
 			set_temp_variable = { treasury_change = -3.0 }
 			modify_treasury_effect = yes
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Modernization of Machine Guns
 	focus = {
@@ -3674,24 +3674,24 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_reform_military_districts }
+		prerequisite = { focus = KAZ_reform_military_districts }
 		prerequisite = { focus = KAZ_foreign_equipment }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_machine_guns"
-    		add_tech_bonus = {
-    			name = CAT_inf_wep
-    			bonus = 1
-    			uses = 2
-    			category = CAT_inf_wep
-    		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_machine_guns"
+			add_tech_bonus = {
+				name = CAT_inf_wep
+				bonus = 1
+				uses = 2
+				category = CAT_inf_wep
+			}
 			one_random_arms_factory = yes
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Creation of Special Operations Forces
 	focus = {
@@ -3704,12 +3704,12 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_reform_military_districts }
+		prerequisite = { focus = KAZ_reform_military_districts }
 		prerequisite = { focus = KAZ_logistics_reorganization }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_creation_of_sso"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_creation_of_sso"
 			add_mastery_bonus = {
 				name = KAZ_reorganization_infantry
 				bonus = 0.05
@@ -3719,11 +3719,11 @@ focus_tree = {
 			add_ideas = KAZ_sso_idea
 			set_temp_variable = { treasury_change = -1.5 }
 			modify_treasury_effect = yes
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	#Bring Our Army to Professional Readiness
@@ -3738,12 +3738,12 @@ focus_tree = {
 		cost = 6
 
 		prerequisite = { focus = KAZ_creation_of_sso }
-    	prerequisite = { focus = KAZ_machine_guns }
+		prerequisite = { focus = KAZ_machine_guns }
 		prerequisite = { focus = KAZ_modern_mortars }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_professional_readiness"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_professional_readiness"
 			army_experience = 75
 			add_doctrine_cost_reduction = {
 				name = KAZ_creation_of_sso
@@ -3765,11 +3765,11 @@ focus_tree = {
 				remove_idea = KAZ_outdated_army_3_idea
 				add_idea = KAZ_professional_army_idea
 			}
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Decommission Old Planes
 	focus = {
@@ -3786,18 +3786,18 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_decommission_old_planes"
-    		set_temp_variable = { treasury_change = -4.5 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_decommission_old_planes"
+			set_temp_variable = { treasury_change = -4.5 }
 			modify_treasury_effect = yes
-    		add_ideas = GENERIC_airforce_idea
-    		set_temp_variable = { temp_opinion = 1 }
-    		change_the_military_opinion = yes
-    	}
+			add_ideas = GENERIC_airforce_idea
+			set_temp_variable = { temp_opinion = 1 }
+			change_the_military_opinion = yes
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#Creation of the Airborne Forces
 	focus = {
@@ -3810,21 +3810,21 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_decommission_old_planes }
+		prerequisite = { focus = KAZ_decommission_old_planes }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
 			has_completed_focus = KAZ_reorganization_infantry
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_creation_airborne_forces"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_creation_airborne_forces"
 			KAZ = { country_event = KAZ_army.4 }
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#New Doctrine of the Air Defense Forces
 	focus = {
@@ -3837,20 +3837,20 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_decommission_old_planes }
+		prerequisite = { focus = KAZ_decommission_old_planes }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_doctrine_air"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_doctrine_air"
 			air_experience = 25
 			set_temp_variable = { treasury_change = -7.5 }
 			modify_treasury_effect = yes
 			remove_ideas = KAZ_outdate_wings
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#Complete the Aircraft Deal with Russia
 	focus = {
@@ -3863,11 +3863,11 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_decommission_old_planes }
+		prerequisite = { focus = KAZ_decommission_old_planes }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
-	        country_exists = SOV
+		available = {
+			country_exists = SOV
 			NOT = {
 				has_idea = paralyzing_corruption
 				has_idea = crippling_corruption
@@ -3889,14 +3889,14 @@ focus_tree = {
 			}
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
 			country_event = kaz_army.6
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#Retraining of Officers
 	focus = {
@@ -3914,19 +3914,19 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_retraining_officers"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_retraining_officers"
 			air_experience = 50
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
-    		add_ideas = KAZ_trained_officer_corps
-    		set_temp_variable = { temp_opinion = 2 }
-    		change_the_military_opinion = yes
-    	}
+			add_ideas = KAZ_trained_officer_corps
+			set_temp_variable = { temp_opinion = 2 }
+			change_the_military_opinion = yes
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#Redevelopment of Air Corps Basing Areas
 	focus = {
@@ -3944,18 +3944,18 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_redevelopment_air_areas"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_redevelopment_air_areas"
 			add_command_power = 15
 			two_air_base = yes
 			two_air_base = yes
-    		set_temp_variable = { temp_opinion = 2 }
-    		change_the_military_opinion = yes
-    	}
+			set_temp_variable = { temp_opinion = 2 }
+			change_the_military_opinion = yes
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#Skylark UAV Cooperation
 	focus = {
@@ -3968,13 +3968,13 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_new_doctrine_air }
 		prerequisite = { focus = KAZ_creation_airborne_forces }
 		prerequisite = { focus = KAZ_complete_aircraft_russia}
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
-	        country_exists = ISR
+		available = {
+			country_exists = ISR
 			NOT = { has_war_with = ISR }
 		}
 
@@ -3986,14 +3986,14 @@ focus_tree = {
 			}
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_uav_cooperation"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_uav_cooperation"
 			KAZ = { country_event = kaz_army.8 }
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#Create AHKE
 	focus = {
@@ -4024,8 +4024,8 @@ focus_tree = {
 				category = CAT_heli
 			}
 			mio:KAZ_Kazakhstan_Engineering_manufacturing = {
-                add_mio_funds = 200
-            }
+				add_mio_funds = 200
+			}
 			one_random_arms_factory = yes
 		}
 
@@ -4044,13 +4044,13 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_new_doctrine_air }
+		prerequisite = { focus = KAZ_new_doctrine_air }
 		prerequisite = { focus = KAZ_creation_airborne_forces }
 		prerequisite = { focus = KAZ_complete_aircraft_russia}
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
-	        country_exists = CHI
+		available = {
+			country_exists = CHI
 			OR = {
 				NOT = {
 					has_war_with = CHI
@@ -4066,28 +4066,28 @@ focus_tree = {
 			}
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_buy_planes_from_china"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_buy_planes_from_china"
 			CHI = {
-    			country_event = kaz_army.1
-    		}
-    		custom_effect_tooltip = effect_if_they_accept_TT
-    		effect_tooltip = {
-    			set_temp_variable = { treasury_change = -8.00 }
-    			modify_treasury_effect = yes
-    			country_event = kaz_army.2
-    			add_equipment_to_stockpile = {
-    				type = small_plane_airframe_2
-    				amount = 60
-    				variant_name = "MiG-29 Fulcrum"
-    				producer = SOV
-    			}
-    		}
-    	}
+				country_event = kaz_army.1
+			}
+			custom_effect_tooltip = effect_if_they_accept_TT
+			effect_tooltip = {
+				set_temp_variable = { treasury_change = -8.00 }
+				modify_treasury_effect = yes
+				country_event = kaz_army.2
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_2
+					amount = 60
+					variant_name = "MiG-29 Fulcrum"
+					producer = SOV
+				}
+			}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	#New Air Forces
 	focus = {
@@ -4100,20 +4100,20 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_retraining_officers }
+		prerequisite = { focus = KAZ_retraining_officers }
 		prerequisite = { focus = KAZ_redevelopment_air_areas }
 		prerequisite = { focus = KAZ_create_AHKE }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_air_forces"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_air_forces"
 			add_ideas = KAZ_modern_air_forces
 			one_random_arms_factory = yes
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 
 	focus = {
@@ -4126,13 +4126,13 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_our_military_forces }
+		prerequisite = { focus = KAZ_our_military_forces }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Kazakhstan_Engineering"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Kazakhstan_Engineering"
 			one_random_land_facility = yes
 			add_breakthrough_progress = {
 				specialization = specialization_land
@@ -4145,9 +4145,9 @@ focus_tree = {
 			}
 		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4160,13 +4160,13 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_our_military_forces }
+		prerequisite = { focus = KAZ_our_military_forces }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_kazakhstan_paramount_engineering"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_kazakhstan_paramount_engineering"
 			one_random_land_facility = yes
 			add_breakthrough_progress = {
 				specialization = specialization_land
@@ -4179,9 +4179,9 @@ focus_tree = {
 			}
 		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4194,13 +4194,13 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_create_kazakhstan_paramount_engineering }
+		prerequisite = { focus = KAZ_create_kazakhstan_paramount_engineering }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_6x6"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_6x6"
 			set_temp_variable = { treasury_change = -5.5 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 2 }
@@ -4238,11 +4238,11 @@ focus_tree = {
 				limit = { has_tech = mbt_tech_1 }
 				set_technology = { mbt_tech_2 = 1 }
 			}
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4255,24 +4255,24 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_create_kazakhstan_paramount_engineering }
+		prerequisite = { focus = KAZ_create_kazakhstan_paramount_engineering }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_arlan"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_arlan"
 			add_tech_bonus = {
-    			name = CAT_util
-    			bonus = 1
-    			uses = 1
-    			category = CAT_util
-    		}
-    	}
+				name = CAT_util
+				bonus = 1
+				uses = 1
+				category = CAT_util
+			}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4285,18 +4285,18 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_arlan }
+		prerequisite = { focus = KAZ_arlan }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan"
-    	}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan"
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4309,18 +4309,18 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_alan }
+		prerequisite = { focus = KAZ_alan }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan_2"
-    	}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan_2"
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4333,26 +4333,26 @@ focus_tree = {
 
 		cost = 6
 
-    	prerequisite = { focus = KAZ_alan_2 }
+		prerequisite = { focus = KAZ_alan_2 }
 		prerequisite = { focus = KAZ_army_programm }
 		prerequisite = { focus = KAZ_aibat_israel }
 		prerequisite = { focus = KAZ_army_sarp }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_success"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_success"
 			one_random_arms_factory = yes
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				unlock_military_industrial_organization_tooltip = mio:KAZ_Kazakhstan_Engineering_manufacturing_2
 			}
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4365,13 +4365,13 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_btr_barys_6x6 }
+		prerequisite = { focus = KAZ_btr_barys_6x6 }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_8x8"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_8x8"
 			set_temp_variable = { treasury_change = -5.5 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 2 }
@@ -4406,15 +4406,15 @@ focus_tree = {
 				amount = 120 #140 deployed
 			}
 			mio:KAZ_KPE_tank_manufacturer = {
-                add_mio_size_up_requirement_factor = -0.03
-                add_mio_funds = 1000
-                add_mio_research_bonus = 0.02
-            }
-    	}
+				add_mio_size_up_requirement_factor = -0.03
+				add_mio_funds = 1000
+				add_mio_research_bonus = 0.02
+			}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4427,39 +4427,39 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_btr_barys_8x8 }
+		prerequisite = { focus = KAZ_btr_barys_8x8 }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {}
+		available = {}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_programm"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_programm"
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
 			unlock_military_industrial_organization_tooltip = mio:KAZ_Kazakhstan_Engineering_manufacturing4
 			mio:KAZ_Kazakhstan_Engineering_manufacturing4 = {
-                add_mio_size_up_requirement_factor = -0.03
-                add_mio_funds = 1000
-                add_mio_research_bonus = 0.02
-            }
+				add_mio_size_up_requirement_factor = -0.03
+				add_mio_funds = 1000
+				add_mio_research_bonus = 0.02
+			}
 			add_tech_bonus = {
-    			name = CAT_inf
-    			bonus = 0.5
-    			uses = 1
-    			category = CAT_inf
-    		}
+				name = CAT_inf
+				bonus = 0.5
+				uses = 1
+				category = CAT_inf
+			}
 			add_tech_bonus = {
-    			name = CAT_artillery
-    			bonus = 0.5
-    			uses = 1
-    			category = CAT_artillery
-    		}
+				name = CAT_artillery
+				bonus = 0.5
+				uses = 1
+				category = CAT_artillery
+			}
 			add_ideas = KAZ_production_cost
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Development of Naiza MLRS
 	focus = {
@@ -4472,10 +4472,10 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Kazakhstan_Engineering }
+		prerequisite = { focus = KAZ_Kazakhstan_Engineering }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
+		available = {
 			ISR = {
 				has_opinion = {
 					target = KAZ
@@ -4489,8 +4489,8 @@ focus_tree = {
 			NOT = { country_exists = ISR }
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_naiza_israel"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naiza_israel"
 			ISR = { country_event = { id = kaz_army.30 days = 1 } }
 			custom_effect_tooltip = KAZ_naiza_tooltip_loc
 			set_temp_variable = { percent_change = 2 }
@@ -4500,11 +4500,11 @@ focus_tree = {
 			add_opinion_modifier = { target = ISR modifier = military_cooperation }
 			reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
 			add_equipment_to_stockpile = { type = medium_tank_rocket_chassis_2 variant_name = "Naiza MLRS" amount = 18 }
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Development of 122mm Semser SPH
 	focus = {
@@ -4517,10 +4517,10 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_naiza_israel }
+		prerequisite = { focus = KAZ_naiza_israel }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
+		available = {
 			ISR = {
 				has_opinion = {
 					target = KAZ
@@ -4534,8 +4534,8 @@ focus_tree = {
 			NOT = { country_exists = ISR }
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_semser_israel"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_semser_israel"
 			ISR = { country_event = { id = kaz_army.32 days = 1 } }
 			custom_effect_tooltip = KAZ_semser_tooltip_loc
 			if = {
@@ -4561,11 +4561,11 @@ focus_tree = {
 				}
 				add_equipment_to_stockpile = { type = medium_tank_artillery_chassis_2 variant_name = "Semser" amount = 6 }
 			}
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	focus = {
@@ -4578,10 +4578,10 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_semser_israel }
+		prerequisite = { focus = KAZ_semser_israel }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
+		available = {
 			ISR = {
 				has_opinion = {
 					target = KAZ
@@ -4595,8 +4595,8 @@ focus_tree = {
 			NOT = { country_exists = ISR }
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_aibat_israel"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aibat_israel"
 			create_equipment_variant = {
 				name = "Aibat"
 				type = medium_tank_artillery_chassis_2
@@ -4617,11 +4617,11 @@ focus_tree = {
 				icon = "GFX_ISR_SPR2"
 			}
 			add_equipment_to_stockpile = { type = medium_tank_artillery_chassis_2 variant_name = "Aibat" amount = 18 }
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Development of T-72KAE
 	focus = {
@@ -4634,10 +4634,10 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Kazakhstan_Engineering }
+		prerequisite = { focus = KAZ_Kazakhstan_Engineering }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
+		available = {
 			TUR = {
 				has_tech = mbt_tech_2
 				has_opinion = {
@@ -4652,8 +4652,8 @@ focus_tree = {
 			NOT = { country_exists = TUR }
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_t72kae_turkish"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_t72kae_turkish"
 			TUR = { country_event = { id = kaz_army.24 days = 1 } }
 			custom_effect_tooltip = KAZ_t72kae_tooltip_loc
 			effect_tooltip = {
@@ -4666,11 +4666,11 @@ focus_tree = {
 				set_temp_variable = { influence_target = KAZ }
 				change_influence_percentage = yes
 			}
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Creation of Taimas 8x8
 	focus = {
@@ -4683,7 +4683,7 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_t72kae_turkish }
+		prerequisite = { focus = KAZ_t72kae_turkish }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
@@ -4701,8 +4701,8 @@ focus_tree = {
 			NOT = { country_exists = TUR }
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_taimas_turkish"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_taimas_turkish"
 			TUR = { country_event = { id = kaz_army.26 days = 1 } }
 			custom_effect_tooltip = KAZ_taimas_tooltip_loc
 			effect_tooltip = {
@@ -4716,11 +4716,11 @@ focus_tree = {
 					add_mio_research_bonus = 0.02
 				}
 			}
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 	#Integration of Turkish SARP Combat Modules
 	focus = {
@@ -4733,10 +4733,10 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_taimas_turkish }
+		prerequisite = { focus = KAZ_taimas_turkish }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
+		available = {
 			TUR = {
 				has_opinion = {
 					target = KAZ
@@ -4750,8 +4750,8 @@ focus_tree = {
 			NOT = { country_exists = TUR }
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_sarp"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_sarp"
 			TUR = { country_event = { id = kaz_army.28 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
@@ -4767,9 +4767,9 @@ focus_tree = {
 			}
 		}
 
-    	ai_will_do = {
-    		base = 2
-    	}
+		ai_will_do = {
+			base = 2
+		}
 	}
 
 	
@@ -4802,23 +4802,23 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Naval_Forces }
+		prerequisite = { focus = KAZ_Naval_Forces }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Choose_New_Doctrine"
-    		navy_experience = 50
-    		add_doctrine_cost_reduction = {
-    			name = CAT_naval_doctrine
-    			cost_reduction = 1.0
-    			uses = 1
-    			category = CAT_naval_doctrine
-    		}
-    	}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Choose_New_Doctrine"
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				name = CAT_naval_doctrine
+				cost_reduction = 1.0
+				uses = 1
+				category = CAT_naval_doctrine
+			}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	
 
@@ -4832,12 +4832,12 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Choose_New_Doctrine }
+		prerequisite = { focus = KAZ_Choose_New_Doctrine }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
 			has_idea = KAZ_naval_bonus
-	        country_exists = SOV
+			country_exists = SOV
 			NOT = { has_war_with = SOV }
 		}
 
@@ -4849,14 +4849,14 @@ focus_tree = {
 			}
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_SOV"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_SOV"
 			KAZ = { country_event = kaz_army.20 }
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 
 	focus = {
@@ -4869,11 +4869,11 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Choose_New_Doctrine }
+		prerequisite = { focus = KAZ_Choose_New_Doctrine }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	available = {
-	        country_exists = CHI
+		available = {
+			country_exists = CHI
 			OR = {
 				NOT = {
 					has_war_with = CHI
@@ -4889,14 +4889,14 @@ focus_tree = {
 			}
 		}
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_CHI"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_CHI"
 			KAZ = { country_event = kaz_army.16 }
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	
 
@@ -4910,28 +4910,28 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Naval_Cooperation_with_SOV }
+		prerequisite = { focus = KAZ_Naval_Cooperation_with_SOV }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_First_Shipyards"
-    		random_owned_controlled_state = {
-    	        prioritize = { 718 }
-    			add_extra_state_shared_building_slots = 2
-    			add_building_construction = {
-    				type = dockyard
-    				level = 2
-    				instant_build = yes
-    			}
-    		}
-    		set_temp_variable = { treasury_change = -15 }
-    		modify_treasury_effect = yes
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_First_Shipyards"
+			random_owned_controlled_state = {
+				prioritize = { 718 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { treasury_change = -15 }
+			modify_treasury_effect = yes
 			navy_experience = 50
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 
 	focus = {
@@ -4944,18 +4944,18 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Naval_Cooperation_with_CHI }
+		prerequisite = { focus = KAZ_Naval_Cooperation_with_CHI }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Modernization_of_the_Navy"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Modernization_of_the_Navy"
 			navy_experience = 25
-    		add_ideas = GENERIC_navy_idea1
-    	}
+			add_ideas = GENERIC_navy_idea1
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 	
 
@@ -4969,20 +4969,20 @@ focus_tree = {
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_First_Shipyards }
+		prerequisite = { focus = KAZ_First_Shipyards }
 		prerequisite = { focus = KAZ_Modernization_of_the_Navy }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-    	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Great_Kazakh_Navy"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Great_Kazakh_Navy"
 			add_command_power = 25
-    		add_ideas = GENERIC_navy_idea2
+			add_ideas = GENERIC_navy_idea2
 			one_random_dockyard = yes
-    	}
+		}
 
-    	ai_will_do = {
-    		base = 1.5
-    	}
+		ai_will_do = {
+			base = 1.5
+		}
 	}
 
 	focus = {
@@ -11794,14 +11794,14 @@ focus_tree = {
 				add_opinion_modifier = { target = UKR modifier = military_cooperation }
 				reverse_add_opinion_modifier = { target = UKR modifier = military_cooperation }
 				send_equipment = {
-    				equipment = Inf_equipment
-    				amount = 5000
-    				target = UKR
+					equipment = Inf_equipment
+					amount = 5000
+					target = UKR
 				}
 				send_equipment = {
-    				equipment = command_control_equipment
-    				amount = 250
-    				target = UKR
+					equipment = command_control_equipment
+					amount = 250
+					target = UKR
 				}
 				UKR = {
 					army_experience = 50
@@ -14110,13 +14110,13 @@ focus_tree = {
 					category = CAT_fuel_oil
 				}
 				capital_scope = {
-                    add_extra_state_shared_building_slots = 1
-                    add_building_construction = {
-                        type = rubber_refinery
-                        level = 1
-                        instant_build = yes
-                    }
-                }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = rubber_refinery
+						level = 1
+						instant_build = yes
+					}
+				}
 				add_timed_idea = { idea = KAZ_qatar_gas_chemistry_alliance_idea days = 1460 }
 			}
 		}
@@ -14297,7 +14297,7 @@ focus_tree = {
 			add_political_power = -100
 			set_temp_variable = { treasury_change = -2.5 }
 			modify_treasury_effect = yes
-        }
+		}
 
 		ai_will_do = {
 			base = 1.5
