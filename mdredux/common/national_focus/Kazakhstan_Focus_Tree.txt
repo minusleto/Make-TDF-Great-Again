@@ -3772,6 +3772,7 @@ focus_tree = {
     	}
 	}
 
+#Decommission Old Planes
 	focus = {
 		id = KAZ_decommission_old_planes
 		icon = decommission_old_planes
@@ -3798,6 +3799,7 @@ focus_tree = {
     	}
 	}
 
+#Creation of the Airborne Forces
 	focus = {
 		id = KAZ_creation_airborne_forces
 		icon = generic_army_airplanes
@@ -3825,6 +3827,7 @@ focus_tree = {
     	}
 	}
 
+#New Doctrine of the Air Defense Forces
 	focus = {
 		id = KAZ_new_doctrine_air
 		icon = generic_army_antiaircraft
@@ -3851,6 +3854,7 @@ focus_tree = {
     	}
 	}
 
+#Complete the Aircraft Deal with Russia
 	focus = {
 		id = KAZ_complete_aircraft_russia
 		icon = mig29
@@ -3897,6 +3901,7 @@ focus_tree = {
     	}
 	}
 
+#Retraining of Officers
 	focus = {
 		id = KAZ_retraining_officers
 		icon = generic_army_pilots
@@ -3927,6 +3932,7 @@ focus_tree = {
     	}
 	}
 
+#Redevelopment of Air Corps Basing Areas
 	focus = {
 		id = KAZ_redevelopment_air_areas
 		icon = generic_army_airbase
@@ -3956,6 +3962,7 @@ focus_tree = {
     	}
 	}
 
+#Skylark UAV Cooperation
 	focus = {
 		id = KAZ_skylark_uav_cooperation
 		icon = por_army_buy_isr_drone
@@ -3994,6 +4001,7 @@ focus_tree = {
     	}
 	}
 
+#Create AHKE
 	focus = {
 		id = KAZ_create_AHKE
 		icon = kaz_ke_airbus
@@ -4032,6 +4040,7 @@ focus_tree = {
 		}
 	}
 
+#Buy Planes from China
 	focus = {
 		id = KAZ_buy_planes_from_china
 		icon = buy_chinese_j7iii
@@ -4088,6 +4097,7 @@ focus_tree = {
     	}
 	}
 
+#New Air Forces
 	focus = {
 		id = KAZ_new_air_forces
 		icon = aviation_army
