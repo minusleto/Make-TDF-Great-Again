@@ -36,3 +36,15 @@ IMPORTANT: this skill is a distilled snapshot of one long working session (Kazak
 
 ## 5. Adapting this skill
 If the user states a preference (e.g. "events only for real choices", "no years in descriptions"), add it to pitfalls.md under "User decisions" and follow it above this file. Keep SKILL.md short; move detail to references.
+
+
+## Kazakhstan focus-tree lessons (project-specific)
+- In `mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt`, put a short English comment immediately before every focus block: `#English Focus Name`. Use the actual English focus title from localisation when available.
+- The comment is the separator between focus blocks. Do not leave extra blank lines between a focus's closing brace and the next comment; keep the blocks compact. Do not reformat unrelated blocks while editing a branch.
+- Distinguish source-code order, in-game layout, and gameplay prerequisites. Moving focus blocks in the file must not silently change `prerequisite` or `relative_position_id`.
+- Keep each branch root attached to its intended existing parent. In the Kazakhstan air branch, `KAZ_decommission_old_planes` should use `relative_position_id = KAZ_our_military_forces` and `prerequisite = { focus = KAZ_our_military_forces }` so it does not float independently. Descendants should remain relative to the air-branch root unless the user explicitly requests a layout redesign.
+- Before renaming a focus ID, search and update all references across the repository: focus tree, localisation keys, prerequisites, `available`/`bypass`, events, ideas, and scripted localisation. Never update only the definition and localisation.
+- Preserve localisation format exactly. For `l_english` files, never alter or remove the `l_english:` header, BOM, or CRLF line endings. Prefer narrow key-level replacements; do not split and rejoin the entire file in a way that strips encoding markers or changes line endings.
+- Before writing, fetch the current file and use its current blob SHA. Make exact edits; if the expected snippet is not found, stop rather than guessing. After writing, fetch again and verify block order, comment labels, unique IDs, prerequisites, relative positions, localisation references, header, BOM, and line endings.
+- When removing/replacing a focus, trace its whole reward chain: events it starts, subsequent events, national spirits/ideas, localisation, and other references. Remove only content confirmed to be orphaned.
+- Be explicit about validation: a repository text check is not an in-game test. Never claim the mod was launched or syntax-tested unless that actually happened.
