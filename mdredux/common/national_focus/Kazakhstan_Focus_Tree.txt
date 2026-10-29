@@ -4130,9 +4130,12 @@ focus_tree = {
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_retraining_officers }
-		prerequisite = { focus = KAZ_redevelopment_air_areas }
-		prerequisite = { focus = KAZ_create_AHKE }
+		prerequisite = {
+			OR = {
+				focus = KAZ_skylark_uav_cooperation
+				focus = KAZ_buy_planes_from_china
+			}
+		}
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
