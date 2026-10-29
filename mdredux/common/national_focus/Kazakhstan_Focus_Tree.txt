@@ -3935,7 +3935,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_retraining_officers"
-			# Standardize procedures and teach crews to operate modern aircraft in difficult conditions.
 			air_experience = 50
 			add_ideas = KAZ_trained_officer_corps
 			add_daily_mastery = {
@@ -3972,13 +3971,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_redevelopment_air_areas"
-			# Expand dispersal capacity and prepare infrastructure for a larger, more modern fleet.
-			add_command_power = 15
-			air_experience = 25
 			two_air_base = yes
 			two_air_base = yes
-			set_temp_variable = { treasury_change = -3 }
-			modify_treasury_effect = yes
+			two_anti_air_building = yes
 			set_temp_variable = { temp_opinion = 2 }
 			change_the_military_opinion = yes
 		}
