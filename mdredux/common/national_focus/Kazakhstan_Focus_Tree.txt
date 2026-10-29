@@ -4429,20 +4429,20 @@ focus_tree = {
 	}
 
 	focus = {
-		id = KAZ_Decommission_Old_Planes
+		id = KAZ_decommission_old_planes
 		icon = decommission_old_planes
 
-		x = 10
+		x = 0
 		y = 1
-		relative_position_id = KAZ_our_military_forces
+		relative_position_id = KAZ_professional_readiness
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_our_military_forces }
+    	prerequisite = { focus = KAZ_professional_readiness }
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_Decommission_Old_Planes"
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_decommission_old_planes"
     		set_temp_variable = { treasury_change = -4.5 }
 			modify_treasury_effect = yes
     		add_ideas = GENERIC_airforce_idea
@@ -4461,11 +4461,11 @@ focus_tree = {
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Decommission_Old_Planes }
+    	prerequisite = { focus = KAZ_decommission_old_planes }
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	completion_reward = {
@@ -4487,11 +4487,11 @@ focus_tree = {
 
 		x = 2
 		y = 1
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Decommission_Old_Planes }
+    	prerequisite = { focus = KAZ_decommission_old_planes }
 		search_filters = { FOCUS_FILTER_ARMY }
 
     	available = {
@@ -4533,11 +4533,11 @@ focus_tree = {
 
 		x = -2
 		y = 1
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
-    	prerequisite = { focus = KAZ_Decommission_Old_Planes }
+    	prerequisite = { focus = KAZ_decommission_old_planes }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
@@ -4560,7 +4560,7 @@ focus_tree = {
 
 		x = 0
 		y = 3
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
@@ -4598,7 +4598,7 @@ focus_tree = {
 
 		x = -2
 		y = 3
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
@@ -4636,7 +4636,7 @@ focus_tree = {
 
 		x = 2
 		y = 3
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
@@ -4692,7 +4692,7 @@ focus_tree = {
 
 		x = -1
 		y = 2
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 10
 
@@ -4722,7 +4722,7 @@ focus_tree = {
 
 		x = 1
 		y = 2
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
@@ -4751,7 +4751,7 @@ focus_tree = {
 
 		x = 0
 		y = 4
-		relative_position_id = KAZ_Decommission_Old_Planes
+		relative_position_id = KAZ_decommission_old_planes
 
 		cost = 5
 
