@@ -1358,7 +1358,7 @@ ideas = {
                 air_maximum_speed_factor = -0.18
                 army_bonus_air_superiority_factor = -0.12
                 air_cas_efficiency = -0.12
-                air_fuel_consumption_factor = 0.1
+                airforce_personnel_cost_multiplier_modifier = 0.1
             }
         }
         KAZ_outdate_wings_1_idea = {
