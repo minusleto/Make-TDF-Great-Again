@@ -203,18 +203,21 @@ defined_text = {
 			has_idea = KAZ_outdate_wings_idea
 		}
 		localization_key = KAZ_outdate_wings_loc1
+		newline = yes
 	}
 	text = {
 		trigger = {
 			has_idea = KAZ_outdate_wings_1_idea
 		}
 		localization_key = KAZ_outdate_wings_loc2
+		newline = yes
 	}
 	text = {
 		trigger = {
 			has_idea = KAZ_outdate_wings_2_idea
 		}
 		localization_key = KAZ_outdate_wings_loc3
+		newline = yes
 	}
 }
 defined_text = {
@@ -224,5 +227,6 @@ defined_text = {
 			has_idea = KAZ_trained_officer_corps
 		}
 		localization_key = KAZ_trained_officer_corps_loc1
+		newline = yes
 	}
 }
