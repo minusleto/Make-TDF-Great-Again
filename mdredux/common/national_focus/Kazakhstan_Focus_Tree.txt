@@ -3847,9 +3847,10 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_doctrine_air"
 			air_experience = 25
-			add_mastery_bonus = {
-				bonus = 0.1
-				days = 180
+			add_daily_mastery = {
+				amount = 0.5
+				days = 100
+				name = KAZ_new_doctrine_air
 				folder = air
 			}
 			add_doctrine_cost_reduction = {
