@@ -4594,7 +4594,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = KAZ_buying_tech_iran
+		id = KAZ_skylark_uav_cooperation
 		icon = por_army_buy_isr_drone
 
 		x = -2
@@ -4622,7 +4622,7 @@ focus_tree = {
 		}
 
     	completion_reward = {
-    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_buying_tech_iran"
+    		log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_uav_cooperation"
 			KAZ = { country_event = kaz_army.8 }
     	}
 
