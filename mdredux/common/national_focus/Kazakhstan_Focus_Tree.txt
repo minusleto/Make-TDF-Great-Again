@@ -3760,7 +3760,7 @@ focus_tree = {
 				add_logistics = 1
 				gain_xp = 300
 			}
-			increase_conscription_effect
+			increase_conscription_effect = yes
 			swap_ideas = {
 				remove_idea = KAZ_outdated_army_3_idea
 				add_idea = KAZ_professional_army_idea
@@ -3788,13 +3788,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_decommission_old_planes"
+			air_experience = 25
+			set_temp_variable = { temp_opinion = 1 }
+			change_the_military_opinion = yes
 			swap_ideas = {
 				remove_idea = KAZ_outdate_wings_idea
 				add_idea = KAZ_outdate_wings_1_idea
 			}
-			air_experience = 25
-			set_temp_variable = { temp_opinion = 1 }
-			change_the_military_opinion = yes
 			set_temp_variable = { treasury_change = -1.75 }
 			modify_treasury_effect = yes
 		}
@@ -3936,13 +3936,13 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_retraining_officers"
 			air_experience = 50
-			add_ideas = KAZ_trained_officer_corps
 			add_daily_mastery = {
 				amount = 0.25
 				days = 120
 				name = KAZ_retraining_officers
 				folder = air
 			}
+			add_ideas = KAZ_trained_officer_corps
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
 			set_temp_variable = { temp_opinion = 2 }
@@ -3973,7 +3973,13 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_redevelopment_air_areas"
 			two_air_base = yes
 			two_air_base = yes
-			two_anti_air_building = yes
+			random_owned_state = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
 			set_temp_variable = { temp_opinion = 2 }
 			change_the_military_opinion = yes
 		}
