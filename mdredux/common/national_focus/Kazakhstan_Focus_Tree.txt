@@ -3847,9 +3847,18 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_doctrine_air"
 			air_experience = 25
-			set_temp_variable = { treasury_change = -7.5 }
+			add_doctrine_cost_reduction = {
+				name = CAT_air_doctrine
+				cost_reduction = 1.0
+				uses = 2
+				category = CAT_air_doctrine
+			}
+			swap_ideas = {
+				remove_idea = KAZ_outdate_wings_1_idea
+				add_idea = KAZ_outdate_wings_2_idea
+			}
+			set_temp_variable = { treasury_change = -3 }
 			modify_treasury_effect = yes
-			remove_ideas = KAZ_outdate_wings_1_idea
 		}
 
 		ai_will_do = {

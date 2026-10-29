@@ -871,8 +871,8 @@
  KAZ_arlan: "Creation of \"Arlan\" Heavy Armored Vehicle"
  KAZ_naiza_israel: "Development of \"Naiza\" MLRS"
  KAZ_t72kae_turkish: "Development of \"T-72KAE\""
- KAZ_new_doctrine_air: "New Doctrine of the Air Defense Forces"
- KAZ_new_doctrine_air_desc: "Old tactics have outlived their usefulness. We need a new Air Force defense doctrine adapted to the realities of high-tech 21st-century conflicts."
+ KAZ_new_doctrine_air: "Modern Air Doctrine"
+ KAZ_new_doctrine_air_desc: "Kazakhstan's air arm must move beyond inherited operating practices. Standardized planning and a modern approach to air operations will help make better use of our limited aircraft and strengthen coordination with air defence."
  KAZ_complete_aircraft_russia: "Complete the Aircraft Deal with Russia"
  KAZ_complete_aircraft_russia_desc: "Closing long-standing procurement contracts with the Russian Federation will allow us to quickly and seamlessly modernize our fleet with proven aircraft."
  KAZ_creation_airborne_forces: "Creation of the Airborne Forces"
@@ -1834,6 +1834,7 @@
  KAZ_professional_army_loc1: "\n§gPROFESSIONAL ARMY§!:\n$army_attack_factor$: §G+5.0%§!\n$army_defence_factor$: §G+5.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §G+5.0%§!\n$MODIFIER_ARMY_SPEED_FACTOR$: §G+5.0%§!\n$land_mastery_gain_factor$: §G+10.0%§!\n"
   KAZ_outdate_wings_loc1: "\n§gLEGACY OF SOVIET AVIATION§!: \n$air_attack_factor$: §R-15.0%§!\n$air_defence_factor$: §R-15.0%§!\n$air_maximum_speed_factor$: §R-18.0%§!\n$army_bonus_air_superiority_factor$: §R-12.0%§!\n$air_cas_efficiency$: §R-12.0%§!\n$airforce_personnel_cost_multiplier_modifier$: §R+10.0%§!\n"
   KAZ_outdate_wings_loc2: "\n§gLEGACY OF SOVIET AVIATION§!: \n$air_attack_factor$: §R-7.0%§!\n$air_defence_factor$: §R-7.0%§!\n$air_maximum_speed_factor$: §R-10.0%§!\n$army_bonus_air_superiority_factor$: §R-5.0%§!\n$air_cas_efficiency$: §R-5.0%§!\n"
+  KAZ_outdate_wings_loc3: "\n§gLEGACY OF SOVIET AVIATION§!: \n$air_attack_factor$: §R-3.0%§!\n$air_defence_factor$: §R-3.0%§!\n$air_maximum_speed_factor$: §R-5.0%§!\n$army_bonus_air_superiority_factor$: §R-2.0%§!\n$air_cas_efficiency$: §R-2.0%§!\n"
 
  KAZ_t72kae_tooltip_loc: "If §BTurkey§! agrees, we will receive §4120 T-72KAE§! MBT for §R7.5 Billion§! and unlock their production."
  KAZ_taimas_tooltip_loc: "If §BTurkey§! agrees, we will receive §4120 TAIMAS 8x8§! IFV for §R5.5 Billion§! and unlock their production."

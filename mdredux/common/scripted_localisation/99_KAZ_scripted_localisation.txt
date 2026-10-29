@@ -12,4 +12,10 @@ defined_text = {
 		}
 		localization_key = KAZ_outdate_wings_loc2
 	}
+	text = {
+		trigger = {
+			has_idea = KAZ_outdate_wings_2_idea
+		}
+		localization_key = KAZ_outdate_wings_loc3
+	}
 }
