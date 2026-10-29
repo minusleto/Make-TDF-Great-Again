@@ -4772,25 +4772,25 @@ focus_tree = {
 		}
 	}
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
+
+
+
+
+
+
+
+
+
+
 
 	focus = {
 		id = KAZ_Choose_New_Doctrine
@@ -4820,7 +4820,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	
+
 
 	focus = {
 		id = KAZ_Naval_Cooperation_with_SOV
@@ -4898,7 +4898,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	
+
 
 	focus = {
 		id = KAZ_First_Shipyards
@@ -4957,7 +4957,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	
+
 
 	focus = {
 		id = KAZ_Great_Kazakh_Navy
