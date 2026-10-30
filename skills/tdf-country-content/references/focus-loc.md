@@ -76,3 +76,16 @@
 ## 7. Формат yml
 
 UTF-8 с BOM, заголовок `l_english:` без отступа, ключи с одним пробелом отступа (` key: "text"`), `\"` для кавычек, `\n` для переноса, без номера версии, без дублей. Ключи: фокус `<id>`, описание `<id>_desc`, событие `<ns>.<n>.t/.d/.a/.b`, дух `<id>`, `<id>_desc`, подсказка `<что>_tt`, scripted loc `X_loc` с ключами `X_loc1..`. Окончания строк CRLF не менять; править точечно по ключам, а не пересобирать файл целиком.
+
+## 8. Конкретика вместо воды (из практики по Казахстану)
+
+Плохо: общие фразы без детали.
+> Effective command is impossible without reliable communication.
+> Upgrading imported vehicles will extend their service life and enhance their performance.
+> Airbus Helicopters Kazakhstan Engineering is not just a factory - it is a technology transfer. Kazakhstan learns to build, not just to buy.
+
+Хорошо: реальная деталь, намерение, сухой итог.
+> Brigade HQs still talk on 1980s R-123 sets that anyone with a scanner can hear. We will field encrypted VHF nets, raise radar stations and tie the districts into one command loop. Command reaches the front in minutes, not hours.
+
+Что брать: реальную проблему ("R-123 sets", "99% contract, 65% actually staffed"), названные организации ("Astana Motors", "22nd Spetsnaz Brigade"), жёсткую деталь ("encrypted VHF nets", "cut the draft to six months"), сухую последнюю строку.
+Чего не брать: воду ("improve reliability and efficiency"), конструкции "not just X, but Y", "learns to build", "rises from the ashes", поэтические концовки и афоризмы, два раза одно слово (в том числе название страны) в абзаце: заменять на "home", "locally".

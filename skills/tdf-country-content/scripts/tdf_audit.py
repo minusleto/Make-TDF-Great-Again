@@ -160,6 +160,12 @@ def audit_country(tag, c, locs, all_loc, all_focus, defined_events):
             hit = [w for w in BANNED if w in low] + (['key'] if BANNED_WORD.search(d) else [])
             if hit:
                 R['banned_phrase'].append((fid, ', '.join(hit)))
+        for a, b2 in re.findall(r'remove_idea\s*=\s*(\w+)\s+add_idea\s*=\s*(\w+)', cr):
+            if a == b2:
+                R['swap_same_idea'].append((fid, a))
+        for tb in re.findall(r'add_tech_bonus\s*=\s*\{([^{}]*)\}', cr):
+            if 'uses' not in tb:
+                R['tech_bonus_no_uses'].append(fid)
         for ev in re.findall(r'country_event\s*=\s*\{\s*id\s*=\s*([A-Za-z0-9_\.\-]+)', cr):
             if c['events'] and ev not in defined_events:
                 R['event_not_found'].append((fid, ev))
@@ -194,8 +200,8 @@ def audit_country(tag, c, locs, all_loc, all_focus, defined_events):
 
 
 ERRORS = ['dup_focus_ids', 'log_mismatch', 'no_log', 'prereq_missing', 'mutex_missing', 'relpos_missing', 'title_missing',
-          'desc_missing', 'dup_loc_keys', 'foreign_tag_ref', 'event_not_found', 'event_option_label_missing', 'event_option_no_log']
-WARNS = ['title_gt30', 'desc_lt150', 'desc_gt340', 'banned_phrase', 'tooltip_only_reward', 'event_generic_label', 'event_label_gt35']
+          'desc_missing', 'dup_loc_keys', 'foreign_tag_ref', 'swap_same_idea', 'event_not_found', 'event_option_label_missing', 'event_option_no_log']
+WARNS = ['tech_bonus_no_uses', 'title_gt30', 'desc_lt150', 'desc_gt340', 'banned_phrase', 'tooltip_only_reward', 'event_generic_label', 'event_label_gt35']
 
 
 def main():
