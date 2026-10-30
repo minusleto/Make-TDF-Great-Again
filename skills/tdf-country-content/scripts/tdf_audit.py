@@ -122,6 +122,20 @@ def audit_country(tag, c, locs, all_loc, all_focus, defined_events):
         m = re.search(r'\bid\s*=\s*([A-Za-z0-9_\.\-]+)', b)
         if m:
             foc.append((m.group(1), b))
+    # ветки, скрытые через allow_branch = { always = no } (отключённый контент): loc к ним не обязателен
+    def prereqs(b):
+        return [pf for pb in re.findall(r'prerequisite\s*=\s*\{([^{}]*)\}', b) for pf in re.findall(r'focus\s*=\s*([A-Za-z0-9_\.\-]+)', pb)]
+    fb_map = dict(foc)
+    hidden = {f for f, b in foc if re.search(r'allow_branch\s*=\s*\{\s*always\s*=\s*no', b)}
+    grew = True
+    while grew:
+        grew = False
+        for f, b in foc:
+            ps = prereqs(b)
+            if f not in hidden and ps and all(p in hidden for p in ps):
+                hidden.add(f)
+                grew = True
+    R['hidden_branch_focus'] = sorted(hidden)
     ids = Counter(i for i, _ in foc)
     R['dup_focus_ids'] = [k for k, v in ids.items() if v > 1]
     lens, own_foreign = [], Counter()
@@ -142,11 +156,12 @@ def audit_country(tag, c, locs, all_loc, all_focus, defined_events):
         m = re.search(r'relative_position_id\s*=\s*([A-Za-z0-9_\.\-]+)', b)
         if m and m.group(1) not in all_focus:
             R['relpos_missing'].append((fid, m.group(1)))
-        if fid not in loc and fid not in all_loc:
-            R['title_missing'].append(fid)
         d = loc.get(fid + '_desc')
-        if d is None and fid + '_desc' not in all_loc:
-            R['desc_missing'].append(fid)
+        if fid not in hidden:
+            if fid not in loc and fid not in all_loc:
+                R['title_missing'].append(fid)
+            if d is None and fid + '_desc' not in all_loc:
+                R['desc_missing'].append(fid)
         t = loc.get(fid)
         if t and len(t) > 30:
             R['title_gt30'].append((fid, len(t)))
@@ -160,6 +175,12 @@ def audit_country(tag, c, locs, all_loc, all_focus, defined_events):
             hit = [w for w in BANNED if w in low] + (['key'] if BANNED_WORD.search(d) else [])
             if hit:
                 R['banned_phrase'].append((fid, ', '.join(hit)))
+        if cr and not re.sub(r'log\s*=\s*"[^"]*"', '', cr).strip():
+            R['empty_reward'].append(fid)
+        for sf in re.findall(r'search_filters\s*=\s*\{([^{}]*)\}', b):
+            for f_ in sf.split():
+                if not f_.startswith('FOCUS_FILTER_'):
+                    R['nonstandard_filter'].append((fid, f_))
         for a, b2 in re.findall(r'remove_idea\s*=\s*(\w+)\s+add_idea\s*=\s*(\w+)', cr):
             if a == b2:
                 R['swap_same_idea'].append((fid, a))
@@ -201,7 +222,7 @@ def audit_country(tag, c, locs, all_loc, all_focus, defined_events):
 
 ERRORS = ['dup_focus_ids', 'log_mismatch', 'no_log', 'prereq_missing', 'mutex_missing', 'relpos_missing', 'title_missing',
           'desc_missing', 'dup_loc_keys', 'foreign_tag_ref', 'swap_same_idea', 'event_not_found', 'event_option_label_missing', 'event_option_no_log']
-WARNS = ['tech_bonus_no_uses', 'title_gt30', 'desc_lt150', 'desc_gt340', 'banned_phrase', 'tooltip_only_reward', 'event_generic_label', 'event_label_gt35']
+WARNS = ['empty_reward', 'nonstandard_filter', 'hidden_branch_focus', 'tech_bonus_no_uses', 'title_gt30', 'desc_lt150', 'desc_gt340', 'banned_phrase', 'tooltip_only_reward', 'event_generic_label', 'event_label_gt35']
 
 
 def main():
