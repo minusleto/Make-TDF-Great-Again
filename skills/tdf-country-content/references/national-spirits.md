@@ -58,7 +58,7 @@ POR_brain_drain_loc1: "\n§gBRAIN DRAIN§!: \n$MODIFIER_GLOBAL_MONTHLY_POPULATIO
 
 Минусы паттерна: цифры в `X_loc1` дублируют значения из ideas вручную и расходятся, когда правят одно из двух. Правило: менять число в обоих файлах и проверять, что итог сходится.
 
-## 5. Цифры (ориентиры из `md-hoi4-country-content/references/balance.md`)
+## 5. Цифры (ориентиры из `skills/md-hoi4-country-content/references/balance.md`)
 
 - Модификаторов на дух: Португалия 4.3, Россия 4.5, Сирия около 4.3, Польша 5.3. Цель 3-5.
 - Суша (медианы): `army_attack` 0.03-0.05, `army_defence` 0.05, `army_org` 0.035, `army_speed` 0.05, `experience_gain_army` 0.03, `training_time_army` минус 0.10, `supply_consumption` минус 0.07, `max_command_power` 9.
