@@ -43,7 +43,9 @@
 5. **Условие `cancel`.** Идея, привязанная к политическому режиму, получает `cancel`: `POR_fiscal_discipline_idea` пропадает, если у власти нет социал-демократов (`western_social_democrats_are_not_in_power = yes`). Для идей, которые должны пережить гражданскую войну, нужно `allowed_civil_war = { always = yes }` (у Португалии стоит почти везде).
 6. **Скрытый дух обязан быть виден.** `hidden_ideas` невидимы: показывать через `defined_text` (trigger `has_idea`, ключ `X_loc1`), которую вызывает один tooltip-ключ. Порядок в сводном tooltip фиксирован.
 7. **Ключ духа всегда заканчивается на `_idea`.** Ступень вставляется перед суффиксом: `KAZ_outdate_wings_1_idea`, `KAZ_outdated_navy_2_idea`. Ключи без суффикса (`KAZ_energy_crisis`, `KAZ_olig_system`, `KAZ_naval_bonus` в старой версии) не копировать. Никаких `GENERIC_*_idea` в наградах фокусов страны: свой дух со своим профилем и tooltip.
-7. **Один tooltip-ключ на все ступени**, цвета и формат единые.
+8. **Один tooltip-ключ на все ступени**, цвета и формат единые.
+9. **Партнёр по дипломатическому фокусу не получает дух.** Награда идёт реальным эффектом в событии согласия (опыт, мастерство доктрин, технология, казна, влияние), см. `design-guide.md`, п. 3.3. Дух-проблема, который снимается ступенями по фокусам ветки, - допустимый инструмент (`KAZ_outdated_navy_idea` -> `_1_idea` -> `_2_idea` -> `KAZ_caspian_flotilla_idea`: ступени дают фокусы флота, итоговый положительный дух маленький).
+10. **Морские модификаторы с известными loc-ключами** (проверены в репозитории): `$MODIFIER_NAVAL_DAMAGE_FACTOR$`, `$MODIFIER_NAVAL_DEFENSE_FACTOR$`, `$MODIFIER_NAVY_ORG_FACTOR$`, `$MODIFIER_NAVAL_SPEED_FACTOR$`, `$MODIFIER_NAVAL_RETREAT_CHANCE$`, `$MODIFIER_NAVY_MAX_RANGE_FACTOR$`, `$MODIFIER_NAVAL_HIT_CHANCE$`. Для `naval_detection` и `naval_night_attack` ключа в репозитории нет: в `defined_text` их не ставить без проверки.
 8. **Реальные плюсы и минусы.** Не использовать `custom_modifier_tooltip` вместо настоящих модификаторов, если можно задать настоящий.
 
 ## 4. Дух-хаб: как собран `POR_portuguese_economy_idea`
