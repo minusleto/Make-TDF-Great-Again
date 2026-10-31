@@ -2,7 +2,7 @@
 
 Статический разбор кода и локализации. Игру не запускали. Базового мода нет, поэтому `GENERIC_navy_idea1/2` и `one_random_dockyard` не проверены.
 
-Ветка: `KAZ_Naval_Forces` → `KAZ_Choose_New_Doctrine` → `KAZ_Naval_Cooperation_with_SOV` / `_with_CHI` → `KAZ_First_Shipyards` / `KAZ_Modernization_of_the_Navy` → `KAZ_Great_Kazakh_Navy`. События `kaz_army.16-23`, духи `KAZ_naval_bonus`, `KAZ_naval_bonus_2`.
+Ветка: `KAZ_naval_forces` → `KAZ_choose_new_doctrine` → `KAZ_naval_cooperation_with_russia` / `_with_CHI` → `KAZ_first_shipyards` / `KAZ_modernization_of_the_navy` → `KAZ_great_kazakh_navy`. События `kaz_army.16-23`, духи `KAZ_naval_bonus`, `KAZ_naval_bonus_2`.
 
 ## Что в ветке является инструментом
 
@@ -13,7 +13,7 @@
 | # | Проблема | Правка |
 |---|---|---|
 | 1 | `kaz_army.20` слал `kaz_army.21` в CHI, хотя текст 20 ("approached Russia") и 21 ("Kazakhstan asks us") и влияние SOV в 22 рассчитаны на Россию. Россия на запрос никогда не отвечала | `SOV = { country_event = kaz_army.21 }` |
-| 2 | Фокус `KAZ_Naval_Cooperation_with_SOV` требовал `has_idea = KAZ_naval_bonus`, а дух выдаёт только согласие Китая (`kaz_army.18`). Отказ Китая блокировал русский фокус, а значит и капстоун (нужны оба родителя) | убран гейт по идее |
+| 2 | Фокус `KAZ_naval_cooperation_with_russia` требовал `has_idea = KAZ_naval_bonus`, а дух выдаёт только согласие Китая (`kaz_army.18`). Отказ Китая блокировал русский фокус, а значит и капстоун (нужны оба родителя) | убран гейт по идее |
 | 3 | После пункта 2 `kaz_army.22` делал `swap_ideas` на идею, которой может не быть | `if has_idea → swap на _2, else → add KAZ_naval_bonus` (каждый партнёр даёт базу, оба вместе - `_2`) |
 | 4 | Описания шести фокусов (115-141 знак, "significantly", "dominant and formidable") не совпадали с наградой; Modernization обещал радары и вооружение при награде exp + `GENERIC_navy_idea1` | переписаны по формуле, 215-236 знаков, только то, что есть в награде |
 | 5 | Опечатка "Chinase"; подписи "Excellent!", "Great!" (`kaz_army.18.a`, `22.a`) | "Chinese", "Begin joint exercises", "Begin the transfer" |
@@ -23,7 +23,7 @@
 1. **Картинка.** Все события ветки используют `GFX_POL_mig_29_event` (польский МиГ-29). Нужна нейтральная или каспийская картинка, но список доступных GFX вне репозитория.
 2. **Дух `KAZ_naval_bonus`**: 8 модификаторов (норма 3-5), в `_2` те же восемь вдвое больше. Предложение: оставить 4 (`naval_defense_factor`, `naval_detection`, `navy_org_factor`, `naval_speed_factor`), `_2` - те же четыре, плюс `navy_max_range_factor`.
 3. **Капстоун** требует обе ветки (две отдельные строки `prerequisite` = AND). Это нормально для "оба партнёра", но тогда ветки не альтернативы, а последовательность. Если команда хочет выбор "Россия или Китай" - один блок `prerequisite = { focus = A focus = B }` плюс `mutually_exclusive` на партнёрских фокусах.
-4. **Награда `KAZ_Choose_New_Doctrine`**: только опыт и скидка на доктрину; текст теперь это и говорит, но инструмента нет - кандидат на слияние с `KAZ_Naval_Forces`.
+4. **Награда `KAZ_choose_new_doctrine`**: только опыт и скидка на доктрину; текст теперь это и говорит, но инструмента нет - кандидат на слияние с `KAZ_naval_forces`.
 5. **Событие 23** (отказ России) даёт +5 внутренней поддержки и 35 PP, как отказ Китая (19). Отказ ничего не стоит и ничего не меняет в выборе игрока.
 6. **`bypass`** на партнёрских фокусах записан как `OR = { NOT = { ... } }` с одним элементом - работает, но лишняя вложенность.
 
@@ -44,9 +44,16 @@
 
 ## Обновление (агент №5, issue #6): духи, tooltip, Турция вместо Китая
 
-- Убраны все `GENERIC_navy_idea1/2`. Вместо них ступенчатый дух-проблема `KAZ_outdated_navy_idea` -> `_1_idea` -> `_2_idea` -> `KAZ_caspian_flotilla_idea` (ступени дают `KAZ_Naval_Forces`, `KAZ_Modernization_of_the_Navy`, `KAZ_Great_Kazakh_Navy`). Шаблон тот же, что у `KAZ_outdate_wings_idea`: скрытые духи в `hidden_ideas`, `defined_text` в `99_KAZ_scripted_localisation.txt`, сводка в `KAZ_army_tt` хаба `KAZ_army_idea`.
+- Убраны все `GENERIC_navy_idea1/2`. Вместо них ступенчатый дух-проблема `KAZ_outdated_navy_idea` -> `_1_idea` -> `_2_idea` -> `KAZ_caspian_flotilla_idea` (ступени дают `KAZ_naval_forces`, `KAZ_modernization_of_the_navy`, `KAZ_great_kazakh_navy`). Шаблон тот же, что у `KAZ_outdate_wings_idea`: скрытые духи в `hidden_ideas`, `defined_text` в `99_KAZ_scripted_localisation.txt`, сводка в `KAZ_army_tt` хаба `KAZ_army_idea`.
 - `KAZ_naval_bonus` и `_2` удалены (8 модификаторов, нарушали суффикс `_idea`). Партнёры больше не дают духов, только реальные награды в событиях: Россия (событие 22) - `navy_experience` 40 и `add_daily_mastery` по папке `naval` на 100 дней (кадеты учатся в России, тральщик «Алатау» построен российской верфью) [?: `folder = naval` в репозитории для `add_daily_mastery` не встречается, есть `air`, `land`, `elite_forces`; папка `naval` у доктрин есть]; Турция (событие 18) - `add_tech_bonus` 0.3 на `CAT_corvette` (1 использование) за 3.5 казны, по образцу `ISR_ships_dvora`.
-- `KAZ_Naval_Cooperation_with_CHI` заменён на `KAZ_Naval_Cooperation_with_TUR` (иконка `turk_naval`). Основание: в 2023 «Зенит» подписал с ASFAT и YDA соглашение о проектировании и постройке кораблей для флота; турецкие инструкторы учат казахских кадетов; в 2024 объявлен план верфи у порта Курык. Китай не имеет каспийского берега, а Конвенция 2018 года не пускает на Каспий вооружённые силы нерегиональных стран. Фокусы шлют событие партнёру напрямую (`TUR = { country_event = { id = kaz_army.17 days = 1 } }`, как в других деревьях), промежуточные события `kaz_army.16` и `kaz_army.20` («запрос отправлен») удалены. Ответы партнёров: 17 → 18 и 21 → 22 при согласии; отказ - общее событие `mdc4.16` через `FROM = { country_event = { id = mdc4.16 days = 1 } }`, собственные события отказа `kaz_army.19` и `kaz_army.23` (+5% внутреннего влияния и 35 PP) удалены, из описаний фокусов убрано обещание «domestic support». Эффект `mdc4.16` вне репозитория, не проверен.
+- `KAZ_Naval_Cooperation_with_CHI` заменён на `KAZ_naval_cooperation_with_turkey` (иконка `turk_naval`). Основание: в 2023 «Зенит» подписал с ASFAT и YDA соглашение о проектировании и постройке кораблей для флота; турецкие инструкторы учат казахских кадетов; в 2024 объявлен план верфи у порта Курык. Китай не имеет каспийского берега, а Конвенция 2018 года не пускает на Каспий вооружённые силы нерегиональных стран. Фокусы шлют событие партнёру напрямую (`TUR = { country_event = { id = kaz_army.17 days = 1 } }`, как в других деревьях), промежуточные события `kaz_army.16` и `kaz_army.20` («запрос отправлен») удалены. Ответы партнёров: 17 → 18 и 21 → 22 при согласии; отказ - общее событие `mdc4.16` через `FROM = { country_event = { id = mdc4.16 days = 1 } }`, собственные события отказа `kaz_army.19` и `kaz_army.23` (+5% внутреннего влияния и 35 PP) удалены, из описаний фокусов убрано обещание «domestic support». Эффект `mdc4.16` вне репозитория, не проверен.
 - Другие реальные варианты, если команда захочет заменить или добавить: Южная Корея (три катера типа Chamsuri и исследовательское судно, около 2006), Германия (меморандум с Abeking & Rasmussen о корветах, 2016, не исполнен), Турция/Dearsan (катера типа Tuzla), Россия (тральщик «Алатау», 2016; пограничный корабль «Сарбаз», проект 22180).
 - Решения не добавлялись по решению команды. Картинки событий 16-23 помечены `#TODO` (стоит польский МиГ-29). Не тронуты: `one_random_dockyard`, числа ступеней духа `KAZ_outdated_navy_idea` (черновые).
 
+## Обновление 2 (агент №5, issue #6): калибровка, верфь, id
+
+- Награды партнёров: влияние `percent_change = 1` (было 3); Турция - `add_tech_bonus` 0.5 на `CAT_corvette` (было 0.3) за `treasury_change = -1` (было -3.5).
+- `KAZ_first_shipyards`: вместо `random_owned_controlled_state` + ручного дока и -15 казны - `1230 = { # Mangystau two_state_dockyards = yes }`; стоимость списывает скрипт MDC (по вики $3.75 за верфь). `two_state_dockyards` в деревьях репозитория не встречается (есть `one_state_dockyard`), эффект взят из вики [?]. Описание: «two dockyards in Mangystau, next to the main base at Aktau».
+- Id флотских фокусов переведены в нижний регистр: `KAZ_naval_forces`, `KAZ_choose_new_doctrine`, `KAZ_naval_cooperation_with_russia`, `KAZ_naval_cooperation_with_turkey`, `KAZ_first_shipyards`, `KAZ_modernization_of_the_navy`, `KAZ_great_kazakh_navy`. Ссылки в дереве, локализации, скиле и заметках обновлены. Перед каждым фокусом ветки стоит `#English title` вместо пустой строки; блок из 21 пустой строки удалён.
+- Убраны осиротевшие комментарии про американские учения в `events/Kazakhstan.txt` (событий `kaz_army.12-15` в файле нет).
+- Остаются `one_random_dockyard` в `KAZ_naval_forces` (2 раза) и `KAZ_great_kazakh_navy`.

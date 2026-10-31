@@ -3371,9 +3371,9 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Naval Forces
 	focus = {
-		id = KAZ_Naval_Forces
+		id = KAZ_naval_forces
 		icon = wolfpacks
 
 		x = -11
@@ -3386,7 +3386,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Forces"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_forces"
 			one_random_dockyard = yes
 			one_random_dockyard = yes
 			navy_experience = 20
@@ -4833,42 +4833,22 @@ focus_tree = {
 			base = 2
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	#Choose New Doctrine
 	focus = {
-		id = KAZ_Choose_New_Doctrine
+		id = KAZ_choose_new_doctrine
 		icon = generic_doctrine
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_Naval_Forces
+		relative_position_id = KAZ_naval_forces
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_Naval_Forces }
+		prerequisite = { focus = KAZ_naval_forces }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Choose_New_Doctrine"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_choose_new_doctrine"
 			navy_experience = 50
 			add_doctrine_cost_reduction = {
 				name = CAT_naval_doctrine
@@ -4882,19 +4862,18 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-
-
+	#Naval Cooperation with Russia
 	focus = {
-		id = KAZ_Naval_Cooperation_with_SOV
+		id = KAZ_naval_cooperation_with_russia
 		icon = align_to_russia
 
 		x = -1
 		y = 1
-		relative_position_id = KAZ_Choose_New_Doctrine
+		relative_position_id = KAZ_choose_new_doctrine
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_Choose_New_Doctrine }
+		prerequisite = { focus = KAZ_choose_new_doctrine }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
@@ -4906,7 +4885,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_SOV"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_cooperation_with_russia"
 			SOV = { country_event = { id = kaz_army.21 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
@@ -4917,7 +4896,7 @@ focus_tree = {
 					name = KAZ_naval_russia_training
 					folder = naval
 				}
-				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = SOV }
 				set_temp_variable = { influence_target = KAZ }
 				change_influence_percentage = yes
@@ -4928,18 +4907,18 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-
+	#Turkish Shipyard Partnership
 	focus = {
-		id = KAZ_Naval_Cooperation_with_TUR
+		id = KAZ_naval_cooperation_with_turkey
 		icon = align_to_turkey
 
 		x = 1
 		y = 1
-		relative_position_id = KAZ_Choose_New_Doctrine
+		relative_position_id = KAZ_choose_new_doctrine
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_Choose_New_Doctrine }
+		prerequisite = { focus = KAZ_choose_new_doctrine }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
@@ -4951,19 +4930,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_TUR"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_cooperation_with_turkey"
 			TUR = { country_event = { id = kaz_army.17 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				add_tech_bonus = {
 					name = KAZ_naval_turkey_patrol_boats
-					bonus = 0.3
+					bonus = 0.5
 					uses = 1
 					category = CAT_corvette
 				}
-				set_temp_variable = { treasury_change = -3.5 }
+				set_temp_variable = { treasury_change = -1 }
 				modify_treasury_effect = yes
-				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = TUR }
 				set_temp_variable = { influence_target = KAZ }
 				change_influence_percentage = yes
@@ -4974,33 +4953,25 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-
+	#First Shipyards
 	focus = {
-		id = KAZ_First_Shipyards
+		id = KAZ_first_shipyards
 		icon = generic_army_dockyard
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_Naval_Cooperation_with_SOV
+		relative_position_id = KAZ_naval_cooperation_with_russia
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_Naval_Cooperation_with_SOV }
+		prerequisite = { focus = KAZ_naval_cooperation_with_russia }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_First_Shipyards"
-			random_owned_controlled_state = {
-				prioritize = { 718 }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_first_shipyards"
+			1230 = { # Mangystau
+				two_state_dockyards = yes
 			}
-			set_temp_variable = { treasury_change = -15 }
-			modify_treasury_effect = yes
 			navy_experience = 50
 		}
 
@@ -5008,22 +4979,22 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-
+	#Modernization of the Navy
 	focus = {
-		id = KAZ_Modernization_of_the_Navy
+		id = KAZ_modernization_of_the_navy
 		icon = modernization_corvettes
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_Naval_Cooperation_with_TUR
+		relative_position_id = KAZ_naval_cooperation_with_turkey
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_Naval_Cooperation_with_TUR }
+		prerequisite = { focus = KAZ_naval_cooperation_with_turkey }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Modernization_of_the_Navy"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_modernization_of_the_navy"
 			navy_experience = 25
 			newline = yes
 			swap_ideas = {
@@ -5036,24 +5007,23 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-
-
+	#Great Kazakh Navy
 	focus = {
-		id = KAZ_Great_Kazakh_Navy
+		id = KAZ_great_kazakh_navy
 		icon = kaz_final_flot
 
 		x = 1
 		y = 1
-		relative_position_id = KAZ_First_Shipyards
+		relative_position_id = KAZ_first_shipyards
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_First_Shipyards }
-		prerequisite = { focus = KAZ_Modernization_of_the_Navy }
+		prerequisite = { focus = KAZ_first_shipyards }
+		prerequisite = { focus = KAZ_modernization_of_the_navy }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Great_Kazakh_Navy"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_great_kazakh_navy"
 			add_command_power = 25
 			one_random_dockyard = yes
 			newline = yes

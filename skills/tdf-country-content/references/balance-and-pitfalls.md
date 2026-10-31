@@ -34,11 +34,15 @@
 | Несуществующая категория доктрины | `special_forces_doctrine` | сверять с категориями мода |
 | Скрытая идея без tooltip | см. п.2 | добавить `custom_effect_tooltip` |
 | Вода и филлеры в описании | "improve reliability and efficiency" | заменить конкретикой, см. `focus-loc.md`, п.8 |
-| Пустая обёртка `OR = { NOT = { ... } }` с одним условием | `bypass` у `KAZ_Naval_Cooperation_with_SOV` в старом коде | одно условие без обёртки |
+| Пустая обёртка `OR = { NOT = { ... } }` с одним условием | `bypass` у `KAZ_naval_cooperation_with_russia` в старом коде | одно условие без обёртки |
 | `country_exists` и в `available`, и в `bypass` | оба партнёрских фокуса флота Казахстана | оставить в `bypass`, в `available` только война и другие игровые условия |
 | Промежуточное событие «запрос отправлен» перед ответом партнёра | `kaz_army.16` и `kaz_army.20` | удалить: событие шлётся партнёру сразу из фокуса (`design-guide.md`, п. 3.3) |
 | Свой ключ `*_tooltip_loc` для эффекта, который стандартно показывает `effect_tooltip` | `KAZ_naval_russia_tooltip_loc` | `effect_if_they_accept_TT` + `effect_tooltip`; кастомный tooltip только для вариантов техники и случаев, когда иначе не показать |
 | Иконка выбрана по названию, а не по использованию | `turk_naval` оказалась иконкой спора о газе у Израиля (`ISR_claim_aphrodite`) | перед выбором иконки смотреть, где она уже стоит: `grep -B3 "icon = ИМЯ" common/national_focus/*.txt`; корабельной иконки Турции в репозитории нет, взята `align_to_turkey` |
+| Заглавные слова в id фокуса | `KAZ_First_Shipyards`, `KAZ_Naval_Cooperation_with_CHI` | `KAZ_first_shipyards`; страны словами, не тегами |
+| Блок пустых строк между фокусами и фокус без названия-комментария | 21 пустая строка перед `KAZ_choose_new_doctrine` | `\t#English Name` вместо пустой строки перед `focus = {` |
+| Осиротевшие `#`-заголовки от удалённых событий | `#USA Joint Exercises` и ещё три строки подряд, а событий под ними нет | при удалении события удалять и его заголовок; на одно событие один заголовок (`#Naval Cooperation with Turkey`), без дублирующих `#Event for ...` |
+| Здание вручную: `random_owned_controlled_state` + `add_building_construction` + `treasury_change` | `KAZ_first_shipyards` | `N = { two_state_dockyards = yes }` (казна списывается скриптом) |
 | Описание не совпадает с наградой | «two dockyards» против одного дока 2 уровня | сверять построчно, см. `focus-loc.md`, п. 8 |
 | Выдуманное «реальное» сотрудничество | Китай и флот Казахстана | искать подтверждение; в тексте только проверенное (п. 4) |
 

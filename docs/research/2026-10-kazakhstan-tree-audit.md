@@ -24,7 +24,7 @@ The `KAZ_reorganization_infantry` branch has a useful progression from army refo
 AHKE already exists. Rename `KAZ_create_AHKE` to something like `KAZ_expand_AHKE` and focus on helicopter assembly/MRO, component localization, maintenance and training. Move it to the aviation branch; do not make it mandatory for the infantry capstone.
 
 ## Navy
-Model a Caspian flotilla: maritime border and port security, patrol, minesweeping, hydrography, anti-sabotage and local shipbuilding at Zenit. Review generic `KAZ_Great_Kazakh_Navy`, incorrect-looking army search filters on naval focuses, and `has_idea = KAZ_naval_bonus` prerequisites.
+Model a Caspian flotilla: maritime border and port security, patrol, minesweeping, hydrography, anti-sabotage and local shipbuilding at Zenit. Review generic `KAZ_great_kazakh_navy`, incorrect-looking army search filters on naval focuses, and `has_idea = KAZ_naval_bonus` prerequisites.
 
 ## High-priority technical QA
 1. Validate all technology, idea, event, equipment-variant and MIO IDs.
