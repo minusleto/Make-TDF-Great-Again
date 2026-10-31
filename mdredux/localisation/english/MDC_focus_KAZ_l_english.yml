@@ -910,19 +910,19 @@
 
  #Navy Focus Tree loc
  KAZ_naval_forces: "Naval Forces"
- KAZ_naval_forces_desc: "Kazakhstan took a quarter of the Soviet Caspian Flotilla's patrol boats in 1993, lost its navy to a string of accidents in 1997 and restored it by decree only in 2003. We will found the service again and this time train the crews before sending them out."
+ KAZ_naval_forces_desc: "Kazakhstan took a quarter of the Soviet Caspian Flotilla's patrol boats, lost its navy to a string of accidents and had to restore it by decree years later. We will found the service again and this time train the crews before sending them out."
  KAZ_choose_new_doctrine: "Choose New Doctrine"
  KAZ_choose_new_doctrine_desc: "Soviet coastal-defence manuals assume a fleet we do not have, and the other Caspian navies are already writing their own. Our officers will rewrite the doctrine for a closed, shallow sea before the first real ships arrive."
  KAZ_naval_coop_russia: "Naval Cooperation with Russia"
- KAZ_naval_coop_russia_desc: "Russian yards delivered the minesweeper Alatau in 2016, and our cadets have long trained in Russian academies. We will ask Moscow for instructors and doctrine for the Caspian. The price is Russian eyes on everything we do at sea."
+ KAZ_naval_coop_russia_desc: "Russian yards delivered the minesweeper Alatau to our navy, and our cadets have long trained in Russian academies. We will ask Moscow for instructors and doctrine for the Caspian. The price is Russian eyes on everything we do at sea."
  KAZ_naval_coop_turkey: "Turkish Shipyard Partnership"
- KAZ_naval_coop_turkey_desc: "In 2023 the Zenit plant in Uralsk signed with Turkey's ASFAT and YDA to design and build warships for our navy. We will buy Turkish patrol boat designs for the Caspian. Ankara is not a charity, and its voice in Astana will grow with every hull."
+ KAZ_naval_coop_turkey_desc: "Turkey's ASFAT and YDA have agreed with the Zenit plant in Uralsk to design and build warships for our navy. We will buy Turkish patrol boat designs for the Caspian. Ankara is not a charity, and its voice in Astana will grow with every hull."
  KAZ_first_shipyards: "First Shipyards"
  KAZ_first_shipyards_desc: "Our boats are built at the Zenit plant in Uralsk, far inland on the Ural river, and fitted out in Aktau. We will build two dockyards in Mangystau so that the Caspian coast stops depending on a river yard."
  KAZ_modernization_of_the_navy: "Modernization of the Navy"
  KAZ_modernization_of_the_navy_desc: "Our boats were built for the Soviet Caspian Flotilla and still carry its radios and radars. The oldest hulls get refits and their crews get retrained, one patrol boat at a time, because the budget will not cover a whole fleet."
  KAZ_great_kazakh_navy: "Great Kazakh Navy"
- KAZ_great_kazakh_navy_desc: "The yards are running and the first boats are refitted. We will put the Caspian Flotilla under one command and finish what the 2003 decree started. It will not leave the sea, but it will sweep mines, keep its boats afloat and guard the oil routes."
+ KAZ_great_kazakh_navy_desc: "The yards are running and the first boats are refitted. We will put the Caspian Flotilla under one command and finish what the founding decree started. It will not leave the sea, but it will sweep mines, keep its boats afloat and guard the oil routes."
 
  #Foreign Policy Focus Tree loc
  KAZ_foreign_policy: "Foreign Policy of Kazakhstan"
