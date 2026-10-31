@@ -3366,30 +3366,7 @@ country_event = {
 #Event for USA
 #USA Accepted
 #USA Poslali
-#Naval Cooperation with China
-country_event = {
-	id = kaz_army.16
-	title = kaz_army.16.t
-	desc = kaz_army.16.d
-	picture = GFX_POL_mig_29_event #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.16.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.16.a executed"
-		TUR = {
-			country_event = {
-				id = kaz_army.17
-				days = 1
-			}
-		}
-
-		ai_chance = {
-			base = 100
-		}
-	}
-}
+#Naval Cooperation with Turkey
 #Event for TUR
 country_event = {
 	id = kaz_army.17
@@ -3482,23 +3459,6 @@ country_event = {
 }
 
 #Naval Cooperation with Russia
-country_event = {
-	id = kaz_army.20
-	title = kaz_army.20.t
-	desc = kaz_army.20.d
-	picture = GFX_POL_mig_29_event #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.20.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.20.a executed"
-		SOV = { country_event = kaz_army.21 }
-		ai_chance = {
-			base = 100
-		}
-	}
-}
 #Event for RUS
 country_event = {
 	id = kaz_army.21

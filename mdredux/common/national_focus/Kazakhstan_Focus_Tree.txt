@@ -4898,7 +4898,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			country_exists = SOV
 			NOT = { has_war_with = SOV }
 		}
 
@@ -4912,7 +4911,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_SOV"
-			KAZ = { country_event = kaz_army.20 }
+			SOV = {
+				country_event = {
+					id = kaz_army.21
+					days = 1
+				}
+			}
 			custom_effect_tooltip = KAZ_naval_russia_tooltip_loc
 		}
 
@@ -4935,7 +4939,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			country_exists = TUR
 			NOT = { has_war_with = TUR }
 		}
 
@@ -4945,7 +4948,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_TUR"
-			KAZ = { country_event = kaz_army.16 }
+			TUR = {
+				country_event = {
+					id = kaz_army.17
+					days = 1
+				}
+			}
 			custom_effect_tooltip = KAZ_naval_turkey_tooltip_loc
 		}
 
