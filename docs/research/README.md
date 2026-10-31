@@ -4,6 +4,7 @@ Consolidated reviews and fact-checking notes for TDF / MDC.
 
 ## Documents
 - [TDF trees audit vs skills (2026-10-30)](2026-10-tdf-trees-audit.md) — all 10 focus trees measured against the skill rules: bugs by country, "tool per focus" metric, description/event style, skill health, fix priorities.
+- [Kazakhstan navy branch review (2026-10-31)](2026-10-kazakhstan-navy-design-review.md) — navy branch run through design-guide: Russia event routing and gate bugs fixed, descriptions rewritten, open design decisions.
 - [Content review principles](2026-10-content-review-principles.md) — reusable checklist, with summary takeaways from Portugal, Poland and Russia.
 - [Kazakhstan military tree audit](2026-10-kazakhstan-tree-audit.md) — focus-level issues and technical QA priorities from the focus tree.
 - [Kazakhstan aviation fact-check](2026-10-kazakhstan-aviation-fact-check.md) — China / US / Iran procurement status and recommendations for the 2000–2030 sandbox.

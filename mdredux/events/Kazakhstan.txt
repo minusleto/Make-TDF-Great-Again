@@ -3486,7 +3486,7 @@ country_event = {
 	option = {
 		name = kaz_army.20.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.20.a executed"
-		CHI = { country_event = kaz_army.21 }
+		SOV = { country_event = kaz_army.21 }
 		ai_chance = {
 			base = 100
 		}
@@ -3544,9 +3544,15 @@ country_event = {
 	option = {
 		name = kaz_army.22.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.22.a executed"
-		swap_ideas = {
-			remove_idea = KAZ_naval_bonus
-			add_idea = KAZ_naval_bonus_2
+		if = {
+			limit = { has_idea = KAZ_naval_bonus }
+			swap_ideas = {
+				remove_idea = KAZ_naval_bonus
+				add_idea = KAZ_naval_bonus_2
+			}
+		}
+		else = {
+			add_ideas = KAZ_naval_bonus
 		}
 		set_temp_variable = { percent_change = 3 }
 		set_temp_variable = { tag_index = SOV }
