@@ -69,6 +69,7 @@
 		KAZ_army_idea
 		KAZ_outdated_army_idea
 		KAZ_outdate_wings_idea
+		KAZ_outdated_navy_idea
 
 		crippling_corruption
 		sunni

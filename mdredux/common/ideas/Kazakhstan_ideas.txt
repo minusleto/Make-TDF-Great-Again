@@ -1385,6 +1385,60 @@ ideas = {
                 air_cas_efficiency = -0.02
             }
         }
+
+        #Navy
+        KAZ_outdated_navy_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                naval_damage_factor = -0.15
+                naval_defense_factor = -0.15
+                navy_org_factor = -0.15
+                naval_speed_factor = -0.10
+            }
+        }
+        KAZ_outdated_navy_1_idea = {
+            name = KAZ_outdated_navy_idea
+            allowed_civil_war = { always = yes }
+            modifier = {
+                naval_damage_factor = -0.10
+                naval_defense_factor = -0.10
+                navy_org_factor = -0.10
+                naval_speed_factor = -0.05
+            }
+        }
+        KAZ_outdated_navy_2_idea = {
+            name = KAZ_outdated_navy_idea
+            allowed_civil_war = { always = yes }
+            modifier = {
+                naval_damage_factor = -0.05
+                naval_defense_factor = -0.05
+                navy_org_factor = -0.05
+            }
+        }
+        KAZ_caspian_flotilla_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                naval_defense_factor = 0.05
+                navy_org_factor = 0.05
+                naval_hit_chance = 0.05
+            }
+        }
+        KAZ_navy_russian_training_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                navy_org_factor = 0.15
+                naval_defense_factor = 0.10
+                naval_retreat_chance = 0.05
+            }
+        }
+        KAZ_navy_turkish_shipbuilding_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                naval_speed_factor = 0.125
+                naval_damage_factor = 0.075
+                navy_max_range_factor = 0.075
+            }
+        }
         KAZ_modern_air_forces = {
             allowed_civil_war = { always = yes }
             modifier = {
@@ -2333,35 +2387,6 @@ ideas = {
                 L_AT_Equipment = {
                     build_cost_ic = -0.09
                 }
-            }
-        }
-
-        KAZ_naval_bonus = {
-            allowed_civil_war = { always = yes }
-
-            modifier = {
-                naval_damage_factor = 0.075
-                naval_defense_factor = 0.1
-                naval_detection = 0.125
-                naval_night_attack = 0.075
-                naval_retreat_chance = 0.05
-                naval_speed_factor = 0.125
-                navy_org_factor = 0.15
-                navy_max_range_factor = 0.075
-            }
-        }
-        KAZ_naval_bonus_2 = {
-            allowed_civil_war = { always = yes }
-
-            modifier = {
-                naval_damage_factor = 0.15
-                naval_defense_factor = 0.2
-                naval_detection = 0.25
-                naval_night_attack = 0.15
-                naval_retreat_chance = 0.1
-                naval_speed_factor = 0.25
-                navy_org_factor = 0.30
-                navy_max_range_factor = 0.15
             }
         }
 

@@ -3378,7 +3378,7 @@ country_event = {
 	option = {
 		name = kaz_army.16.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.16.a executed"
-		CHI = {
+		TUR = {
 			country_event = {
 				id = kaz_army.17
 				days = 1
@@ -3390,7 +3390,7 @@ country_event = {
 		}
 	}
 }
-#Event for CHI
+#Event for TUR
 country_event = {
 	id = kaz_army.17
 	title = kaz_army.17.t
@@ -3430,7 +3430,7 @@ country_event = {
 		}
 	}	
 }
-#CHI Accepted
+#TUR Accepted
 country_event = {
 	id = kaz_army.18
 	title = kaz_army.18.t
@@ -3442,9 +3442,9 @@ country_event = {
 	option = {
 		name = kaz_army.18.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.18.a executed"
-		add_ideas = KAZ_naval_bonus
+		add_ideas = KAZ_navy_turkish_shipbuilding_idea
 		set_temp_variable = { percent_change = 3 }
-		set_temp_variable = { tag_index = CHI }
+		set_temp_variable = { tag_index = TUR }
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
 
@@ -3453,7 +3453,7 @@ country_event = {
 		}
 	}
 }
-#CHI Poslal
+#TUR Poslal
 country_event = {
 	id = kaz_army.19
 	title = kaz_army.19.t
@@ -3544,16 +3544,7 @@ country_event = {
 	option = {
 		name = kaz_army.22.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.22.a executed"
-		if = {
-			limit = { has_idea = KAZ_naval_bonus }
-			swap_ideas = {
-				remove_idea = KAZ_naval_bonus
-				add_idea = KAZ_naval_bonus_2
-			}
-		}
-		else = {
-			add_ideas = KAZ_naval_bonus
-		}
+		add_ideas = KAZ_navy_russian_training_idea
 		set_temp_variable = { percent_change = 3 }
 		set_temp_variable = { tag_index = SOV }
 		set_temp_variable = { influence_target = KAZ }

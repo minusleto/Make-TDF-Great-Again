@@ -226,3 +226,37 @@ defined_text = {
 		localization_key = KAZ_trained_officer_corps_loc1
 	}
 }
+#Navy Ideas
+defined_text = {
+	name = KAZ_outdated_navy_loc
+	text = {
+		trigger = { has_idea = KAZ_outdated_navy_idea }
+		localization_key = KAZ_outdated_navy_loc1
+	}
+	text = {
+		trigger = { has_idea = KAZ_outdated_navy_1_idea }
+		localization_key = KAZ_outdated_navy_loc2
+	}
+	text = {
+		trigger = { has_idea = KAZ_outdated_navy_2_idea }
+		localization_key = KAZ_outdated_navy_loc3
+	}
+	text = {
+		trigger = { has_idea = KAZ_caspian_flotilla_idea }
+		localization_key = KAZ_caspian_flotilla_loc1
+	}
+}
+defined_text = {
+	name = KAZ_navy_russian_training_loc
+	text = {
+		trigger = { has_idea = KAZ_navy_russian_training_idea }
+		localization_key = KAZ_navy_russian_training_loc1
+	}
+}
+defined_text = {
+	name = KAZ_navy_turkish_shipbuilding_loc
+	text = {
+		trigger = { has_idea = KAZ_navy_turkish_shipbuilding_idea }
+		localization_key = KAZ_navy_turkish_shipbuilding_loc1
+	}
+}

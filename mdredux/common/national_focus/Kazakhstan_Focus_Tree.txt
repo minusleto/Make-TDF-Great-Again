@@ -3390,6 +3390,11 @@ focus_tree = {
 			one_random_dockyard = yes
 			one_random_dockyard = yes
 			navy_experience = 20
+			newline = yes
+			swap_ideas = {
+				remove_idea = KAZ_outdated_navy_idea
+				add_idea = KAZ_outdated_navy_1_idea
+			}
 		}
 
 		ai_will_do = {
@@ -4908,6 +4913,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_SOV"
 			KAZ = { country_event = kaz_army.20 }
+			custom_effect_tooltip = KAZ_naval_russia_tooltip_loc
 		}
 
 		ai_will_do = {
@@ -4916,8 +4922,8 @@ focus_tree = {
 	}
 
 	focus = {
-		id = KAZ_Naval_Cooperation_with_CHI
-		icon = cooperation_with_china
+		id = KAZ_Naval_Cooperation_with_TUR
+		icon = align_to_turkey
 
 		x = 1
 		y = 1
@@ -4929,32 +4935,24 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			country_exists = CHI
-			OR = {
-				NOT = {
-					has_war_with = CHI
-				}
-			}
+			country_exists = TUR
+			NOT = { has_war_with = TUR }
 		}
 
 		bypass = {
-			OR = {
-				NOT = {
-					country_exists = CHI
-				}
-			}
+			NOT = { country_exists = TUR }
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_CHI"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_TUR"
 			KAZ = { country_event = kaz_army.16 }
+			custom_effect_tooltip = KAZ_naval_turkey_tooltip_loc
 		}
 
 		ai_will_do = {
 			base = 1.5
 		}
 	}
-
 
 	focus = {
 		id = KAZ_First_Shipyards
@@ -4996,17 +4994,21 @@ focus_tree = {
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_Naval_Cooperation_with_CHI
+		relative_position_id = KAZ_Naval_Cooperation_with_TUR
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_Naval_Cooperation_with_CHI }
+		prerequisite = { focus = KAZ_Naval_Cooperation_with_TUR }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Modernization_of_the_Navy"
 			navy_experience = 25
-			add_ideas = GENERIC_navy_idea1
+			newline = yes
+			swap_ideas = {
+				remove_idea = KAZ_outdated_navy_1_idea
+				add_idea = KAZ_outdated_navy_2_idea
+			}
 		}
 
 		ai_will_do = {
@@ -5032,8 +5034,12 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Great_Kazakh_Navy"
 			add_command_power = 25
-			add_ideas = GENERIC_navy_idea2
 			one_random_dockyard = yes
+			newline = yes
+			swap_ideas = {
+				remove_idea = KAZ_outdated_navy_2_idea
+				add_idea = KAZ_caspian_flotilla_idea
+			}
 		}
 
 		ai_will_do = {
