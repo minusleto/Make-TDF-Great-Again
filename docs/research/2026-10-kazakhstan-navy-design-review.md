@@ -66,3 +66,4 @@
 - `KAZ_great_kazakh_navy`: убраны очки командования, добавлена скидка на морскую доктрину (`add_doctrine_cost_reduction`, 1 использование), верфь снова `one_random_dockyard` (место в описании не названо).
 - `KAZ_caspian_flotilla_idea` теперь про реальную историю: `naval_mine_hit_chance -0.08` (тральщики), `naval_accidents_chance -0.05` (аварии 1997 года), `navy_anti_air_attack_factor 0.08` (угроза беспилотников), `naval_defense_factor 0.05`.
 - Описания всех 7 флотских фокусов переписаны по формуле «факт, we will, короткое последствие» без перечня бонусов (1993/1997/2003, «Алатау», «Зенит» в Уральске и Актау, бюджет флота). Правило в `focus-loc.md` уточнено.
+- Формула описания в скиле - ориентир, не обязательный шаблон; в `KAZ_choose_new_doctrine` и `KAZ_modernization_of_the_navy` убран механический зачин «We will».
