@@ -4902,21 +4902,12 @@ focus_tree = {
 		}
 
 		bypass = {
-			OR = {
-				NOT = {
-					country_exists = SOV
-				}
-			}
+			NOT = { country_exists = SOV }
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_SOV"
-			SOV = {
-				country_event = {
-					id = kaz_army.21
-					days = 1
-				}
-			}
+			SOV = { country_event = { id = kaz_army.21 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				navy_experience = 40
@@ -4961,12 +4952,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_Naval_Cooperation_with_TUR"
-			TUR = {
-				country_event = {
-					id = kaz_army.17
-					days = 1
-				}
-			}
+			TUR = { country_event = { id = kaz_army.17 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				add_tech_bonus = {
