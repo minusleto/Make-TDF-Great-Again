@@ -57,3 +57,4 @@
 - Id флотских фокусов переведены в нижний регистр: `KAZ_naval_forces`, `KAZ_choose_new_doctrine`, `KAZ_naval_cooperation_with_russia`, `KAZ_naval_cooperation_with_turkey`, `KAZ_first_shipyards`, `KAZ_modernization_of_the_navy`, `KAZ_great_kazakh_navy`. Ссылки в дереве, локализации, скиле и заметках обновлены. Перед каждым фокусом ветки стоит `#English title` вместо пустой строки; блок из 21 пустой строки удалён.
 - Убраны осиротевшие комментарии про американские учения в `events/Kazakhstan.txt` (событий `kaz_army.12-15` в файле нет).
 - Верфи флота только в Мангистау (`1230`): `KAZ_naval_forces` без верфей, `KAZ_first_shipyards` две (`two_state_dockyards`), `KAZ_great_kazakh_navy` одна (`one_state_dockyard`). Случайных верфей в ветке не осталось.
+- Fallback для верфей (пункт issue про строительство): оба эффекта обёрнуты в `if = { limit = { controls_state = 1230 } ... }`, при потере Мангистау фокус всё равно завершается и капстоун не блокируется.

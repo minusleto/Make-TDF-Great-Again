@@ -4967,8 +4967,11 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_first_shipyards"
-			1230 = { # Mangystau
-				two_state_dockyards = yes
+			if = {
+				limit = { controls_state = 1230 }
+				1230 = { # Mangystau
+					two_state_dockyards = yes
+				}
 			}
 			navy_experience = 50
 		}
@@ -5023,8 +5026,11 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_great_kazakh_navy"
 			add_command_power = 25
-			1230 = { # Mangystau
-				one_state_dockyard = yes
+			if = {
+				limit = { controls_state = 1230 }
+				1230 = { # Mangystau
+					one_state_dockyard = yes
+				}
 			}
 			newline = yes
 			swap_ideas = {
