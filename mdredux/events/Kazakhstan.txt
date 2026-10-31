@@ -3362,7 +3362,7 @@ country_event = {
 		}
 	}
 }
-#Naval Cooperation with Turkey
+# TUR Naval Shipyard Partnership Proposal
 country_event = {
 	id = kaz_army.17
 	title = kaz_army.17.t
@@ -3402,7 +3402,7 @@ country_event = {
 		}
 	}	
 }
-#TUR Accepted
+# TUR Naval Shipyard Partnership agreed
 country_event = {
 	id = kaz_army.18
 	title = kaz_army.18.t
@@ -3426,14 +3426,10 @@ country_event = {
 		change_influence_percentage = yes
 		set_temp_variable = { treasury_change = -1 }
 		modify_treasury_effect = yes
-
-		ai_chance = {
-			base = 100
-		}
 	}
 }
 
-#Naval Cooperation with Russia
+# SOV Naval Cooperation Proposal
 country_event = {
 	id = kaz_army.21
 	title = kaz_army.21.t
@@ -3473,7 +3469,7 @@ country_event = {
 		}
 	}	
 }
-#RUS Accepted
+# SOV Naval Cooperation agreed
 country_event = {
 	id = kaz_army.22
 	title = kaz_army.22.t
@@ -3496,10 +3492,6 @@ country_event = {
 		set_temp_variable = { tag_index = SOV }
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
-
-		ai_chance = {
-			base = 100
-		}
 	}
 }
 #Kazakhstan Requests T-72KAE Cooperation

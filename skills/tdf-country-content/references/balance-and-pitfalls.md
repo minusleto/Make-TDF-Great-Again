@@ -42,6 +42,7 @@
 | Заглавные слова в id фокуса | `KAZ_First_Shipyards`, `KAZ_Naval_Cooperation_with_CHI` | `KAZ_first_shipyards`; страны словами, не тегами |
 | Блок пустых строк между фокусами и фокус без названия-комментария | 21 пустая строка перед `KAZ_choose_new_doctrine` | `\t#English Name` вместо пустой строки перед `focus = {` |
 | Осиротевшие `#`-заголовки от удалённых событий | `#USA Joint Exercises` и ещё три строки подряд, а событий под ними нет | при удалении события удалять и его заголовок; на одно событие один заголовок (`#Naval Cooperation with Turkey`), без дублирующих `#Event for ...` |
+| Заголовок события «#TUR Accepted» и `ai_chance` в событии согласия с одним вариантом | `kaz_army.18`, `kaz_army.22` | `# TUR ... agreed`, без `ai_chance` (см. `event-loc.md`, раздел про заголовки) |
 | Здание вручную: `random_owned_controlled_state` + `add_building_construction` + `treasury_change` | `KAZ_first_shipyards` | `N = { two_state_dockyards = yes }` (казна списывается скриптом) |
 | Описание противоречит награде или пересказывает её списком | «two dockyards» против одного дока; «add a dockyard and cut the cost of the next naval doctrine» | факт, намерение, короткое последствие, без перечня бонусов; см. `focus-loc.md`, п. 2 и последний абзац |
 | Выдуманное «реальное» сотрудничество | Китай и флот Казахстана | искать подтверждение; в тексте только проверенное (п. 4) |
