@@ -3388,7 +3388,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_forces"
 			navy_experience = 20
-			newline = yes
 			swap_ideas = {
 				remove_idea = KAZ_outdated_navy_idea
 				add_idea = KAZ_outdated_navy_1_idea
@@ -4972,7 +4971,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_first_shipyards"
 			navy_experience = 50
-			newline = yes
 			1230 = { # Mangystau
 				two_state_dockyards = yes
 			}
@@ -4999,7 +4997,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_modernization_of_the_navy"
 			navy_experience = 25
-			newline = yes
 			swap_ideas = {
 				remove_idea = KAZ_outdated_navy_1_idea
 				add_idea = KAZ_outdated_navy_2_idea
@@ -5037,7 +5034,6 @@ focus_tree = {
 				remove_idea = KAZ_outdated_navy_2_idea
 				add_idea = KAZ_caspian_flotilla_idea
 			}
-			newline = yes
 			one_random_dockyard = yes
 		}
 
