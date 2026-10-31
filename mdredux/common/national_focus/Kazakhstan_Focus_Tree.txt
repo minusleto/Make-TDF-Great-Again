@@ -4862,7 +4862,7 @@ focus_tree = {
 	}
 	#Naval Cooperation with Russia
 	focus = {
-		id = KAZ_naval_cooperation_with_russia
+		id = KAZ_naval_coop_russia
 		icon = align_to_russia
 
 		x = -1
@@ -4883,7 +4883,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_cooperation_with_russia"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_coop_russia"
 			SOV = { country_event = { id = kaz_army.21 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
@@ -4907,7 +4907,7 @@ focus_tree = {
 	}
 	#Turkish Shipyard Partnership
 	focus = {
-		id = KAZ_naval_cooperation_with_turkey
+		id = KAZ_naval_coop_turkey
 		icon = align_to_turkey
 
 		x = 1
@@ -4928,7 +4928,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_cooperation_with_turkey"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_coop_turkey"
 			TUR = { country_event = { id = kaz_army.17 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
@@ -4958,20 +4958,21 @@ focus_tree = {
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_naval_cooperation_with_russia
+		relative_position_id = KAZ_naval_coop_russia
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_naval_cooperation_with_russia }
+		prerequisite = { focus = KAZ_naval_coop_russia }
 		search_filters = { FOCUS_FILTER_ARMY }
+
+		available = {
+			controls_state = 1230
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_first_shipyards"
-			if = {
-				limit = { controls_state = 1230 }
-				1230 = { # Mangystau
-					two_state_dockyards = yes
-				}
+			1230 = { # Mangystau
+				two_state_dockyards = yes
 			}
 			navy_experience = 50
 		}
@@ -4987,11 +4988,11 @@ focus_tree = {
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_naval_cooperation_with_turkey
+		relative_position_id = KAZ_naval_coop_turkey
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_naval_cooperation_with_turkey }
+		prerequisite = { focus = KAZ_naval_coop_turkey }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
@@ -5025,13 +5026,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_great_kazakh_navy"
-			add_command_power = 25
-			if = {
-				limit = { controls_state = 1230 }
-				1230 = { # Mangystau
-					one_state_dockyard = yes
-				}
+			add_doctrine_cost_reduction = {
+				name = KAZ_great_kazakh_navy
+				cost_reduction = 1.0
+				uses = 1
+				category = CAT_naval_doctrine
 			}
+			one_random_dockyard = yes
 			newline = yes
 			swap_ideas = {
 				remove_idea = KAZ_outdated_navy_2_idea

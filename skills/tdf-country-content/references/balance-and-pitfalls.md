@@ -34,7 +34,7 @@
 | Несуществующая категория доктрины | `special_forces_doctrine` | сверять с категориями мода |
 | Скрытая идея без tooltip | см. п.2 | добавить `custom_effect_tooltip` |
 | Вода и филлеры в описании | "improve reliability and efficiency" | заменить конкретикой, см. `focus-loc.md`, п.8 |
-| Пустая обёртка `OR = { NOT = { ... } }` с одним условием | `bypass` у `KAZ_naval_cooperation_with_russia` в старом коде | одно условие без обёртки |
+| Пустая обёртка `OR = { NOT = { ... } }` с одним условием | `bypass` у `KAZ_naval_coop_russia` в старом коде | одно условие без обёртки |
 | `country_exists` и в `available`, и в `bypass` | оба партнёрских фокуса флота Казахстана | оставить в `bypass`, в `available` только война и другие игровые условия |
 | Промежуточное событие «запрос отправлен» перед ответом партнёра | `kaz_army.16` и `kaz_army.20` | удалить: событие шлётся партнёру сразу из фокуса (`design-guide.md`, п. 3.3) |
 | Свой ключ `*_tooltip_loc` для эффекта, который стандартно показывает `effect_tooltip` | `KAZ_naval_russia_tooltip_loc` | `effect_if_they_accept_TT` + `effect_tooltip`; кастомный tooltip только для вариантов техники и случаев, когда иначе не показать |

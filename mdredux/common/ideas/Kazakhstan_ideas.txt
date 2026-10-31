@@ -1418,9 +1418,10 @@ ideas = {
         KAZ_caspian_flotilla_idea = {
             allowed_civil_war = { always = yes }
             modifier = {
+                naval_mine_hit_chance = -0.08
+                naval_accidents_chance = -0.05
+                navy_anti_air_attack_factor = 0.08
                 naval_defense_factor = 0.05
-                navy_org_factor = 0.05
-                naval_hit_chance = 0.05
             }
         }
         KAZ_modern_air_forces = {
