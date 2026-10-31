@@ -910,7 +910,7 @@
 
  #Navy Focus Tree loc
  KAZ_naval_forces: "Naval Forces"
- KAZ_naval_forces_desc: "Kazakhstan inherited a quarter of the Soviet Caspian Flotilla's patrol boats in 1993 and no yards to repair them. We will lay down two dockyards and set up the naval service. The Soviet legacy weighs less and the fleet gains navy experience."
+ KAZ_naval_forces_desc: "Kazakhstan inherited a quarter of the Soviet Caspian Flotilla's patrol boats in 1993, but the naval forces were founded by decree only in 2003. We will set up the service and train its first staff. The Soviet legacy weighs less and the fleet gains navy experience."
  KAZ_choose_new_doctrine: "Choose New Doctrine"
  KAZ_choose_new_doctrine_desc: "Our officers were trained on Soviet coastal-defence manuals, which assume a fleet we do not have. We will review the doctrine for a closed sea and study how the other Caspian navies operate. The fleet gains navy experience and the next naval doctrine costs less research."
  KAZ_naval_cooperation_with_russia: "Naval Cooperation with Russia"
@@ -922,7 +922,7 @@
  KAZ_modernization_of_the_navy: "Modernization of the Navy"
  KAZ_modernization_of_the_navy_desc: "Our boats were built for the Soviet Caspian Flotilla and still carry its electronics. We will refit the oldest hulls and retrain their crews. The Soviet legacy weakens further and the fleet gains navy experience."
  KAZ_great_kazakh_navy: "Great Kazakh Navy"
- KAZ_great_kazakh_navy_desc: "The yards are running and the first boats are refitted. We will put the Caspian Flotilla under a single command, add another dockyard and drop most of the Soviet legacy. The fleet will not leave the sea, but it will defend our coast and oil routes."
+ KAZ_great_kazakh_navy_desc: "The yards are running and the first boats are refitted. We will put the Caspian Flotilla under a single command, add another dockyard in Mangystau and drop most of the Soviet legacy. The fleet will not leave the sea, but it will defend our coast and oil routes."
 
  #Foreign Policy Focus Tree loc
  KAZ_foreign_policy: "Foreign Policy of Kazakhstan"
