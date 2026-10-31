@@ -4917,7 +4917,20 @@ focus_tree = {
 					days = 1
 				}
 			}
-			custom_effect_tooltip = KAZ_naval_russia_tooltip_loc
+			custom_effect_tooltip = effect_if_they_accept_TT
+			effect_tooltip = {
+				navy_experience = 40
+				add_daily_mastery = {
+					amount = 0.5
+					days = 100
+					name = KAZ_naval_russia_training
+					folder = naval
+				}
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = SOV }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4954,7 +4967,21 @@ focus_tree = {
 					days = 1
 				}
 			}
-			custom_effect_tooltip = KAZ_naval_turkey_tooltip_loc
+			custom_effect_tooltip = effect_if_they_accept_TT
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = KAZ_naval_turkey_patrol_boats
+					bonus = 0.3
+					uses = 1
+					category = CAT_corvette
+				}
+				set_temp_variable = { treasury_change = -3.5 }
+				modify_treasury_effect = yes
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = TUR }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+			}
 		}
 
 		ai_will_do = {
