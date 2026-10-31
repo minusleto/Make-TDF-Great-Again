@@ -910,15 +910,15 @@
 
  #Navy Focus Tree loc
  KAZ_Naval_Forces: "Naval Forces"
- KAZ_Naval_Forces_desc: "Kazakhstan inherited a quarter of the Soviet Caspian Flotilla's patrol boats in 1993 and no yards to repair them. We will lay down two dockyards and set up the naval service. The Soviet legacy weighs less on the fleet."
+ KAZ_Naval_Forces_desc: "Kazakhstan inherited a quarter of the Soviet Caspian Flotilla's patrol boats in 1993 and no yards to repair them. We will lay down two dockyards and set up the naval service. The Soviet legacy weighs less and the fleet gains navy experience."
  KAZ_Choose_New_Doctrine: "Choose New Doctrine"
- KAZ_Choose_New_Doctrine_desc: "Our officers were trained on Soviet coastal-defence manuals, which assume a fleet we do not have. We will review the doctrine for a closed sea and study how the other Caspian navies operate. The next naval doctrine costs less research."
+ KAZ_Choose_New_Doctrine_desc: "Our officers were trained on Soviet coastal-defence manuals, which assume a fleet we do not have. We will review the doctrine for a closed sea and study how the other Caspian navies operate. The fleet gains navy experience and the next naval doctrine costs less research."
  KAZ_Naval_Cooperation_with_SOV: "Naval Cooperation with Russia"
  KAZ_Naval_Cooperation_with_SOV_desc: "In 2016 a Russian yard delivered the minesweeper Alatau to our navy, and our cadets train in Russia. We will ask Moscow for instructors and doctrine. If Russia agrees, we gain navy experience and doctrine progress and its influence rises. If it refuses, we gain domestic support."
  KAZ_Naval_Cooperation_with_TUR: "Turkish Shipyard Partnership"
  KAZ_Naval_Cooperation_with_TUR_desc: "In 2023 the Zenit plant in Uralsk signed with Turkey's ASFAT and YDA to build warships for our navy. We will buy Turkish patrol boat designs for the Caspian. If Turkey agrees, our corvette research speeds up and its influence rises. If it refuses, we gain domestic support."
  KAZ_First_Shipyards: "First Shipyards"
- KAZ_First_Shipyards_desc: "Our Caspian ports have berths but no yards. We will build two dockyards in a coastal state and add building slots there. The yards are paid from the treasury, and their first hulls will be patrol boats for the Caspian coast."
+ KAZ_First_Shipyards_desc: "Our Caspian ports have berths but no yards, and the Zenit plant stands inland in Uralsk. We will build a dockyard in a coastal state and open two extra building slots there. The yard is paid from the treasury, and the fleet gains navy experience."
  KAZ_Modernization_of_the_Navy: "Modernization of the Navy"
  KAZ_Modernization_of_the_Navy_desc: "Our boats were built for the Soviet Caspian Flotilla and still carry its electronics. We will refit the oldest hulls and retrain their crews. The Soviet legacy weakens further and the fleet gains navy experience."
  KAZ_Great_Kazakh_Navy: "Great Kazakh Navy"
