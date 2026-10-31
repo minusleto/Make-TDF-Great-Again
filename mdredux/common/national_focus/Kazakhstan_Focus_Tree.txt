@@ -4971,10 +4971,11 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_first_shipyards"
+			navy_experience = 50
+			newline = yes
 			1230 = { # Mangystau
 				two_state_dockyards = yes
 			}
-			navy_experience = 50
 		}
 
 		ai_will_do = {
@@ -5032,12 +5033,12 @@ focus_tree = {
 				uses = 1
 				category = CAT_naval_doctrine
 			}
-			one_random_dockyard = yes
-			newline = yes
 			swap_ideas = {
 				remove_idea = KAZ_outdated_navy_2_idea
 				add_idea = KAZ_caspian_flotilla_idea
 			}
+			newline = yes
+			one_random_dockyard = yes
 		}
 
 		ai_will_do = {
