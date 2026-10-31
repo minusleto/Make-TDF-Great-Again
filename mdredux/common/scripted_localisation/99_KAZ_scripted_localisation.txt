@@ -246,17 +246,3 @@ defined_text = {
 		localization_key = KAZ_caspian_flotilla_loc1
 	}
 }
-defined_text = {
-	name = KAZ_navy_russian_training_loc
-	text = {
-		trigger = { has_idea = KAZ_navy_russian_training_idea }
-		localization_key = KAZ_navy_russian_training_loc1
-	}
-}
-defined_text = {
-	name = KAZ_navy_turkish_shipbuilding_loc
-	text = {
-		trigger = { has_idea = KAZ_navy_turkish_shipbuilding_idea }
-		localization_key = KAZ_navy_turkish_shipbuilding_loc1
-	}
-}

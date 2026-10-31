@@ -3371,7 +3371,7 @@ country_event = {
 	id = kaz_army.16
 	title = kaz_army.16.t
 	desc = kaz_army.16.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
@@ -3395,7 +3395,7 @@ country_event = {
 	id = kaz_army.17
 	title = kaz_army.17.t
 	desc = kaz_army.17.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
@@ -3435,14 +3435,21 @@ country_event = {
 	id = kaz_army.18
 	title = kaz_army.18.t
 	desc = kaz_army.18.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
 	option = {
 		name = kaz_army.18.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.18.a executed"
-		add_ideas = KAZ_navy_turkish_shipbuilding_idea
+		add_tech_bonus = {
+			name = KAZ_naval_turkey_patrol_boats
+			bonus = 0.3
+			uses = 1
+			category = CAT_corvette
+		}
+		set_temp_variable = { treasury_change = -3.5 }
+		modify_treasury_effect = yes
 		set_temp_variable = { percent_change = 3 }
 		set_temp_variable = { tag_index = TUR }
 		set_temp_variable = { influence_target = KAZ }
@@ -3458,7 +3465,7 @@ country_event = {
 	id = kaz_army.19
 	title = kaz_army.19.t
 	desc = kaz_army.19.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
@@ -3479,7 +3486,7 @@ country_event = {
 	id = kaz_army.20
 	title = kaz_army.20.t
 	desc = kaz_army.20.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
@@ -3497,7 +3504,7 @@ country_event = {
 	id = kaz_army.21
 	title = kaz_army.21.t
 	desc = kaz_army.21.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
@@ -3537,14 +3544,20 @@ country_event = {
 	id = kaz_army.22
 	title = kaz_army.22.t
 	desc = kaz_army.22.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
 	option = {
 		name = kaz_army.22.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.22.a executed"
-		add_ideas = KAZ_navy_russian_training_idea
+		navy_experience = 40
+		add_daily_mastery = {
+			amount = 0.5
+			days = 100
+			name = KAZ_naval_russia_training
+			folder = naval
+		}
 		set_temp_variable = { percent_change = 3 }
 		set_temp_variable = { tag_index = SOV }
 		set_temp_variable = { influence_target = KAZ }
@@ -3560,7 +3573,7 @@ country_event = {
 	id = kaz_army.23
 	title = kaz_army.23.t
 	desc = kaz_army.23.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_POL_mig_29_event #TODO
 
 	is_triggered_only = yes
 
