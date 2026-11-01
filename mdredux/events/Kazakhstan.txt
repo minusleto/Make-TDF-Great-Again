@@ -3245,25 +3245,8 @@ country_event = {
 		modify_treasury_effect = yes
 		ai_chance = { base = 100 }
 	}
-}#Skylark UAV Cooperation
-country_event = {
-	id = kaz_army.8
-	title = kaz_army.8.t
-	desc = kaz_army.8.d
-	picture = GFX_POL_mig_29_event
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.8.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.8.a executed"
-		ISR = { country_event = kaz_army.9 }
-		ai_chance = {
-			base = 100
-		}
-	}
 }
-#Elbit Systems Reviews Cooperation
+#Skylark UAV Cooperation
 country_event = {
 	id = kaz_army.9
 	title = kaz_army.9.t
@@ -3275,37 +3258,25 @@ country_event = {
 	option = {
 		name = kaz_army.9.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.9.a executed"
-		ISR = {
-		    set_temp_variable = { treasury_change = 15 }
-			modify_treasury_effect = yes
-		}
-		KAZ = { country_event = kaz_army.10 }
+		set_temp_variable = { treasury_change = 15 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = ISR }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		FROM = { country_event = { id = kaz_army.10 days = 1 } }
 		ai_chance = {
-			base = 10
-			modifier = {
-				add = 90
-				has_opinion = {
-					target = KAZ
-					value > 10
-				}
-			}
+			base = 100
 		}
 	}
 	option = {
 		name = kaz_army.9.b
 		log = "[GetDateText]: [This.GetName]: kaz_army.9.b executed"
-		KAZ = { country_event = kaz_army.11 }
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 0
-			modifier = {
-				add = 100
-				has_opinion = {
-					target = KAZ
-					value < 10
-				}
-			}
 		}
-	}	
+	}
 }
 #Elbit Systems Accepted
 country_event = {
@@ -3322,41 +3293,17 @@ country_event = {
 		set_temp_variable = { treasury_change = -15 }
 		modify_treasury_effect = yes
 		add_tech_bonus = {
-            name = CAT_fighter
-            bonus = 0.75
-            uses = 1
-            category = CAT_fighter
-        }
-		add_tech_bonus = {
-            name = CAT_air_engine
-            bonus = 0.75
-            uses = 1
-            category = CAT_air_engine
-        }
-		set_temp_variable = { percent_change = 5 }
-		set_temp_variable = { tag_index = ISR }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
-		ai_chance = {
-			base = 100
+			name = CAT_fighter
+			bonus = 0.75
+			uses = 1
+			category = CAT_fighter
 		}
-	}
-}
-#Elbit Systems Rejected
-country_event = {
-	id = kaz_army.11
-	title = kaz_army.11.t
-	desc = kaz_army.11.d
-	picture = GFX_POL_mig_29_event
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.11.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.11.a executed"
-		add_political_power = 35
-		set_temp_variable = { percent_change = 5 }
-		change_domestic_influence_percentage = yes
+		add_tech_bonus = {
+			name = CAT_air_engine
+			bonus = 0.75
+			uses = 1
+			category = CAT_air_engine
+		}
 		ai_chance = {
 			base = 100
 		}

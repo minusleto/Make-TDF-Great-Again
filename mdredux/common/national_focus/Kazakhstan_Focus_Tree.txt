@@ -4018,22 +4018,45 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			country_exists = ISR
+			ISR = {
+				has_opinion = {
+					target = KAZ
+					value > 24
+				}
+			}
 			NOT = { has_war_with = ISR }
 		}
 
-		bypass = {
-			OR = {
-				NOT = {
-					country_exists = ISR
-				}
-			}
-		}
+		bypass = { NOT = { country_exists = ISR } }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_uav_cooperation"
-			KAZ = { country_event = kaz_army.8 }
-		}
+			ISR = { country_event = { id = kaz_army.9 days = 1 } }
+			custom_effect_tooltip = effect_if_they_accept_TT
+			effect_tooltip = {
+				ISR = {
+					set_temp_variable = { treasury_change = 15 }
+					modify_treasury_effect = yes
+					set_temp_variable = { percent_change = 1 }
+					set_temp_variable = { tag_index = ISR }
+					set_temp_variable = { influence_target = KAZ }
+					change_influence_percentage = yes
+				}
+				set_temp_variable = { treasury_change = -15 }
+				modify_treasury_effect = yes
+				add_tech_bonus = {
+					name = CAT_fighter
+					bonus = 0.75
+					uses = 1
+					category = CAT_fighter
+				}
+				add_tech_bonus = {
+					name = CAT_air_engine
+					bonus = 0.75
+					uses = 1
+					category = CAT_air_engine
+				}
+			}
 
 		ai_will_do = {
 			base = 1.5
