@@ -4132,6 +4132,7 @@ focus_tree = {
 					amount = 60
 					variant_name = "MiG-29 Fulcrum"
 					producer = SOV
+				}
 				set_temp_variable = { treasury_change = -8.00 }
 				modify_treasury_effect = yes
 			}
