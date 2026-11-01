@@ -4858,6 +4858,12 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_choose_new_doctrine"
 			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				name = CAT_naval_doctrine
+				cost_reduction = 1.0
+				uses = 1
+				category = CAT_naval_doctrine
+			}
 			add_mastery = {
 				amount = 200
 				folder = naval
