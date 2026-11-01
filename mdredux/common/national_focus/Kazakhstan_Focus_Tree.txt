@@ -4976,11 +4976,11 @@ focus_tree = {
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_naval_coop_russia
+		relative_position_id = KAZ_naval_coop_turkey
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_naval_coop_russia }
+		prerequisite = { focus = KAZ_naval_coop_turkey }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
@@ -5006,11 +5006,11 @@ focus_tree = {
 
 		x = 0
 		y = 1
-		relative_position_id = KAZ_naval_coop_turkey
+		relative_position_id = KAZ_naval_coop_russia
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_naval_coop_turkey }
+		prerequisite = { focus = KAZ_naval_coop_russia }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
@@ -5039,7 +5039,7 @@ focus_tree = {
 		id = KAZ_great_kazakh_navy
 		icon = kaz_final_flot
 
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = KAZ_first_shipyards
 

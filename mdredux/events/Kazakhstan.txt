@@ -3267,7 +3267,7 @@ country_event = {
 	id = kaz_army.17
 	title = kaz_army.17.t
 	desc = kaz_army.17.d
-	picture = GFX_POL_mig_29_event #TODO
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
@@ -3313,7 +3313,7 @@ country_event = {
 	id = kaz_army.18
 	title = kaz_army.18.t
 	desc = kaz_army.18.d
-	picture = GFX_POL_mig_29_event #TODO
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
@@ -3336,7 +3336,7 @@ country_event = {
 	id = kaz_army.21
 	title = kaz_army.21.t
 	desc = kaz_army.21.d
-	picture = GFX_POL_mig_29_event #TODO
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
@@ -3381,7 +3381,7 @@ country_event = {
 	id = kaz_army.22
 	title = kaz_army.22.t
 	desc = kaz_army.22.d
-	picture = GFX_POL_mig_29_event #TODO
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
