@@ -4048,6 +4048,7 @@ focus_tree = {
 					category = CAT_air_engine
 				}
 			}
+		}
 
 		ai_will_do = {
 			base = 1.5
