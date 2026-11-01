@@ -4989,7 +4989,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_first_shipyards"
-			navy_experience = 50
 			1230 = { # Mangystau
 				two_state_dockyards = yes
 			}
@@ -5015,7 +5014,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_modernization_of_the_navy"
-			navy_experience = 25
 			add_tech_bonus = {
 				name = KAZ_modernization_of_the_navy
 				bonus = 0.5
