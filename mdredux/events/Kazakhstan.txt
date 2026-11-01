@@ -3374,7 +3374,13 @@ country_event = {
 	option = {
 		name = kaz_army.17.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.17.a executed"
-		KAZ = { country_event = kaz_army.18 }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = TUR }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 1 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.18 days = 1 } }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -3420,10 +3426,6 @@ country_event = {
 			uses = 1
 			category = CAT_corvette
 		}
-		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = TUR }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
 		set_temp_variable = { treasury_change = -1 }
 		modify_treasury_effect = yes
 	}
