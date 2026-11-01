@@ -54,3 +54,9 @@ No reliable confirmation was found in the reviewed public official sources that 
 
 ## Technical reminder
 Before implementing any reward, inspect event files, equipment variants, technologies, localization and scripted effects. A model name in a tooltip is not evidence that the actual reward executes.
+
+## Update (agent #5, issue #4)
+
+- `KAZ_buy_planes_from_china` is now `KAZ_wing_loong_china` ("Chinese Wing Loong Drones"): no MiG-29, no aircraft stockpile reward; the reward is a one-use research bonus on `CAT_drones` plus the contract price, delivered by `kaz_army.2` on the Kazakh side after China answers `kaz_army.1`. Icon `buy_chinese_j7iii` replaced with `cooperation_with_china` (J-7III is not confirmed either).
+- `KAZ_skylark_uav_cooperation` is now `KAZ_skylark_israel`: bonus narrowed to `CAT_l_drone`, text no longer claims local assembly (not confirmed; the fact-check only says Skylark is reported in the inventory), texts of `kaz_army.9` and `kaz_army.10` reworked.
+- Both chains follow the direct-event pattern: partner receives influence and money in its own accept option, general refusal `mdc4.16`, `effect_if_they_accept_TT` in the focus, neutral `GFX_handshake_black #TODO` pictures.

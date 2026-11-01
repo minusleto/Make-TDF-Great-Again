@@ -3080,54 +3080,54 @@ country_event = {
 }
 
 # ARMY
-#Buy Mig-29
+# CHI Wing Loong UAV Proposal
 country_event = {
 	id = kaz_army.1
 	title = kaz_army.1.t
 	desc = kaz_army.1.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
 	option = {
 		name = kaz_army.1.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.1.a executed"
-		set_temp_variable = { treasury_change = 8.00 }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = CHI }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 5 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = {
-			type = small_plane_airframe_2
-			amount = -60
-			producer = ROOT
-		}
 		KAZ = { country_event = { id = kaz_army.2 days = 1 } }
 		ai_chance = { base = 100 }
 	}
 	option = {
 		name = kaz_army.1.b
 		log = "[GetDateText]: [This.GetName]: kaz_army.1.b executed"
-		KAZ = { country_event = { id = mdc4.16 days = 1 } }
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = { base = 0 }
 	}
 }
-#Buy Mig-29 Accept
+# CHI Wing Loong UAV agreed
 country_event = {
 	id = kaz_army.2
 	title = kaz_army.2.t
 	desc = kaz_army.2.d
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
 	option = {
 		name = kaz_army.2.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.2.a executed"
-		set_temp_variable = { treasury_change = -8.00 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = {
-			type = small_plane_airframe_2
-			amount = 60
-			variant_name = "MiG-29 Fulcrum"
-			producer = SOV
+		add_tech_bonus = {
+			name = KAZ_wing_loong_china
+			bonus = 0.75
+			uses = 1
+			category = CAT_drones
 		}
+		set_temp_variable = { treasury_change = -5 }
+		modify_treasury_effect = yes
 	}
 }
 #VDV
@@ -3204,12 +3204,12 @@ country_event = {
 		ai_chance = { base = 100 }
 	}
 }
-#Skylark UAV Cooperation
+# ISR Skylark UAV Proposal
 country_event = {
 	id = kaz_army.9
 	title = kaz_army.9.t
 	desc = kaz_army.9.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
@@ -3236,12 +3236,12 @@ country_event = {
 		}
 	}
 }
-#Elbit Systems Accepted
+# ISR Skylark UAV agreed
 country_event = {
 	id = kaz_army.10
 	title = kaz_army.10.t
 	desc = kaz_army.10.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
@@ -3249,17 +3249,13 @@ country_event = {
 		name = kaz_army.10.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.10.a executed"
 		add_tech_bonus = {
-			name = KAZ_skylark_uav_cooperation
+			name = KAZ_skylark_israel
 			bonus = 0.75
 			uses = 1
-			category = CAT_drones
 			category = CAT_l_drone
 		}
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
-		ai_chance = {
-			base = 100
-		}
 	}
 }
 # TUR Naval Shipyard Partnership Proposal

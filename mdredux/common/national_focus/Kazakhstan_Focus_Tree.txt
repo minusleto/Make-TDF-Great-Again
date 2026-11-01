@@ -4003,7 +4003,7 @@ focus_tree = {
 	}
 	#Skylark UAV Cooperation
 	focus = {
-		id = KAZ_skylark_uav_cooperation
+		id = KAZ_skylark_israel
 		icon = por_army_buy_isr_drone
 
 		x = -2
@@ -4032,7 +4032,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_uav_cooperation"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_israel"
 			ISR = { country_event = { id = kaz_army.9 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
@@ -4041,10 +4041,9 @@ focus_tree = {
 				set_temp_variable = { influence_target = KAZ }
 				change_influence_percentage = yes
 				add_tech_bonus = {
-					name = KAZ_skylark_uav_cooperation
+					name = KAZ_skylark_israel
 					bonus = 0.75
 					uses = 1
-					category = CAT_drones
 					category = CAT_l_drone
 				}
 				set_temp_variable = { treasury_change = -5 }
@@ -4096,8 +4095,8 @@ focus_tree = {
 	}
 	#Buy Planes from China
 	focus = {
-		id = KAZ_buy_planes_from_china
-		icon = buy_chinese_j7iii
+		id = KAZ_wing_loong_china
+		icon = cooperation_with_china
 
 		x = 2
 		y = 3
@@ -4125,17 +4124,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_buy_planes_from_china"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_wing_loong_china"
 			CHI = { country_event = { id = kaz_army.1 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
-				add_equipment_to_stockpile = {
-					type = small_plane_airframe_2
-					amount = 60
-					variant_name = "MiG-29 Fulcrum"
-					producer = SOV
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = CHI }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+				add_tech_bonus = {
+					name = KAZ_wing_loong_china
+					bonus = 0.75
+					uses = 1
+					category = CAT_drones
 				}
-				set_temp_variable = { treasury_change = -8.00 }
+				set_temp_variable = { treasury_change = -5 }
 				modify_treasury_effect = yes
 			}
 		}
@@ -4157,8 +4160,8 @@ focus_tree = {
 
 		prerequisite = { focus = KAZ_create_AHKE }
 		prerequisite = {
-			focus = KAZ_skylark_uav_cooperation
-			focus = KAZ_buy_planes_from_china
+			focus = KAZ_skylark_israel
+			focus = KAZ_wing_loong_china
 		}
 		search_filters = { FOCUS_FILTER_ARMY }
 
