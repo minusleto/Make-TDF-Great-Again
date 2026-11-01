@@ -3099,14 +3099,51 @@ country_event = {
 			amount = -60
 			producer = ROOT
 		}
-		KAZ = { country_event = { id = kaz_army.2 days = 1 } }
-		ai_chance = { base = 100 }
+		KAZ = {
+			set_temp_variable = { treasury_change = -8.00 }
+			modify_treasury_effect = yes
+			country_event = kaz_army.2
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_2
+				amount = 60
+				variant_name = "MiG-29 Fulcrum"
+				producer = SOV
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = -100
+				has_opinion = {
+					target = KAZ
+					value < 10
+				}
+			}
+			modifier = {
+				add = 100
+				has_opinion = {
+					target = KAZ
+					value > 70
+				}
+			}
+		}
 	}
 	option = {
 		name = kaz_army.1.b
 		log = "[GetDateText]: [This.GetName]: kaz_army.1.b executed"
-		KAZ = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = { base = 0 }
+		KAZ = {
+			country_event = kaz_army.3
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 100
+				has_opinion = {
+					target = KAZ
+					value < 10
+				}
+			}
+		}
 	}
 }
 #Buy Mig-29 Accept
@@ -3120,14 +3157,19 @@ country_event = {
 	option = {
 		name = kaz_army.2.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.2.a executed"
-		set_temp_variable = { treasury_change = -8.00 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = {
-			type = small_plane_airframe_2
-			amount = 60
-			variant_name = "MiG-29 Fulcrum"
-			producer = SOV
-		}
+	}
+}
+#Buy Mig-29 Refuse
+country_event = {
+	id = kaz_army.3
+	title = kaz_army.3.t
+	desc = kaz_army.3.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.3.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.3.a executed"
 	}
 }
 #VDV
