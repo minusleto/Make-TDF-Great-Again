@@ -3258,7 +3258,7 @@ country_event = {
 	option = {
 		name = kaz_army.9.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.9.a executed"
-		set_temp_variable = { treasury_change = 15 }
+		set_temp_variable = { treasury_change = 5 }
 		modify_treasury_effect = yes
 		set_temp_variable = { percent_change = 1 }
 		set_temp_variable = { tag_index = ISR }
@@ -3290,18 +3290,13 @@ country_event = {
 	option = {
 		name = kaz_army.10.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.10.a executed"
-		set_temp_variable = { treasury_change = -15 }
+		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
 		add_tech_bonus = {
-			name = CAT_fighter
+			name = KAZ_skylark_uav_cooperation
 			bonus = 0.75
 			uses = 1
 			category = CAT_fighter
-		}
-		add_tech_bonus = {
-			name = CAT_air_engine
-			bonus = 0.75
-			uses = 1
 			category = CAT_air_engine
 		}
 		ai_chance = {
