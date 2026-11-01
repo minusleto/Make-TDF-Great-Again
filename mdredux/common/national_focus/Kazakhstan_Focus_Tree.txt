@@ -4038,8 +4038,6 @@ focus_tree = {
 				set_temp_variable = { tag_index = ISR }
 				set_temp_variable = { influence_target = KAZ }
 				change_influence_percentage = yes
-				set_temp_variable = { treasury_change = -5 }
-				modify_treasury_effect = yes
 				add_tech_bonus = {
 					name = KAZ_skylark_uav_cooperation
 					bonus = 0.75
@@ -4047,6 +4045,8 @@ focus_tree = {
 					category = CAT_fighter
 					category = CAT_air_engine
 				}
+				set_temp_variable = { treasury_change = -5 }
+				modify_treasury_effect = yes
 			}
 		}
 
