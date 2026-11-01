@@ -866,6 +866,8 @@
  KAZ_machine_guns_desc: "Our platoons still carry Soviet PKM and RPK-74 guns, while the heavy NSV line stayed in Kazakhstan after the Union collapsed. We will modernise the light weapons and keep the 12.7 mm plant supplying the brigades. Support fire no longer depends on old depot stockpiles."
  KAZ_creation_of_sso: "Creation of Special Operations Forces"
  KAZ_creation_of_sso_desc: "Army recon, border guards and interior SWAT train separately with different doctrines. We will merge them into one Special Operations Forces command with a unified school and standard equipment. When a hostage needs freeing or a sabotage team needs inserting, one call reaches the right unit."
+ KAZ_army_aviation: "Army Aviation"
+ KAZ_army_aviation_desc: "Kazakh army helicopters already fly alongside troops during Steppe Eagle exercises, but transport, casualty evacuation and special-operations support remain separate tasks. We will train crews and ground units to plan these missions together, bringing rotary-wing support into brigade operations."
  KAZ_professional_readiness: "Bring Our Army to Professional Readiness"
  KAZ_professional_readiness_desc: "The last reform closes the loop: brigades are formed, districts answer to one command, equipment is serviced at home. We will complete the shift to a professional army, train the officer corps on new doctrines and let the best generals lead the charge. Conscription becomes selective, keeping only those who meet the standard."
  KAZ_Kazakhstan_Engineering: "Create Kazakhstan Engineering"
