@@ -1410,6 +1410,16 @@ ideas = {
             name = KAZ_outdated_navy_idea
             allowed_civil_war = { always = yes }
             modifier = {
+                naval_damage_factor = -0.075
+                naval_defense_factor = -0.075
+                navy_org_factor = -0.075
+                naval_speed_factor = -0.025
+            }
+        }
+        KAZ_outdated_navy_3_idea = {
+            name = KAZ_outdated_navy_idea
+            allowed_civil_war = { always = yes }
+            modifier = {
                 naval_damage_factor = -0.05
                 naval_defense_factor = -0.05
                 navy_org_factor = -0.05

@@ -242,6 +242,10 @@ defined_text = {
 		localization_key = KAZ_outdated_navy_loc3
 	}
 	text = {
+		trigger = { has_idea = KAZ_outdated_navy_3_idea }
+		localization_key = KAZ_outdated_navy_loc4
+	}
+	text = {
 		trigger = { has_idea = KAZ_caspian_flotilla_idea }
 		localization_key = KAZ_caspian_flotilla_loc1
 	}

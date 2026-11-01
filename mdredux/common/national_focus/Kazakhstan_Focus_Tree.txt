@@ -4847,11 +4847,15 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_choose_new_doctrine"
 			navy_experience = 50
-			add_doctrine_cost_reduction = {
-				name = CAT_naval_doctrine
-				cost_reduction = 1.0
-				uses = 1
-				category = CAT_naval_doctrine
+			add_daily_mastery = {
+				amount = 1.5
+				days = 100
+				name = KAZ_naval_doctrine_review
+				folder = naval
+			}
+			swap_ideas = {
+				remove_idea = KAZ_outdated_navy_1_idea
+				add_idea = KAZ_outdated_navy_2_idea
 			}
 		}
 
@@ -4997,9 +5001,21 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_modernization_of_the_navy"
 			navy_experience = 25
+			add_tech_bonus = {
+				name = KAZ_naval_refit_surface
+				bonus = 0.25
+				uses = 2
+				category = CAT_surface_ship
+			}
+			add_tech_bonus = {
+				name = KAZ_naval_refit_general
+				bonus = 0.1
+				uses = 1
+				category = CAT_naval_all
+			}
 			swap_ideas = {
-				remove_idea = KAZ_outdated_navy_1_idea
-				add_idea = KAZ_outdated_navy_2_idea
+				remove_idea = KAZ_outdated_navy_2_idea
+				add_idea = KAZ_outdated_navy_3_idea
 			}
 		}
 
@@ -5031,7 +5047,7 @@ focus_tree = {
 				category = CAT_naval_doctrine
 			}
 			swap_ideas = {
-				remove_idea = KAZ_outdated_navy_2_idea
+				remove_idea = KAZ_outdated_navy_3_idea
 				add_idea = KAZ_caspian_flotilla_idea
 			}
 			one_random_dockyard = yes
