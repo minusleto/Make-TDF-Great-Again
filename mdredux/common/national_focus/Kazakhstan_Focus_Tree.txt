@@ -5026,6 +5026,8 @@ focus_tree = {
 				remove_idea = KAZ_outdated_navy_2_idea
 				add_idea = KAZ_outdated_navy_3_idea
 			}
+			set_temp_variable = { treasury_change = -2 }
+			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
