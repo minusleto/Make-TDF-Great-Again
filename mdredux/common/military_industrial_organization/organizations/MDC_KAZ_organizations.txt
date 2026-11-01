@@ -1,0 +1,31 @@
+KAZ_Kazakhstan_Engineering_manufacturing = {
+	allowed = { original_tag = KAZ }
+    visible = { KAZ = { has_completed_focus = KAZ_Kazakhstan_Engineering } }
+	icon = GFX_idea_ke_company_start
+	name = KAZ_Kazakhstan_Engineering_manufacturing_name
+	include = generic_tank_equipment_organization
+}
+
+KAZ_Kazakhstan_Engineering_manufacturing_2 = {
+	allowed = { original_tag = KAZ }
+    visible = { KAZ = { has_completed_focus = KAZ_Kazakhstan_Engineering } }
+	icon = GFX_idea_ke_company_start
+	name = KAZ_Kazakhstan_Engineering_manufacturing_name
+	include = generic_infantry_equipment_organization
+}
+
+KAZ_KPE_tank_manufacturer = {
+	allowed = { original_tag = KAZ }
+    visible = { KAZ = { has_completed_focus = KAZ_create_kazakhstan_paramount_engineering } }
+	icon = GFX_idea_kpe_company_start
+	name = KAZ_KPE_tank_manufacturer_name
+	include = generic_tank_equipment_organization
+}
+
+KAZ_Kazakhstan_Engineering_manufacturing4 = {
+	allowed = { original_tag = KAZ }
+    visible = { KAZ = { has_completed_focus = KAZ_create_kazakhstan_paramount_engineering } }
+	icon = GFX_idea_kpe_company_start
+	name = KAZ_Kazakhstan_Engineering_manufacturing_name
+	include = generic_infantry_equipment_organization
+}
