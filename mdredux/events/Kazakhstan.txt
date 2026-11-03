@@ -3130,27 +3130,6 @@ country_event = {
 		modify_treasury_effect = yes
 	}
 }
-#VDV
-country_event = {
-    id = kaz_army.4
-    title = kaz_army.4.t
-    desc = kaz_army.4.d
-
-	is_triggered_only = yes
-
-    option = {
-        name = kaz_army.4.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.4.a executed"
-		add_ideas = KAZ_vdv
-		set_temp_variable = { treasury_change = -5 }
-		modify_treasury_effect = yes
-        air_experience = 15
-
-        ai_chance = {
-			base = 99
-		}
-    }
-}
 #New Structure of the Armed Forces
 country_event = {
     id = kaz_army.5

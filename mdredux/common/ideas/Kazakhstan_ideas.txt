@@ -1456,13 +1456,12 @@ ideas = {
                 army_bonus_air_superiority_factor = 0.03
             }
         }
-        KAZ_vdv = {
+        KAZ_airmobile_forces_idea = {
             allowed_civil_war = { always = yes }
             modifier = {
-                experience_gain_air_factor = 0.25
-                air_doctrine_cost_factor = -0.15
-                air_accidents_factor = 0.15
-                air_training_xp_gain_factor = 0.15
+                special_forces_training_time_factor = -0.10
+                special_forces_cap = 0.02
+                army_morale_factor = 0.05
             }
         }
         KAZ_SARP_modules_idea = { #TODO мб занерфить посмотреть бонусы

@@ -887,8 +887,8 @@
  #Air Force Focus Tree loc
  KAZ_decommission_old_planes: "Decommission Old Planes"
  KAZ_decommission_old_planes_desc: "Our air force still relies on ageing Soviet-era aircraft. Their upkeep consumes scarce funds while spare parts become harder to source. Retiring the least viable airframes will ease the burden on maintenance crews and free resources for a more capable fleet."
- KAZ_creation_airborne_forces: "Creation of the Airborne Forces"
- KAZ_creation_airborne_forces_desc: "Modern military doctrine demands high mobility. Establishing a fully-fledged Airborne Force will allow us to respond quickly to threats anywhere in the region."
+ KAZ_airmobile_forces: "Airmobile Forces"
+ KAZ_airmobile_forces_desc: "The 35th Guards Air Assault Brigade arrived from Germany in 1991 and stayed on in Kapchagay as the only airborne unit we inherited. We will build a mobile force around it, with new brigades behind it, so that paratroopers can reach any corner of the world's ninth-largest country."
  KAZ_new_doctrine_air: "Modern Air Doctrine"
  KAZ_new_doctrine_air_desc: "Kazakhstan's air arm must move beyond inherited operating practices. Standardized planning and a modern approach to air operations will help make better use of our limited aircraft and strengthen coordination with air defence."
  KAZ_complete_aircraft_russia: "Complete the Su-30SM Procurement Deal"
@@ -1718,9 +1718,6 @@
  kaz_army.2.t: "Wing Loong Deal Approved"
  kaz_army.2.d: "[FROM.GetCapital] has agreed. The first Wing Loong systems and Chinese instructors are on their way to our operators, and the invoice is due on delivery."
  kaz_army.2.a: "Sign the contract"
- kaz_army.4.t: "Presidential Decree: Foundations of the Airborne Forces"
- kaz_army.4.d: "The Year 2000 became a turning point for the Republic's defense capabilities. Having inherited from the USSR the legendary 35th Separate Guards Air Assault Brigade, we long struggled to maintain its combat readiness. But the world is changing, and we need troops capable of responding to crises instantly. The President signed the decree 'On the Structure of the Armed Forces'. Soon, on the basis of the 35th Brigade, the Airborne Forces are created - the elite of the army and the personal reserve of the Supreme Commander. Now we face the task of reforming this foundation, transforming it into modern Airborne troops, equipped with cutting-edge technology."
- kaz_army.4.a: "Airborne Forces is our future pride! Reorganize the troops immediately."
  kaz_army.5.t: "New Structure of the Armed Forces"
  kaz_army.5.d: "The decree on the structure of the Armed Forces has been signed. The four military districts become the regional commands Central, East, West and South, and the General Staff gives way to a committee of chiefs. The brigades stay where they are, but each region now answers to one commander."
  kaz_army.5.a: "One voice per region."
@@ -1799,7 +1796,7 @@
  KAZ_outdate_wings_idea: "Legacy of Soviet Aviation"
 
  #Army Tooltips
- KAZ_army_tt: "[KAZ_outdated_army_loc][KAZ_modern_uniform_loc][KAZ_modern_communication_systems_loc][KAZ_foreign_equipment_loc][KAZ_regional_commands_loc][KAZ_logistics_reorganization_loc][KAZ_sso_loc][KAZ_outdate_wings_loc][KAZ_trained_officer_corps_loc][KAZ_outdated_navy_loc]"
+ KAZ_army_tt: "[KAZ_outdated_army_loc][KAZ_modern_uniform_loc][KAZ_modern_communication_systems_loc][KAZ_foreign_equipment_loc][KAZ_regional_commands_loc][KAZ_logistics_reorganization_loc][KAZ_sso_loc][KAZ_outdate_wings_loc][KAZ_trained_officer_corps_loc][KAZ_outdated_navy_loc][KAZ_airmobile_forces_loc]"
  KAZ_outdated_army_loc1: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-20.0%§!\n$army_defence_factor$: §R-20.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-15.0%§!\n$army_personnel_cost_multiplier_modifier$: §R+7.0%§!\n"
  KAZ_outdated_army_loc2: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-15.0%§!\n$army_defence_factor$: §R-15.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-10.0%§!\n$army_personnel_cost_multiplier_modifier$: §R+3.0%§!\n"
  KAZ_outdated_army_loc3: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-10.0%§!\n$army_defence_factor$: §R-10.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-5.0%§!\n"
@@ -1815,6 +1812,7 @@
  KAZ_outdate_wings_loc2: "\n§gLEGACY OF SOVIET AVIATION§!: \n$MODIFIER_AIR_ATTACK_FACTOR$: §R-7.0%§!\n$MODIFIER_AIR_DEFENCE_FACTOR$: §R-7.0%§!\n$MODIFIER_AIR_MAX_SPEED_FACTOR$: §R-10.0%§!\n$MODIFIER_ARMY_BONUS_AIR_SUPERIORITY_FACTOR$: §R-5.0%§!\n$air_cas_efficiency$: §R-5.0%§!\n"
  KAZ_outdate_wings_loc3: "\n§gLEGACY OF SOVIET AVIATION§!: \n$MODIFIER_AIR_ATTACK_FACTOR$: §R-3.0%§!\n$MODIFIER_AIR_DEFENCE_FACTOR$: §R-3.0%§!\n$MODIFIER_AIR_MAX_SPEED_FACTOR$: §R-5.0%§!\n$MODIFIER_ARMY_BONUS_AIR_SUPERIORITY_FACTOR$: §R-2.0%§!\n$air_cas_efficiency$: §R-2.0%§!\n"
  KAZ_trained_officer_corps_loc1: "\n§gTRAINED OFFICER CORPS§!:\n$MODIFIER_AIR_TRAINING_XP_FACTOR$: §G+8.0%§!\n$MODIFIER_AIR_MASTERY_GAIN_FACTOR$: §G+5.0%§!\n$MODIFIER_AIR_ACE_BONUSES_FACTOR$: §G+5.0%§!\n$MODIFIER_AIR_WEATHER_PENALTY$: §G-5.0%§!\n$MODIFIER_AIR_NIGHT_PENALTY$: §G-5.0%§!\n$MODIFIER_ARMY_BONUS_AIR_SUPERIORITY_FACTOR$: §G+3.0%§!\n"
+ KAZ_airmobile_forces_loc1: "\n§gAIRMOBILE FORCES§!: \n$MODIFIER_SPECIAL_FORCES_TRAINING_TIME_FACTOR$: §G-10.0%§!\n$MODIFIER_SPECIAL_FORCES_CAP$: §G+2.0%§!\n$MODIFIER_ARMY_MORALE_FACTOR$: §G+5.0%§!\n"
  KAZ_outdated_navy_loc1: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-10.0%§!\n"
  KAZ_outdated_navy_loc2: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-5.0%§!\n"
  KAZ_outdated_navy_loc3: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-7.5%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-7.5%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-7.5%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-2.5%§!\n"

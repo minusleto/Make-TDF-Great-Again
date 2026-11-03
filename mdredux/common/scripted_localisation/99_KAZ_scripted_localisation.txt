@@ -250,3 +250,10 @@ defined_text = {
 		localization_key = KAZ_caspian_flotilla_loc1
 	}
 }
+defined_text = {
+	name = KAZ_airmobile_forces_loc
+	text = {
+		trigger = { has_idea = KAZ_airmobile_forces_idea }
+		localization_key = KAZ_airmobile_forces_loc1
+	}
+}

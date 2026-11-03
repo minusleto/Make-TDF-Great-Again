@@ -3806,9 +3806,9 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	#Creation of the Airborne Forces
+	#Airmobile Forces
 	focus = {
-		id = KAZ_creation_airborne_forces
+		id = KAZ_airmobile_forces
 		icon = generic_army_airplanes
 
 		x = -2
@@ -3820,13 +3820,11 @@ focus_tree = {
 		prerequisite = { focus = KAZ_decommission_old_planes }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {
-			has_completed_focus = KAZ_reorganization_infantry
-		}
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_creation_airborne_forces"
-			KAZ = { country_event = KAZ_army.4 }
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_airmobile_forces"
+			add_ideas = KAZ_airmobile_forces_idea
+			set_temp_variable = { treasury_change = -5 }
+			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
@@ -3941,7 +3939,7 @@ focus_tree = {
 		cost = 5
 
 		prerequisite = { focus = KAZ_new_doctrine_air }
-		prerequisite = { focus = KAZ_creation_airborne_forces }
+		prerequisite = { focus = KAZ_airmobile_forces }
 
 		search_filters = { FOCUS_FILTER_ARMY }
 
