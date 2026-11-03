@@ -57,6 +57,6 @@ Before implementing any reward, inspect event files, equipment variants, technol
 
 ## Update (agent #5, issue #4)
 
-- `KAZ_buy_planes_from_china` is now `KAZ_wing_loong_china` ("Chinese Wing Loong Drones"): no MiG-29, no aircraft stockpile reward; the reward is a one-use research bonus on `CAT_drones` plus the contract price, delivered by `kaz_army.2` on the Kazakh side after China answers `kaz_army.1`. Icon `buy_chinese_j7iii` replaced with `cooperation_with_china` (J-7III is not confirmed either).
+- `KAZ_buy_planes_from_china` is now `KAZ_wing_loong_china` ("Chinese Wing Loong Drones"): no MiG-29, no aircraft stockpile reward; the reward is a one-use research bonus on `CAT_drones` plus the contract price, delivered by `kaz_army.2` on the Kazakh side after China answers `kaz_army.1`. Icon `buy_chinese_j7iii` is kept by team decision. Prerequisites reduced to one focus each (`KAZ_retraining_officers` for Skylark, `KAZ_redevelopment_air_areas` for Wing Loong); `KAZ_complete_aircraft_russia` opinion gate lowered to `> -1`, tech bonuses merged into one block.
 - `KAZ_skylark_uav_cooperation` is now `KAZ_skylark_israel`: bonus narrowed to `CAT_l_drone`, text no longer claims local assembly (not confirmed; the fact-check only says Skylark is reported in the inventory), texts of `kaz_army.9` and `kaz_army.10` reworked.
 - Both chains follow the direct-event pattern: partner receives influence and money in its own accept option, general refusal `mdc4.16`, `effect_if_they_accept_TT` in the focus, neutral `GFX_handshake_black #TODO` pictures.

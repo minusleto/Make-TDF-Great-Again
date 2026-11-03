@@ -3187,15 +3187,10 @@ country_event = {
 				producer = SOV
 			}
 			add_tech_bonus = {
-				name = KAZ_complete_aircraft_russia_fighter
+				name = KAZ_complete_aircraft_russia
 				bonus = 0.75
 				uses = 1
 				category = CAT_fighter
-			}
-			add_tech_bonus = {
-				name = KAZ_complete_aircraft_russia_engine
-				bonus = 0.75
-				uses = 1
 				category = CAT_air_engine
 			}
 		}
