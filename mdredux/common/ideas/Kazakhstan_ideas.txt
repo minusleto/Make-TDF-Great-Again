@@ -1459,9 +1459,9 @@ ideas = {
         KAZ_airmobile_forces_idea = {
             allowed_civil_war = { always = yes }
             modifier = {
-                special_forces_training_time_factor = -0.10
-                special_forces_cap = 0.02
-                army_morale_factor = 0.05
+                paradrop_organization_factor = 0.075
+                extra_paratrooper_supply_grace = 12
+                paratrooper_aa_defense = 0.05
             }
         }
         KAZ_SARP_modules_idea = { #TODO мб занерфить посмотреть бонусы

@@ -3130,6 +3130,20 @@ country_event = {
 		modify_treasury_effect = yes
 	}
 }
+# Airmobile Forces
+country_event = {
+	id = kaz_army.4
+	title = kaz_army.4.t
+	desc = kaz_army.4.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.4.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.4.a executed"
+	}
+}
+
 #New Structure of the Armed Forces
 country_event = {
     id = kaz_army.5
