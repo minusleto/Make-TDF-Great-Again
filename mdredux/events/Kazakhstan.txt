@@ -3141,6 +3141,24 @@ country_event = {
 	option = {
 		name = kaz_army.4.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.4.a executed"
+		add_ideas = KAZ_airmobile_forces_idea
+		division_template = {
+			name = "Airmobile Brigade"
+			regiments = {
+				L_Air_Inf_Bat = { x = 0 y = 0 }
+				L_Air_Inf_Bat = { x = 0 y = 1 }
+				L_Air_Inf_Bat = { x = 1 y = 0 }
+				L_Air_Inf_Bat = { x = 1 y = 1 }
+			}
+			priority = 2
+		}
+		random_owned_controlled_state = {
+			create_unit = {
+				division = "name = \"Airmobile Brigade\" division_template = \"Airmobile Brigade\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
+				owner = KAZ
+				count = 2
+			}
+		}
 	}
 }
 
