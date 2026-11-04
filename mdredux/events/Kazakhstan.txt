@@ -1,5 +1,6 @@
 add_namespace = KAZ_com
 add_namespace = kaz_army
+add_namespace = kaz_alan
 add_namespace = KAZ_eco
 add_namespace = KAZ_alash
 add_namespace = KAZ_aul
@@ -3790,6 +3791,33 @@ country_event = {
 		reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
 	}
 }
+# Alan Configuration Choice
+country_event = {
+	id = kaz_alan.1
+	title = kaz_alan.1.t
+	desc = kaz_alan.1.d
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_alan.1.a
+		log = "[GetDateText]: [This.GetName]: kaz_alan.1.a executed"
+		set_country_flag = KAZ_alan_reconnaissance
+		ai_chance = { base = 33 }
+	}
+	option = {
+		name = kaz_alan.1.b
+		log = "[GetDateText]: [This.GetName]: kaz_alan.1.b executed"
+		set_country_flag = KAZ_alan_command
+		ai_chance = { base = 33 }
+	}
+	option = {
+		name = kaz_alan.1.c
+		log = "[GetDateText]: [This.GetName]: kaz_alan.1.c executed"
+		set_country_flag = KAZ_alan_special_response
+		ai_chance = { base = 33 }
+	}
+}
+
 # ALASH
 # Aron Atabek return
 country_event = {

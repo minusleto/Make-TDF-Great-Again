@@ -4221,7 +4221,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+#Establish Kazakhstan Paramount Engineering
 	focus = {
 		id = KAZ_create_kazakhstan_paramount_engineering
 		icon = kaz_kpe_start
@@ -4239,12 +4239,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_kazakhstan_paramount_engineering"
-			one_random_land_facility = yes
-			add_breakthrough_progress = {
-				specialization = specialization_land
-				value = 0.5
-			}
 			one_random_arms_factory = yes
+			add_tech_bonus = {
+				name = KAZ_create_kazakhstan_paramount_engineering
+				bonus = 0.5
+				uses = 1
+				category = CAT_armor
+			}
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				unlock_military_industrial_organization_tooltip = mio:KAZ_KPE_tank_manufacturer
@@ -4316,7 +4317,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+#Localize the Arlan
 	focus = {
 		id = KAZ_arlan
 		icon = kaz_arlan
@@ -4335,8 +4336,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_arlan"
 			add_tech_bonus = {
-				name = CAT_util
-				bonus = 1
+				name = KAZ_arlan
+				bonus = 0.5
 				uses = 1
 				category = CAT_util
 			}
@@ -4346,7 +4347,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+#Localize the Alan
 	focus = {
 		id = KAZ_alan
 		icon = kaz_alan
@@ -4364,13 +4365,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan"
+			country_event = { id = kaz_alan.1 days = 1 }
 		}
 
 		ai_will_do = {
 			base = 2
 		}
 	}
-
+#Develop the Alan-2
 	focus = {
 		id = KAZ_alan_2
 		icon = kaz_alan_2
@@ -4388,6 +4390,22 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan_2"
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.5
+			}
+			if = {
+				limit = { has_country_flag = KAZ_alan_reconnaissance }
+				add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_afv }
+			}
+			if = {
+				limit = { has_country_flag = KAZ_alan_command }
+				add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_cnc }
+			}
+			if = {
+				limit = { has_country_flag = KAZ_alan_special_response }
+				add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_special_forces }
+			}
 		}
 
 		ai_will_do = {
