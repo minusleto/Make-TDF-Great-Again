@@ -1,6 +1,5 @@
 add_namespace = KAZ_com
 add_namespace = kaz_army
-add_namespace = kaz_alan
 add_namespace = KAZ_eco
 add_namespace = KAZ_alash
 add_namespace = KAZ_aul
@@ -3791,32 +3790,115 @@ country_event = {
 		reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
 	}
 }
-# Alan Configuration Choice
+# SAF Arlan Production Proposal
 country_event = {
-	id = kaz_alan.1
-	title = kaz_alan.1.t
-	desc = kaz_alan.1.d
+	id = kaz_army.34
+	title = kaz_army.34.t
+	desc = kaz_army.34.d
+	picture = GFX_handshake_black #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_alan.1.a
-		log = "[GetDateText]: [This.GetName]: kaz_alan.1.a executed"
-		set_country_flag = KAZ_alan_reconnaissance
-		ai_chance = { base = 33 }
+		name = kaz_army.34.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.34.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		KAZ = { country_event = { id = kaz_army.35 days = 1 } }
+		ai_chance = { base = 70 }
 	}
 	option = {
-		name = kaz_alan.1.b
-		log = "[GetDateText]: [This.GetName]: kaz_alan.1.b executed"
-		set_country_flag = KAZ_alan_command
-		ai_chance = { base = 33 }
-	}
-	option = {
-		name = kaz_alan.1.c
-		log = "[GetDateText]: [This.GetName]: kaz_alan.1.c executed"
-		set_country_flag = KAZ_alan_special_response
-		ai_chance = { base = 33 }
+		name = kaz_army.34.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.34.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = {
+			base = 5
+			modifier = {
+				has_opinion = { target = FROM value > 9 }
+				factor = 0
+			}
+		}
 	}
 }
+# SAF Arlan Production agreed
+country_event = {
+	id = kaz_army.35
+	title = kaz_army.35.t
+	desc = kaz_army.35.d
+	picture = GFX_handshake_black #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.35.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.35.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		add_tech_bonus = {
+			name = KAZ_arlan
+			bonus = 0.5
+			uses = 1
+			category = CAT_util
+		}
+	}
+}
+# ISR Alan Development Proposal
+country_event = {
+	id = kaz_army.36
+	title = kaz_army.36.t
+	desc = kaz_army.36.d
+	picture = GFX_handshake_black #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.36.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.36.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		KAZ = { country_event = { id = kaz_army.37 days = 1 } }
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = kaz_army.36.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.36.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = {
+			base = 5
+			modifier = {
+				has_opinion = { target = FROM value > 9 }
+				factor = 0
+			}
+		}
+	}
+}
+# ISR Alan Development agreed
+country_event = {
+	id = kaz_army.37
+	title = kaz_army.37.t
+	desc = kaz_army.37.d
+	picture = GFX_handshake_black #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.37.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
+		set_country_flag = KAZ_alan_reconnaissance
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		ai_chance = { base = 45 }
+	}
+	option = {
+		name = kaz_army.37.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.37.b executed"
+		set_country_flag = KAZ_alan_command
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		ai_chance = { base = 35 }
+	}
+	option = {
+		name = kaz_army.37.c
+		log = "[GetDateText]: [This.GetName]: kaz_army.37.c executed"
+		set_country_flag = KAZ_alan_special_response
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		ai_chance = { base = 20 }
+	}
+}
+
+# Alan Configuration Choice
+
 
 # ALASH
 # Aron Atabek return

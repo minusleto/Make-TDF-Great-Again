@@ -4223,7 +4223,7 @@ focus_tree = {
 	}
 #Establish Kazakhstan Paramount Engineering
 	focus = {
-		id = KAZ_create_kazakhstan_paramount_engineering
+		id = KAZ_create_kpe
 		icon = kaz_kpe_start
 
 		x = 5
@@ -4238,10 +4238,10 @@ focus_tree = {
 		available = {}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_kazakhstan_paramount_engineering"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_kpe"
 			one_random_arms_factory = yes
 			add_tech_bonus = {
-				name = KAZ_create_kazakhstan_paramount_engineering
+				name = KAZ_create_kpe
 				bonus = 0.5
 				uses = 1
 				category = CAT_armor
@@ -4267,7 +4267,7 @@ focus_tree = {
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_create_kazakhstan_paramount_engineering }
+		prerequisite = { focus = KAZ_create_kpe }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {}
@@ -4317,7 +4317,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-#Localize the Arlan
+#Produce the Arlan
 	focus = {
 		id = KAZ_arlan
 		icon = kaz_arlan
@@ -4328,18 +4328,27 @@ focus_tree = {
 
 		cost = 5
 
-		prerequisite = { focus = KAZ_create_kazakhstan_paramount_engineering }
+		prerequisite = { focus = KAZ_create_kpe }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
+		available = {
+			SAF = { has_opinion = { target = KAZ value > 9 } }
+			NOT = { has_war_with = SAF }
+		}
+
+		bypass = { NOT = { country_exists = SAF } }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_arlan"
-			add_tech_bonus = {
-				name = KAZ_arlan
-				bonus = 0.5
-				uses = 1
-				category = CAT_util
+			SAF = { country_event = { id = kaz_army.34 days = 1 } }
+			custom_effect_tooltip = effect_if_they_accept_TT
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = KAZ_arlan
+					bonus = 0.5
+					uses = 1
+					category = CAT_util
+				}
 			}
 		}
 
@@ -4347,7 +4356,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-#Localize the Alan
+#Integrate the Alan
 	focus = {
 		id = KAZ_alan
 		icon = kaz_alan
@@ -4361,11 +4370,17 @@ focus_tree = {
 		prerequisite = { focus = KAZ_arlan }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
+		available = {
+			ISR = { has_opinion = { target = KAZ value > 9 } }
+			NOT = { has_war_with = ISR }
+		}
+
+		bypass = { NOT = { country_exists = ISR } }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan"
-			country_event = { id = kaz_alan.1 days = 1 }
+			ISR = { country_event = { id = kaz_army.36 days = 1 } }
+			custom_effect_tooltip = effect_if_they_accept_TT
 		}
 
 		ai_will_do = {
@@ -11344,7 +11359,7 @@ focus_tree = {
 
 		available = {
 			has_completed_focus = KAZ_Kazakhstan_Engineering
-			has_completed_focus = KAZ_create_kazakhstan_paramount_engineering
+			has_completed_focus = KAZ_create_kpe
 			BLR = {
 				has_opinion = {
 					target = KAZ
@@ -15122,7 +15137,7 @@ focus_tree = {
 
 		available = {
 			has_completed_focus = KAZ_Kazakhstan_Engineering
-			has_completed_focus = KAZ_create_kazakhstan_paramount_engineering
+			has_completed_focus = KAZ_create_kpe
 			NOT = { has_government = nationalist }
 			NOT = { has_government = fascism }
 		}
