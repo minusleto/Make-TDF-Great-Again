@@ -1462,6 +1462,7 @@ ideas = {
                 paradrop_organization_factor = 0.075
                 extra_paratrooper_supply_grace = 12
                 paratrooper_aa_defense = 0.05
+                special_forces_cap = 0.02
             }
         }
         KAZ_SARP_modules_idea = { #TODO мб занерфить посмотреть бонусы
