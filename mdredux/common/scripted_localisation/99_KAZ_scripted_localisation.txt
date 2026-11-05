@@ -216,6 +216,12 @@ defined_text = {
 		}
 		localization_key = KAZ_outdate_wings_loc3
 	}
+	text = {
+		trigger = {
+			has_idea = KAZ_modern_air_forces_idea
+		}
+		localization_key = KAZ_modern_air_forces_loc1
+	}
 }
 defined_text = {
 	name = KAZ_trained_officer_corps_loc

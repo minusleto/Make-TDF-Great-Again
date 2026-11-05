@@ -4170,7 +4170,10 @@ focus_tree = {
 				folder = air
 			}
 			newline = yes
-			add_ideas = KAZ_modern_air_forces
+			swap_ideas = {
+				remove_idea = KAZ_outdate_wings_2_idea
+				add_idea = KAZ_modern_air_forces_idea
+			}
 		}
 
 		ai_will_do = {
