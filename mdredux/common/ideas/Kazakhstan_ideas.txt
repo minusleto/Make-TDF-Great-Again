@@ -1445,7 +1445,7 @@ ideas = {
                 air_mission_efficiency = 0.05
             }
         }
-        KAZ_trained_officer_corps = {
+        KAZ_trained_officer_corps_idea = {
             allowed_civil_war = { always = yes }
             modifier = {
                 air_training_xp_gain_factor = 0.08

@@ -3955,7 +3955,7 @@ focus_tree = {
 			set_temp_variable = { temp_opinion = 2 }
 			change_the_military_opinion = yes
 			newline = yes
-			add_ideas = KAZ_trained_officer_corps
+			add_ideas = KAZ_trained_officer_corps_idea
 			newline = yes
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes

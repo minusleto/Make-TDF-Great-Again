@@ -227,7 +227,7 @@ defined_text = {
 	name = KAZ_trained_officer_corps_loc
 	text = {
 		trigger = {
-			has_idea = KAZ_trained_officer_corps
+			has_idea = KAZ_trained_officer_corps_idea
 		}
 		localization_key = KAZ_trained_officer_corps_loc1
 	}
