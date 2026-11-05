@@ -3823,16 +3823,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_airmobile_forces"
 			country_event = kaz_army.4
-			effect_tooltip = {
-				add_ideas = KAZ_airmobile_forces_idea
-				random_owned_controlled_state = {
-					create_unit = {
-						division = "name = \"Airmobile Brigade\" division_template = \"Airmobile Brigade\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
-						owner = KAZ
-						count = 2
-					}
-				}
-			}
 			set_temp_variable = { treasury_change = -2 }
 			modify_treasury_effect = yes
 		}
