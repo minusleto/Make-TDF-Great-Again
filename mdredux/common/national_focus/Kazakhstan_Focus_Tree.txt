@@ -4228,8 +4228,6 @@ focus_tree = {
 		prerequisite = { focus = KAZ_our_military_forces }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_create_kpe"
 			one_random_arms_factory = yes

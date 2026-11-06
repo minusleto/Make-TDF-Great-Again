@@ -3,6 +3,7 @@
  kaz_alash: "Pact of Turan"
  KAZ_Kazakhstan_Engineering_manufacturing_name: "Kazakhstan Engineering"
  KAZ_KPE_tank_manufacturer: "Kazakhstan Paramount Engineering"
+ KAZ_KPE_tank_manufacturer_name: "Kazakhstan Paramount Engineering"
 
  # Cities
  KAZ_Kyzylzhar: "Kyzylzhar"
@@ -869,8 +870,8 @@
  KAZ_professional_readiness: "Bring Our Army to Professional Readiness"
  KAZ_professional_readiness_desc: "The last reform closes the loop: brigades are formed, districts answer to one command, equipment is serviced at home. We will complete the shift to a professional army, train the officer corps on new doctrines and let the best generals lead the charge. Conscription becomes selective, keeping only those who meet the standard."
  KAZ_Kazakhstan_Engineering: "Create Kazakhstan Engineering"
- KAZ_create_kpe: "Establish Kazakhstan Paramount Engineering"
- KAZ_create_kpe_desc: "A joint venture between Kazakhstan Engineering and South Africa's Paramount Group will bring armored-vehicle fabrication, assembly and systems integration to Kazakhstan. We will establish a domestic production base and give local engineers control of the work."
+ KAZ_create_kpe: "Create Paramount Engineering"
+ KAZ_create_kpe_desc: "Kazakhstan Engineering and South Africa's Paramount Group will build wheeled armour at home, starting with a South African design adapted to our winters. We will give local engineers the production lines, and an apprenticeship that will take years."
  KAZ_btr_barys_6x6: "Agreement with South Africa on \"Barys 6x6\" APC"
  KAZ_arlan: "Produce the Arlan"
  KAZ_arlan_desc: "The Arlan adapts Paramount's Marauder to Kazakhstan's climate. Pre-start engine heating, improved cabin temperature control and locally made radios make it fit for local service. We will refine the design and expand the skills needed to build it at home."
