@@ -895,7 +895,7 @@
  KAZ_airmobile_forces_desc: "The 35th Guards Air Assault Brigade arrived from Germany in 1991 and stayed on as the only airborne unit we inherited. We will build a mobile force around it, with new brigades behind it, ready to move where the rest of the army cannot arrive in time."
  KAZ_new_doctrine_air: "Modern Air Doctrine"
  KAZ_new_doctrine_air_desc: "Kazakhstan's air arm must move beyond inherited operating practices. Standardized planning and a modern approach to air operations will help make better use of our limited aircraft and strengthen coordination with air defence."
- KAZ_complete_aircraft_russia: "Complete the Su-30SM Procurement Deal"
+ KAZ_complete_aircraft_russia: "Su-30SM Procurement"
  KAZ_complete_aircraft_russia_desc: "Finalizing the procurement agreement with Moscow will bring a batch of Su-30SM multirole fighters into Kazakh service. The aircraft will strengthen our air force and provide experience operating a modern Russian platform, while maintenance and spare-parts access will remain essential to keeping the fleet combat-ready."
  KAZ_retraining_officers: "Retraining of Officers"
  KAZ_retraining_officers_desc: "Pilots, instructors and ground crews will train abroad to improve flight procedures, air-defence coordination and maintenance in Kazakhstan's climate. The program costs money and temporarily removes experienced personnel from their units, but strengthens the skills needed to operate modern aircraft."
@@ -908,7 +908,7 @@
  KAZ_wing_loong_china: "Chinese Wing Loong Drones"
  KAZ_wing_loong_china_desc: "Chinese Wing Loong drones are reported among our newer systems, and Beijing sells training together with hardware. We will ask for the first systems and instructors for our operators. The price is a new dependence on Chinese spare parts."
  KAZ_new_air_forces: "New Air Forces"
- KAZ_new_air_forces_desc: "The creation of AHKE gives Kazakhstan a foundation for developing and maintaining its own aviation industry. Building on that base, we must choose a practical path to modernize the fleet: cooperate on reconnaissance drones or procure additional aircraft abroad. Whichever route we take, better coordination, maintenance, and operating standards will help our air force use its limited resources more effectively."
+ KAZ_new_air_forces_desc: "AHKE gives the air force a workshop at home, and the drones we bought give it eyes. The last step is to make pilots, mechanics and spare parts work as one force instead of a collection of foreign purchases."
  KAZ_new_kaz_force: "New Kazakh Air Force"
  KAZ_new_kaz_force_desc: "The reforms, procurements, and retraining are complete. The old structures have given way to the modernized, high-tech, and formidable Air Force of Kazakhstan."
 

@@ -3176,12 +3176,12 @@ country_event = {
         add_ideas = KAZ_regional_commands_idea
     }
 }
-#Aircraft Deal (ONLY FOR RUSSIA)
+# SOV Su-30SM Deal
 country_event = {
 	id = kaz_army.7
 	title = kaz_army.7.t
 	desc = kaz_army.7.d
-	picture = GFX_POL_mig_29_event
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
@@ -3207,7 +3207,6 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = 10.00 }
 		modify_treasury_effect = yes
-		ai_chance = { base = 100 }
 	}
 }
 # ISR Skylark UAV Proposal
