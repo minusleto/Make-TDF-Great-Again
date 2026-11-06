@@ -3901,7 +3901,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
-			SOV = { country_event = kaz_army.7 }
+			SOV = { country_event = { id = kaz_army.7 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				add_equipment_to_stockpile = {
@@ -3917,6 +3917,12 @@ focus_tree = {
 					category = CAT_fighter
 					category = CAT_air_engine
 				}
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = SOV }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+				set_temp_variable = { treasury_change = -10 }
+				modify_treasury_effect = yes
 			}
 		}
 
