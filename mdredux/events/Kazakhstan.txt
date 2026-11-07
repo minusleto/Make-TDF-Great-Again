@@ -3888,6 +3888,12 @@ country_event = {
 		name = kaz_army.36.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.36.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = ISR }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 4 }
+		modify_treasury_effect = yes
 		KAZ = { country_event = { id = kaz_army.37 days = 1 } }
 		ai_chance = { base = 70 }
 	}
@@ -3911,6 +3917,16 @@ country_event = {
 	desc = kaz_army.37.d
 	picture = GFX_handshake_black #TODO
 	is_triggered_only = yes
+
+	immediate = {
+		set_technology = { util_vehicle_5 = 1 }
+		add_equipment_to_stockpile = {
+			type = util_vehicle_5
+			amount = 100
+		}
+		set_temp_variable = { treasury_change = -4 }
+		modify_treasury_effect = yes
+	}
 
 	option = {
 		name = kaz_army.37.a

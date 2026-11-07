@@ -4377,7 +4377,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			ISR = { has_opinion = { target = KAZ value > 9 } }
+			ISR = {
+				has_opinion = { target = KAZ value > 9 }
+				has_tech = util_vehicle_5
+			}
 			NOT = { has_war_with = ISR }
 		}
 
@@ -4387,6 +4390,19 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan"
 			ISR = { country_event = { id = kaz_army.36 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
+			effect_tooltip = {
+				set_technology = { util_vehicle_5 = 1 }
+				add_equipment_to_stockpile = {
+					type = util_vehicle_5
+					amount = 100
+				}
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = ISR }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+				set_temp_variable = { treasury_change = -4 }
+				modify_treasury_effect = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4407,8 +4423,6 @@ focus_tree = {
 		prerequisite = { focus = KAZ_alan }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan_2"
 			add_breakthrough_progress = {
@@ -4427,6 +4441,13 @@ focus_tree = {
 				limit = { has_country_flag = KAZ_alan_special_response }
 				add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_special_forces }
 			}
+			set_technology = { util_vehicle_6 = 1 }
+			add_equipment_to_stockpile = {
+				type = util_vehicle_6
+				amount = 50
+			}
+			set_temp_variable = { treasury_change = -3 }
+			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
