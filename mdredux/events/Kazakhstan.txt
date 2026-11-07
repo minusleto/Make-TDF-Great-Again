@@ -3931,23 +3931,7 @@ country_event = {
 	option = {
 		name = kaz_army.37.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
-		set_country_flag = KAZ_alan_reconnaissance
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		ai_chance = { base = 45 }
-	}
-	option = {
-		name = kaz_army.37.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.37.b executed"
-		set_country_flag = KAZ_alan_command
-		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		ai_chance = { base = 35 }
-	}
-	option = {
-		name = kaz_army.37.c
-		log = "[GetDateText]: [This.GetName]: kaz_army.37.c executed"
-		set_country_flag = KAZ_alan_special_response
-		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		ai_chance = { base = 20 }
 	}
 }
 

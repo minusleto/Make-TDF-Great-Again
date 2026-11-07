@@ -4429,18 +4429,7 @@ focus_tree = {
 				specialization = specialization_land
 				value = 0.5
 			}
-			if = {
-				limit = { has_country_flag = KAZ_alan_reconnaissance }
-				add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_afv }
-			}
-			if = {
-				limit = { has_country_flag = KAZ_alan_command }
-				add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_cnc }
-			}
-			if = {
-				limit = { has_country_flag = KAZ_alan_special_response }
-				add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_special_forces }
-			}
+			add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_util }
 			set_technology = { util_vehicle_6 = 1 }
 			add_equipment_to_stockpile = {
 				type = util_vehicle_6
