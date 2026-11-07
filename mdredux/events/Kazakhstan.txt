@@ -3826,6 +3826,12 @@ country_event = {
 		name = kaz_army.34.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.34.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = SAF }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 4 }
+		modify_treasury_effect = yes
 		KAZ = { country_event = { id = kaz_army.35 days = 1 } }
 		ai_chance = { base = 70 }
 	}
@@ -3854,12 +3860,20 @@ country_event = {
 		name = kaz_army.35.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.35.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_technology = { util_vehicle_4 = 1 }
+		add_equipment_to_stockpile = {
+			type = util_vehicle_4
+			amount = 100
+			producer = SAF
+		}
 		add_tech_bonus = {
 			name = KAZ_arlan
 			bonus = 0.5
 			uses = 1
 			category = CAT_util
 		}
+		set_temp_variable = { treasury_change = -4 }
+		modify_treasury_effect = yes
 	}
 }
 # ISR Alan Development Proposal

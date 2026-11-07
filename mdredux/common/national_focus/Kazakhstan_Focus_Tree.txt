@@ -4323,7 +4323,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			SAF = { has_opinion = { target = KAZ value > 9 } }
+			SAF = {
+				has_opinion = { target = KAZ value > 9 }
+				has_tech = util_vehicle_4
+			}
 			NOT = { has_war_with = SAF }
 		}
 
@@ -4334,12 +4337,24 @@ focus_tree = {
 			SAF = { country_event = { id = kaz_army.34 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
+				set_technology = { util_vehicle_4 = 1 }
+				add_equipment_to_stockpile = {
+					type = util_vehicle_4
+					amount = 100
+					producer = SAF
+				}
 				add_tech_bonus = {
 					name = KAZ_arlan
 					bonus = 0.5
 					uses = 1
 					category = CAT_util
 				}
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = SAF }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+				set_temp_variable = { treasury_change = -4 }
+				modify_treasury_effect = yes
 			}
 		}
 
