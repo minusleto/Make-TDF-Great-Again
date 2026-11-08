@@ -4262,10 +4262,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			SAF = {
-				has_opinion = { target = KAZ value > 9 }
-				has_tech = APC_6
-			}
+			SAF = { has_opinion = { target = KAZ value > 9 } }
 			NOT = { has_war_with = SAF }
 		}
 
@@ -4277,7 +4274,12 @@ focus_tree = {
 			custom_effect_tooltip = effect_if_they_accept_TT
 			custom_effect_tooltip = KAZ_barys_6x6_tt
 			effect_tooltip = {
-				set_technology = { APC_6 = 1 }
+				add_tech_bonus = {
+					name = KAZ_btr_barys_6x6
+					bonus = 0.5
+					uses = 1
+					category = CAT_apc
+				}
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = SAF }
 				set_temp_variable = { influence_target = KAZ }
@@ -4413,6 +4415,10 @@ focus_tree = {
 				value = 0.5
 			}
 			add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_util }
+			add_equipment_to_stockpile = {
+				type = util_vehicle_5
+				amount = 50
+			}
 			set_temp_variable = { treasury_change = -3 }
 			modify_treasury_effect = yes
 		}
@@ -4468,10 +4474,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			SAF = {
-				has_opinion = { target = KAZ value > 9 }
-				has_tech = IFV_6
-			}
+			SAF = { has_opinion = { target = KAZ value > 9 } }
 			NOT = { has_war_with = SAF }
 		}
 
@@ -4483,7 +4486,12 @@ focus_tree = {
 			custom_effect_tooltip = effect_if_they_accept_TT
 			custom_effect_tooltip = KAZ_barys_8x8_tt
 			effect_tooltip = {
-				set_technology = { IFV_6 = 1 }
+				add_tech_bonus = {
+					name = KAZ_btr_barys_8x8
+					bonus = 0.5
+					uses = 1
+					category = CAT_ifv
+				}
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = SAF }
 				set_temp_variable = { influence_target = KAZ }

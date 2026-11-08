@@ -3331,11 +3331,12 @@ country_event = {
 		name = kaz_army.12.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.12.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		set_technology = { APC_6 = 1 }
 		create_equipment_variant = {
 			name = "Barys 6x6"
 			type = medium_tank_amphibious_chassis_1
 			parent_version = 2
+			design_team = mio:KAZ_KPE_tank_manufacturer
+			allow_without_tech = yes
 			modules = {
 				main_armament_slot = small_autocannon_2
 				reload_type_slot = automatic_loading
@@ -3358,6 +3359,12 @@ country_event = {
 			type = medium_tank_amphibious_chassis_1
 			variant_name = "Barys 6x6"
 			amount = 120
+		}
+		add_tech_bonus = {
+			name = KAZ_btr_barys_6x6
+			bonus = 0.5
+			uses = 1
+			category = CAT_apc
 		}
 		set_temp_variable = { treasury_change = -5.5 }
 		modify_treasury_effect = yes
@@ -3407,11 +3414,12 @@ country_event = {
 		name = kaz_army.14.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.14.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		set_technology = { IFV_6 = 1 }
 		create_equipment_variant = {
 			name = "Barys 8x8"
 			type = medium_tank_flame_chassis_2
 			parent_version = 1
+			design_team = mio:KAZ_KPE_tank_manufacturer
+			allow_without_tech = yes
 			modules = {
 				main_armament_slot = small_autocannon_2
 				reload_type_slot = automatic_loading
@@ -3439,6 +3447,12 @@ country_event = {
 			add_mio_size_up_requirement_factor = -0.03
 			add_mio_funds = 1000
 			add_mio_research_bonus = 0.02
+		}
+		add_tech_bonus = {
+			name = KAZ_btr_barys_8x8
+			bonus = 0.5
+			uses = 1
+			category = CAT_ifv
 		}
 		set_temp_variable = { treasury_change = -5.5 }
 		modify_treasury_effect = yes
