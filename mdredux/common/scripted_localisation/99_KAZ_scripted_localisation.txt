@@ -263,3 +263,10 @@ defined_text = {
 		localization_key = KAZ_airmobile_forces_loc1
 	}
 }
+defined_text = {
+	name = KAZ_production_cost_loc
+	text = {
+		trigger = { has_idea = KAZ_production_cost_idea }
+		localization_key = KAZ_production_cost_loc1
+	}
+}

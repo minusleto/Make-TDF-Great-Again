@@ -1464,6 +1464,20 @@ ideas = {
                 special_forces_cap = 0.02
             }
         }
+        KAZ_production_cost_idea = {
+            allowed_civil_war = { always = yes }
+            equipment_bonus = {
+                Inf_equipment = {
+                    build_cost_ic = -0.12
+                }
+                AA_Equipment = {
+                    build_cost_ic = -0.09
+                }
+                L_AT_Equipment = {
+                    build_cost_ic = -0.09
+                }
+            }
+        }
         KAZ_SARP_modules_idea = { #TODO мб занерфить посмотреть бонусы
             allowed_civil_war = { always = yes }
             equipment_bonus = {
@@ -2367,22 +2381,6 @@ ideas = {
         #### Economy Ideas End ####
 
         #### ARMY, NAVAL FORCES ####
-
-
-        KAZ_production_cost = {
-            allowed_civil_war = { always = yes }
-            equipment_bonus = {
-                Inf_equipment = {
-                    build_cost_ic = -0.12
-                }
-                AA_Equipment = {
-                    build_cost_ic = -0.09
-                }
-                L_AT_Equipment = {
-                    build_cost_ic = -0.09
-                }
-            }
-        }
 
         #### Start Ideas End ####
 

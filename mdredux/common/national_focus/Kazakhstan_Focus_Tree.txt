@@ -4513,7 +4513,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Rearmament Programme
 	focus = {
 		id = KAZ_army_programm
 		icon = kaz_program_effect
@@ -4527,12 +4527,8 @@ focus_tree = {
 		prerequisite = { focus = KAZ_btr_barys_8x8 }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_programm"
-			set_temp_variable = { treasury_change = -5 }
-			modify_treasury_effect = yes
 			unlock_military_industrial_organization_tooltip = mio:KAZ_Kazakhstan_Engineering_manufacturing4
 			mio:KAZ_Kazakhstan_Engineering_manufacturing4 = {
 				add_mio_size_up_requirement_factor = -0.03
@@ -4540,18 +4536,15 @@ focus_tree = {
 				add_mio_research_bonus = 0.02
 			}
 			add_tech_bonus = {
-				name = CAT_inf
+				name = KAZ_army_programm
 				bonus = 0.5
 				uses = 1
-				category = CAT_inf
+				category = CAT_l_at
+				category = CAT_l_aa
 			}
-			add_tech_bonus = {
-				name = CAT_artillery
-				bonus = 0.5
-				uses = 1
-				category = CAT_artillery
-			}
-			add_ideas = KAZ_production_cost
+			add_ideas = KAZ_production_cost_idea
+			set_temp_variable = { treasury_change = -5 }
+			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
