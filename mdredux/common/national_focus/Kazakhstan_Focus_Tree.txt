@@ -4262,11 +4262,11 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			has_tech = mbt_tech_1
-			SAF = {
-				has_opinion = { target = KAZ value > 9 }
+			OR = {
 				has_tech = mbt_tech_1
+				SAF = { has_tech = mbt_tech_1 }
 			}
+			SAF = { has_opinion = { target = KAZ value > 9 } }
 			NOT = { has_war_with = SAF }
 		}
 
@@ -4478,11 +4478,11 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			has_tech = mbt_tech_2
-			SAF = {
-				has_opinion = { target = KAZ value > 9 }
+			OR = {
 				has_tech = mbt_tech_2
+				SAF = { has_tech = mbt_tech_2 }
 			}
+			SAF = { has_opinion = { target = KAZ value > 9 } }
 			NOT = { has_war_with = SAF }
 		}
 
