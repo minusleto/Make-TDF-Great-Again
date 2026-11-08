@@ -3288,6 +3288,163 @@ country_event = {
 		modify_treasury_effect = yes
 	}
 }
+# SAF Barys 6x6 Licence Proposal
+country_event = {
+	id = kaz_army.11
+	title = kaz_army.11.t
+	desc = kaz_army.11.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.11.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.11.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = SAF }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 5.5 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.12 days = 1 } }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = kaz_army.11.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.11.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = { base = 0 }
+	}
+}
+
+# SAF Barys 6x6 Licence agreed
+country_event = {
+	id = kaz_army.12
+	title = kaz_army.12.t
+	desc = kaz_army.12.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.12.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.12.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_technology = { APC_6 = 1 }
+		create_equipment_variant = {
+			name = "Barys 6x6"
+			type = medium_tank_amphibious_chassis_1
+			parent_version = 2
+			modules = {
+				main_armament_slot = small_autocannon_2
+				reload_type_slot = automatic_loading
+				ammunition_load_slot = mixed_autocannon_ammo_1
+				turret_type_slot = tank_unmanned_turret
+				suspension_type_slot = tank_wheeled_suspension_medium
+				armor_type_slot = tank_steel_armor_gen2
+				engine_type_slot = tank_diesel_engine_gen2
+				special_type_slot_1 = smoke_launchers_2
+				special_type_slot_2 = afv_reverse_doors
+				special_type_slot_3 = afv_troop_capacity
+				special_type_slot_4 = tank_battlestation_1
+			}
+			upgrades = {
+				tank_nsb_armor_upgrade = 1
+			}
+			icon = "GFX_GER_APC_4"
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_amphibious_chassis_1
+			variant_name = "Barys 6x6"
+			amount = 120
+		}
+		set_temp_variable = { treasury_change = -5.5 }
+		modify_treasury_effect = yes
+	}
+}
+
+# SAF Barys 8x8 Licence Proposal
+country_event = {
+	id = kaz_army.13
+	title = kaz_army.13.t
+	desc = kaz_army.13.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.13.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.13.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = SAF }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 5.5 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.14 days = 1 } }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = kaz_army.13.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.13.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = { base = 0 }
+	}
+}
+
+# SAF Barys 8x8 Licence agreed
+country_event = {
+	id = kaz_army.14
+	title = kaz_army.14.t
+	desc = kaz_army.14.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.14.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.14.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_technology = { IFV_6 = 1 }
+		create_equipment_variant = {
+			name = "Barys 8x8"
+			type = medium_tank_flame_chassis_2
+			parent_version = 1
+			modules = {
+				main_armament_slot = small_autocannon_2
+				reload_type_slot = automatic_loading
+				ammunition_load_slot = mixed_autocannon_ammo_3
+				turret_type_slot = tank_base_tank_turret
+				suspension_type_slot = tank_wheeled_suspension_medium
+				armor_type_slot = afv_alum_armor_gen2
+				engine_type_slot = tank_diesel_engine_gen2
+				special_type_slot_1 = smoke_launchers_2
+				special_type_slot_2 = afv_troop_capacity
+				special_type_slot_3 = afv_reverse_doors
+				special_type_slot_4 = tank_battlestation_2_thermal
+			}
+			upgrades = {
+				tank_nsb_armor_upgrade = 3
+			}
+			icon = "gfx/interface/technologies/JAP/LAND/APC4.dds"
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_flame_chassis_2
+			variant_name = "Barys 8x8"
+			amount = 120
+		}
+		mio:KAZ_KPE_tank_manufacturer = {
+			add_mio_size_up_requirement_factor = -0.03
+			add_mio_funds = 1000
+			add_mio_research_bonus = 0.02
+		}
+		set_temp_variable = { treasury_change = -5.5 }
+		modify_treasury_effect = yes
+	}
+}
+
 # TUR Naval Shipyard Partnership Proposal
 country_event = {
 	id = kaz_army.17

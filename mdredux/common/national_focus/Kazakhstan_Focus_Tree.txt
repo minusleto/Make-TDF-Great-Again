@@ -4214,7 +4214,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-#Establish Kazakhstan Paramount Engineering
+	#Establish Kazakhstan Paramount Engineering
 	focus = {
 		id = KAZ_create_kpe
 		icon = kaz_kpe_start
@@ -4247,7 +4247,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Barys 6x6
 	focus = {
 		id = KAZ_btr_barys_6x6
 		icon = kaz_barys_6x6
@@ -4261,46 +4261,29 @@ focus_tree = {
 		prerequisite = { focus = KAZ_create_kpe }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
+		available = {
+			SAF = {
+				has_opinion = { target = KAZ value > 9 }
+				has_tech = APC_6
+			}
+			NOT = { has_war_with = SAF }
+		}
+
+		bypass = { NOT = { country_exists = SAF } }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_6x6"
-			set_temp_variable = { treasury_change = -5.5 }
-			modify_treasury_effect = yes
-			set_temp_variable = { percent_change = 2 }
-			set_temp_variable = { tag_index = SAF }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			create_equipment_variant = {
-				name = "Barys 6x6"
-				type = medium_tank_amphibious_chassis_1
-				parent_version = 2
-				modules = {
-					main_armament_slot = small_autocannon_2
-					reload_type_slot = automatic_loading
-					ammunition_load_slot = mixed_autocannon_ammo_1
-					turret_type_slot = tank_unmanned_turret
-					suspension_type_slot = tank_wheeled_suspension_medium
-					armor_type_slot = tank_steel_armor_gen2
-					engine_type_slot = tank_diesel_engine_gen2
-					special_type_slot_1 = smoke_launchers_2
-					special_type_slot_2 = afv_reverse_doors
-					special_type_slot_3 = afv_troop_capacity
-					special_type_slot_4 = tank_battlestation_1
-				}
-				upgrades = {
-					tank_nsb_armor_upgrade = 1
-				}
-				icon = "GFX_GER_APC_4"
-			}
-			add_equipment_to_stockpile = {
-				type = medium_tank_amphibious_chassis_1
-				variant_name = "Barys 6x6"
-				amount = 120 #140 deployed
-			}
-			if = {
-				limit = { has_tech = mbt_tech_1 }
-				set_technology = { mbt_tech_2 = 1 }
+			SAF = { country_event = { id = kaz_army.11 days = 1 } }
+			custom_effect_tooltip = effect_if_they_accept_TT
+			custom_effect_tooltip = KAZ_barys_6x6_tt
+			effect_tooltip = {
+				set_technology = { APC_6 = 1 }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = SAF }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+				set_temp_variable = { treasury_change = -5.5 }
+				modify_treasury_effect = yes
 			}
 		}
 
@@ -4308,7 +4291,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-#Produce the Arlan
+	#Produce the Arlan
 	focus = {
 		id = KAZ_arlan
 		icon = kaz_arlan
@@ -4362,7 +4345,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-#Integrate the Alan
+	#Integrate the Alan
 	focus = {
 		id = KAZ_alan
 		icon = kaz_alan
@@ -4409,7 +4392,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-#Develop the Alan-2
+	#Develop the Alan-2
 	focus = {
 		id = KAZ_alan_2
 		icon = kaz_alan_2
@@ -4430,11 +4413,6 @@ focus_tree = {
 				value = 0.5
 			}
 			add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_util }
-			set_technology = { util_vehicle_6 = 1 }
-			add_equipment_to_stockpile = {
-				type = util_vehicle_6
-				amount = 50
-			}
 			set_temp_variable = { treasury_change = -3 }
 			modify_treasury_effect = yes
 		}
@@ -4475,7 +4453,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Barys 8x8
 	focus = {
 		id = KAZ_btr_barys_8x8
 		icon = kaz_barys_8x8
@@ -4489,47 +4467,29 @@ focus_tree = {
 		prerequisite = { focus = KAZ_btr_barys_6x6 }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
+		available = {
+			SAF = {
+				has_opinion = { target = KAZ value > 9 }
+				has_tech = IFV_6
+			}
+			NOT = { has_war_with = SAF }
+		}
+
+		bypass = { NOT = { country_exists = SAF } }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_8x8"
-			set_temp_variable = { treasury_change = -5.5 }
-			modify_treasury_effect = yes
-			set_temp_variable = { percent_change = 2 }
-			set_temp_variable = { tag_index = SAF }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			create_equipment_variant = {
-				name = "Barys 8x8"
-				type = medium_tank_flame_chassis_2
-				parent_version = 1
-				modules = {
-					main_armament_slot = small_autocannon_2
-					reload_type_slot = automatic_loading
-					ammunition_load_slot = mixed_autocannon_ammo_3
-					turret_type_slot = tank_base_tank_turret
-					suspension_type_slot = tank_wheeled_suspension_medium
-					armor_type_slot = afv_alum_armor_gen2
-					engine_type_slot = tank_diesel_engine_gen2
-					special_type_slot_1 = smoke_launchers_2
-					special_type_slot_2 = afv_troop_capacity
-					special_type_slot_3 = afv_reverse_doors
-					special_type_slot_4 = tank_battlestation_2_thermal
-				}
-				upgrades = {
-					tank_nsb_armor_upgrade = 3
-				}
-				icon = "gfx/interface/technologies/JAP/LAND/APC4.dds"
-			}
-			add_equipment_to_stockpile = {
-				type = medium_tank_flame_chassis_2
-				variant_name = "Barys 8x8"
-				amount = 120 #140 deployed
-			}
-			mio:KAZ_KPE_tank_manufacturer = {
-				add_mio_size_up_requirement_factor = -0.03
-				add_mio_funds = 1000
-				add_mio_research_bonus = 0.02
+			SAF = { country_event = { id = kaz_army.13 days = 1 } }
+			custom_effect_tooltip = effect_if_they_accept_TT
+			custom_effect_tooltip = KAZ_barys_8x8_tt
+			effect_tooltip = {
+				set_technology = { IFV_6 = 1 }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = SAF }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+				set_temp_variable = { treasury_change = -5.5 }
+				modify_treasury_effect = yes
 			}
 		}
 
