@@ -1860,6 +1860,8 @@
  KAZ_trained_officer_corps_loc1: "\n§gTRAINED OFFICER CORPS§!:\n$MODIFIER_AIR_TRAINING_XP_FACTOR$: §G+8.0%§!\n$MODIFIER_AIR_MASTERY_GAIN_FACTOR$: §G+5.0%§!\n$MODIFIER_AIR_ACE_BONUSES_FACTOR$: §G+5.0%§!\n$MODIFIER_AIR_WEATHER_PENALTY$: §G-5.0%§!\n$MODIFIER_AIR_NIGHT_PENALTY$: §G-5.0%§!\n$MODIFIER_ARMY_BONUS_AIR_SUPERIORITY_FACTOR$: §G+3.0%§!\n"
  KAZ_airmobile_forces_loc1: "\n§gAIRMOBILE FORCES§!: \n$MODIFIER_PARADROP_ORGANIZATION_FACTOR$: §G+7.5%§!\nParatrooper Supply Grace: §G+12 hours§!\nParatrooper Anti-Air Defense: §G+5.0%§!\n$MODIFIER_SPECIAL_FORCES_CAP$: §G+2.0%§!\n"
  KAZ_production_cost_loc1: "\n§gREARMAMENT PROGRAMME§!: \nInfantry Equipment Cost: §G-12.0%§!\nAnti-Air Equipment Cost: §G-9.0%§!\nLight Anti-Tank Equipment Cost: §G-9.0%§!\n"
+ KAZ_production_cost_idea: "Rearmament Programme"
+ KAZ_airmobile_forces_idea: "Airmobile Forces"
  KAZ_outdated_navy_loc1: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-10.0%§!\n"
  KAZ_outdated_navy_loc2: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-5.0%§!\n"
  KAZ_outdated_navy_loc3: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-7.5%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-7.5%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-7.5%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-2.5%§!\n"
