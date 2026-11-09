@@ -4089,7 +4089,10 @@ country_event = {
 	picture = GFX_handshake_black #TODO
 	is_triggered_only = yes
 
-	immediate = {
+	option = {
+		name = kaz_army.37.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		set_technology = { util_vehicle_5 = 1 }
 		add_equipment_to_stockpile = {
 			type = util_vehicle_5
@@ -4097,12 +4100,6 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -4 }
 		modify_treasury_effect = yes
-	}
-
-	option = {
-		name = kaz_army.37.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
-		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 	}
 }
 
