@@ -3,6 +3,7 @@
  kaz_alash: "Pact of Turan"
  KAZ_Kazakhstan_Engineering_manufacturing_name: "Kazakhstan Engineering"
  KAZ_KPE_tank_manufacturer_name: "Kazakhstan Paramount Engineering"
+ KAZ_Aselsan_Engineering_name: "Kazakhstan Aselsan Engineering"
 
  # Cities
  KAZ_Kyzylzhar: "Kyzylzhar"
@@ -890,6 +891,7 @@
  KAZ_aibat_israel: "Development of 120mm \"Aibat\" Self-Propelled Mortar"
  KAZ_army_sarp: "Integration of Turkish \"SARP\" Combat Modules"
  KAZ_army_success: "Success in the Kazakh MIC"
+ KAZ_army_success_desc: "Kazakhstan Engineering no longer lives on tank repair alone: its Aselsan partner makes radios and thermal sights, and its research centre has shown new rifles and body armour. We will give both a place in the army's orders."
 
  #Air Force Focus Tree loc
  KAZ_decommission_old_planes: "Decommission Old Planes"

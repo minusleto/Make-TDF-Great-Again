@@ -4448,15 +4448,22 @@ focus_tree = {
 		prerequisite = { focus = KAZ_army_sarp }
 		search_filters = { FOCUS_FILTER_ARMY }
 
-		available = {}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_success"
-			one_random_arms_factory = yes
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				unlock_military_industrial_organization_tooltip = mio:KAZ_Kazakhstan_Engineering_manufacturing_2
+				unlock_military_industrial_organization_tooltip = mio:KAZ_Aselsan_Engineering_electronics
+				mio:KAZ_Kazakhstan_Engineering_manufacturing_2 = {
+					add_mio_size_up_requirement_factor = -0.03
+					add_mio_funds = 1000
+					add_mio_research_bonus = 0.02
+				}
+				mio:KAZ_Aselsan_Engineering_electronics = {
+					add_mio_funds = 1000
+				}
 			}
+			one_random_arms_factory = yes
 		}
 
 		ai_will_do = {
@@ -4529,12 +4536,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_programm"
-			unlock_military_industrial_organization_tooltip = mio:KAZ_Kazakhstan_Engineering_manufacturing4
-			mio:KAZ_Kazakhstan_Engineering_manufacturing4 = {
-				add_mio_size_up_requirement_factor = -0.03
-				add_mio_funds = 1000
-				add_mio_research_bonus = 0.02
-			}
 			add_tech_bonus = {
 				name = KAZ_army_programm
 				bonus = 0.5

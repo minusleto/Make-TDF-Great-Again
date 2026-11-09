@@ -8,7 +8,7 @@ KAZ_Kazakhstan_Engineering_manufacturing = {
 
 KAZ_Kazakhstan_Engineering_manufacturing_2 = {
 	allowed = { original_tag = KAZ }
-    visible = { KAZ = { has_completed_focus = KAZ_Kazakhstan_Engineering } }
+	visible = { KAZ = { has_completed_focus = KAZ_army_success } }
 	icon = GFX_idea_ke_company_start
 	name = KAZ_Kazakhstan_Engineering_manufacturing_name
 	include = generic_infantry_equipment_organization
@@ -22,10 +22,10 @@ KAZ_KPE_tank_manufacturer = {
 	include = generic_tank_equipment_organization
 }
 
-KAZ_Kazakhstan_Engineering_manufacturing4 = {
+KAZ_Aselsan_Engineering_electronics = {
 	allowed = { original_tag = KAZ }
-    visible = { KAZ = { has_completed_focus = KAZ_create_kpe } }
-	icon = GFX_idea_kpe_company_start
-	name = KAZ_Kazakhstan_Engineering_manufacturing_name
-	include = generic_infantry_equipment_organization
+	visible = { KAZ = { has_completed_focus = KAZ_army_success } }
+	icon = GFX_idea_ke_company_start
+	name = KAZ_Aselsan_Engineering_name
+	include = generic_cnc_equipment_organization
 }
