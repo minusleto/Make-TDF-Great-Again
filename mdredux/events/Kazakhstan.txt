@@ -4031,9 +4031,9 @@ country_event = {
 		name = kaz_army.35.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.35.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		set_technology = { util_vehicle_4 = 1 }
+		set_technology = { util_vehicle_5 = 1 }
 		add_equipment_to_stockpile = {
-			type = util_vehicle_4
+			type = util_vehicle_5
 			amount = 100
 			producer = SAF
 		}

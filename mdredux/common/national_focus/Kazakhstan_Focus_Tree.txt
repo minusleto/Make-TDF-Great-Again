@@ -4314,7 +4314,7 @@ focus_tree = {
 		available = {
 			SAF = {
 				has_opinion = { target = KAZ value > 9 }
-				has_tech = util_vehicle_4
+				has_tech = util_vehicle_5
 			}
 			NOT = { has_war_with = SAF }
 		}
@@ -4326,9 +4326,9 @@ focus_tree = {
 			SAF = { country_event = { id = kaz_army.34 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
-				set_technology = { util_vehicle_4 = 1 }
+				set_technology = { util_vehicle_5 = 1 }
 				add_equipment_to_stockpile = {
-					type = util_vehicle_4
+					type = util_vehicle_5
 					amount = 100
 					producer = SAF
 				}
@@ -4420,7 +4420,7 @@ focus_tree = {
 			}
 			add_tech_bonus = { name = KAZ_alan_2 bonus = 0.5 uses = 1 category = CAT_util }
 			add_equipment_to_stockpile = {
-				type = util_vehicle_5
+				type = util_vehicle_6
 				amount = 50
 			}
 			set_temp_variable = { treasury_change = -3 }
