@@ -1806,7 +1806,7 @@ focus_tree = {
 
 	focus = {
 		id = KAZ_start_comm
-		icon = great_firewall_china
+		icon = communism
 
 		x = -2
 		y = 0
@@ -1815,1053 +1815,128 @@ focus_tree = {
 
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_start_comm"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_start_comm"
 			country_event = KAZ_com.27
 			newline = yes
-    	}
+		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_party_cells
-		icon = great_firewall_china
+		icon = communist_propaganda
 
-		x = -4
+		x = -2
 		y = 1
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_start_comm }
+		prerequisite = { focus = KAZ_start_comm }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_party_cells"
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_party_cells"
 			swap_ideas = {
 				remove_idea = KAZ_olig_system
 				add_idea = KAZ_party_cells_idea
 			}
-    	}
+		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_plan_economy
-		icon = great_firewall_china
+		icon = red_industry
 
-		x = -2
+		x = 2
 		y = 1
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_start_comm }
+		prerequisite = { focus = KAZ_start_comm }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_plan_economy"
-    	    decrease_economic_growth = yes
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_plan_economy"
+			decrease_economic_growth = yes
 			newline = yes
 			add_ideas = KAZ_plan_economy_idea
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_turn_to_east
-		icon = great_firewall_china
-
-		x = 3
-		y = 1
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_start_comm }
-		search_filters = { KPK }
-
-    	available = {
-    		has_completed_focus = KAZ_soviet_kaz
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-    	completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_turn_to_east"
-			set_temp_variable = { percent_change = -10 }
-			set_temp_variable = { tag_index = USA }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			set_temp_variable = { percent_change = -10 }
-			set_temp_variable = { tag_index = FRA }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			set_temp_variable = { percent_change = -10 }
-			set_temp_variable = { tag_index = ITA }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			set_temp_variable = { percent_change = -10 }
-			set_temp_variable = { tag_index = GER }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			set_temp_variable = { percent_change = -10 }
-			set_temp_variable = { tag_index = ENG }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-    		newline = yes
-			set_temp_variable = { temp_opinion = -10 }
-			change_international_bankers_opinion = yes
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_social_dial
-		icon = great_firewall_china
-
-		x = 5
-		y = 1
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_start_comm }
-		search_filters = { KPK }
-
-    	available = {
-    		has_completed_focus = KAZ_soviet_kaz
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-    	completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_social_dial"
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_general_infrastr_of_central_azia
-		icon = great_firewall_china
-
-		x = 2
-		y = 2
-		relative_position_id = KAZ_start_comm
-
-		cost = 6
-
-    	prerequisite = { focus = KAZ_turn_to_east }
-		prerequisite = { focus = KAZ_social_dial }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_general_infrastr_of_central_azia"
-			if = {
-				limit = {
-					UZB = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				UZB = {
-					country_event = {
-						id = KAZ_com.4
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					KYR = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				KYR = {
-					country_event = {
-						id = KAZ_com.4
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-						if = {
-				limit = {
-					TAJ = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TAJ = {
-					country_event = {
-						id = KAZ_com.4
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-						if = {
-				limit = {
-					TRK = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TRK = {
-					country_event = {
-						id = KAZ_com.4
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_coordination_energy_policy
-		icon = great_firewall_china
-
-		x = 4
-		y = 2
-		relative_position_id = KAZ_start_comm
-
-		cost = 6
-
-    	prerequisite = { focus = KAZ_turn_to_east }
-		prerequisite = { focus = KAZ_social_dial }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_coordination_energy_policy"
-			if = {
-				limit = {
-					UZB = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				UZB = {
-					country_event = {
-						id = KAZ_com.7
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					KYR = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				KYR = {
-					country_event = {
-						id = KAZ_com.7
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TAJ = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TAJ = {
-					country_event = {
-						id = KAZ_com.7
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TRK = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TRK = {
-					country_event = {
-						id = KAZ_com.7
-						days = 1
-						random_days = 1
-					}
-				}
-			}
 		}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_updated_charter_workers
-		icon = great_firewall_china
-
-		x = 6
-		y = 2
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_turn_to_east }
-		prerequisite = { focus = KAZ_social_dial }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_updated_charter_workers"
-			set_party_index_to_ruling_party = yes
-			set_temp_variable = { party_popularity_increase = 0.07 }
-			set_temp_variable = { temp_outlook_increase = 0.07 }
-			add_relative_party_popularity = yes
-			newline = yes
-			add_ideas = KAZ_workers_charter_idea
-			newline = yes
-			if = {
-				limit = {
-					UZB = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				UZB = {
-					country_event = {
-						id = KAZ_com.16
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					KYR = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				KYR = {
-					country_event = {
-						id = KAZ_com.16
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TAJ = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TAJ = {
-					country_event = {
-						id = KAZ_com.16
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TRK = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TRK = {
-					country_event = {
-						id = KAZ_com.16
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-		}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_joint_red_steppe
-		icon = great_firewall_china
-
-		x = 3
-		y = 3
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_general_infrastr_of_central_azia }
-    	prerequisite = { focus = KAZ_coordination_energy_policy }
-    	prerequisite = { focus = KAZ_updated_charter_workers }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_joint_red_steppe"
-			add_timed_idea = {
-				idea = KAZ_army_excer
-				days = 90
-			}
-			newline = yes
-			if = {
-				limit = {
-					UZB = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				UZB = {
-					country_event = {
-						id = KAZ_com.10
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					KYR = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				KYR = {
-					country_event = {
-						id = KAZ_com.10
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TAJ = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TAJ = {
-					country_event = {
-						id = KAZ_com.10
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TRK = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TRK = {
-					country_event = {
-						id = KAZ_com.10
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-		}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_unified_defense_council_region
-		icon = great_firewall_china
-
-		x = 5
-		y = 3
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_general_infrastr_of_central_azia }
-    	prerequisite = { focus = KAZ_coordination_energy_policy }
-    	prerequisite = { focus = KAZ_updated_charter_workers }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_unified_defense_council_region"
-			if = {
-				limit = {
-					UZB = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				UZB = {
-					country_event = {
-						id = KAZ_com.13
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					KYR = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				KYR = {
-					country_event = {
-						id = KAZ_com.13
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TAJ = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TAJ = {
-					country_event = {
-						id = KAZ_com.13
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-			if = {
-				limit = {
-					TRK = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TRK = {
-					country_event = {
-						id = KAZ_com.13
-						days = 1
-						random_days = 1
-					}
-				}
-			}
-		}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_proclaim_union
-		icon = great_firewall_china
-
-		x = 4
-		y = 4
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_joint_red_steppe }
-    	prerequisite = { focus = KAZ_unified_defense_council_region }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_proclaim_union"
-			set_cosmetic_tag = KAZ_COMM2
-			newline = yes
-			hidden_effect = {
-				add_state_core = 727
-				add_state_core = 726
-				add_state_core = 729
-				add_state_core = 728
-				add_state_core = 720
-				add_state_core = 721
-				add_state_core = 1170
-				add_state_core = 723
-				add_state_core = 724
-				add_state_core = 722
-			}
-			if = {
-				limit = {
-					UZB = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				UZB = {
-					country_event = {
-						id = KAZ_com.19
-						days = 1
-						random_days = 2
-					}
-				}
-			}
-			if = {
-				limit = {
-					KYR = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				KYR = {
-					country_event = {
-						id = KAZ_com.19
-						days = 1
-						random_days = 2
-					}
-				}
-			}
-			if = {
-				limit = {
-					TAJ = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TAJ = {
-					country_event = {
-						id = KAZ_com.19
-						days = 1
-						random_days = 2
-					}
-				}
-			}
-			if = {
-				limit = {
-					TRK = {
-						NOT = { is_subject_of = KAZ}
-						exists = yes
-								NOT = { has_war_with = KAZ }
-					}
-				}
-				TRK = {
-					country_event = {
-						id = KAZ_com.19
-						days = 1
-						random_days = 2
-					}
-				}
-			}
-			set_rule = { can_create_factions = yes }
-		}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_attracting_invest
-		icon = great_firewall_china
-
-		x = 2
-		y = 5
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_proclaim_union }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_attracting_invest"
-    	    add_to_array = { SOV.permanent_investment_targets = KAZ }
-    	    add_to_array = { USA.permanent_investment_targets = KAZ }
-    	    add_to_array = { CHI.permanent_investment_targets = KAZ }
-    	    add_to_array = { GER.permanent_investment_targets = KAZ }
-    	    add_to_array = { FRA.permanent_investment_targets = KAZ }
-    	    add_to_array = { ITA.permanent_investment_targets = KAZ }
-    	    add_to_array = { ENG.permanent_investment_targets = KAZ }
-    	    add_to_array = { TUR.permanent_investment_targets = KAZ }
-    	    add_to_array = { RAJ.permanent_investment_targets = KAZ }
-    	    add_to_array = { UKR.permanent_investment_targets = KAZ }
-    	    add_to_array = { SWE.permanent_investment_targets = KAZ }
-    	    add_to_array = { SPR.permanent_investment_targets = KAZ }
-    	    add_to_array = { POL.permanent_investment_targets = KAZ }
-    	    custom_effect_tooltip = KAZ_invest_me_all
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_fight_against_terrorism
-		icon = great_firewall_china
-
-		x = 4
-		y = 6
-		relative_position_id = KAZ_start_comm
-
-		cost = 2
-
-    	prerequisite = { focus = KAZ_attracting_invest }
-    	prerequisite = { focus = KAZ_new_currency }
-    	prerequisite = { focus = KAZ_show_the_world_our_psheno }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-    	completion_reward = {
-            log = "[GetDateText]: [Root.GetName]: Focus KAZ_fight_against_terrorism"
-			add_popularity = {
-				ideology = fascism
-				popularity = -1
-			}
-			increase_policing_budget = yes
-			newline = yes
-			add_opinion_modifier = {
-				target = TAL
-				modifier = KAZ_war_fascism
-			}
-			add_opinion_modifier = {
-				target = AFG
-				modifier = KAZ_war_fascism
-			}
-			TAL = {
-				add_opinion_modifier = {
-					target = KAZ
-					modifier = KAZ_war_fascism
-				}
-			}
-			AFG = {
-				add_opinion_modifier = {
-					target = KAZ
-					modifier = KAZ_war_fascism
-				}
-			}
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_show_the_world_our_psheno
-		icon = great_firewall_china
-
-		x = 4
-		y = 5
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_proclaim_union }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    		has_completed_focus = KAZ_results_of_ABP
-    	}
-
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_show_the_world_our_psheno"
-    	    every_other_country = {
-    	        limit = {
-    	            THIS = {
-    	                has_opinion = {
-    	                    target = KAZ
-    	                    value > -11
-    	                }
-    	            }
-    	        }
-    	        country_event = KAZ_com.22
-    	    }
-    	    newline = yes
-    	    custom_effect_tooltip = KAZ_psheno_world_TT
-    	    set_temp_variable = { treasury_change = -30 }
-    	    modify_treasury_effect = yes
-    	    newline = yes
-    	    add_ideas = KAZ_psheno_world
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_new_currency
-		icon = great_firewall_china
-
-		x = 6
-		y = 5
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_proclaim_union }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_new_currency"
-    	    add_ideas = KAZ_common_currency_idea
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_finish_of_taliban
-		icon = great_firewall_china
-
-		x = 3
-		y = 7
-		relative_position_id = KAZ_start_comm
-
-		cost = 2
-
-    	prerequisite = { focus = KAZ_fight_against_terrorism }
-    	mutually_exclusive = { focus = KAZ_send_ultimat_afg }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    		OR = {
-    			AND = {
-    				TAL = { exists = yes }
-    	                  NOT = { has_war_with = TAL }
-    				NOT = { TAL = { is_subject_of = KAZ } }
-    			}
-    			AND = {
-    				AFG = { exists = yes }
-    	                  NOT = { has_war_with = AFG }
-    				NOT = { AFG = { is_subject_of = KAZ } }
-    			}
-    		}
-    	}
-
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_finish_of_taliban"
-    	    if = {
-    	        limit = { AND = {
-    	            TAL = { exists = yes }
-    	            NOT = { has_war_with = TAL }
-    	            }
-    	        }
-    	        declare_war_on = {
-    	            target = TAL
-    	            type = annex_everything
-    	        }
-    	    }
-    	    if = {
-    	        limit = { AND = {
-    	            AFG = { exists = yes }
-    	            NOT = { has_war_with = AFG }
-    	            }
-    	        }
-    	        declare_war_on = {
-    	            target = AFG
-    	            type = annex_everything
-    	        }
-    	    }
-    	}
 
 		ai_will_do = {
 			base = 2.5
-			modifier = {
-				add = 2
-				AND = {
-					strength_ratio = {
-						tag = TAL
-						ratio > 1
-					}
-					strength_ratio = {
-						tag = AFG
-						ratio > 1
-					}
-				}
-			}
-    	}
+		}
 	}
 
 	focus = {
-		id = KAZ_send_ultimat_afg
-		icon = great_firewall_china
+		id = KAZ_kazakh_color
+		icon = align_to_kazakhstan
 
-		x = 5
-		y = 7
+		x = 0
+		y = 1
 		relative_position_id = KAZ_start_comm
 
-		cost = 2
+		cost = 4
 
-    	prerequisite = { focus = KAZ_fight_against_terrorism }
-    	mutually_exclusive = { focus = KAZ_finish_of_taliban }
+		prerequisite = { focus = KAZ_start_comm }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    		OR = {
-    			AND = {
-    				TAL = { exists = yes }
-    				NOT = { TAL = { is_subject_of = KAZ } }
-    			}
-    			AND = {
-    				AFG = { exists = yes }
-    	                  NOT = { has_war_with = AFG }
-    				NOT = { AFG = { is_subject_of = KAZ } }
-    			}
-    		}
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_send_ultimat_afg"
-			if = {
-				limit = { AND = {
-					TAL = { exists = yes }
-					}
-				}
-				TAL = {
-					country_event = {
-						id = KAZ_com.23
-						days = 1
-					}
-				}
-			}
-			if = {
-				limit = { AND = {
-					AFG = { exists = yes }
-					NOT = { has_war_with = AFG }
-					}
-				}
-				AFG = {
-					country_event = {
-						id = KAZ_com.23
-						days = 1
-					}
-				}
-			}
+		available = {
+			emerging_communist_state_are_in_power = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kazakh_color"
+			set_temp_variable = { treasury_change = -1 }
+			modify_treasury_effect = yes
+			add_stability = 0.03
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_union_with_trade_org
-		icon = great_firewall_china
+		icon = christian_trade_unions
 
-		x = -2
+		x = 1
 		y = 2
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_party_cells }
+		prerequisite = { focus = KAZ_kazakh_color }
 		prerequisite = { focus = KAZ_plan_economy }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
-    	completion_reward = {
+		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_union_with_trade_org"
 			swap_ideas = {
 				remove_idea = oligarchs
@@ -2870,31 +1945,31 @@ focus_tree = {
 			add_ideas = KAZ_trade_union_alliance_idea
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
-		id = KAZ_anti_olig_manifesto
-		icon = great_firewall_china
+		id = KAZ_kill_euro3
+		icon = communist_purge
 
-		x = -4
+		x = -1
 		y = 2
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_party_cells }
-		prerequisite = { focus = KAZ_plan_economy }
+		prerequisite = { focus = KAZ_party_cells }
+		prerequisite = { focus = KAZ_kazakh_color }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_anti_olig_manifesto"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kill_euro3"
 			set_party_index_to_ruling_party = yes
 			set_temp_variable = { party_popularity_increase = 0.025 }
 			set_temp_variable = { temp_outlook_increase = 0.025 }
@@ -2905,35 +1980,35 @@ focus_tree = {
 			decrease_corruption = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_nationaliz_of_industr
-		icon = great_firewall_china
+		icon = communist_factories
 
-		x = -3
+		x = 0
 		y = 3
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_anti_olig_manifesto }
-    	prerequisite = { focus = KAZ_union_with_trade_org }
+		prerequisite = { focus = KAZ_kill_euro3 }
+		prerequisite = { focus = KAZ_union_with_trade_org }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_nationaliz_of_industr"
 			set_temp_variable = { temp_opinion = -7 }
 			change_oligarchs_opinion = yes
 			set_temp_variable = { temp_opinion = -7 }
-            change_international_bankers_opinion = yes
+			change_international_bankers_opinion = yes
 			newline = yes
 			random_owned_controlled_state = {
 				add_extra_state_shared_building_slots = 1
@@ -2955,28 +2030,27 @@ focus_tree = {
 			flat_productivity_change_effect = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_revision_of_privat
-		icon = great_firewall_china
+		icon = industry
 
-		x = -5
+		x = -2
 		y = 3
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_anti_olig_manifesto }
-    	prerequisite = { focus = KAZ_union_with_trade_org }
+		prerequisite = { focus = KAZ_kill_euro3 }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_revision_of_privat"
@@ -3003,28 +2077,28 @@ focus_tree = {
 			flat_productivity_change_effect = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_progressive_tax
-		icon = great_firewall_china
+		icon = radical_tax_reform
 
-		x = -5
+		x = -3
 		y = 4
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_revision_of_privat }
-    	prerequisite = { focus = KAZ_nationaliz_of_industr }
+		prerequisite = { focus = KAZ_revision_of_privat }
+		prerequisite = { focus = KAZ_nationaliz_of_industr }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_progressive_tax"
@@ -3039,28 +2113,28 @@ focus_tree = {
 			add_ideas = KAZ_progressive_tax_idea
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_tax_on_raw_materials_rent
-		icon = great_firewall_china
+		icon = oil
 
-		x = -3
+		x = -1
 		y = 4
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_revision_of_privat }
-    	prerequisite = { focus = KAZ_nationaliz_of_industr }
+		prerequisite = { focus = KAZ_revision_of_privat }
+		prerequisite = { focus = KAZ_nationaliz_of_industr }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_tax_on_raw_materials_rent"
@@ -3070,59 +2144,88 @@ focus_tree = {
 			add_ideas = KAZ_raw_materials_rent_idea
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
-		id = KAZ_state_plan_2
-		icon = great_firewall_china
+		id = KAZ_help_arlyk
+		icon = industry_civilian
 
-		x = -1
-		y = 3
-		relative_position_id = KAZ_start_comm
-
-		cost = 4
-
-    	prerequisite = { focus = KAZ_union_with_trade_org }
-    	prerequisite = { focus = KAZ_anti_olig_manifesto }
-		search_filters = { KPK }
-
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-    	completion_reward = {
-    	    log = "[GetDateText]: [Root.GetName]: Focus KAZ_state_plan_2"
-    	    swap_ideas = {
-				remove_idea = KAZ_plan_economy_idea
-				add_idea = KAZ_plan_economy_idea2
-			}
-			one_random_industrial_complex = yes
-    	}
-
-    	ai_will_do = {
-    	    base = 2.5
-    	}
-	}
-
-	focus = {
-		id = KAZ_state_order_industry
-		icon = great_firewall_china
-
-		x = -1
+		x = 1
 		y = 4
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_state_plan_2 }
+		prerequisite = { focus = KAZ_nationaliz_of_industr }
+		prerequisite = { focus = KAZ_state_plan_2 }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_help_arlyk"
+			set_temp_variable = { treasury_change = -3 }
+			modify_treasury_effect = yes
+			714 = { if = { limit = { is_owned_by = ROOT } add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes } } }
+			1226 = { if = { limit = { is_owned_by = ROOT } add_building_construction = { type = infrastructure level = 1 instant_build = yes } } }
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_state_plan_2
+		icon = goal_generic_soviet_construction
+
+		x = 2
+		y = 3
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_union_with_trade_org }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_state_plan_2"
+			swap_ideas = {
+				remove_idea = KAZ_plan_economy_idea
+				add_idea = KAZ_plan_economy_idea2
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_state_order_industry
+		icon = farming
+
+		x = 3
+		y = 4
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_state_plan_2 }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_state_order_industry"
@@ -3137,60 +2240,141 @@ focus_tree = {
 				remove_idea = KAZ_plan_economy_idea2
 				add_idea = KAZ_plan_economy_idea3
 			}
+			add_timed_idea = { idea = KAZ_psheno_world days = 365 }
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_vdnh
+		icon = farms_red_barn
+
+		x = 3
+		y = 5
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_state_order_industry }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_vdnh"
+			set_temp_variable = { treasury_change = -2 }
+			modify_treasury_effect = yes
+			add_timed_idea = { idea = KAZ_psheno_world days = 365 }
+			if = {
+				limit = { country_exists = KYR }
+				KYR = { country_event = { id = KAZ_com.22 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = UZB }
+				UZB = { country_event = { id = KAZ_com.22 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = TAJ }
+				TAJ = { country_event = { id = KAZ_com.22 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = TRK }
+				TRK = { country_event = { id = KAZ_com.22 days = 1 } }
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_anti_ofshore_package
-		icon = great_firewall_china
+		icon = double_income_tax
 
-		x = -4
+		x = -1
 		y = 5
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_state_order_industry }
-    	prerequisite = { focus = KAZ_progressive_tax }
-    	prerequisite = { focus = KAZ_tax_on_raw_materials_rent }
+		prerequisite = { focus = KAZ_progressive_tax }
+		prerequisite = { focus = KAZ_help_arlyk }
+		prerequisite = { focus = KAZ_tax_on_raw_materials_rent }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_anti_ofshore_package"
 			remove_ideas = KAZ_plan_economy_idea3
+			set_temp_variable = { treasury_change = 2 }
+			modify_treasury_effect = yes
+			decrease_corruption = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
-		id = KAZ_public_procurement_purge
-		icon = great_firewall_china
+		id = KAZ_e_gosplan
+		icon = computer
 
-		x = -2
+		x = -3
 		y = 5
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_state_order_industry }
-    	prerequisite = { focus = KAZ_progressive_tax }
-    	prerequisite = { focus = KAZ_tax_on_raw_materials_rent }
+		prerequisite = { focus = KAZ_progressive_tax }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_e_gosplan"
+			set_temp_variable = { treasury_change = -2 }
+			modify_treasury_effect = yes
+			one_random_network_infrastructure = yes
+			add_tech_bonus = { name = CAT_computing_tech category = CAT_computing_tech bonus = 0.35 uses = 1 }
+			add_ideas = KAZ_electronic_gosplan_idea
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_public_procurement_purge
+		icon = MEX_War_on_corruption
+
+		x = 1
+		y = 5
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_progressive_tax }
+		prerequisite = { focus = KAZ_help_arlyk }
+		prerequisite = { focus = KAZ_tax_on_raw_materials_rent }
+		prerequisite = { focus = KAZ_state_order_industry }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_public_procurement_purge"
@@ -3202,28 +2386,28 @@ focus_tree = {
 			decrease_corruption = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_salary_indexation
-		icon = great_firewall_china
+		icon = akzhol_tax_lov
 
-		x = -5
+		x = -2
 		y = 6
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_anti_ofshore_package }
-    	prerequisite = { focus = KAZ_public_procurement_purge }
+		prerequisite = { focus = KAZ_anti_ofshore_package }
+		prerequisite = { focus = KAZ_public_procurement_purge }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_salary_indexation"
@@ -3236,30 +2420,31 @@ focus_tree = {
 				remove_idea = KAZ_progressive_tax_idea
 				add_idea = KAZ_progressive_tax_idea2
 			}
+			add_stability = 0.02
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_social_package
-		icon = great_firewall_china
+		icon = welfare
 
-		x = -3
+		x = 0
 		y = 6
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_anti_ofshore_package }
-    	prerequisite = { focus = KAZ_public_procurement_purge }
+		prerequisite = { focus = KAZ_anti_ofshore_package }
+		prerequisite = { focus = KAZ_public_procurement_purge }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_social_package"
@@ -3269,30 +2454,34 @@ focus_tree = {
 			add_relative_party_popularity = yes
 			newline = yes
 			add_ideas = KAZ_social_package_idea
+			set_temp_variable = { treasury_change = -2 }
+			modify_treasury_effect = yes
+			increase_social_spending = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
 		id = KAZ_health_educ_reforms
-		icon = great_firewall_china
+		icon = kazakhstan_school
 
-		x = -1
+		x = 2
 		y = 6
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_anti_ofshore_package }
-    	prerequisite = { focus = KAZ_public_procurement_purge }
+		prerequisite = { focus = KAZ_anti_ofshore_package }
+		prerequisite = { focus = KAZ_public_procurement_purge }
+		prerequisite = { focus = KAZ_vdnh }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_health_educ_reforms"
@@ -3302,51 +2491,768 @@ focus_tree = {
 			add_relative_party_popularity = yes
 			newline = yes
 			add_ideas = KAZ_health_education_reform_idea
+			set_temp_variable = { treasury_change = -3 }
+			modify_treasury_effect = yes
+			add_tech_bonus = { name = CAT_industry category = CAT_industry bonus = 0.25 uses = 1 }
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		ai_will_do = {
+			base = 2.5
+		}
 	}
 
 	focus = {
-		id = KAZ_soviet_kaz
-		icon = great_firewall_china
+		id = KAZ_red_dawn_steppe
+		icon = communism10
 
-		x = -3
+		x = -2
 		y = 7
 		relative_position_id = KAZ_start_comm
 
 		cost = 4
 
-    	prerequisite = { focus = KAZ_salary_indexation }
-    	prerequisite = { focus = KAZ_social_package }
-    	prerequisite = { focus = KAZ_health_educ_reforms }
+		prerequisite = { focus = KAZ_salary_indexation }
 		search_filters = { KPK }
 
-    	available = {
-    		emerging_communist_state_are_in_power = yes
-    	}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_soviet_kaz"
-			set_party_index_to_ruling_party = yes
-			set_temp_variable = { party_popularity_increase = 0.1 }
-			set_temp_variable = { temp_outlook_increase = 0.1 }
-			add_relative_party_popularity = yes
-			add_political_power = 200
-			newline = yes
-			set_politics = {
-				ruling_party = communism
-				elections_allowed = no
-			}
-			set_cosmetic_tag = KAZ_COMM
+		available = {
+			emerging_communist_state_are_in_power = yes
 		}
 
-    	ai_will_do = {
-    	    base = 2.5
-    	}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_red_dawn_steppe"
+			add_ideas = KAZ_red_dawn_idea
+			add_war_support = 0.05
+			if = {
+				limit = { country_exists = KYR }
+				set_temp_variable = { percent_change = 4 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = KYR }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { country_exists = UZB }
+				set_temp_variable = { percent_change = 4 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = UZB }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { country_exists = TAJ }
+				set_temp_variable = { percent_change = 4 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = TAJ }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { country_exists = TRK }
+				set_temp_variable = { percent_change = 4 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = TRK }
+				change_influence_percentage = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
 	}
+
+	focus = {
+		id = KAZ_juche_experience
+		icon = align_to_north_korea
+
+		x = 0
+		y = 7
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_social_package }
+		prerequisite = { focus = KAZ_health_educ_reforms }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_juche_experience"
+			add_ideas = KAZ_juche_idea
+			add_tech_bonus = { name = CAT_industry category = CAT_industry bonus = 0.35 uses = 1 }
+			if = {
+				limit = { country_exists = NKO }
+				set_temp_variable = { sender_nation = ROOT.id }
+				set_temp_variable = { receiver_nation = NKO.id }
+				set_improved_trade_agreement = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_sparks_over_caspian
+		icon = focus_PER_bolster_the_caspian
+
+		x = 2
+		y = 7
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_health_educ_reforms }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_sparks_over_caspian"
+			add_ideas = KAZ_caspian_diplomacy_idea
+			if = {
+				limit = { country_exists = ARM }
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = ARM }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { country_exists = GEO }
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = GEO }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { country_exists = AZE }
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = AZE }
+				change_influence_percentage = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_red_tulips_bishkek
+		icon = communist_propaganda
+
+		x = -3
+		y = 8
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_red_dawn_steppe }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = KYR } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_red_tulips_bishkek"
+			if = {
+				limit = { country_exists = KYR }
+				set_temp_variable = { treasury_change = -1 }
+				modify_treasury_effect = yes
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = KYR }
+				change_influence_percentage = yes
+				KYR = {
+					set_temp_variable = { party_index = 4 }
+					set_temp_variable = { party_popularity_increase = 0.06 }
+					set_temp_variable = { temp_outlook_increase = 0.03 }
+					add_relative_party_popularity = yes
+					if = {
+						limit = {
+							has_civil_war = no
+							check_variable = { num_owned_states > 1 }
+							NOT = { has_government = communism }
+						}
+						start_civil_war = { ideology = communism size = 0.35 }
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_cotton_revolt
+		icon = align_to_uzbekistan
+
+		x = -1
+		y = 8
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_red_dawn_steppe }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = UZB } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_cotton_revolt"
+			if = {
+				limit = { country_exists = UZB }
+				set_temp_variable = { treasury_change = -1 }
+				modify_treasury_effect = yes
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = UZB }
+				change_influence_percentage = yes
+				UZB = {
+					set_temp_variable = { party_index = 4 }
+					set_temp_variable = { party_popularity_increase = 0.06 }
+					set_temp_variable = { temp_outlook_increase = 0.03 }
+					add_relative_party_popularity = yes
+					if = {
+						limit = {
+							has_civil_war = no
+							check_variable = { num_owned_states > 1 }
+							NOT = { has_government = communism }
+						}
+						start_civil_war = { ideology = communism size = 0.35 }
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_aid_cuba
+		icon = align_to_cuba
+
+		x = 1
+		y = 8
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_juche_experience }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = CUB } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aid_cuba"
+			if = {
+				limit = { country_exists = CUB }
+				set_temp_variable = { treasury_change = -2 }
+				modify_treasury_effect = yes
+				CUB = { set_temp_variable = { treasury_change = 2 } modify_treasury_effect = yes }
+				set_temp_variable = { sender_nation = ROOT.id }
+				set_temp_variable = { receiver_nation = CUB.id }
+				set_improved_trade_agreement = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_aid_armenia_artsakh
+		icon = align_to_armenia
+
+		x = 3
+		y = 8
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_sparks_over_caspian }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = ARM } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aid_armenia_artsakh"
+			if = {
+				limit = { country_exists = ARM }
+				set_temp_variable = { treasury_change = -1 }
+				modify_treasury_effect = yes
+				ARM = { add_command_power = 25 }
+				add_opinion_modifier = { target = ARM modifier = military_cooperation }
+				reverse_add_opinion_modifier = { target = ARM modifier = military_cooperation }
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = ARM }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { country_exists = NKR }
+				NKR = { set_temp_variable = { treasury_change = 1 } modify_treasury_effect = yes }
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_echo_1992
+		icon = align_to_tajikistan
+
+		x = -3
+		y = 9
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_red_tulips_bishkek }
+		prerequisite = { focus = KAZ_cotton_revolt }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = TAJ } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_echo_1992"
+			if = {
+				limit = { country_exists = TAJ }
+				set_temp_variable = { treasury_change = -1 }
+				modify_treasury_effect = yes
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = TAJ }
+				change_influence_percentage = yes
+				TAJ = {
+					set_temp_variable = { party_index = 4 }
+					set_temp_variable = { party_popularity_increase = 0.06 }
+					set_temp_variable = { temp_outlook_increase = 0.03 }
+					add_relative_party_popularity = yes
+					if = {
+						limit = {
+							has_civil_war = no
+							check_variable = { num_owned_states > 1 }
+							NOT = { has_government = communism }
+						}
+						start_civil_war = { ideology = communism size = 0.35 }
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_death_of_ruhnama
+		icon = align_to_turkmenistan
+
+		x = -1
+		y = 9
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_cotton_revolt }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = TRK } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_death_of_ruhnama"
+			if = {
+				limit = { country_exists = TRK }
+				set_temp_variable = { treasury_change = -1 }
+				modify_treasury_effect = yes
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = TRK }
+				change_influence_percentage = yes
+				TRK = {
+					set_temp_variable = { party_index = 4 }
+					set_temp_variable = { party_popularity_increase = 0.06 }
+					set_temp_variable = { temp_outlook_increase = 0.03 }
+					add_relative_party_popularity = yes
+					if = {
+						limit = {
+							has_civil_war = no
+							check_variable = { num_owned_states > 1 }
+							NOT = { has_government = communism }
+						}
+						start_civil_war = { ideology = communism size = 0.35 }
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_help_reunify_georgia
+		icon = align_to_georgia
+
+		x = 1
+		y = 9
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_aid_armenia_artsakh }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = GEO } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_help_reunify_georgia"
+			if = {
+				limit = { country_exists = GEO }
+				set_temp_variable = { treasury_change = -1 }
+				modify_treasury_effect = yes
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = GEO }
+				change_influence_percentage = yes
+				GEO = { add_command_power = 25 }
+				GEO = { country_event = { id = KAZ_com.28 days = 1 } }
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_azerbaijan_ultimatum
+		icon = attack_azerbaijan
+
+		x = 3
+		y = 9
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_aid_armenia_artsakh }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		bypass = { NOT = { country_exists = AZE } }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_azerbaijan_ultimatum"
+			if = {
+				limit = { country_exists = AZE }
+				AZE = { country_event = { id = KAZ_com.29 days = 1 } }
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_proclaim_cassr
+		icon = international_union_of_soviet_republics
+
+		x = -2
+		y = 10
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_echo_1992 }
+		prerequisite = { focus = KAZ_death_of_ruhnama }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_proclaim_cassr"
+			set_cosmetic_tag = KAZ_CASSR
+			add_ideas = KAZ_cassr_idea
+			add_stability = 0.05
+			if = {
+				limit = { country_exists = KYR }
+				KYR = { country_event = { id = KAZ_com.30 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = UZB }
+				UZB = { country_event = { id = KAZ_com.30 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = TAJ }
+				TAJ = { country_event = { id = KAZ_com.30 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = TRK }
+				TRK = { country_event = { id = KAZ_com.30 days = 1 } }
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_caucasian_red_coups
+		icon = communist_purge
+
+		x = 1
+		y = 10
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_help_reunify_georgia }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_caucasian_red_coups"
+			if = {
+				limit = { country_exists = ARM }
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = ARM }
+				change_influence_percentage = yes
+				ARM = {
+					set_temp_variable = { party_index = 4 }
+					set_temp_variable = { party_popularity_increase = 0.08 }
+					set_temp_variable = { temp_outlook_increase = 0.05 }
+					add_relative_party_popularity = yes
+				}
+			}
+			if = {
+				limit = { country_exists = GEO }
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = GEO }
+				change_influence_percentage = yes
+				GEO = {
+					set_temp_variable = { party_index = 4 }
+					set_temp_variable = { party_popularity_increase = 0.08 }
+					set_temp_variable = { temp_outlook_increase = 0.05 }
+					add_relative_party_popularity = yes
+				}
+			}
+			if = {
+				limit = { country_exists = AZE }
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = AZE }
+				change_influence_percentage = yes
+				AZE = {
+					set_temp_variable = { party_index = 4 }
+					set_temp_variable = { party_popularity_increase = 0.08 }
+					set_temp_variable = { temp_outlook_increase = 0.05 }
+					add_relative_party_popularity = yes
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_establish_tssr
+		icon = international_union_of_soviet_republics
+
+		x = 3
+		y = 10
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_help_reunify_georgia }
+		prerequisite = { focus = KAZ_azerbaijan_ultimatum }
+		prerequisite = { focus = KAZ_caucasian_red_coups }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_establish_tssr"
+			add_stability = 0.03
+			if = {
+				limit = { country_exists = ARM }
+				ARM = { country_event = { id = KAZ_com.30 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = GEO }
+				GEO = { country_event = { id = KAZ_com.30 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = AZE }
+				AZE = { country_event = { id = KAZ_com.30 days = 1 } }
+			}
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_beyond_hindu_kush
+		icon = align_to_afghanistan
+
+		x = -3
+		y = 11
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_proclaim_cassr }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_beyond_hindu_kush"
+			if = {
+				limit = { country_exists = AFG }
+				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = AFG }
+				change_influence_percentage = yes
+				set_temp_variable = { sender_nation = ROOT.id }
+				set_temp_variable = { receiver_nation = AFG.id }
+				set_improved_trade_agreement = yes
+			}
+			one_random_infrastructure = yes
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_monkey_with_a_grenade
+		icon = align_to_pakistan
+
+		x = -1
+		y = 11
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_proclaim_cassr }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_monkey_with_a_grenade"
+			if = {
+				limit = { country_exists = PAK }
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = ROOT }
+				set_temp_variable = { influence_target = PAK }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = PAK modifier = recent_actions_positive }
+			}
+			add_tech_bonus = { name = CAT_nuclear_reactors category = CAT_nuclear_reactors bonus = 0.25 uses = 1 }
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
+	focus = {
+		id = KAZ_caspian_union_state
+		icon = focus_PER_bolster_the_caspian
+
+		x = 1
+		y = 11
+		relative_position_id = KAZ_start_comm
+
+		cost = 4
+
+		prerequisite = { focus = KAZ_proclaim_cassr }
+		prerequisite = { focus = KAZ_establish_tssr }
+		search_filters = { KPK }
+
+		available = {
+			emerging_communist_state_are_in_power = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_caspian_union_state"
+			set_cosmetic_tag = KAZ_CASPIAN_UNION
+			swap_ideas = { remove_idea = KAZ_cassr_idea add_idea = KAZ_caspian_union_idea }
+			remove_ideas = KAZ_caspian_diplomacy_idea
+			add_stability = 0.05
+			one_random_infrastructure = yes
+		}
+
+		ai_will_do = {
+			base = 2.5
+		}
+	}
+
 	#Our Military Forces
 	focus = {
 		id = KAZ_our_military_forces
@@ -14355,7 +14261,7 @@ focus_tree = {
 		icon = kaz_cas_start
 
 		x = -2
-		y = 9
+		y = 13
 
 		cost = 3
 
