@@ -4275,7 +4275,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_6x6"
 			SAF = { country_event = { id = kaz_army.11 days = 1 } }
-			custom_effect_tooltip = effect_if_they_accept_TT
 			custom_effect_tooltip = KAZ_barys_6x6_tt
 			effect_tooltip = {
 				add_tech_bonus = {
@@ -4498,7 +4497,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_8x8"
 			SAF = { country_event = { id = kaz_army.13 days = 1 } }
-			custom_effect_tooltip = effect_if_they_accept_TT
 			custom_effect_tooltip = KAZ_barys_8x8_tt
 			effect_tooltip = {
 				add_tech_bonus = {
