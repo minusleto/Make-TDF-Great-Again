@@ -1,0 +1,20 @@
+KAZ_upgrade_drone_program = {
+	if = {
+		limit = { NOT = { has_idea = KAZ_drone_program_idea } }
+		add_ideas = KAZ_drone_program_idea
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KAZ_drone_program_1_idea } }
+		swap_ideas = {
+			remove_idea = KAZ_drone_program_idea
+			add_idea = KAZ_drone_program_1_idea
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KAZ_drone_program_2_idea } }
+		swap_ideas = {
+			remove_idea = KAZ_drone_program_1_idea
+			add_idea = KAZ_drone_program_2_idea
+		}
+	}
+}
