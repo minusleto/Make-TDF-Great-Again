@@ -3640,12 +3640,13 @@ focus_tree = {
 		icon = Generic_Soldier_Aiming
 
 		x = 3
-		y = 2
+		y = 3
 		relative_position_id = KAZ_reorganization_infantry
 
 		cost = 5
 
 		prerequisite = { focus = KAZ_reform_military_districts }
+		prerequisite = { focus = KAZ_logistics_reorganization }
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		completion_reward = {
