@@ -3079,6 +3079,106 @@ country_event = {
 	}
 }
 
+# Georgia and the breakaway regions
+country_event = {
+	id = KAZ_com.28
+	title = KAZ_com.28.t
+	desc = KAZ_com.28.d
+	picture = GFX_handshake_black
+	is_triggered_only = yes
+
+	option = {
+		name = KAZ_com.28.a
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		add_stability = 0.03
+		if = {
+			limit = { country_exists = ABK has_war_with = ABK }
+			white_peace = ABK
+		}
+		if = {
+			limit = { country_exists = SOO has_war_with = SOO }
+			white_peace = SOO
+		}
+		ai_chance = { base = 75 }
+	}
+	option = {
+		name = KAZ_com.28.b
+		ai_chance = { base = 25 }
+	}
+}
+
+# Azerbaijani response to the Artsakh ultimatum
+country_event = {
+	id = KAZ_com.29
+	title = KAZ_com.29.t
+	desc = KAZ_com.29.d
+	picture = GFX_handshake_black
+	is_triggered_only = yes
+
+	option = {
+		name = KAZ_com.29.a
+		if = {
+			limit = { country_exists = ARM owns_state = 710 }
+			ARM = { transfer_state = 710 }
+		}
+		add_opinion_modifier = { target = FROM modifier = recent_actions_positive }
+		ai_chance = {
+			base = 10
+			modifier = { add = 30 sender_influence_higher_30 = yes }
+		}
+	}
+	option = {
+		name = KAZ_com.29.b
+		add_opinion_modifier = { target = FROM modifier = drama }
+		FROM = {
+			if = {
+				limit = { NOT = { has_war_with = ROOT } }
+				if = {
+					limit = { ROOT = { owns_state = 710 } }
+					create_wargoal = { type = take_state_focus target = ROOT generator = { 710 } }
+				}
+				else = {
+					create_wargoal = { type = puppet_wargoal_focus target = ROOT }
+				}
+			}
+		}
+		ai_chance = { base = 90 }
+	}
+}
+
+# Accession to the Central Asian or Transcaucasian federation
+country_event = {
+	id = KAZ_com.30
+	title = KAZ_com.30.t
+	desc = KAZ_com.30.d
+	picture = GFX_handshake_black
+	is_triggered_only = yes
+
+	option = {
+		name = KAZ_com.30.a
+		trigger = {
+			is_subject = no
+			has_war = no
+			FROM = { emerging_communist_state_are_in_power = yes }
+		}
+		every_owned_state = {
+			limit = { is_core_of = ROOT }
+			add_core_of = FROM
+		}
+		FROM = { annex_country = { target = ROOT transfer_troops = yes } }
+		ai_chance = {
+			base = 0
+			modifier = { add = 20 has_government = communism }
+			modifier = { add = 30 sender_influence_higher_30 = yes }
+			modifier = { add = 20 has_opinion = { target = FROM value > 75 } }
+		}
+	}
+	option = {
+		name = KAZ_com.30.b
+		ai_chance = { base = 70 }
+	}
+}
+
 # ARMY
 # CHI Wing Loong UAV Proposal
 country_event = {
