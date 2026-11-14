@@ -3650,7 +3650,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_territorial_defense"
-			custom_effect_tooltip = New_mobilization_brigade_active_tt
+			custom_effect_tooltip = KAZ_territorial_defense_mobilization_tt
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
 		}
