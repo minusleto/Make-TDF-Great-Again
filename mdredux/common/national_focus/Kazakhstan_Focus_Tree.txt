@@ -4010,7 +4010,7 @@ focus_tree = {
 				category = CAT_trans_heli
 				category = CAT_heli
 			}
-			mio:KAZ_Kazakhstan_Engineering_manufacturing = {
+			mio:KAZ_Kazakhstan_Engineering_helicopter_manufacturer = {
 				add_mio_funds = 200
 			}
 			one_random_arms_factory = yes
