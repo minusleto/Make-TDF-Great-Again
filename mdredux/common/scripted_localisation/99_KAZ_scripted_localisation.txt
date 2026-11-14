@@ -239,6 +239,40 @@ defined_text = {
 		localization_key = KAZ_territorial_defense_loc1
 	}
 }
+defined_text = {
+	name = KAZ_drone_program_loc
+	text = {
+		trigger = { has_idea = KAZ_drone_program_2_idea }
+		localization_key = KAZ_drone_program_3_tt
+	}
+	text = {
+		trigger = { has_idea = KAZ_drone_program_1_idea }
+		localization_key = KAZ_drone_program_2_tt
+	}
+	text = {
+		trigger = { has_idea = KAZ_drone_program_idea }
+		localization_key = KAZ_drone_program_1_tt
+	}
+}
+defined_text = {
+	name = KAZ_drone_program_next_loc
+	text = {
+		trigger = { has_idea = KAZ_drone_program_2_idea }
+		localization_key = KAZ_drone_program_max_tt
+	}
+	text = {
+		trigger = { has_idea = KAZ_drone_program_1_idea }
+		localization_key = KAZ_drone_program_3_tt
+	}
+	text = {
+		trigger = { has_idea = KAZ_drone_program_idea }
+		localization_key = KAZ_drone_program_2_tt
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = KAZ_drone_program_1_tt
+	}
+}
 #Navy Ideas
 defined_text = {
 	name = KAZ_outdated_navy_loc

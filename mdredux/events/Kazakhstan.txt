@@ -3220,6 +3220,7 @@ country_event = {
 	option = {
 		name = kaz_army.2.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.2.a executed"
+		custom_effect_tooltip = KAZ_drone_program_event_tt
 		add_tech_bonus = {
 			name = KAZ_wing_loong_china
 			bonus = 0.75
@@ -3228,6 +3229,28 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
+		if = {
+			limit = { NOT = { has_idea = KAZ_drone_program_2_idea } }
+			if = {
+				limit = { has_idea = KAZ_drone_program_1_idea }
+				swap_ideas = {
+					remove_idea = KAZ_drone_program_1_idea
+					add_idea = KAZ_drone_program_2_idea
+				}
+			}
+			else = {
+				if = {
+					limit = { has_idea = KAZ_drone_program_idea }
+					swap_ideas = {
+						remove_idea = KAZ_drone_program_idea
+						add_idea = KAZ_drone_program_1_idea
+					}
+				}
+				else = {
+					add_ideas = KAZ_drone_program_idea
+				}
+			}
+		}
 	}
 }
 # Airmobile Forces
@@ -3378,6 +3401,7 @@ country_event = {
 	option = {
 		name = kaz_army.10.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.10.a executed"
+		custom_effect_tooltip = KAZ_drone_program_event_tt
 		add_tech_bonus = {
 			name = KAZ_skylark_israel
 			bonus = 0.75
@@ -3386,6 +3410,28 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
+		if = {
+			limit = { NOT = { has_idea = KAZ_drone_program_2_idea } }
+			if = {
+				limit = { has_idea = KAZ_drone_program_1_idea }
+				swap_ideas = {
+					remove_idea = KAZ_drone_program_1_idea
+					add_idea = KAZ_drone_program_2_idea
+				}
+			}
+			else = {
+				if = {
+					limit = { has_idea = KAZ_drone_program_idea }
+					swap_ideas = {
+						remove_idea = KAZ_drone_program_idea
+						add_idea = KAZ_drone_program_1_idea
+					}
+				}
+				else = {
+					add_ideas = KAZ_drone_program_idea
+				}
+			}
+		}
 	}
 }
 # SAF Barys 6x6 Licence Proposal
@@ -7203,6 +7249,7 @@ country_event = {
 	option = {
 		name = kaz_foreign.79.a
 		log = "[GetDateText]: [This.GetName]: kaz_foreign.79.a executed"
+		custom_effect_tooltip = KAZ_drone_program_event_tt
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		add_tech_bonus = {
 			name = KAZ_turkish_drones
@@ -7226,6 +7273,28 @@ country_event = {
 		change_the_military_opinion = yes
 		set_temp_variable = { treasury_change = -7.5 }
 		modify_treasury_effect = yes
+		if = {
+			limit = { NOT = { has_idea = KAZ_drone_program_2_idea } }
+			if = {
+				limit = { has_idea = KAZ_drone_program_1_idea }
+				swap_ideas = {
+					remove_idea = KAZ_drone_program_1_idea
+					add_idea = KAZ_drone_program_2_idea
+				}
+			}
+			else = {
+				if = {
+					limit = { has_idea = KAZ_drone_program_idea }
+					swap_ideas = {
+						remove_idea = KAZ_drone_program_idea
+						add_idea = KAZ_drone_program_1_idea
+					}
+				}
+				else = {
+					add_ideas = KAZ_drone_program_idea
+				}
+			}
+		}
 	}
 }
 #The Turkish Drone Deal Falls Through

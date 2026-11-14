@@ -1927,7 +1927,7 @@
  KAZ_outdate_wings_idea: "Legacy of Soviet Aviation"
 
  #Army Tooltips
- KAZ_army_tt: "[KAZ_outdated_army_loc][KAZ_modern_uniform_loc][KAZ_modern_communication_systems_loc][KAZ_foreign_equipment_loc][KAZ_regional_commands_loc][KAZ_logistics_reorganization_loc][KAZ_sso_loc][KAZ_outdate_wings_loc][KAZ_trained_officer_corps_loc][KAZ_outdated_navy_loc][KAZ_airmobile_forces_loc][KAZ_production_cost_loc]"
+ KAZ_army_tt: "[KAZ_outdated_army_loc][KAZ_modern_uniform_loc][KAZ_modern_communication_systems_loc][KAZ_foreign_equipment_loc][KAZ_regional_commands_loc][KAZ_logistics_reorganization_loc][KAZ_sso_loc][KAZ_outdate_wings_loc][KAZ_trained_officer_corps_loc][KAZ_outdated_navy_loc][KAZ_airmobile_forces_loc][KAZ_production_cost_loc][KAZ_drone_program_loc]"
  KAZ_outdated_army_loc1: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-20.0%§!\n$army_defence_factor$: §R-20.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-15.0%§!\n$army_personnel_cost_multiplier_modifier$: §R+7.0%§!\n"
  KAZ_outdated_army_loc2: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-15.0%§!\n$army_defence_factor$: §R-15.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-10.0%§!\n$army_personnel_cost_multiplier_modifier$: §R+3.0%§!\n"
  KAZ_outdated_army_loc3: "\n§gOUTDATED POST-SOVIET ARMY§!: \n$army_attack_factor$: §R-10.0%§!\n$army_defence_factor$: §R-10.0%§!\n$MODIFIER_ARMY_ORG_FACTOR$: §R-5.0%§!\n"
@@ -1949,6 +1949,12 @@
  KAZ_airmobile_forces_loc1: "\n§gAIRMOBILE FORCES§!: \n$MODIFIER_PARADROP_ORGANIZATION_FACTOR$: §G+7.5%§!\nParatrooper Supply Grace: §G+12 hours§!\nParatrooper Anti-Air Defense: §G+5.0%§!\n$MODIFIER_SPECIAL_FORCES_CAP$: §G+2.0%§!\n"
  KAZ_production_cost_loc1: "\n§gREARMAMENT PROGRAMME§!: \nInfantry Equipment Cost: §G-12.0%§!\nAnti-Air Equipment Cost: §G-9.0%§!\nLight Anti-Tank Equipment Cost: §G-9.0%§!\n"
  KAZ_production_cost_idea: "Rearmament Programme"
+ KAZ_drone_program_idea: "UAV Development Programme"
+ KAZ_drone_program_event_tt: "[KAZ_drone_program_next_loc]"
+ KAZ_drone_program_1_tt: "\n§gUAV DEVELOPMENT PROGRAMME — I§!:\nSmall and medium suicide UAV production cost: §G-5.0%§!\nSmall and medium suicide UAV reliability: §G+5.0%§!\n"
+ KAZ_drone_program_2_tt: "\n§gUAV DEVELOPMENT PROGRAMME — II§!:\nSmall and medium suicide UAV production cost: §G-10.0%§!\nSmall and medium suicide UAV reliability: §G+10.0%§!\n"
+ KAZ_drone_program_3_tt: "\n§gUAV DEVELOPMENT PROGRAMME — III§!:\nSmall and medium suicide UAV production cost: §G-15.0%§!\nSmall and medium suicide UAV reliability: §G+15.0%§!\n"
+ KAZ_drone_program_max_tt: "\n§gUAV DEVELOPMENT PROGRAMME§!:\n§YMaximum level reached§! — no further upgrades.\n"
  KAZ_airmobile_forces_idea: "Airmobile Forces"
  KAZ_outdated_navy_loc1: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-15.0%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-10.0%§!\n"
  KAZ_outdated_navy_loc2: "\n§gLEGACY OF THE SOVIET FLOTILLA§!: \n$MODIFIER_NAVAL_DAMAGE_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVAL_DEFENSE_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVY_ORG_FACTOR$: §R-10.0%§!\n$MODIFIER_NAVAL_SPEED_FACTOR$: §R-5.0%§!\n"
