@@ -3972,9 +3972,9 @@ focus_tree = {
 					uses = 1
 					category = CAT_l_drone
 				}
+				KAZ_upgrade_drone_program = yes
 				set_temp_variable = { treasury_change = -5 }
 				modify_treasury_effect = yes
-				KAZ_upgrade_drone_program = yes
 			}
 		}
 
@@ -4063,9 +4063,9 @@ focus_tree = {
 					uses = 1
 					category = CAT_drones
 				}
+				KAZ_upgrade_drone_program = yes
 				set_temp_variable = { treasury_change = -5 }
 				modify_treasury_effect = yes
-				KAZ_upgrade_drone_program = yes
 			}
 		}
 
@@ -12701,6 +12701,7 @@ focus_tree = {
 				set_temp_variable = { tag_index = TUR }
 				set_temp_variable = { influence_target = KAZ }
 				change_influence_percentage = yes
+				KAZ_upgrade_drone_program = yes
 				set_temp_variable = { treasury_change = -7.5 }
 				modify_treasury_effect = yes
 				add_opinion_modifier = { target = TUR modifier = military_cooperation }
@@ -12725,7 +12726,6 @@ focus_tree = {
 				}
 				set_temp_variable = { temp_opinion = 2 }
 				change_the_military_opinion = yes
-				KAZ_upgrade_drone_program = yes
 			}
 		}
 
