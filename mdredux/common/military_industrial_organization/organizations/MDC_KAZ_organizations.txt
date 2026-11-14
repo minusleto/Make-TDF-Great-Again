@@ -31,10 +31,10 @@ KAZ_Aselsan_Engineering_electronics = {
 }
 
 
-KAZ_Kazakhstan_Engineering_helicopter_manufacturer = {
+KAZ_AHKE_helicopter_manufacturer = {
 	allowed = { original_tag = KAZ }
 	visible = { KAZ = { has_completed_focus = KAZ_create_AHKE } }
 	icon = GFX_idea_ke_company_start
-	name = KAZ_Kazakhstan_Engineering_helicopter_manufacturer_name
+	name = KAZ_AHKE_helicopter_manufacturer_name
 	include = generic_fixed_wing_and_helicopter_equipment_organization
 }
