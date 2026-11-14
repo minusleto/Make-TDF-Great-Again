@@ -4114,8 +4114,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-
-#Create Kazakhstan Engineering
+	#Create Kazakhstan Engineering
 	focus = {
 		id = KAZ_Kazakhstan_Engineering
 		icon = kaz_ke_start
@@ -4365,8 +4364,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
-#Success in the Kazakh MIC
+	#Success in the Kazakh MIC
 	focus = {
 		id = KAZ_army_success
 		icon = kaz_success_wpk
@@ -4592,8 +4590,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
-#Development of 120mm "Aibat" Self-Propelled Mortar
+	#Development of 120mm "Aibat" Self-Propelled Mortar
 	focus = {
 		id = KAZ_aibat_israel
 		icon = kaz_aibat
