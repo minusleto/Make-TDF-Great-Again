@@ -36,55 +36,5 @@ KAZ_Kazakhstan_Engineering_helicopter_manufacturer = {
 	visible = { KAZ = { has_completed_focus = KAZ_create_AHKE } }
 	icon = GFX_idea_ke_company_start
 	name = KAZ_Kazakhstan_Engineering_helicopter_manufacturer_name
-
-	equipment_type = {
-		attack_helicopter_equipment
-		transport_helicopter_equipment
-	}
-	research_categories = { CAT_heli CAT_trans_heli }
-	research_bonus = 0.05
-
-	initial_trait = {
-		name = KAZ_KE_helicopter_initial_trait
-		organization_modifier = {
-			military_industrial_organization_research_bonus = 0.05
-		}
-		production_bonus = {
-			production_efficiency_cap_factor = 0.03
-		}
-	}
-
-	trait = {
-		token = KAZ_KE_helicopter_reliability
-		name = KAZ_KE_helicopter_reliability
-		icon = GFX_generic_mio_trait_icon_reliability
-		position = { x = 0 y = 0 }
-		equipment_bonus = { reliability = 0.05 }
-		on_complete = {
-			if = {
-				limit = { check_variable = { free_trait_picks > 0 } }
-				add_to_variable = { free_trait_picks = -1 }
-			}
-			else = { FROM = { small_expenditure = yes } }
-		}
-		ai_will_do = { base = 10 }
-	}
-
-	trait = {
-		token = KAZ_KE_helicopter_cost
-		name = KAZ_KE_helicopter_cost
-		icon = GFX_generic_mio_trait_icon_build_cost_ic
-		position = { x = 0 y = 1 }
-		relative_position_id = KAZ_KE_helicopter_reliability
-		any_parent = { KAZ_KE_helicopter_reliability }
-		production_bonus = { production_cost_factor = -0.05 }
-		on_complete = {
-			if = {
-				limit = { check_variable = { free_trait_picks > 0 } }
-				add_to_variable = { free_trait_picks = -1 }
-			}
-			else = { FROM = { small_expenditure = yes } }
-		}
-		ai_will_do = { base = 10 }
-	}
+	include = generic_fixed_wing_and_helicopter_equipment_organization
 }
