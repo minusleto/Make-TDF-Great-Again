@@ -1280,6 +1280,16 @@ ideas = {
                 land_mastery_gain_factor = 0.10
             }
         }
+
+        # Territorial Defence System
+        KAZ_territorial_defense_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                mobilization_speed = 0.10
+                army_core_defence_factor = 0.05
+                training_time_army_factor = -0.05
+            }
+        }
         KAZ_sso_idea = {
             allowed_civil_war = { always = yes }
             modifier = {
