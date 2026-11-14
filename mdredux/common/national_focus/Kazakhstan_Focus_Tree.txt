@@ -3920,7 +3920,13 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_redevelopment_air_areas"
 			two_air_base = yes
 			two_air_base = yes
-			two_anti_air = yes
+			capital_scope = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
 			set_temp_variable = { temp_opinion = 2 }
 			change_the_military_opinion = yes
 		}
