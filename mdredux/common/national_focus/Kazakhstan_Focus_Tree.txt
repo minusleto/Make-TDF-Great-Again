@@ -3974,6 +3974,7 @@ focus_tree = {
 				}
 				set_temp_variable = { treasury_change = -5 }
 				modify_treasury_effect = yes
+				KAZ_upgrade_drone_program = yes
 			}
 		}
 
@@ -4064,6 +4065,7 @@ focus_tree = {
 				}
 				set_temp_variable = { treasury_change = -5 }
 				modify_treasury_effect = yes
+				KAZ_upgrade_drone_program = yes
 			}
 		}
 
@@ -12723,6 +12725,7 @@ focus_tree = {
 				}
 				set_temp_variable = { temp_opinion = 2 }
 				change_the_military_opinion = yes
+				KAZ_upgrade_drone_program = yes
 			}
 		}
 
