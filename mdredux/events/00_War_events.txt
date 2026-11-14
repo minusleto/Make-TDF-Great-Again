@@ -430,6 +430,15 @@ country_event = {
 					GENERIC_reserves_mobilisation_special_blr = yes
 				}
 			}
+			#KAZ Mobilization
+			if = {
+				limit = {
+					original_tag = KAZ
+				}
+				hidden_effect = {
+					GENERIC_reserves_mobilisation_special_kaz = yes
+				}
+			}
 			#POR Mobilization
 			if = {
 				limit = {
@@ -497,6 +506,15 @@ country_event = {
 			}
 			hidden_effect = {
 				GENERIC_reserves_demobilisation_special_blr = yes
+			}
+		}
+		#KAZ Demobilization
+		if = {
+			limit = {
+				original_tag = KAZ
+			}
+			hidden_effect = {
+				GENERIC_reserves_demobilisation_special_kaz = yes
 			}
 		}
 		#POR Demobilization
