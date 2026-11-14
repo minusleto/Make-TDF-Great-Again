@@ -232,6 +232,13 @@ defined_text = {
 		localization_key = KAZ_trained_officer_corps_loc1
 	}
 }
+defined_text = {
+	name = KAZ_territorial_defense_loc
+	text = {
+		trigger = { has_idea = KAZ_territorial_defense_idea }
+		localization_key = KAZ_territorial_defense_loc1
+	}
+}
 #Navy Ideas
 defined_text = {
 	name = KAZ_outdated_navy_loc
@@ -268,13 +275,5 @@ defined_text = {
 	text = {
 		trigger = { has_idea = KAZ_production_cost_idea }
 		localization_key = KAZ_production_cost_loc1
-	}
-}
-
-defined_text = {
-	name = KAZ_territorial_defense_loc
-	text = {
-		trigger = { has_idea = KAZ_territorial_defense_idea }
-		localization_key = KAZ_territorial_defense_loc1
 	}
 }
