@@ -3634,6 +3634,31 @@ focus_tree = {
 			base = 2
 		}
 	}
+	#Territorial Defense
+	focus = {
+		id = KAZ_territorial_defense
+		icon = Generic_Soldier_Aiming
+
+		x = 3
+		y = 2
+		relative_position_id = KAZ_reorganization_infantry
+
+		cost = 5
+
+		prerequisite = { focus = KAZ_reform_military_districts }
+		search_filters = { FOCUS_FILTER_ARMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_territorial_defense"
+			custom_effect_tooltip = New_mobilization_brigade_active_tt
+			set_temp_variable = { treasury_change = -5 }
+			modify_treasury_effect = yes
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
 	#Modern Mortars and Missile Systems
 	focus = {
 		id = KAZ_modern_mortars
