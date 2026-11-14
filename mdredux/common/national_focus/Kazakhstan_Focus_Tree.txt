@@ -11944,7 +11944,7 @@ focus_tree = {
 				reverse_add_opinion_modifier = { target = KAZ modifier = hungary_diplomatic_rapprochement }
 			}
 			for_each_scope_loop = {
-			array = global.nato_members
+				array = global.nato_members
 				add_opinion_modifier = { target = KAZ modifier = hungary_diplomatic_rapprochement }
 				reverse_add_opinion_modifier = { target = KAZ modifier = hungary_diplomatic_rapprochement }
 			}
