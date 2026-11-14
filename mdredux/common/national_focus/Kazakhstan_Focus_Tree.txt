@@ -4115,6 +4115,7 @@ focus_tree = {
 		}
 	}
 
+#Create Kazakhstan Engineering
 	focus = {
 		id = KAZ_Kazakhstan_Engineering
 		icon = kaz_ke_start
@@ -4365,6 +4366,7 @@ focus_tree = {
 		}
 	}
 
+#Success in the Kazakh MIC
 	focus = {
 		id = KAZ_army_success
 		icon = kaz_success_wpk
@@ -4591,6 +4593,7 @@ focus_tree = {
 		}
 	}
 
+#Development of 120mm "Aibat" Self-Propelled Mortar
 	focus = {
 		id = KAZ_aibat_israel
 		icon = kaz_aibat
@@ -12689,7 +12692,6 @@ focus_tree = {
 		bypass = {
 			NOT = { country_exists = TUR }
 		}
-
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_turkish_drones"
