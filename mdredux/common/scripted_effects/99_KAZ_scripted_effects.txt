@@ -1,0 +1,58 @@
+KAZ_CHI_influence_event = {
+	if = {
+		limit = {
+			sender_influence_higher_60 = yes
+		}
+		random = {
+			chance = 80
+			country_event = { id = kaz_foreign.120 days = 3 random_days = 20 }
+		}
+	}
+	else_if = {
+		limit = {
+			sender_influence_higher_50 = yes
+		}
+		random = {
+			chance = 65
+			country_event = { id = kaz_foreign.120 days = 3 random_days = 20 }
+		}
+	}
+	else_if = {
+		limit = {
+			sender_influence_higher_30 = yes
+		}
+		random = {
+			chance = 30
+			country_event = { id = kaz_foreign.120 days = 3 random_days = 20 }
+		}
+	}
+	else_if = {
+		limit = {
+			sender_influence_higher_15 = yes
+		}
+		random = {
+			chance = 15
+			country_event = { id = kaz_foreign.120 days = 3 random_days = 20 }
+		}
+	}
+}
+KAZ_upgrade_drone_program = {
+	if = {
+		limit = { NOT = { has_idea = KAZ_drone_program_idea } }
+		add_ideas = KAZ_drone_program_idea
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KAZ_drone_program_1_idea } }
+		swap_ideas = {
+			remove_idea = KAZ_drone_program_idea
+			add_idea = KAZ_drone_program_1_idea
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KAZ_drone_program_2_idea } }
+		swap_ideas = {
+			remove_idea = KAZ_drone_program_1_idea
+			add_idea = KAZ_drone_program_2_idea
+		}
+	}
+}
