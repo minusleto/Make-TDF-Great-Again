@@ -3226,9 +3226,9 @@ country_event = {
 			uses = 1
 			category = CAT_drones
 		}
+		KAZ_upgrade_drone_program = yes
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
-		KAZ_upgrade_drone_program = yes
 	}
 }
 # Airmobile Forces
@@ -3385,9 +3385,9 @@ country_event = {
 			uses = 1
 			category = CAT_l_drone
 		}
+		KAZ_upgrade_drone_program = yes
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
-		KAZ_upgrade_drone_program = yes
 	}
 }
 # SAF Barys 6x6 Licence Proposal
@@ -7226,9 +7226,9 @@ country_event = {
 		}
 		set_temp_variable = { temp_opinion = 2 }
 		change_the_military_opinion = yes
+		KAZ_upgrade_drone_program = yes
 		set_temp_variable = { treasury_change = -7.5 }
 		modify_treasury_effect = yes
-		KAZ_upgrade_drone_program = yes
 	}
 }
 #The Turkish Drone Deal Falls Through
