@@ -863,7 +863,7 @@
  KAZ_logistics_reorganization_desc: "Years of reform have not fixed our supply: funds are spread inefficiently and spares reach the units late. We will put logistics under one service, count what the depots really hold and schedule fuel and spares by rail over the long distances between them."
  KAZ_territorial_defense: "Territorial Defence Act"
  KAZ_territorial_defense_desc: "A new legal framework assigns regional units a clear role in protecting communities and critical sites, guarding sections of the border, and responding to sabotage. Six brigades will be prepared for regional commands and raised when the national reserves are mobilised."
- KAZ_territorial_defense_mobilization_tt: "§HEffect on Mobilization:§!\nWe will raise §Y6 Territorial Defence Brigades§! when the national reserves are mobilized."
+ KAZ_territorial_defense_mobilization_tt: "£text_icon_armgovern §GExpanding§! National Force - §YTerritorial Defence:§!\nSix brigades will be raised when the national reserves are mobilised."
  KAZ_modern_mortars: "Modern Mortars and Missile Systems"
  KAZ_modern_mortars_desc: "Battalion fire support rests on Soviet mortars and on Fagot, Konkurs and portable air-defence missiles that we cannot improve ourselves. We will stop buying replacements and start developing our own mortar carriers, guidance electronics and light missiles in Kazakhstan."
  KAZ_machine_guns: "Modernization of Machine Guns"
