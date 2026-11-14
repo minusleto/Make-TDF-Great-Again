@@ -4530,7 +4530,6 @@ focus_tree = {
 			change_influence_percentage = yes
 			add_opinion_modifier = { target = ISR modifier = military_cooperation }
 			reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
-			add_equipment_to_stockpile = { type = medium_tank_rocket_chassis_2 variant_name = "Naiza MLRS" amount = 18 }
 		}
 
 		ai_will_do = {
