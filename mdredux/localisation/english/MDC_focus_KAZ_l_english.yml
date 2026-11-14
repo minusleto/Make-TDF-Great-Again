@@ -861,6 +861,8 @@
  KAZ_reform_military_districts_desc: "The four districts hold the new brigades, but orders still run through the General Staff. We will turn them into regional commands (Central, East, West and South) and replace the General Staff with a committee of chiefs, with one commander answerable for each region."
  KAZ_logistics_reorganization: "Logistics Reorganization"
  KAZ_logistics_reorganization_desc: "Years of reform have not fixed our supply: funds are spread inefficiently and spares reach the units late. We will put logistics under one service, count what the depots really hold and schedule fuel and spares by rail over the long distances between them."
+ KAZ_territorial_defense: "Territorial Defense"
+ KAZ_territorial_defense_desc: "The Territorial Defence Law gives regional units a defined role: protecting communities and critical sites, guarding sections of the border and responding to sabotage. We will organise a trained reserve under the regional commands, ready to support regular forces when a crisis reaches home."
  KAZ_modern_mortars: "Modern Mortars and Missile Systems"
  KAZ_modern_mortars_desc: "Battalion fire support rests on Soviet mortars and on Fagot, Konkurs and portable air-defence missiles that we cannot improve ourselves. We will stop buying replacements and start developing our own mortar carriers, guidance electronics and light missiles in Kazakhstan."
  KAZ_machine_guns: "Modernization of Machine Guns"
