@@ -1,0 +1,9 @@
+# Empty static modifiers: their only job is to switch on the matching terrain photo in the state view.
+terrain_aral_1 = {
+}
+terrain_aral_2 = {
+}
+terrain_aral_3 = {
+}
+terrain_aral_4 = {
+}

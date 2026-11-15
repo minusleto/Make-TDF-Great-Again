@@ -1,0 +1,281 @@
+scripted_gui = {
+	aral_sea_category_gui = {
+		context_type = decision_category
+		window_name = "aral_sea_decisions_container"
+		visible = { original_tag = KAZ }
+		dirty = aral_gui_dirty                 # redraw only when update_aral_sea bumps this variable
+		ai_enabled = { always = no }           # no buttons: stop the AI from ever testing this GUI
+		triggers = {
+			aral_bar_neg_1_visible = { check_variable = { aral_sea_restoration < -0.01 } }
+			aral_bar_neg_2_visible = { check_variable = { aral_sea_restoration < -2.01 } }
+			aral_bar_neg_3_visible = { check_variable = { aral_sea_restoration < -4.01 } }
+			aral_bar_neg_4_visible = { check_variable = { aral_sea_restoration < -6.01 } }
+			aral_bar_neg_5_visible = { check_variable = { aral_sea_restoration < -8.01 } }
+			aral_bar_neg_6_visible = { check_variable = { aral_sea_restoration < -10.01 } }
+			aral_bar_neg_7_visible = { check_variable = { aral_sea_restoration < -12.01 } }
+			aral_bar_neg_8_visible = { check_variable = { aral_sea_restoration < -14.01 } }
+			aral_bar_neg_9_visible = { check_variable = { aral_sea_restoration < -16.01 } }
+			aral_bar_neg_10_visible = { check_variable = { aral_sea_restoration < -18.01 } }
+			aral_bar_neg_11_visible = { check_variable = { aral_sea_restoration < -20.01 } }
+			aral_bar_neg_12_visible = { check_variable = { aral_sea_restoration < -22.01 } }
+			aral_bar_neg_13_visible = { check_variable = { aral_sea_restoration < -24.01 } }
+			aral_bar_neg_14_visible = { check_variable = { aral_sea_restoration < -26.01 } }
+			aral_bar_neg_15_visible = { check_variable = { aral_sea_restoration < -28.01 } }
+			aral_bar_seg_1_visible = { check_variable = { aral_sea_restoration > 0.01 } }
+			aral_bar_seg_2_visible = { check_variable = { aral_sea_restoration > 2.01 } }
+			aral_bar_seg_3_visible = { check_variable = { aral_sea_restoration > 4.01 } }
+			aral_bar_seg_4_visible = { check_variable = { aral_sea_restoration > 6.01 } }
+			aral_bar_seg_5_visible = { check_variable = { aral_sea_restoration > 8.01 } }
+			aral_bar_seg_6_visible = { check_variable = { aral_sea_restoration > 10.01 } }
+			aral_bar_seg_7_visible = { check_variable = { aral_sea_restoration > 12.01 } }
+			aral_bar_seg_8_visible = { check_variable = { aral_sea_restoration > 14.01 } }
+			aral_bar_seg_9_visible = { check_variable = { aral_sea_restoration > 16.01 } }
+			aral_bar_seg_10_visible = { check_variable = { aral_sea_restoration > 18.01 } }
+			aral_bar_seg_11_visible = { check_variable = { aral_sea_restoration > 20.01 } }
+			aral_bar_seg_12_visible = { check_variable = { aral_sea_restoration > 22.01 } }
+			aral_bar_seg_13_visible = { check_variable = { aral_sea_restoration > 24.01 } }
+			aral_bar_seg_14_visible = { check_variable = { aral_sea_restoration > 26.01 } }
+			aral_bar_seg_15_visible = { check_variable = { aral_sea_restoration > 28.01 } }
+			aral_bar_seg_16_visible = { check_variable = { aral_sea_restoration > 30.01 } }
+			aral_bar_seg_17_visible = { check_variable = { aral_sea_restoration > 32.01 } }
+			aral_bar_seg_18_visible = { check_variable = { aral_sea_restoration > 34.01 } }
+			aral_bar_seg_19_visible = { check_variable = { aral_sea_restoration > 36.01 } }
+			aral_bar_seg_20_visible = { check_variable = { aral_sea_restoration > 38.01 } }
+			aral_bar_seg_21_visible = { check_variable = { aral_sea_restoration > 40.01 } }
+			aral_bar_seg_22_visible = { check_variable = { aral_sea_restoration > 42.01 } }
+			aral_bar_seg_23_visible = { check_variable = { aral_sea_restoration > 44.01 } }
+			aral_bar_seg_24_visible = { check_variable = { aral_sea_restoration > 46.01 } }
+			aral_bar_seg_25_visible = { check_variable = { aral_sea_restoration > 48.01 } }
+			aral_bar_seg_26_visible = { check_variable = { aral_sea_restoration > 50.01 } }
+			aral_bar_seg_27_visible = { check_variable = { aral_sea_restoration > 52.01 } }
+			aral_bar_seg_28_visible = { check_variable = { aral_sea_restoration > 54.01 } }
+			aral_bar_seg_29_visible = { check_variable = { aral_sea_restoration > 56.01 } }
+			aral_bar_seg_30_visible = { check_variable = { aral_sea_restoration > 58.01 } }
+			aral_bar_seg_31_visible = { check_variable = { aral_sea_restoration > 60.01 } }
+			aral_bar_seg_32_visible = { check_variable = { aral_sea_restoration > 62.01 } }
+			aral_bar_seg_33_visible = { check_variable = { aral_sea_restoration > 64.01 } }
+			aral_bar_seg_34_visible = { check_variable = { aral_sea_restoration > 66.01 } }
+			aral_bar_seg_35_visible = { check_variable = { aral_sea_restoration > 68.01 } }
+			aral_bar_seg_36_visible = { check_variable = { aral_sea_restoration > 70.01 } }
+			aral_bar_seg_37_visible = { check_variable = { aral_sea_restoration > 72.01 } }
+			aral_bar_seg_38_visible = { check_variable = { aral_sea_restoration > 74.01 } }
+			aral_bar_seg_39_visible = { check_variable = { aral_sea_restoration > 76.01 } }
+			aral_bar_seg_40_visible = { check_variable = { aral_sea_restoration > 78.01 } }
+			aral_bar_seg_41_visible = { check_variable = { aral_sea_restoration > 80.01 } }
+			aral_bar_seg_42_visible = { check_variable = { aral_sea_restoration > 82.01 } }
+			aral_bar_seg_43_visible = { check_variable = { aral_sea_restoration > 84.01 } }
+			aral_bar_seg_44_visible = { check_variable = { aral_sea_restoration > 86.01 } }
+			aral_bar_seg_45_visible = { check_variable = { aral_sea_restoration > 88.01 } }
+			aral_bar_seg_46_visible = { check_variable = { aral_sea_restoration > 90.01 } }
+			aral_bar_seg_47_visible = { check_variable = { aral_sea_restoration > 92.01 } }
+			aral_bar_seg_48_visible = { check_variable = { aral_sea_restoration > 94.01 } }
+			aral_bar_seg_49_visible = { check_variable = { aral_sea_restoration > 96.01 } }
+			aral_bar_seg_50_visible = { check_variable = { aral_sea_restoration > 98.01 } }
+			aral_bar_pend_1_visible = {
+				check_variable = { aral_potential > 0.01 }
+				check_variable = { aral_sea_restoration < 0.01 }
+			}
+			aral_bar_pend_2_visible = {
+				check_variable = { aral_potential > 2.01 }
+				check_variable = { aral_sea_restoration < 2.01 }
+			}
+			aral_bar_pend_3_visible = {
+				check_variable = { aral_potential > 4.01 }
+				check_variable = { aral_sea_restoration < 4.01 }
+			}
+			aral_bar_pend_4_visible = {
+				check_variable = { aral_potential > 6.01 }
+				check_variable = { aral_sea_restoration < 6.01 }
+			}
+			aral_bar_pend_5_visible = {
+				check_variable = { aral_potential > 8.01 }
+				check_variable = { aral_sea_restoration < 8.01 }
+			}
+			aral_bar_pend_6_visible = {
+				check_variable = { aral_potential > 10.01 }
+				check_variable = { aral_sea_restoration < 10.01 }
+			}
+			aral_bar_pend_7_visible = {
+				check_variable = { aral_potential > 12.01 }
+				check_variable = { aral_sea_restoration < 12.01 }
+			}
+			aral_bar_pend_8_visible = {
+				check_variable = { aral_potential > 14.01 }
+				check_variable = { aral_sea_restoration < 14.01 }
+			}
+			aral_bar_pend_9_visible = {
+				check_variable = { aral_potential > 16.01 }
+				check_variable = { aral_sea_restoration < 16.01 }
+			}
+			aral_bar_pend_10_visible = {
+				check_variable = { aral_potential > 18.01 }
+				check_variable = { aral_sea_restoration < 18.01 }
+			}
+			aral_bar_pend_11_visible = {
+				check_variable = { aral_potential > 20.01 }
+				check_variable = { aral_sea_restoration < 20.01 }
+			}
+			aral_bar_pend_12_visible = {
+				check_variable = { aral_potential > 22.01 }
+				check_variable = { aral_sea_restoration < 22.01 }
+			}
+			aral_bar_pend_13_visible = {
+				check_variable = { aral_potential > 24.01 }
+				check_variable = { aral_sea_restoration < 24.01 }
+			}
+			aral_bar_pend_14_visible = {
+				check_variable = { aral_potential > 26.01 }
+				check_variable = { aral_sea_restoration < 26.01 }
+			}
+			aral_bar_pend_15_visible = {
+				check_variable = { aral_potential > 28.01 }
+				check_variable = { aral_sea_restoration < 28.01 }
+			}
+			aral_bar_pend_16_visible = {
+				check_variable = { aral_potential > 30.01 }
+				check_variable = { aral_sea_restoration < 30.01 }
+			}
+			aral_bar_pend_17_visible = {
+				check_variable = { aral_potential > 32.01 }
+				check_variable = { aral_sea_restoration < 32.01 }
+			}
+			aral_bar_pend_18_visible = {
+				check_variable = { aral_potential > 34.01 }
+				check_variable = { aral_sea_restoration < 34.01 }
+			}
+			aral_bar_pend_19_visible = {
+				check_variable = { aral_potential > 36.01 }
+				check_variable = { aral_sea_restoration < 36.01 }
+			}
+			aral_bar_pend_20_visible = {
+				check_variable = { aral_potential > 38.01 }
+				check_variable = { aral_sea_restoration < 38.01 }
+			}
+			aral_bar_pend_21_visible = {
+				check_variable = { aral_potential > 40.01 }
+				check_variable = { aral_sea_restoration < 40.01 }
+			}
+			aral_bar_pend_22_visible = {
+				check_variable = { aral_potential > 42.01 }
+				check_variable = { aral_sea_restoration < 42.01 }
+			}
+			aral_bar_pend_23_visible = {
+				check_variable = { aral_potential > 44.01 }
+				check_variable = { aral_sea_restoration < 44.01 }
+			}
+			aral_bar_pend_24_visible = {
+				check_variable = { aral_potential > 46.01 }
+				check_variable = { aral_sea_restoration < 46.01 }
+			}
+			aral_bar_pend_25_visible = {
+				check_variable = { aral_potential > 48.01 }
+				check_variable = { aral_sea_restoration < 48.01 }
+			}
+			aral_bar_pend_26_visible = {
+				check_variable = { aral_potential > 50.01 }
+				check_variable = { aral_sea_restoration < 50.01 }
+			}
+			aral_bar_pend_27_visible = {
+				check_variable = { aral_potential > 52.01 }
+				check_variable = { aral_sea_restoration < 52.01 }
+			}
+			aral_bar_pend_28_visible = {
+				check_variable = { aral_potential > 54.01 }
+				check_variable = { aral_sea_restoration < 54.01 }
+			}
+			aral_bar_pend_29_visible = {
+				check_variable = { aral_potential > 56.01 }
+				check_variable = { aral_sea_restoration < 56.01 }
+			}
+			aral_bar_pend_30_visible = {
+				check_variable = { aral_potential > 58.01 }
+				check_variable = { aral_sea_restoration < 58.01 }
+			}
+			aral_bar_pend_31_visible = {
+				check_variable = { aral_potential > 60.01 }
+				check_variable = { aral_sea_restoration < 60.01 }
+			}
+			aral_bar_pend_32_visible = {
+				check_variable = { aral_potential > 62.01 }
+				check_variable = { aral_sea_restoration < 62.01 }
+			}
+			aral_bar_pend_33_visible = {
+				check_variable = { aral_potential > 64.01 }
+				check_variable = { aral_sea_restoration < 64.01 }
+			}
+			aral_bar_pend_34_visible = {
+				check_variable = { aral_potential > 66.01 }
+				check_variable = { aral_sea_restoration < 66.01 }
+			}
+			aral_bar_pend_35_visible = {
+				check_variable = { aral_potential > 68.01 }
+				check_variable = { aral_sea_restoration < 68.01 }
+			}
+			aral_bar_pend_36_visible = {
+				check_variable = { aral_potential > 70.01 }
+				check_variable = { aral_sea_restoration < 70.01 }
+			}
+			aral_bar_pend_37_visible = {
+				check_variable = { aral_potential > 72.01 }
+				check_variable = { aral_sea_restoration < 72.01 }
+			}
+			aral_bar_pend_38_visible = {
+				check_variable = { aral_potential > 74.01 }
+				check_variable = { aral_sea_restoration < 74.01 }
+			}
+			aral_bar_pend_39_visible = {
+				check_variable = { aral_potential > 76.01 }
+				check_variable = { aral_sea_restoration < 76.01 }
+			}
+			aral_bar_pend_40_visible = {
+				check_variable = { aral_potential > 78.01 }
+				check_variable = { aral_sea_restoration < 78.01 }
+			}
+			aral_bar_pend_41_visible = {
+				check_variable = { aral_potential > 80.01 }
+				check_variable = { aral_sea_restoration < 80.01 }
+			}
+			aral_bar_pend_42_visible = {
+				check_variable = { aral_potential > 82.01 }
+				check_variable = { aral_sea_restoration < 82.01 }
+			}
+			aral_bar_pend_43_visible = {
+				check_variable = { aral_potential > 84.01 }
+				check_variable = { aral_sea_restoration < 84.01 }
+			}
+			aral_bar_pend_44_visible = {
+				check_variable = { aral_potential > 86.01 }
+				check_variable = { aral_sea_restoration < 86.01 }
+			}
+			aral_bar_pend_45_visible = {
+				check_variable = { aral_potential > 88.01 }
+				check_variable = { aral_sea_restoration < 88.01 }
+			}
+			aral_bar_pend_46_visible = {
+				check_variable = { aral_potential > 90.01 }
+				check_variable = { aral_sea_restoration < 90.01 }
+			}
+			aral_bar_pend_47_visible = {
+				check_variable = { aral_potential > 92.01 }
+				check_variable = { aral_sea_restoration < 92.01 }
+			}
+			aral_bar_pend_48_visible = {
+				check_variable = { aral_potential > 94.01 }
+				check_variable = { aral_sea_restoration < 94.01 }
+			}
+			aral_bar_pend_49_visible = {
+				check_variable = { aral_potential > 96.01 }
+				check_variable = { aral_sea_restoration < 96.01 }
+			}
+			aral_bar_pend_50_visible = {
+				check_variable = { aral_potential > 98.01 }
+				check_variable = { aral_sea_restoration < 98.01 }
+			}
+		}
+		properties = {
+			aral_picture = {
+				frame = aral_pic_frame             # 1..7, picks the frame of GFX_aral_picture_strip
+			}
+		}
+	}
+}

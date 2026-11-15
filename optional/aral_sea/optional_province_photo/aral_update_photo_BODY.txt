@@ -1,0 +1,16 @@
+# Replace the EMPTY aral_update_photo = { } in common/scripted_effects/aral_sea_effects.txt with this block,
+# after replacing every PROVINCE_ID with the Aralsk province id (find it with Tdebug). 717 = Kyzylorda state.
+aral_update_photo = {
+	717 = {
+		remove_province_modifier = { static_modifiers = { terrain_aral_1 } province = { id = PROVINCE_ID } }
+		remove_province_modifier = { static_modifiers = { terrain_aral_2 } province = { id = PROVINCE_ID } }
+		remove_province_modifier = { static_modifiers = { terrain_aral_3 } province = { id = PROVINCE_ID } }
+		remove_province_modifier = { static_modifiers = { terrain_aral_4 } province = { id = PROVINCE_ID } }
+
+		# frames 1-2 -> photo 1, frame 3 -> photo 2, frames 4-5 -> photo 3, frames 6-7 -> photo 4
+		if = { limit = { ROOT = { check_variable = { aral_pic_frame < 3 } } } add_province_modifier = { static_modifiers = { terrain_aral_1 } province = { id = PROVINCE_ID } } }
+		if = { limit = { ROOT = { check_variable = { aral_pic_frame = 3 } } } add_province_modifier = { static_modifiers = { terrain_aral_2 } province = { id = PROVINCE_ID } } }
+		if = { limit = { ROOT = { check_variable = { aral_pic_frame > 3 } check_variable = { aral_pic_frame < 6 } } } add_province_modifier = { static_modifiers = { terrain_aral_3 } province = { id = PROVINCE_ID } } }
+		if = { limit = { ROOT = { check_variable = { aral_pic_frame > 5 } } } add_province_modifier = { static_modifiers = { terrain_aral_4 } province = { id = PROVINCE_ID } } }
+	}
+}

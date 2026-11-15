@@ -1,0 +1,159 @@
+# Aral Sea events. Pictures are vanilla placeholders: replace with your own if you have better ones.
+add_namespace = aral_sea
+
+country_event = {
+	id = aral_sea.1
+	title = aral_sea.1.t
+	desc = aral_sea.1.d
+	picture = GFX_report_event_generic_construction
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.1.a
+		ai_chance = { base = 1 }
+		add_political_power = 25
+	}
+	option = {
+		name = aral_sea.1.b
+		ai_chance = { base = 1 }
+		set_temp_variable = { treasury_change = 0.03 }
+		modify_treasury_effect = yes
+	}
+}
+
+country_event = {
+	id = aral_sea.2
+	title = aral_sea.2.t
+	desc = aral_sea.2.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.2.a
+		ai_chance = { base = 1 }
+		add_to_variable = { aral_relief = 1 }
+		update_aral_sea = yes
+	}
+	option = {
+		name = aral_sea.2.b
+		ai_chance = { base = 1 }
+		set_temp_variable = { treasury_change = 0.05 }
+		modify_treasury_effect = yes
+	}
+}
+
+country_event = {
+	id = aral_sea.3
+	title = aral_sea.3.t
+	desc = aral_sea.3.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.3.a
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = {
+	id = aral_sea.4
+	title = aral_sea.4.t
+	desc = aral_sea.4.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.4.a
+		ai_chance = { base = 1 }
+		add_political_power = 50
+	}
+}
+
+country_event = {
+	id = aral_sea.5
+	title = aral_sea.5.t
+	desc = aral_sea.5.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = aral_sea.5.a
+		trigger = { check_variable = { treasury > 0.05 } }
+		ai_chance = { base = 1 }
+		set_temp_variable = { treasury_change = -0.05 }
+		modify_treasury_effect = yes
+		add_to_variable = { aral_relief = 2 }
+		update_aral_sea = yes
+	}
+	option = {
+		name = aral_sea.5.b
+		ai_chance = { base = 1 }
+		add_political_power = -10
+	}
+}
+
+country_event = {
+	id = aral_sea.6
+	title = aral_sea.6.t
+	desc = aral_sea.6.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = aral_sea.6.a
+		trigger = { check_variable = { treasury > 0.1 } }
+		ai_chance = { base = 1 }
+		set_temp_variable = { treasury_change = -0.1 }
+		modify_treasury_effect = yes
+		add_to_variable = { aral_relief = 3 }
+		update_aral_sea = yes
+	}
+	option = {
+		name = aral_sea.6.b
+		ai_chance = { base = 1 }
+		add_political_power = -15
+	}
+}
+
+country_event = {
+	id = aral_sea.7
+	title = aral_sea.7.t
+	desc = aral_sea.7.d
+	picture = GFX_report_event_generic_construction
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = aral_sea.7.a
+		ai_chance = { base = 1 }
+		add_political_power = 25
+	}
+	option = {
+		name = aral_sea.7.b
+		ai_chance = { base = 1 }
+		add_to_variable = { aral_relief = 1 }
+		update_aral_sea = yes
+	}
+}
+
+country_event = {
+	id = aral_sea.8
+	title = aral_sea.8.t
+	desc = aral_sea.8.d
+	picture = GFX_report_event_generic_construction
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.8.a
+		ai_chance = { base = 1 }
+		add_political_power = 25
+	}
+}
+
+country_event = {
+	id = aral_sea.9
+	title = aral_sea.9.t
+	desc = aral_sea.9.d
+	picture = GFX_report_event_generic_construction
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.9.a
+		ai_chance = { base = 1 }
+		add_political_power = 25
+	}
+}
+

@@ -1,0 +1,204 @@
+# ===== Aral Sea mechanic =====
+# aral_sea_restoration : 0..100 = WATER restored (drives the level, bar, picture, status). Can drop to -30.
+# aral_relief          : ecology/livelihood projects (forests, fisheries). Lowers the fallout, not the water.
+# aral_deficit         : 100 - restoration - relief  -> strength of all debuffs.
+
+aral_sea_first_setup = {
+	set_country_flag = aral_sea_initialized
+	add_dynamic_modifier = { modifier = aral_sea_dynamic_modifier }
+	717 = { add_dynamic_modifier = { modifier = aral_state_modifier } }
+	1224 = { add_dynamic_modifier = { modifier = aral_state_modifier } }
+	1231 = { add_dynamic_modifier = { modifier = aral_state_modifier } }
+	1226 = { add_dynamic_modifier = { modifier = aral_state_modifier } }
+	1230 = { add_dynamic_modifier = { modifier = aral_state_modifier } }
+	718 = { add_dynamic_modifier = { modifier = aral_state_modifier } }
+}
+
+init_aral_sea = {
+	set_variable = { aral_sea_restoration = 0 }
+	set_variable = { aral_relief = 0 }
+	set_variable = { aral_pending = 0 }
+	if = { limit = { NOT = { has_country_flag = aral_sea_initialized } } aral_sea_first_setup = yes }
+	update_aral_sea = yes
+}
+
+# Call after every change to aral_sea_restoration / aral_relief
+update_aral_sea = {
+	# safety net: if on_startup never ran, set the modifiers up now
+	if = { limit = { NOT = { has_country_flag = aral_sea_initialized } } aral_sea_first_setup = yes }
+	clamp_variable = { var = aral_sea_restoration min = -30 max = 100 }
+	set_variable = { aral_deficit = 100 }
+	subtract_from_variable = { aral_deficit = aral_sea_restoration }
+	subtract_from_variable = { aral_deficit = aral_relief }
+	clamp_variable = { var = aral_deficit min = 0 max = 200 }
+
+	# water level in metres: ~30 m low point (early 2000s) -> 53 m (1960 level)
+	set_variable = { aral_sea_level = aral_sea_restoration }
+	multiply_variable = { aral_sea_level = 0.23 }
+	add_to_variable = { aral_sea_level = 30 }
+
+	# country debuffs (strongest at deficit 100)
+	set_variable = { aral_mod_agri = aral_deficit }
+	multiply_variable = { aral_mod_agri = -0.0010 }
+	set_variable = { aral_mod_infra = aral_deficit }
+	multiply_variable = { aral_mod_infra = -0.0010 }
+	set_variable = { aral_mod_prod = aral_deficit }
+	multiply_variable = { aral_mod_prod = -0.0003 }
+	set_variable = { aral_mod_pop = aral_deficit }
+	multiply_variable = { aral_mod_pop = -0.0003 }
+	set_variable = { aral_mod_migr = aral_deficit }
+	multiply_variable = { aral_mod_migr = -0.0005 }
+	set_variable = { aral_mod_jobs = aral_deficit }
+	multiply_variable = { aral_mod_jobs = 0.0005 }
+	set_variable = { aral_mod_agtax = aral_deficit }
+	multiply_variable = { aral_mod_agtax = -0.0010 }
+	if = { limit = { has_country_flag = aral_irrigation_done } add_to_variable = { aral_mod_agri = 0.05 } }
+	if = { limit = { has_country_flag = aral_fish_done } add_to_variable = { aral_mod_agtax = 0.05 } }
+
+	# water already earned but still arriving (shown as pale "ghost" segments on the bar)
+	set_variable = { aral_potential = aral_sea_restoration }
+	add_to_variable = { aral_potential = aral_pending }
+	clamp_variable = { var = aral_potential min = -30 max = 100 }
+
+	# which frame of the picture strip to show (7 frames, driest -> fullest):
+	#   1 = 2014  2 = 2009  3 = 2006  4 = 2000 (start)  5 = 1998  6 = 1987  7 = 1977
+	set_variable = { aral_pic_frame = 4 }
+	if = { limit = { check_variable = { aral_sea_restoration < -8 } } set_variable = { aral_pic_frame = 3 } }
+	if = { limit = { check_variable = { aral_sea_restoration < -15 } } set_variable = { aral_pic_frame = 2 } }
+	if = { limit = { check_variable = { aral_sea_restoration < -22 } } set_variable = { aral_pic_frame = 1 } }
+	if = { limit = { check_variable = { aral_sea_restoration > 9.99 } } set_variable = { aral_pic_frame = 5 } }
+	if = { limit = { check_variable = { aral_sea_restoration > 34.99 } } set_variable = { aral_pic_frame = 6 } }
+	if = { limit = { check_variable = { aral_sea_restoration > 64.99 } } set_variable = { aral_pic_frame = 7 } }
+
+	aral_calc_drift = yes
+	force_update_dynamic_modifier = yes
+	aral_update_states = yes
+	add_to_variable = { aral_gui_dirty = 1 }
+	aral_update_photo = yes
+	aral_check_milestones = yes
+}
+
+# Monthly change of the sea = filling (water earned by finished projects arrives gradually) minus drying.
+#   drying : no dam 0.20 ; after the dam 0.05, -0.03 with the Uzbekistan flow agreement, -0.02 with irrigation modernization ; 0 at the -30 floor
+#   filling: 15% of the still-pending points per month, at least 0.5 (so the tail does not take forever)
+# Stores what the player sees: aral_monthly_change (%, signed) and aral_monthly_level (m, signed).
+aral_calc_drift = {
+	set_variable = { aral_drift = 0.2 }
+	if = {
+		limit = { has_country_flag = aral_kokaral_done }
+		set_variable = { aral_drift = 0.05 }
+		if = { limit = { has_country_flag = aral_uzb_done } add_to_variable = { aral_drift = -0.03 } }
+		if = { limit = { has_country_flag = aral_irrigation_done } add_to_variable = { aral_drift = -0.02 } }
+	}
+	if = { limit = { check_variable = { aral_drift < 0.001 } } set_variable = { aral_drift = 0 } }
+	if = { limit = { check_variable = { aral_sea_restoration < -29.8 } } set_variable = { aral_drift = 0 } }
+
+	set_variable = { aral_fill = aral_pending }
+	multiply_variable = { aral_fill = 0.15 }
+	if = { limit = { check_variable = { aral_pending > 0.001 } check_variable = { aral_fill < 0.5 } } set_variable = { aral_fill = 0.5 } }
+	if = { limit = { check_variable = { aral_fill > aral_pending } } set_variable = { aral_fill = aral_pending } }
+	if = { limit = { check_variable = { aral_pending < 0.001 } } set_variable = { aral_fill = 0 } }
+	if = { limit = { check_variable = { aral_sea_restoration > 99.9 } } set_variable = { aral_fill = 0 } }
+
+	set_variable = { aral_monthly_change = aral_fill }
+	subtract_from_variable = { aral_monthly_change = aral_drift }
+	set_variable = { aral_monthly_level = aral_monthly_change }
+	multiply_variable = { aral_monthly_level = 0.23 }
+}
+
+aral_monthly_tick = {
+	aral_calc_drift = yes
+	if = {
+		limit = {
+			OR = {
+				check_variable = { aral_drift > 0 }
+				check_variable = { aral_fill > 0 }
+			}
+		}
+		subtract_from_variable = { aral_sea_restoration = aral_drift }
+		add_to_variable = { aral_sea_restoration = aral_fill }
+		subtract_from_variable = { aral_pending = aral_fill }
+		clamp_variable = { var = aral_pending min = 0 max = 200 }
+		if = { limit = { check_variable = { aral_sea_restoration > 99.9 } } set_variable = { aral_pending = 0 } }
+		update_aral_sea = yes
+	}
+}
+
+aral_update_states = {
+	717 = { aral_state_t1 = yes }
+	1224 = { aral_state_t2 = yes }
+	1231 = { aral_state_t2 = yes }
+	1226 = { aral_state_t2 = yes }
+	1230 = { aral_state_t3 = yes }
+	718 = { aral_state_t3 = yes }
+}
+
+aral_state_t2 = {
+	set_variable = { aral_s_prod = ROOT.aral_deficit }
+	multiply_variable = { aral_s_prod = -0.00050 }
+	set_variable = { aral_s_pop = ROOT.aral_deficit }
+	multiply_variable = { aral_s_pop = -0.00025 }
+	set_variable = { aral_s_slots = ROOT.aral_deficit }
+	multiply_variable = { aral_s_slots = -0.00030 }
+	set_variable = { aral_s_recruit = ROOT.aral_deficit }
+	multiply_variable = { aral_s_recruit = -0.00050 }
+	set_variable = { aral_s_level = ROOT.aral_sea_level }
+	set_variable = { aral_s_change = ROOT.aral_monthly_change }
+	force_update_dynamic_modifier = yes
+}
+
+aral_state_t3 = {
+	set_variable = { aral_s_prod = ROOT.aral_deficit }
+	multiply_variable = { aral_s_prod = -0.00025 }
+	set_variable = { aral_s_pop = ROOT.aral_deficit }
+	multiply_variable = { aral_s_pop = -0.00013 }
+	set_variable = { aral_s_slots = ROOT.aral_deficit }
+	multiply_variable = { aral_s_slots = -0.00015 }
+	set_variable = { aral_s_recruit = ROOT.aral_deficit }
+	multiply_variable = { aral_s_recruit = -0.00025 }
+	set_variable = { aral_s_level = ROOT.aral_sea_level }
+	set_variable = { aral_s_change = ROOT.aral_monthly_change }
+	force_update_dynamic_modifier = yes
+}
+
+aral_state_t1 = {
+	set_variable = { aral_s_prod = ROOT.aral_deficit }
+	multiply_variable = { aral_s_prod = -0.00100 }
+	set_variable = { aral_s_pop = ROOT.aral_deficit }
+	multiply_variable = { aral_s_pop = -0.00050 }
+	set_variable = { aral_s_slots = ROOT.aral_deficit }
+	multiply_variable = { aral_s_slots = -0.00060 }
+	set_variable = { aral_s_recruit = ROOT.aral_deficit }
+	multiply_variable = { aral_s_recruit = -0.00100 }
+	set_variable = { aral_s_renew = 0 }
+	if = {
+		limit = { ROOT = { has_country_flag = aral_aklak_done } }
+		set_variable = { aral_s_renew = 0.05 }
+	}
+	set_variable = { aral_s_level = ROOT.aral_sea_level }
+	set_variable = { aral_s_change = ROOT.aral_monthly_change }
+	force_update_dynamic_modifier = yes
+}
+
+# One-time warning / celebration events when the sea crosses a milestone (each fires once per game).
+aral_check_milestones = {
+	if = {
+		limit = { check_variable = { aral_sea_restoration < -8 } NOT = { has_country_flag = aral_ev_dust_1 } }
+		set_country_flag = aral_ev_dust_1
+		country_event = { id = aral_sea.5 days = 2 }
+	}
+	if = {
+		limit = { check_variable = { aral_sea_restoration < -22 } NOT = { has_country_flag = aral_ev_dust_2 } }
+		set_country_flag = aral_ev_dust_2
+		country_event = { id = aral_sea.6 days = 2 }
+	}
+	if = {
+		limit = { check_variable = { aral_sea_restoration > 59.99 } NOT = { has_country_flag = aral_ev_ships } }
+		set_country_flag = aral_ev_ships
+		country_event = { id = aral_sea.7 days = 2 }
+	}
+}
+
+# Hook for the optional province-view photo (see optional_province_photo/README). Empty on purpose.
+aral_update_photo = {
+}

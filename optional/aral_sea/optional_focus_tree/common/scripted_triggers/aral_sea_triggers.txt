@@ -1,0 +1,11 @@
+# FOCUS-GATED version: install ONLY after the six focuses exist in your tree (otherwise the log fills with unknown-focus errors).
+# Each group of decisions unlocks when its focus is completed.
+aral_unlocked_program   = { has_completed_focus = KAZ_aral_programme }          # IFAS, protective forests, SYNAS loan
+aral_unlocked_syrdarya  = { has_completed_focus = KAZ_syr_darya_water }         # channel, Kokaral dam, Aklak works
+aral_unlocked_agri      = { has_completed_focus = KAZ_water_saving_agriculture }# irrigation modernization, fisheries
+aral_unlocked_green     = { has_completed_focus = KAZ_green_aral }              # mass saxaul programme, Aral Ormany reserve
+aral_unlocked_phase2    = { has_completed_focus = KAZ_aral_phase2 }             # Amanotkel, Phase II / Second Dam
+aral_unlocked_diplomacy = { has_completed_focus = KAZ_water_diplomacy }         # Uzbekistan agreement, joint plan, Sibaral talks
+
+# Debug decisions (worsen / improve / reset). Set to "always = no" before release.
+aral_debug_enabled = { always = yes }

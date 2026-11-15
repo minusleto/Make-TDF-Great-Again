@@ -1,0 +1,12 @@
+# Unlock hooks for the Aral Sea decisions. Everything is open for now.
+# To tie a group to the economic focus tree, replace "always = yes" with the focus check, e.g.
+#   aral_unlocked_syrdarya = { has_completed_focus = KAZ_your_focus_name }
+aral_unlocked_program   = { always = yes }   # IFAS, protective forests, SYNAS loan
+aral_unlocked_syrdarya  = { always = yes }   # Syr Darya channel, Kokaral dam, Aklak works
+aral_unlocked_agri      = { always = yes }   # irrigation modernization, fisheries
+aral_unlocked_green     = { always = yes }   # mass saxaul programme, Aral Ormany reserve
+aral_unlocked_phase2    = { always = yes }   # Amanotkel, Phase II / Second Dam
+aral_unlocked_diplomacy = { always = yes }   # Uzbekistan agreement, joint plan, Sibaral talks
+
+# Debug decisions (worsen / improve / reset). Set to "always = no" before release.
+aral_debug_enabled = { always = yes }
