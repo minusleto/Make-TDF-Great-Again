@@ -8071,7 +8071,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_russian_territory"
-			add_ideas = KAZ_war_with_russia
+			add_ideas = KAZ_war_with_russia_idea
 			newline = yes
 			# custom_effect_tooltip = KAZ_get_core_sov
 			# hidden_effect = {
