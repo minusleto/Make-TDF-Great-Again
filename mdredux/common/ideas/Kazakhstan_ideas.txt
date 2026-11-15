@@ -1449,7 +1449,8 @@ ideas = {
                 expected_adm_modifier = -0.5
             }
         }
-        KAZ_language_idea_alash_idea = {
+        KAZ_language_alash_idea = {
+            name = KAZ_language_alash
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -1479,6 +1480,7 @@ ideas = {
             }
         }
         KAZ_arsenal_alash_2_idea = {
+            name = KAZ_arsenal_alash_idea
             allowed_civil_war = { always = yes }
 
             cancel = {
