@@ -2755,6 +2755,7 @@ ideas = {
         }
         # Soviet Tegrism 2
         KAZ_soviet_tegr2_idea = {
+            name = KAZ_soviet_tegr_idea
             allowed_civil_war = { always = yes }
             picture = tengri_ideas
 
