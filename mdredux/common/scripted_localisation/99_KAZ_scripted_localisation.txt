@@ -17,12 +17,12 @@ defined_text = {
 	}
 }
 defined_text = {
-	name = KAZ_old_elite_alash_idea_loc
+	name = KAZ_old_elite_alash_loc
 	text = {
 		trigger = {
 			has_idea = KAZ_old_elite_alash_idea
 		}
-		localization_key = KAZ_old_elite_alash_idea_loc1
+		localization_key = KAZ_old_elite_alash_loc1
 	}
 }
 #CAS
@@ -294,30 +294,30 @@ defined_text = {
 }
 # Alash political legacy
 defined_text = {
-	name = KAZ_country_defense_idea_loc
+	name = KAZ_country_defense_loc
 	text = {
 		trigger = { has_idea = KAZ_country_defense_idea }
-		localization_key = KAZ_country_defense_idea_loc1
+		localization_key = KAZ_country_defense_loc1
 	}
 }
 defined_text = {
-	name = KAZ_language_idea_alash_loc
+	name = KAZ_language_alash_loc
 	text = {
 		trigger = { has_idea = KAZ_language_idea_alash }
-		localization_key = KAZ_language_idea_alash_loc1
+		localization_key = KAZ_language_alash_loc1
 	}
 }
 defined_text = {
-	name = KAZ_arsenal_alash_idea_loc
+	name = KAZ_arsenal_alash_loc
 	text = {
 		trigger = { has_idea = KAZ_arsenal_alash_idea }
-		localization_key = KAZ_arsenal_alash_idea_loc1
+		localization_key = KAZ_arsenal_alash_loc1
 	}
 }
 defined_text = {
-	name = KAZ_arsenal_alash_idea2_loc
+	name = KAZ_arsenal_alash2_loc
 	text = {
 		trigger = { has_idea = KAZ_arsenal_alash_idea2 }
-		localization_key = KAZ_arsenal_alash_idea2_loc1
+		localization_key = KAZ_arsenal_alash2_loc1
 	}
 }
