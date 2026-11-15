@@ -1478,7 +1478,7 @@ ideas = {
                 leased_military_factories_cost_modifier = 0.06
             }
         }
-        KAZ_arsenal_alash_idea2_idea = {
+        KAZ_arsenal_alash_2_idea = {
             allowed_civil_war = { always = yes }
 
             cancel = {
