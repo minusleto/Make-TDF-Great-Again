@@ -25,6 +25,40 @@ defined_text = {
 		localization_key = KAZ_old_elite_alash_loc1
 	}
 }
+# AUL: hidden spirits are summarized in the visible Auyl hub; icon-bearing spirits keep their own tooltips.
+defined_text = {
+	name = KAZ_aul_rapid_industrialization_loc
+	text = { trigger = { has_idea = KAZ_rapid_industrialization } localization_key = KAZ_aul_rapid_industrialization_loc1 }
+}
+defined_text = {
+	name = KAZ_aul_infrastructure_loc
+	text = { trigger = { has_idea = KAZ_infrastructure_development } localization_key = KAZ_aul_infrastructure_loc1 }
+}
+defined_text = {
+	name = KAZ_aul_entrepreneur_support_loc
+	text = { trigger = { has_idea = KAZ_aul_entrepreneur_support_idea } localization_key = KAZ_aul_entrepreneur_support_loc1 }
+	text = { trigger = { has_idea = KAZ_aul_entrepreneur_support_idea2 } localization_key = KAZ_aul_entrepreneur_support_loc2 }
+}
+defined_text = {
+	name = KAZ_aul_investment_loc
+	text = { trigger = { has_idea = KAZ_aul_invest_and_inovations } localization_key = KAZ_aul_investment_loc1 }
+}
+defined_text = {
+	name = KAZ_aul_electrification_loc
+	text = { trigger = { has_idea = KAZ_electrical_revolution } localization_key = KAZ_aul_electrification_loc1 }
+}
+defined_text = {
+	name = KAZ_aul_farmer_financing_loc
+	text = { trigger = { has_idea = KAZ_financing_of_farmers_aul } localization_key = KAZ_aul_farmer_financing_loc1 }
+}
+defined_text = {
+	name = KAZ_aul_agrarian_bank_loc
+	text = { trigger = { has_idea = KAZ_aul_agrarian_bank_idea } localization_key = KAZ_aul_agrarian_bank_loc1 }
+	text = { trigger = { has_idea = KAZ_aul_agrarian_bank_idea2 } localization_key = KAZ_aul_agrarian_bank_loc2 }
+	text = { trigger = { has_idea = KAZ_aul_agrarian_bank_idea3 } localization_key = KAZ_aul_agrarian_bank_loc3 }
+	text = { trigger = { has_idea = KAZ_aul_agrarian_bank_idea4 } localization_key = KAZ_aul_agrarian_bank_loc4 }
+}
+
 #CAS
 defined_text = {
 	name = KAZ_cas_transport_loc
