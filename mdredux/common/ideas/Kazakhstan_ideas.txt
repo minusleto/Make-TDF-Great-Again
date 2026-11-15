@@ -1974,7 +1974,7 @@ ideas = {
 			}
 		}
 		KAZ_drone_program_1_idea = {
-            name = KAZ_drone_program_idea
+			name = KAZ_drone_program_idea
 			allowed_civil_war = { always = yes }
 			equipment_bonus = {
 				small_plane_suicide_airframe = {
@@ -1988,7 +1988,7 @@ ideas = {
 			}
 		}
 		KAZ_drone_program_2_idea = {
-            name = KAZ_drone_program_idea
+			name = KAZ_drone_program_idea
 			allowed_civil_war = { always = yes }
 			equipment_bonus = {
 				small_plane_suicide_airframe = {
