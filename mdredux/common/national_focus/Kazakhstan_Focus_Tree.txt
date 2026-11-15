@@ -5094,7 +5094,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Ak Zhol Party
 	focus = {
 		id = KAZ_dem_ak_zhol_party
 		icon = akzhol_start
@@ -5114,11 +5114,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_dem_ak_zhol_party"
-			if = {
-				limit = { NOT = { is_in_array = { ruling_party = 2 } } }
-				set_temp_variable = { rul_party_temp = 2 }
-				set_temp_variable = { enable_elections = 0 }
-				change_ruling_party_effect = yes
+			hidden_effect = {
+				add_ideas = KAZ_akz_reformist_mandate_idea
+				if = {
+					limit = { NOT = { is_in_array = { ruling_party = 2 } } }
+					set_temp_variable = { rul_party_temp = 2 }
+					set_temp_variable = { enable_elections = 0 }
+					change_ruling_party_effect = yes
+				}
 			}
 			country_event = KAZ_zhol.1
 		}
@@ -6024,7 +6027,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Unicameral Parliament
 	focus = {
 		id = KAZ_akz_unicameral_parliament
 		icon = akzhol_parlament
@@ -6051,7 +6054,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Law on Parliamentary Opposition
 	focus = {
 		id = KAZ_akz_law_on_parliamentary_opposition
 		icon = akzhol_parlament_reform
@@ -6086,7 +6089,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Expand Maslikhat Powers
 	focus = {
 		id = KAZ_akz_expand_maslikhat_powers
 		icon = akzhol_maslih
@@ -6114,7 +6117,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Expand Rural Akim Powers
 	focus = {
 		id = KAZ_akz_expand_rural_akim_powers
 		icon = akzhol_selo
@@ -6142,7 +6145,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Introduce New VAT
 	focus = {
 		id = KAZ_akz_introduce_new_vat
 		icon = akzhol_vat
@@ -6177,7 +6180,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Online Court Broadcasts
 	focus = {
 		id = KAZ_akz_online_court_broadcasts
 		icon = akzhol_live
@@ -6210,7 +6213,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Tax Cuts
 	focus = {
 		id = KAZ_akz_tax_cut
 		icon = akzhol_tax_lov
@@ -6244,7 +6247,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Lower Credit Rates
 	focus = {
 		id = KAZ_akz_lower_credit_rates
 		icon = akzhol_tax_lov2
@@ -6275,7 +6278,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Return of Capital
 	focus = {
 		id = KAZ_akz_return_capitals
 		icon = return_capital
@@ -6309,7 +6312,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Liability for Subordinates' Corruption
 	focus = {
 		id = KAZ_akz_responsibility_for_corruption_of_subordinates
 		icon = akzhol_corruption
@@ -6338,7 +6341,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protection from Devaluation
 	focus = {
 		id = KAZ_akz_protection_from_devaluation
 		icon = akzhol_tenge
@@ -6375,7 +6378,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Duty-Free Import of Electric Cars
 	focus = {
 		id = KAZ_akz_duty_free_import_electric_cars
 		icon = akzhol_cars
@@ -6417,7 +6420,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Reduce Foreign Labor Quotas
 	focus = {
 		id = KAZ_akz_reduce_foreign_labor_quotas
 		icon = akzhol_works
@@ -6462,7 +6465,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Deoffshorization
 	focus = {
 		id = KAZ_akz_deoffshorization
 		icon = akzhol_deofshore
@@ -6498,7 +6501,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Expand Housing Construction
 	focus = {
 		id = KAZ_akz_expand_housing_construction
 		icon = akzhol_build
@@ -6535,7 +6538,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Raise Salaries for Public Employees
 	focus = {
 		id = KAZ_akz_raise_salaries_for_state_employees
 		icon = akzhol_budget
@@ -6573,7 +6576,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Financial Oversight of Healthcare
 	focus = {
 		id = KAZ_akz_financial_control_of_healthcare
 		icon = akzhol_medecine
@@ -6608,7 +6611,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Support Domestic Producers
 	focus = {
 		id = KAZ_akz_support_domestic_producers
 		icon = akzhol_fabric
@@ -6643,7 +6646,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Graduate Employment Program
 	focus = {
 		id = KAZ_akz_employment_of_graduates
 		icon = akzhol_student
@@ -6678,7 +6681,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protect the Spiritual Sphere from Foreign Influence
 	focus = {
 		id = KAZ_akz_protection_of_spiritual_sphere
 		icon = akzhol_infl_defense
@@ -6710,7 +6713,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protection of the Kazakh Language
 	focus = {
 		id = KAZ_akz_protection_of_kazakh_language
 		icon = akzhol_language
@@ -6744,7 +6747,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Peaceful Dispute Resolution
 	focus = {
 		id = KAZ_akz_resolving_disputes_peacefully
 		icon = akzhol_world
@@ -6779,7 +6782,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protection of Private Life
 	focus = {
 		id = KAZ_akz_protection_of_private_life
 		icon = akzhol_defense_family
@@ -6816,7 +6819,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Implement European Standards
 	focus = {
 		id = KAZ_akz_implementing_european_standards
 		icon = akzhol_europe

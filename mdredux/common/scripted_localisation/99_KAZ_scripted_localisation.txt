@@ -356,3 +356,47 @@ defined_text = {
 	text = { trigger = { has_idea = KAZ_aul_agrarian_bank_idea3 } localization_key = KAZ_aul_agrarian_bank_loc3 }
 	text = { trigger = { has_idea = KAZ_aul_agrarian_bank_idea4 } localization_key = KAZ_aul_agrarian_bank_loc4 }
 }
+
+# AK ZHOL: hidden reform spirits are summarized in the visible party hub.
+defined_text = {
+	name = KAZ_akz_parliamentary_opposition_loc
+	text = { trigger = { has_idea = KAZ_akz_parliamentary_opposition } localization_key = KAZ_akz_parliamentary_opposition_loc1 }
+}
+defined_text = {
+	name = KAZ_akz_expand_maslikhat_power_loc
+	text = { trigger = { has_idea = KAZ_akz_expand_maslikhat_power_idea } localization_key = KAZ_akz_expand_maslikhat_power_loc1 }
+	text = { trigger = { has_idea = KAZ_akz_expand_maslikhat_power_idea2 } localization_key = KAZ_akz_expand_maslikhat_power_loc2 }
+}
+defined_text = {
+	name = KAZ_akz_rural_akim_loc
+	text = { trigger = { has_idea = KAZ_akz_expand_rural_akim_powers_idea } localization_key = KAZ_akz_rural_akim_loc1 }
+}
+defined_text = {
+	name = KAZ_akz_new_vat_loc
+	text = { trigger = { has_idea = KAZ_akz_new_vat_idea } localization_key = KAZ_akz_new_vat_loc1 }
+	text = { trigger = { has_idea = KAZ_akz_new_vat_idea2 } localization_key = KAZ_akz_new_vat_loc2 }
+	text = { trigger = { has_idea = KAZ_akz_new_vat_idea3 } localization_key = KAZ_akz_new_vat_loc3 }
+	text = { trigger = { has_idea = KAZ_akz_new_vat_idea4 } localization_key = KAZ_akz_new_vat_loc4 }
+}
+defined_text = {
+	name = KAZ_akz_return_capitals_loc
+	text = { trigger = { has_idea = KAZ_akz_return_capitals_idea } localization_key = KAZ_akz_return_capitals_loc1 }
+	text = { trigger = { has_idea = KAZ_akz_deoffshorization_idea } localization_key = KAZ_akz_return_capitals_loc2 }
+	text = { trigger = { has_idea = KAZ_akz_deoffshorization_idea2 } localization_key = KAZ_akz_return_capitals_loc3 }
+}
+defined_text = {
+	name = KAZ_akz_responsibility_loc
+	text = { trigger = { has_idea = KAZ_akz_responsibility_for_corruption_of_subordinates_idea } localization_key = KAZ_akz_responsibility_loc1 }
+}
+defined_text = {
+	name = KAZ_akz_employment_loc
+	text = { trigger = { has_idea = KAZ_akz_employment_of_graduates_idea } localization_key = KAZ_akz_employment_loc1 }
+}
+defined_text = {
+	name = KAZ_akz_protection_loc
+	text = { trigger = { has_idea = KAZ_akz_protection_idea } localization_key = KAZ_akz_protection_loc1 }
+}
+defined_text = {
+	name = KAZ_akz_language_loc
+	text = { trigger = { has_idea = KAZ_language_idea_akz } localization_key = KAZ_akz_language_loc1 }
+}
