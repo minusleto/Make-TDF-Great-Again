@@ -1,14 +1,14 @@
 ideas = {
     country = {
         # Alash political legacy
-        KAZ_alash_political_legacy_idea = {
+        KAZ_alash_legacy_idea = {
             picture = alash_start
             allowed_civil_war = { always = yes }
             cancel = {
                 nationalist_right_wing_populists_are_not_in_power = yes
             }
             modifier = {
-                custom_modifier_tooltip = KAZ_alash_political_legacy_idea_tt
+                custom_modifier_tooltip = KAZ_alash_legacy_idea_tt
             }
         }
     }
