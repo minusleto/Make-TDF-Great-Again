@@ -1450,7 +1450,6 @@ ideas = {
             }
         }
         KAZ_language_alash_idea = {
-            name = KAZ_language_alash
             allowed_civil_war = { always = yes }
 
             cancel = {
