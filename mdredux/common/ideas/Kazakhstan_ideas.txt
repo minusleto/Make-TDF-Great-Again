@@ -1449,8 +1449,7 @@ ideas = {
                 expected_adm_modifier = -0.5
             }
         }
-        KAZ_language_idea_alash = {
-            name = KAZ_language_idea
+        KAZ_language_idea_alash_idea = {
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -1479,8 +1478,7 @@ ideas = {
                 leased_military_factories_cost_modifier = 0.06
             }
         }
-        KAZ_arsenal_alash_idea2 = {
-            name = KAZ_arsenal_alash_idea
+        KAZ_arsenal_alash_idea2_idea = {
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -1501,7 +1499,6 @@ ideas = {
 
         # Modernization and final settlement
         KAZ_tok_new_era_court = {
-            name = KAZ_tok_new_era
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1518,7 +1515,6 @@ ideas = {
         }
 
         KAZ_tok_new_era_majilis = {
-            name = KAZ_tok_new_era
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1543,7 +1539,6 @@ ideas = {
         }
 
         KAZ_tok_new_era_golden = {
-            name = KAZ_tok_new_era
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1584,7 +1579,6 @@ ideas = {
         }
 
         KAZ_tok_adiletti_digital_idea = {
-            name = KAZ_tok_adiletti_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1601,7 +1595,6 @@ ideas = {
 
 
         KAZ_tok_adiletti_complete_idea = {
-            name = KAZ_tok_adiletti_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1618,7 +1611,6 @@ ideas = {
         }
 
         KAZ_tok_adiletti_digital_only_idea = {
-            name = KAZ_tok_adiletti_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1632,7 +1624,6 @@ ideas = {
         }
 
         KAZ_tok_adiletti_markets_only_idea = {
-            name = KAZ_tok_adiletti_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1645,7 +1636,6 @@ ideas = {
         }
 
         KAZ_tok_adiletti_justice_markets_idea = {
-            name = KAZ_tok_adiletti_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1659,7 +1649,6 @@ ideas = {
         }
 
         KAZ_tok_adiletti_digital_markets_idea = {
-            name = KAZ_tok_adiletti_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1719,7 +1708,6 @@ ideas = {
 
         KAZ_tok_new_era2 = {
             allowed_civil_war = { always = yes }
-            name = KAZ_tok_new_era
             cancel = {
                 NOT = {
                     emerging_autocracy_are_in_power = yes
@@ -1737,7 +1725,6 @@ ideas = {
 
         KAZ_tok_new_era3 = {
             allowed_civil_war = { always = yes }
-            name = KAZ_tok_new_era
             cancel = {
                 NOT = {
                     emerging_autocracy_are_in_power = yes
@@ -1758,7 +1745,6 @@ ideas = {
         }
 
         KAZ_tok_new_era4 = {
-            name = KAZ_tok_new_era
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1803,7 +1789,6 @@ ideas = {
         KAZ_tok_mass_protests_recovery_idea = {
             picture = factory_strikes
             allowed_civil_war = { always = yes }
-            name = KAZ_tok_mass_protests_idea
             modifier = {
                 stability_factor = -0.1
                 political_power_factor = -0.1
@@ -1812,7 +1797,6 @@ ideas = {
         }
 
         KAZ_samruk_idea2 = {
-            name = KAZ_samruk_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1857,7 +1841,6 @@ ideas = {
         }
 
         KAZ_tok2_singapore_model_idea2 = {
-            name = KAZ_tok2_singapore_model_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1895,7 +1878,6 @@ ideas = {
         }
 
         KAZ_tok2_party_state_idea2 = {
-            name = KAZ_tok2_party_state_idea
             allowed_civil_war = { always = yes }
             cancel = { emerging_autocracy_are_not_in_power = yes }
             modifier = {
@@ -1976,7 +1958,6 @@ ideas = {
 			}
 		}
 		KAZ_drone_program_1_idea = {
-			name = KAZ_drone_program_idea
 			allowed_civil_war = { always = yes }
 			equipment_bonus = {
 				small_plane_suicide_airframe = {
@@ -1990,7 +1971,6 @@ ideas = {
 			}
 		}
 		KAZ_drone_program_2_idea = {
-			name = KAZ_drone_program_idea
 			allowed_civil_war = { always = yes }
 			equipment_bonus = {
 				small_plane_suicide_airframe = {
@@ -2070,7 +2050,6 @@ ideas = {
             }
         }
         KAZ_cas_member_1_idea = {
-            name = KAZ_cas_member_idea
             picture = parlament_kazakhstan #TODO
             allowed_civil_war = { always = yes }
             cancel = {
@@ -2374,7 +2353,6 @@ ideas = {
         }
 
         KAZ_progressive_tax_idea2 = {
-            name = KAZ_progressive_tax_idea
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -2637,8 +2615,7 @@ ideas = {
             }
         }
         # Language Reform 1
-        KAZ_alash_lat = {
-            name = KAZ_alash_lat_idea
+        KAZ_alash_lat_idea = {
             picture = alphabet_lat
             allowed_civil_war = { always = yes }
 
@@ -2659,8 +2636,7 @@ ideas = {
             }
         }
         # Language Reform 2
-        KAZ_alash_tyr = {
-            name = KAZ_alash_tyr_idea
+        KAZ_alash_tyr_idea = {
             picture = alphabet_tyr
             allowed_civil_war = { always = yes }
 
@@ -2681,8 +2657,7 @@ ideas = {
             }
         }
         # Language Reform 3
-        KAZ_alash_cyr = {
-            name = KAZ_alash_cyr_idea
+        KAZ_alash_cyr_idea = {
             picture = alphabet_cyr
             allowed_civil_war = { always = yes }
 
@@ -2702,8 +2677,7 @@ ideas = {
             }
         }
         # War with China
-        KAZ_war_with_china = {
-            name = KAZ_war_with_china_idea
+        KAZ_war_with_china_idea = {
             picture = alash_war_chine
             allowed_civil_war = { always = yes }
 
@@ -2743,8 +2717,7 @@ ideas = {
             }
         }
         # Soviet Tegrism
-        KAZ_soviet_tegr = {
-            name = KAZ_soviet_tegr_idea
+        KAZ_soviet_tegr_idea = {
             picture = tengri_ideas
             allowed_civil_war = { always = yes }
 
@@ -2761,8 +2734,7 @@ ideas = {
             }
         }
         # Soviet Tegrism 2
-        KAZ_soviet_tegr2 = {
-            name = KAZ_soviet_tegr_idea
+        KAZ_soviet_tegr2_idea = {
             allowed_civil_war = { always = yes }
             picture = tengri_ideas
 
@@ -2783,8 +2755,7 @@ ideas = {
             }
         }
         # Equal People
-        KAZ_equal_people = {
-            name = KAZ_equal_people_idea
+        KAZ_equal_people_idea = {
             picture = alash_equal
             allowed_civil_war = { always = yes }
 
@@ -2802,8 +2773,7 @@ ideas = {
             }
         }
         # Steppe Lightning Doctrine
-        KAZ_steppe_lightning_doctrine = {
-            name = KAZ_steppe_lightning_doctrine_idea
+        KAZ_steppe_lightning_doctrine_idea = {
             picture = alash_doctrine
             allowed_civil_war = { always = yes }
 
@@ -2821,8 +2791,7 @@ ideas = {
             }
         }
         # Turan Faction
-        KAZ_alash_faction_super = {
-            name = KAZ_alash_faction_super_idea
+        KAZ_alash_faction_super_idea = {
             picture = alash_faction
             allowed_civil_war = { always = yes }
 
