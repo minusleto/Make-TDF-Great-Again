@@ -10583,12 +10583,6 @@ focus_tree = {
 				uses = 2
 				category = CAT_util
 			}
-			add_tech_bonus = {
-				name = GEO_army_didgori
-				bonus = 0.5
-				uses = 2
-				category = CAT_util
-			}
 			mio:GEO_stc_delta_materiel_manufacturer = {
 				add_mio_size_up_requirement_factor = -0.03
 				add_mio_funds = 1000
@@ -10651,7 +10645,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GEO_army_rzso"
 			add_tech_bonus = {
-				name = GEO_army_vpk_boost
+				name = GEO_army_rzso
 				bonus = 0.30
 				uses = 2
 				category = CAT_artillery
