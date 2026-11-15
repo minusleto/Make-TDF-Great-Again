@@ -5080,13 +5080,13 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aul_party"
 			country_event = KAZ_aul.1
 			hidden_effect = {
+				add_ideas = KAZ_aul_legacy_idea
 				if = {
 					limit = { NOT = { is_in_array = { ruling_party = 3 } } }
 					set_temp_variable = { rul_party_temp = 3 }
 					set_temp_variable = { enable_elections = 0 }
 					change_ruling_party_effect = yes
 				}
-				add_ideas = KAZ_aul_legacy_idea
 			}
 		}
 
