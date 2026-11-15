@@ -31,7 +31,7 @@
  KAZ_great_turkestan_tag_def: "Great Turkestan"
 
  # Economy TT
- KAZ_kazakhstan_economy_tt: "[KAZ_consequences_of_hyperinflation_idea_loc][KAZ_olig_system_loc][KAZ_old_elite_alash_loc]"
+ KAZ_kazakhstan_economy_tt: "[KAZ_consequences_of_hyperinflation_idea_loc][KAZ_olig_system_loc]"
  KAZ_consequences_of_hyperinflation_idea_loc1: "\n§gCONSEQUENCES OF HYPERINFLATION§!: \n$stability_factor$: §R-15.00%§!\n$social_cost_multiplier_modifier$: §R23.00%§!\n$health_cost_multiplier_modifier$: §R23.00%§!\n$inflation_multiplier_modifier$: §R20.00%§!\n$base_inflation_percent_modifier$: §R3.00%§!\n$consumer_goods_factor$: §Y10.00%§!\n$inflation_defense_multiplier_modifier$: §R-30.00%§!\n$inflation_from_export_multiplier_modifier$: §R30.00%§!\n"
  KAZ_olig_system_loc1: "\n§gSYSTEMATIC OLIGARCHY§!: \n$political_power_factor$: §G30.00%§!\n$stability_factor$: §R-10.00%§!\n$industrial_capacity_factory$: §R-6.00%§!\n$offices_productivity$: §R-10.00%§!\n$small_businesses_tax_modifier$: §R-10.00%§!\n$companies_tax_gain_multiplier_modifier$: §R-12.00%§!\n$branches_tax_gain_multiplier_modifier$: §R-12.00%§!\n$bureaucracy_cost_factor$: §R-15.00%§!\n$corruption_cost_factor$: §G30.00%§!\n"
 
@@ -1986,7 +1986,6 @@
  KAZ_religious_freedom_idea: "Freedom of Religion"
  KAZ_country_defense_idea: "Preparing for National Defense"
  KAZ_old_elite_alash_idea: "Purge of Old Elites"
- KAZ_old_elite_alash_idea2: "Purge of Old Elites"
  KAZ_language_idea: "The Great Kazakh Language"
  KAZ_arsenal_alash_idea: "Kazakh Arsenal"
 
