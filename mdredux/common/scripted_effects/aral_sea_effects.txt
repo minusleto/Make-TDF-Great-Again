@@ -14,6 +14,21 @@ aral_sea_first_setup = {
 	718 = { add_dynamic_modifier = { modifier = aral_state_modifier } }
 }
 
+# Idempotent safety net: re-adds any missing country / state dynamic modifier without touching the flag.
+# Needed because aral_sea_first_setup runs from the history block, where state-scope adds are unverified.
+aral_ensure_modifiers = {
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = aral_sea_dynamic_modifier } } }
+		add_dynamic_modifier = { modifier = aral_sea_dynamic_modifier }
+	}
+	717 = { if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } } }
+	1224 = { if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } } }
+	1231 = { if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } } }
+	1226 = { if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } } }
+	1230 = { if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } } }
+	718 = { if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } } }
+}
+
 init_aral_sea = {
 	set_variable = { aral_sea_restoration = 0 }
 	set_variable = { aral_relief = 0 }
@@ -26,6 +41,7 @@ init_aral_sea = {
 update_aral_sea = {
 	# safety net: if on_startup never ran, set the modifiers up now
 	if = { limit = { NOT = { has_country_flag = aral_sea_initialized } } aral_sea_first_setup = yes }
+	aral_ensure_modifiers = yes
 	clamp_variable = { var = aral_sea_restoration min = -30 max = 100 }
 	set_variable = { aral_deficit = 100 }
 	subtract_from_variable = { aral_deficit = aral_sea_restoration }
@@ -107,6 +123,8 @@ aral_calc_drift = {
 }
 
 aral_monthly_tick = {
+	# runs every month, also at the -30 floor / 100 cap where update_aral_sea is skipped
+	aral_ensure_modifiers = yes
 	aral_calc_drift = yes
 	if = {
 		limit = {
