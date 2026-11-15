@@ -303,7 +303,7 @@ defined_text = {
 defined_text = {
 	name = KAZ_language_alash_loc
 	text = {
-		trigger = { has_idea = KAZ_language_idea_alash_idea }
+		trigger = { has_idea = KAZ_language_alash_idea }
 		localization_key = KAZ_language_alash_loc1
 	}
 }
