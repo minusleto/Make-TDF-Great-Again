@@ -2263,7 +2263,9 @@
  KAZ_alash_legacy_idea: "The Legacy of Alash"
  KAZ_alash_legacy_idea_desc: "The ideals of Alash Orda form the foundation of the restored national movement. Its political, cultural, military, and diplomatic projects are not separate reforms, but parts of one national programme. As each is put into practice, the legacy of Alash takes shape."
  KAZ_alash_legacy_idea_tt: "[KAZ_country_defense_idea_loc][KAZ_old_elite_alash_idea_loc][KAZ_language_idea_alash_loc][KAZ_arsenal_alash_idea_loc][KAZ_arsenal_alash_idea2_loc]"
- KAZ_country_defense_idea_loc1: "\n§gNATIONAL DEFENSE§!: \n$land_bunker_effectiveness_factor$: §G+20.00%§!\n$production_speed_bunker_factor$: §G+100.00%§!\n"
+ KAZ_country_defense_idea_loc1: "\n§gNATIONAL DEFENSE§!: \n$land_bunker_effectiveness_factor$: §G+20.00%§!\n$modifier_production_speed_bunker_factor$: §G+100.00%§!\n"
  KAZ_language_idea_alash_loc1: "\n§gTHE GREAT KAZAKH LANGUAGE§!: \n$research_speed_factor$: §G+8.00%§!\n$econ_cycle_upg_cost_multiplier_modifier$: §G-11.00%§!\n$nationalist_drift$: §G+1.00%§!\n$drift_defence_factor$: §G+5.00%§!\n$political_power_gain$: §G+8.00%§!\n"
  KAZ_arsenal_alash_idea_loc1: "\n§gKAZAKH ARSENAL§!: \n$production_speed_arms_factory_factor$: §G+5.00%§!\n$military_factories_productivity$: §G+7.00%§!\n$international_market_income_modifier$: §R-5.00%§!\n$leased_military_factories_cost_modifier$: §R+6.00%§!\n"
  KAZ_arsenal_alash_idea2_loc1: "\n§gKAZAKH ARSENAL — EXPANDED§!: \n$production_speed_arms_factory_factor$: §G+10.00%§!\n$military_factories_productivity$: §G+14.00%§!\n$international_market_income_modifier$: §R-10.00%§!\n$leased_military_factories_cost_modifier$: §R+12.00%§!\n$tax_gain_multiplier_modifier$: §G+5.00%§!\n"
+
+ land_bunker_effectiveness_factor: "Land Fort Effectiveness"
