@@ -1,226 +1,4 @@
 ideas = {
-    country = {
-        # Alash political legacy
-        #### Alash ####
-        # Language Reform 1
-        KAZ_alash_lat = {
-            picture = alphabet_lat
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            modifier = {
-                research_speed_factor = 0.10
-                political_power_factor = 0.05
-                stability_factor = -0.05
-                consumer_goods_factor = 0.02
-                democratic_drift = 0.01
-                nationalist_drift = -0.01
-                education_cost_multiplier_modifier = 0.1
-                education_budget_cost_factor = -0.5
-                expected_education_modifier = -0.5
-            }
-        }
-        # Language Reform 2
-        KAZ_alash_tyr = {
-            picture = alphabet_tyr
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            modifier = {
-                nationalist_drift = 0.08
-                army_core_attack_factor = 0.1
-                stability_factor = -0.05
-                political_power_factor = 0.10
-                research_speed_factor = -0.15
-                consumer_goods_factor = 0.05
-                education_cost_multiplier_modifier = 0.1
-                education_budget_cost_factor = -0.5
-                expected_education_modifier = -0.5
-            }
-        }
-        # Language Reform 3
-        KAZ_alash_cyr = {
-            picture = alphabet_cyr
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            modifier = {
-                research_speed_factor = 0.05
-                stability_factor = 0.05
-                political_power_factor = -0.05
-                nationalist_drift = -0.01
-                econ_cycle_upg_cost_multiplier_modifier = -0.11
-                education_cost_multiplier_modifier = 0.1
-                education_budget_cost_factor = -0.5
-                expected_education_modifier = -0.5
-            }
-        }
-        # War with China
-        KAZ_war_with_china = {
-            picture = alash_war_chine
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            targeted_modifier = {
-                tag = CHI
-                attack_bonus_against = 0.1
-                defense_bonus_against = 0.1
-            }
-
-            modifier = {
-                army_org_factor = 0.03
-                experience_gain_army = 0.1
-            }
-        }
-        # War with Russia
-        KAZ_war_with_russia = {
-            picture = alash_war_russia
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            targeted_modifier = {
-                tag = SOV
-                attack_bonus_against = 0.1
-                defense_bonus_against = 0.1
-            }
-
-            modifier = {
-                army_org_factor = 0.03
-                experience_gain_army = 0.1
-            }
-        }
-        # Soviet Tegrism
-        KAZ_soviet_tegr = {
-            picture = tengri_ideas
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.05
-                political_power_factor = -0.075
-                foreign_influence_defense_modifier = 0.07
-                nationalist_drift = 0.02
-                foreign_influence_modifier = 0.03
-            }
-        }
-        # Soviet Tegrism 2
-        KAZ_soviet_tegr2 = {
-            name = KAZ_soviet_tegr
-            allowed_civil_war = { always = yes }
-            picture = tengri_ideas
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.075
-                war_support_factor = 0.05
-                political_power_factor = -0.1
-                foreign_influence_defense_modifier = 0.14
-                nationalist_drift = 0.04
-                foreign_influence_modifier = 0.03
-                nationalist_acceptance = 20
-                democratic_acceptance = -10
-                nationalist_outlook_campaign_cost_modifier = -0.25
-            }
-        }
-        # Equal People
-        KAZ_equal_people = {
-            picture = alash_equal
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.05
-                social_cost_multiplier_modifier = 0.04
-                education_cost_multiplier_modifier = 0.04
-                health_cost_multiplier_modifier = 0.04
-                drift_defence_factor = 0.1
-                monthly_population = 0.1
-            }
-        }
-        # Steppe Lightning Doctrine
-        KAZ_steppe_lightning_doctrine = {
-            picture = alash_doctrine
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-
-            modifier = {
-                army_speed_factor = 0.10
-                army_org_factor = 0.08
-                army_attack_factor = 0.05
-                attrition = -0.1
-                supply_consumption_factor = -0.08
-                out_of_supply_factor = -0.15
-            }
-        }
-        # Turan Faction
-        KAZ_alash_faction_super = {
-            picture = alash_faction
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = { is_in_faction_with = KAZ }
-            }
-
-            modifier = {
-                send_volunteer_size = 2
-                send_volunteer_divisions_required = -0.20
-                send_volunteers_tension = -0.15
-            }
-        }
-        # Religious Freedom
-        KAZ_religious_freedom_idea = {
-            picture = alash_freedom_religion
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-            allowed_civil_war = { always = yes }
-            modifier = {
-                stability_factor = 0.03
-                party_popularity_stability_factor = 0.03
-                internal_factions_cost_factor = -0.05
-                bureaucracy_cost_multiplier_modifier = 0.02
-                neutrality_drift = -0.01
-            }
-        }
-        # Alash legacy hub
-        KAZ_alash_legacy_idea = {
-            picture = alash_start
-            allowed_civil_war = { always = yes }
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
-            modifier = {
-                custom_modifier_tooltip = KAZ_alash_legacy_idea_tt
-            }
-        }
-    }
     hidden_ideas = {
         #Eco
         KAZ_energy_crisis = {
@@ -1717,7 +1495,7 @@ ideas = {
                 tax_gain_multiplier_modifier = 0.05
             }
         }
-}
+    }
     country = {
         # Tokayev national spirits
 
@@ -2328,22 +2106,6 @@ ideas = {
             }
         }
 
-        #### Alash ####
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #### Alash end ####
-
         #### Economy Ideas ####
         KAZ_tax_reform_idea = {
             allowed_civil_war = { always = yes }
@@ -2862,6 +2624,226 @@ ideas = {
         }
         #### AUL BRANCH END ####
 
+        #### Alash ####
+        # Language Reform 1
+        KAZ_alash_lat = {
+            picture = alphabet_lat
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                research_speed_factor = 0.10
+                political_power_factor = 0.05
+                stability_factor = -0.05
+                consumer_goods_factor = 0.02
+                democratic_drift = 0.01
+                nationalist_drift = -0.01
+                education_cost_multiplier_modifier = 0.1
+                education_budget_cost_factor = -0.5
+                expected_education_modifier = -0.5
+            }
+        }
+        # Language Reform 2
+        KAZ_alash_tyr = {
+            picture = alphabet_tyr
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                nationalist_drift = 0.08
+                army_core_attack_factor = 0.1
+                stability_factor = -0.05
+                political_power_factor = 0.10
+                research_speed_factor = -0.15
+                consumer_goods_factor = 0.05
+                education_cost_multiplier_modifier = 0.1
+                education_budget_cost_factor = -0.5
+                expected_education_modifier = -0.5
+            }
+        }
+        # Language Reform 3
+        KAZ_alash_cyr = {
+            picture = alphabet_cyr
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                research_speed_factor = 0.05
+                stability_factor = 0.05
+                political_power_factor = -0.05
+                nationalist_drift = -0.01
+                econ_cycle_upg_cost_multiplier_modifier = -0.11
+                education_cost_multiplier_modifier = 0.1
+                education_budget_cost_factor = -0.5
+                expected_education_modifier = -0.5
+            }
+        }
+        # War with China
+        KAZ_war_with_china = {
+            picture = alash_war_chine
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            targeted_modifier = {
+                tag = CHI
+                attack_bonus_against = 0.1
+                defense_bonus_against = 0.1
+            }
+
+            modifier = {
+                army_org_factor = 0.03
+                experience_gain_army = 0.1
+            }
+        }
+        # War with Russia
+        KAZ_war_with_russia = {
+            picture = alash_war_russia
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            targeted_modifier = {
+                tag = SOV
+                attack_bonus_against = 0.1
+                defense_bonus_against = 0.1
+            }
+
+            modifier = {
+                army_org_factor = 0.03
+                experience_gain_army = 0.1
+            }
+        }
+        # Soviet Tegrism
+        KAZ_soviet_tegr = {
+            picture = tengri_ideas
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.05
+                political_power_factor = -0.075
+                foreign_influence_defense_modifier = 0.07
+                nationalist_drift = 0.02
+                foreign_influence_modifier = 0.03
+            }
+        }
+        # Soviet Tegrism 2
+        KAZ_soviet_tegr2 = {
+            name = KAZ_soviet_tegr
+            allowed_civil_war = { always = yes }
+            picture = tengri_ideas
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.075
+                war_support_factor = 0.05
+                political_power_factor = -0.1
+                foreign_influence_defense_modifier = 0.14
+                nationalist_drift = 0.04
+                foreign_influence_modifier = 0.03
+                nationalist_acceptance = 20
+                democratic_acceptance = -10
+                nationalist_outlook_campaign_cost_modifier = -0.25
+            }
+        }
+        # Equal People
+        KAZ_equal_people = {
+            picture = alash_equal
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.05
+                social_cost_multiplier_modifier = 0.04
+                education_cost_multiplier_modifier = 0.04
+                health_cost_multiplier_modifier = 0.04
+                drift_defence_factor = 0.1
+                monthly_population = 0.1
+            }
+        }
+        # Steppe Lightning Doctrine
+        KAZ_steppe_lightning_doctrine = {
+            picture = alash_doctrine
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                army_speed_factor = 0.10
+                army_org_factor = 0.08
+                army_attack_factor = 0.05
+                attrition = -0.1
+                supply_consumption_factor = -0.08
+                out_of_supply_factor = -0.15
+            }
+        }
+        # Turan Faction
+        KAZ_alash_faction_super = {
+            picture = alash_faction
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                NOT = { is_in_faction_with = KAZ }
+            }
+
+            modifier = {
+                send_volunteer_size = 2
+                send_volunteer_divisions_required = -0.20
+                send_volunteers_tension = -0.15
+            }
+        }
+        # Religious Freedom
+        KAZ_religious_freedom_idea = {
+            picture = alash_freedom_religion
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+            allowed_civil_war = { always = yes }
+            modifier = {
+                stability_factor = 0.03
+                party_popularity_stability_factor = 0.03
+                internal_factions_cost_factor = -0.05
+                bureaucracy_cost_multiplier_modifier = 0.02
+                neutrality_drift = -0.01
+            }
+        }
+        # Alash legacy hub
+        KAZ_alash_legacy_idea = {
+            picture = alash_start
+            allowed_civil_war = { always = yes }
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+            modifier = {
+                custom_modifier_tooltip = KAZ_alash_legacy_idea_tt
+            }
+        }
+
         #Foreign policy
         KAZ_BLR_agro_modernization_idea = {
             picture = blr_agro_industry_idea
@@ -3196,5 +3178,4 @@ ideas = {
             }
         }
     }
-
 }
