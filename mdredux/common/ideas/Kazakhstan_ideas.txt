@@ -8,9 +8,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -31,9 +29,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -54,9 +50,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -76,9 +70,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             targeted_modifier = {
@@ -98,9 +90,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             targeted_modifier = {
@@ -120,9 +110,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -140,9 +128,7 @@ ideas = {
             picture = tengri_ideas
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -163,9 +149,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -183,9 +167,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -216,9 +198,7 @@ ideas = {
         KAZ_religious_freedom_idea = {
             picture = alash_freedom_religion
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
             allowed_civil_war = { always = yes }
             modifier = {
@@ -1669,9 +1649,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -1683,9 +1661,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -1700,9 +1676,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -1717,9 +1691,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
@@ -1734,9 +1706,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
+                nationalist_right_wing_populists_are_not_in_power = yes
             }
 
             modifier = {
