@@ -4,7 +4,6 @@ ideas = {
         KAZ_energy_crisis = {
             allowed_civil_war = { always = yes }
             modifier = {
-            name = KAZ_akz_deoffshorization_idea
                 energy_gain_multiplier = -0.5
                 renewable_energy_gain_multiplier = -0.4
                 fossil_pp_energy_generation_modifier = -0.6
@@ -57,7 +56,6 @@ ideas = {
         # The Great Kazakh Language
         KAZ_language_idea_naz = {
             name = KAZ_language_idea
-            name = KAZ_language_idea
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -92,7 +90,6 @@ ideas = {
         }
 
         KAZ_naz_2030_idea2 = {
-            name = KAZ_naz_2030_idea
             name = KAZ_naz_2030_idea
             allowed_civil_war = { always = yes }
 
@@ -169,7 +166,6 @@ ideas = {
 
         KAZ_naz_party_building_idea2 = {
             name = KAZ_naz_party_building_idea
-            name = KAZ_naz_party_building_idea
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -225,7 +221,6 @@ ideas = {
 
         KAZ_naz_era_idea2 = {
             name = KAZ_naz_era_idea
-            name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -244,7 +239,6 @@ ideas = {
         }
 
         KAZ_naz_era_idea3 = {
-            name = KAZ_naz_era_idea
             name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
@@ -267,7 +261,6 @@ ideas = {
         }
 
         KAZ_naz_era_idea4 = {
-            name = KAZ_naz_era_idea
             name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
@@ -295,7 +288,6 @@ ideas = {
         }
 
         KAZ_naz_era_idea5 = {
-            name = KAZ_naz_era_idea
             name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
@@ -343,7 +335,6 @@ ideas = {
 
         KAZ_naz_test_idea2 = {
             name = KAZ_naz_test_idea
-            name = KAZ_naz_test_idea
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -363,7 +354,6 @@ ideas = {
         }
 
         KAZ_naz_test_idea3 = {
-            name = KAZ_naz_test_idea
             name = KAZ_naz_test_idea
             allowed_civil_war = { always = yes }
 
@@ -386,7 +376,6 @@ ideas = {
         }
 
         KAZ_naz_egov_idea = {
-            name = KAZ_naz_egov_idea
             name = KAZ_naz_egov_idea
             allowed_civil_war = { always = yes }
 
@@ -479,7 +468,6 @@ ideas = {
         # The Great Kazakh Language
         KAZ_language_idea_akz = {
             name = KAZ_language_idea
-            name = KAZ_language_idea
             allowed_civil_war = { always = yes }
 
             cancel = {
@@ -514,7 +502,6 @@ ideas = {
         }
 
         KAZ_akz_expand_maslikhat_power_idea2 = {
-            name = KAZ_akz_expand_maslikhat_power_idea
             name = KAZ_akz_expand_maslikhat_power_idea
             allowed_civil_war = { always = yes }
 
@@ -594,7 +581,6 @@ ideas = {
         }
 
         KAZ_akz_new_vat_idea4 = {
-            name = KAZ_akz_new_vat_idea3
             name = KAZ_akz_new_vat_idea3
             allowed_civil_war = { always = yes }
 
@@ -982,7 +968,6 @@ ideas = {
         ### CAS ###
         KAZ_cas_single_transport_space_idea = {
             name = KAZ_cas_single_transport_space
-            name = KAZ_cas_single_transport_space
             allowed_civil_war = { always = yes }
             modifier = {
                 production_cost_rail_way_factor = -0.05
@@ -1053,7 +1038,6 @@ ideas = {
         }
         KAZ_cas_shield_1_idea = {
             name = KAZ_cas_shield_idea
-            name = KAZ_cas_shield_idea
             allowed_civil_war = { always = yes }
             modifier = {
                 decryption_power_factor = 0.04
@@ -1064,7 +1048,6 @@ ideas = {
             }
         }
         KAZ_cas_shield_2_idea = {
-            name = KAZ_cas_shield_idea
             name = KAZ_cas_shield_idea
             allowed_civil_war = { always = yes }
             modifier = {
@@ -1079,7 +1062,6 @@ ideas = {
             }
         }
         KAZ_cas_shield_3_idea = {
-            name = KAZ_cas_shield_idea
             name = KAZ_cas_shield_idea
             allowed_civil_war = { always = yes }
             modifier = {
@@ -1097,7 +1079,6 @@ ideas = {
             }
         }
         KAZ_cas_shield_4_idea = {
-            name = KAZ_cas_shield_idea
             name = KAZ_cas_shield_idea
             allowed_civil_war = { always = yes }
             modifier = {
@@ -1170,7 +1151,6 @@ ideas = {
         }
         KAZ_outdated_army_1_idea = {
             name = KAZ_outdated_army_idea
-            name = KAZ_outdated_army_idea
             allowed_civil_war = { always = yes }
             modifier = {
                 army_attack_factor = -0.15
@@ -1183,7 +1163,6 @@ ideas = {
         }
         KAZ_outdated_army_2_idea = {
             name = KAZ_outdated_army_idea
-            name = KAZ_outdated_army_idea
             allowed_civil_war = { always = yes }
             modifier = {
                 army_attack_factor = -0.10
@@ -1192,7 +1171,6 @@ ideas = {
             }
         }
         KAZ_outdated_army_3_idea = {
-            name = KAZ_outdated_army_idea
             name = KAZ_outdated_army_idea
             allowed_civil_war = { always = yes }
             modifier = {
@@ -1305,7 +1283,6 @@ ideas = {
         }
         KAZ_outdate_wings_1_idea = {
             name = KAZ_outdate_wings_idea
-            name = KAZ_outdate_wings_idea
             allowed_civil_war = { always = yes }
             modifier = {
                 air_attack_factor = -0.07
@@ -1316,7 +1293,6 @@ ideas = {
             }
         }
         KAZ_outdate_wings_2_idea = {
-            name = KAZ_outdate_wings_idea
             name = KAZ_outdate_wings_idea
             allowed_civil_war = { always = yes }
             modifier = {
@@ -1340,7 +1316,6 @@ ideas = {
         }
         KAZ_outdated_navy_1_idea = {
             name = KAZ_outdated_navy_idea
-            name = KAZ_outdated_navy_idea
             allowed_civil_war = { always = yes }
             modifier = {
                 naval_damage_factor = -0.10
@@ -1351,7 +1326,6 @@ ideas = {
         }
         KAZ_outdated_navy_2_idea = {
             name = KAZ_outdated_navy_idea
-            name = KAZ_outdated_navy_idea
             allowed_civil_war = { always = yes }
             modifier = {
                 naval_damage_factor = -0.075
@@ -1361,7 +1335,6 @@ ideas = {
             }
         }
         KAZ_outdated_navy_3_idea = {
-            name = KAZ_outdated_navy_idea
             name = KAZ_outdated_navy_idea
             allowed_civil_war = { always = yes }
             modifier = {
@@ -2001,7 +1974,7 @@ ideas = {
 			}
 		}
 		KAZ_drone_program_1_idea = {
-			name = KAZ_drone_program_idea
+            name = KAZ_drone_program_idea
 			allowed_civil_war = { always = yes }
 			equipment_bonus = {
 				small_plane_suicide_airframe = {
@@ -2015,7 +1988,7 @@ ideas = {
 			}
 		}
 		KAZ_drone_program_2_idea = {
-			name = KAZ_drone_program_idea
+            name = KAZ_drone_program_idea
 			allowed_civil_war = { always = yes }
 			equipment_bonus = {
 				small_plane_suicide_airframe = {
