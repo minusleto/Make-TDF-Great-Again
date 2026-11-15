@@ -7508,7 +7508,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_defense_country_alash"
-			add_ideas = KAZ_country_defense
+			add_ideas = KAZ_country_defense_idea
 			set_temp_variable = { treasury_change = -30 }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = KAZ_start_defense
