@@ -2345,6 +2345,7 @@ ideas = {
                 send_volunteers_tension = -0.15
             }
         }
+
         # Religious Freedom
         KAZ_religious_freedom_idea = {
             picture = alash_freedom_religion
