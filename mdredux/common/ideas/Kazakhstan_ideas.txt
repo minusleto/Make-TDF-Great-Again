@@ -2638,6 +2638,7 @@ ideas = {
         }
         # Language Reform 1
         KAZ_alash_lat = {
+            name = KAZ_alash_lat_idea
             picture = alphabet_lat
             allowed_civil_war = { always = yes }
 
@@ -2659,6 +2660,7 @@ ideas = {
         }
         # Language Reform 2
         KAZ_alash_tyr = {
+            name = KAZ_alash_tyr_idea
             picture = alphabet_tyr
             allowed_civil_war = { always = yes }
 
@@ -2680,6 +2682,7 @@ ideas = {
         }
         # Language Reform 3
         KAZ_alash_cyr = {
+            name = KAZ_alash_cyr_idea
             picture = alphabet_cyr
             allowed_civil_war = { always = yes }
 
@@ -2700,6 +2703,7 @@ ideas = {
         }
         # War with China
         KAZ_war_with_china = {
+            name = KAZ_war_with_china_idea
             picture = alash_war_chine
             allowed_civil_war = { always = yes }
 
@@ -2720,6 +2724,7 @@ ideas = {
         }
         # War with Russia
         KAZ_war_with_russia = {
+            name = KAZ_war_with_russia_idea
             picture = alash_war_russia
             allowed_civil_war = { always = yes }
 
@@ -2740,6 +2745,7 @@ ideas = {
         }
         # Soviet Tegrism
         KAZ_soviet_tegr = {
+            name = KAZ_soviet_tegr_idea
             picture = tengri_ideas
             allowed_civil_war = { always = yes }
 
@@ -2757,7 +2763,7 @@ ideas = {
         }
         # Soviet Tegrism 2
         KAZ_soviet_tegr2 = {
-            name = KAZ_soviet_tegr
+            name = KAZ_soviet_tegr_idea
             allowed_civil_war = { always = yes }
             picture = tengri_ideas
 
@@ -2779,6 +2785,7 @@ ideas = {
         }
         # Equal People
         KAZ_equal_people = {
+            name = KAZ_equal_people_idea
             picture = alash_equal
             allowed_civil_war = { always = yes }
 
@@ -2797,6 +2804,7 @@ ideas = {
         }
         # Steppe Lightning Doctrine
         KAZ_steppe_lightning_doctrine = {
+            name = KAZ_steppe_lightning_doctrine_idea
             picture = alash_doctrine
             allowed_civil_war = { always = yes }
 
@@ -2815,6 +2823,7 @@ ideas = {
         }
         # Turan Faction
         KAZ_alash_faction_super = {
+            name = KAZ_alash_faction_super_idea
             picture = alash_faction
             allowed_civil_war = { always = yes }
 
