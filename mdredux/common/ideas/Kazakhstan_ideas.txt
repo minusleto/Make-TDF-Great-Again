@@ -2625,6 +2625,13 @@ ideas = {
         #### AUL BRANCH END ####
 
         #### Alash ####
+        # Alash legacy hub
+        KAZ_alash_legacy_idea = {
+            picture = alash_start
+            allowed_civil_war = { always = yes }
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
         # Language Reform 1
         KAZ_alash_lat = {
             picture = alphabet_lat
@@ -2832,13 +2839,6 @@ ideas = {
                 neutrality_drift = -0.01
             }
         }
-        # Alash legacy hub
-        KAZ_alash_legacy_idea = {
-            picture = alash_start
-            allowed_civil_war = { always = yes }
-            cancel = {
-                nationalist_right_wing_populists_are_not_in_power = yes
-            }
             modifier = {
                 custom_modifier_tooltip = KAZ_alash_legacy_idea_tt
             }
