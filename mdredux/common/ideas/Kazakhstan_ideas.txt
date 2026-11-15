@@ -965,98 +965,6 @@ ideas = {
             }
         }
 
-        # Invest in the defense of the country
-        KAZ_country_defense = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                land_bunker_effectiveness_factor = 0.2
-                production_speed_bunker_factor = 1
-            }
-        }
-
-        # Purge of Old Elites
-        KAZ_old_elite_alash_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                corruption_cost_factor = -0.2
-                bureaucracy_cost_factor = -0.75
-                bureaucracy_cost_multiplier_modifier = -0.25
-                expected_adm_modifier = -0.5
-            }
-        }
-
-        # The Great Kazakh Language
-        KAZ_language_idea_alash = {
-            name = KAZ_language_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                research_speed_factor = 0.08
-                econ_cycle_upg_cost_multiplier_modifier = -0.11
-                nationalist_drift = 0.01
-                drift_defence_factor = 0.05
-                political_power_gain = 0.08
-            }
-        }
-
-        # Kazakh Arsenal
-        KAZ_arsenal_alash_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_arms_factory_factor = 0.05
-                military_factories_productivity = 0.07
-                international_market_income_modifier = -0.05
-                leased_military_factories_cost_modifier = 0.06
-            }
-        }
-
-        # Kazakh Arsenal 2
-        KAZ_arsenal_alash_idea2 = {
-            name = KAZ_arsenal_alash_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_arms_factory_factor = 0.1
-                military_factories_productivity = 0.14
-                international_market_income_modifier = -0.1
-                leased_military_factories_cost_modifier = 0.12
-                tax_gain_multiplier_modifier = 0.05
-            }
-        }
-
         ### CAS ###
         KAZ_cas_single_transport_space_idea = {
             name = KAZ_cas_single_transport_space
@@ -2125,21 +2033,96 @@ ideas = {
         }
 
         #### Alash ####
-        # Religious Freedom
-        KAZ_religious_freedom_idea = {
-            picture = alash_freedom_religion
+
+        # Invest in the defense of the country
+        KAZ_country_defense_idea = {
+            allowed_civil_war = { always = yes }
+
             cancel = {
                 NOT = {
                     nationalist_right_wing_populists_are_in_power = yes
                 }
             }
-            allowed_civil_war = { always = yes }
+
             modifier = {
-                stability_factor = 0.03
-                party_popularity_stability_factor = 0.03
-                internal_factions_cost_factor = -0.05
-                bureaucracy_cost_multiplier_modifier = 0.02
-                neutrality_drift = -0.01
+                land_bunker_effectiveness_factor = 0.2
+                production_speed_bunker_factor = 1
+            }
+        }
+
+        # Purge of Old Elites
+        KAZ_old_elite_alash_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                NOT = {
+                    nationalist_right_wing_populists_are_in_power = yes
+                }
+            }
+
+            modifier = {
+                corruption_cost_factor = -0.2
+                bureaucracy_cost_factor = -0.75
+                bureaucracy_cost_multiplier_modifier = -0.25
+                expected_adm_modifier = -0.5
+            }
+        }
+
+        # The Great Kazakh Language
+        KAZ_language_idea_alash = {
+            name = KAZ_language_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                NOT = {
+                    nationalist_right_wing_populists_are_in_power = yes
+                }
+            }
+
+            modifier = {
+                research_speed_factor = 0.08
+                econ_cycle_upg_cost_multiplier_modifier = -0.11
+                nationalist_drift = 0.01
+                drift_defence_factor = 0.05
+                political_power_gain = 0.08
+            }
+        }
+
+        # Kazakh Arsenal
+        KAZ_arsenal_alash_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                NOT = {
+                    nationalist_right_wing_populists_are_in_power = yes
+                }
+            }
+
+            modifier = {
+                production_speed_arms_factory_factor = 0.05
+                military_factories_productivity = 0.07
+                international_market_income_modifier = -0.05
+                leased_military_factories_cost_modifier = 0.06
+            }
+        }
+
+        # Kazakh Arsenal 2
+        KAZ_arsenal_alash_idea2 = {
+            name = KAZ_arsenal_alash_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                NOT = {
+                    nationalist_right_wing_populists_are_in_power = yes
+                }
+            }
+
+            modifier = {
+                production_speed_arms_factory_factor = 0.1
+                military_factories_productivity = 0.14
+                international_market_income_modifier = -0.1
+                leased_military_factories_cost_modifier = 0.12
+                tax_gain_multiplier_modifier = 0.05
             }
         }
 
@@ -2362,6 +2345,24 @@ ideas = {
                 send_volunteers_tension = -0.15
             }
         }
+        # Religious Freedom
+        KAZ_religious_freedom_idea = {
+            picture = alash_freedom_religion
+            cancel = {
+                NOT = {
+                    nationalist_right_wing_populists_are_in_power = yes
+                }
+            }
+            allowed_civil_war = { always = yes }
+            modifier = {
+                stability_factor = 0.03
+                party_popularity_stability_factor = 0.03
+                internal_factions_cost_factor = -0.05
+                bureaucracy_cost_multiplier_modifier = 0.02
+                neutrality_drift = -0.01
+            }
+        }
+
         #### Alash end ####
 
         #### Economy Ideas ####
