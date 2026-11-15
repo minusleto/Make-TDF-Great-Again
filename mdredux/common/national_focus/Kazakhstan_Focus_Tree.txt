@@ -6877,6 +6877,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_return_alash"
+			hidden_effect = {
+				add_ideas = KAZ_alash_political_legacy_idea
+			}
 			country_event = KAZ_alash.1
 			if = {
 				limit = { NOT = { is_in_array = { ruling_party = 20 } } }
