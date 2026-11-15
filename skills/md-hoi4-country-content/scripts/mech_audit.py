@@ -202,6 +202,8 @@ def main():
                     add("ERROR", area, "loc key %s missing (%s)" % (k, lg))
         if "ai_will_do" not in b:
             add("WARN", area, "no ai_will_do")
+        if not n.startswith(P + "_debug") and 'log = "' not in cce + cre:
+            add("WARN", area, 'no log = "[GetDateText]: [Root.GetName]: Decision <id>" line (design-guide section 5)')
         if "days_remove" not in b and "days_re_enable" not in b and not n.startswith(P + "_debug"):
             add("WARN", area, "no days_remove / days_re_enable")
         if cost and cct:
@@ -336,9 +338,10 @@ def main():
             repo_common += open(f, encoding="utf-8-sig", errors="replace").read()
     skip = {"icon", "enable", "remove_trigger", "cooldown", "gain_xp", "dynamic", "trigger"}
     for n, b in dyn.items():
-        for k in re.findall(r"^\s*([a-z_0-9]+)\s*=\s*[\w.\-]+\s*$", b, re.M):
-            if k in skip:
-                continue
+        ks = [k for k in re.findall(r"^\s*([a-z_0-9]+)\s*=\s*[\w.\-]+\s*$", b, re.M) if k not in skip]
+        if len(ks) > 6:
+            add("WARN", "modifier " + n, "%d modifiers (balance.md: 3-5 per spirit, capstone up to 6)" % len(ks))
+        for k in ks:
             if not re.search(r"\b" + k + r"\b", wiki) and not re.search(r"\b" + k + r"\b", repo_common):
                 add("WARN", "modifier " + n, "%s found neither in wiki nor in other repo files: verify in game" % k)
         for v in re.findall(r"=\s*(" + P + r"_\w+)", b):
@@ -389,6 +392,10 @@ def main():
         if not os.path.exists(os.path.join(root, tex)):
             add("ERROR", "gfx", "texture file missing: %s" % tex)
 
+    for c in blocks(cat_text, 0):
+        if not re.match(r"[A-Z]{2,3}_", c):
+            add("INFO", "category " + c, "id is not <TAG>_<theme>_category (design-guide section 5)")
+
     # ---------- K. unused loc keys ----------
     referenced = set()
     for n in decisions:
@@ -426,7 +433,7 @@ ERROR  decision: loc key missing, cost charged but not shown in label, treasury 
        tooltip number differs from the code, undefined scripted trigger
 ERROR  flag checked but never set; variable read but never written; effect called but undefined
 ERROR  event: missing title/desc/option keys; scripted GUI element missing in .gui; sprite/texture missing
-WARN   spaces, no ai_will_do, price not in label/tooltip, variable written but never read,
+WARN   spaces, no ai_will_do, no decision log line, spirit with more than 6 modifiers, price not in label/tooltip, variable written but never read,
        event length/label rules, banned phrases, years in text, unknown modifier names, unused effects
 INFO   hardcoded capitals, flags set but unused, external identifiers, unreferenced loc keys"""
 
