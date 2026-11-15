@@ -7028,7 +7028,7 @@ focus_tree = {
 				remove_idea = sunni
 				add_idea = tengri
 			}
-			add_ideas = KAZ_soviet_tegr
+			add_ideas = KAZ_soviet_tegr_idea
 		}
 
 		ai_will_do = {
@@ -7115,7 +7115,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_language_alash"
 			set_temp_variable = { percent_change = 4}
 			change_domestic_influence_percentage = yes
-			add_ideas = KAZ_language_idea_alash
+			add_ideas = KAZ_language_idea_alash_idea
 		}
 
 		ai_will_do = {
@@ -7306,7 +7306,7 @@ focus_tree = {
 			add_relative_party_popularity = yes
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
-			add_ideas = KAZ_equal_people
+			add_ideas = KAZ_equal_people_idea
 		}
 
 		ai_will_do = {
@@ -7482,7 +7482,7 @@ focus_tree = {
 				uses = 2
 				category = CAT_land_doctrine
 			}
-			add_ideas = KAZ_steppe_lightning_doctrine
+			add_ideas = KAZ_steppe_lightning_doctrine_idea
 			set_temp_variable = { temp_opinion = 4 }
 			change_the_military_opinion = yes
 		}
@@ -7616,7 +7616,7 @@ focus_tree = {
 			change_domestic_influence_percentage = yes
 			swap_ideas = {
 				remove_idea = KAZ_arsenal_alash_idea
-				add_idea = KAZ_arsenal_alash_idea2
+				add_idea = KAZ_arsenal_alash_idea2_idea
 			}
 			custom_effect_tooltip = KAZ_razriv_cepey_alash_tooltip
 			newline = yes
@@ -7687,7 +7687,7 @@ focus_tree = {
 				}
 				leave_faction = yes
 			}
-			add_ideas = KAZ_alash_faction_super
+			add_ideas = KAZ_alash_faction_super_idea
 			create_faction_from_template = faction_template_kaz_alash
 		}
 
@@ -8183,7 +8183,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_chi_territory"
-			add_ideas = KAZ_war_with_china
+			add_ideas = KAZ_war_with_china_idea
 			newline = yes
 			592 = { add_claim_by = KAZ }
 		}
