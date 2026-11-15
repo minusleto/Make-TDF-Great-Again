@@ -325,90 +325,13 @@ defined_text = {
 	}
 }
 
-defined_text = {
-	name = KAZ_alash_lat_loc
-	text = {
-		trigger = { has_idea = KAZ_alash_lat }
-		localization_key = KAZ_alash_lat_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_alash_tyr_loc
-	text = {
-		trigger = { has_idea = KAZ_alash_tyr }
-		localization_key = KAZ_alash_tyr_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_alash_cyr_loc
-	text = {
-		trigger = { has_idea = KAZ_alash_cyr }
-		localization_key = KAZ_alash_cyr_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_war_with_china_loc
-	text = {
-		trigger = { has_idea = KAZ_war_with_china }
-		localization_key = KAZ_war_with_china_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_war_with_russia_loc
-	text = {
-		trigger = { has_idea = KAZ_war_with_russia }
-		localization_key = KAZ_war_with_russia_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_soviet_tegr_loc
-	text = {
-		trigger = { has_idea = KAZ_soviet_tegr }
-		localization_key = KAZ_soviet_tegr_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_soviet_tegr2_loc
-	text = {
-		trigger = { has_idea = KAZ_soviet_tegr2 }
-		localization_key = KAZ_soviet_tegr2_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_equal_people_loc
-	text = {
-		trigger = { has_idea = KAZ_equal_people }
-		localization_key = KAZ_equal_people_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_steppe_lightning_doctrine_loc
-	text = {
-		trigger = { has_idea = KAZ_steppe_lightning_doctrine }
-		localization_key = KAZ_steppe_lightning_doctrine_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_alash_faction_super_loc
-	text = {
-		trigger = { has_idea = KAZ_alash_faction_super }
-		localization_key = KAZ_alash_faction_super_loc1
-	}
-}
 
-defined_text = {
-	name = KAZ_religious_freedom_idea_loc
-	text = {
-		trigger = { has_idea = KAZ_religious_freedom_idea }
-		localization_key = KAZ_religious_freedom_idea_loc1
-	}
-}
