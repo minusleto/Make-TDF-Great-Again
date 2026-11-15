@@ -2632,6 +2632,10 @@ ideas = {
             cancel = {
                 nationalist_right_wing_populists_are_not_in_power = yes
             }
+            modifier = {
+                custom_modifier_tooltip = KAZ_alash_legacy_idea_tt
+            }
+        }
         # Language Reform 1
         KAZ_alash_lat = {
             picture = alphabet_lat
@@ -2839,11 +2843,6 @@ ideas = {
                 neutrality_drift = -0.01
             }
         }
-            modifier = {
-                custom_modifier_tooltip = KAZ_alash_legacy_idea_tt
-            }
-        }
-
         #Foreign policy
         KAZ_BLR_agro_modernization_idea = {
             picture = blr_agro_industry_idea
