@@ -6859,7 +6859,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Return of Alash
 	focus = {
 		id = KAZ_return_alash
@@ -6894,7 +6893,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#The Army - Our New Foundation
 	focus = {
 		id = KAZ_army_alash
@@ -7001,7 +6999,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Council of Tengrians
 	focus = {
 		id = KAZ_soviet_alash
@@ -7038,7 +7035,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Heritage of Alash Orda
 	focus = {
 		id = KAZ_alash_orda
@@ -7067,7 +7063,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Purge of the Old Elite
 	focus = {
 		id = KAZ_gold_elite_alash
@@ -7097,7 +7092,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Kazakh - The Priority Language
 	focus = {
 		id = KAZ_language_alash
@@ -7128,7 +7122,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Anti-Corruption Tribunals
 	focus = {
 		id = KAZ_anti_corrup_alash
@@ -7157,7 +7150,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Repatriation of Capital
 	focus = {
 		id = KAZ_return_money_alash
@@ -7194,7 +7186,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Spirit of Revival
 	focus = {
 		id = KAZ_vozroshd_alash
@@ -7229,7 +7220,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Unified Alphabet
 	focus = {
 		id = KAZ_alphavit_alash
@@ -7258,7 +7248,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Unity Through Freedom
 	focus = {
 		id = KAZ_alash_freedoom_relig
@@ -7291,7 +7280,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Equality of Nations
 	focus = {
 		id = KAZ_narodi_alash
@@ -7325,7 +7313,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#The Second Republic of Alash
 	focus = {
 		id = KAZ_2_respublic_of_alash
@@ -7356,7 +7343,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Development of the Kazakh Arsenal
 	focus = {
 		id = KAZ_arsenal_alash
@@ -7389,7 +7375,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Zhas Alash Officer Corps
 	focus = {
 		id = KAZ_officer_alash
@@ -7469,7 +7454,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Steppe Lightning Doctrine
 	focus = {
 		id = KAZ_doctrine_alash
@@ -7507,7 +7491,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Defense of a Great Country
 	focus = {
 		id = KAZ_defense_country_alash
@@ -7606,7 +7589,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Breaking the Chains
 	focus = {
 		id = KAZ_razriv_cepey_alash
@@ -7713,7 +7695,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#The Almaty Conference
 	focus = {
 		id = KAZ_conferense_almaty_alash
@@ -7850,7 +7831,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#The question of the Heir to a Great Empire
 	focus = {
 		id = KAZ_friend_mongolia_alash
@@ -7900,7 +7880,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Turan Bridge
 	focus = {
 		id = KAZ_most_turana_alash
@@ -8117,7 +8096,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Curbing the Taliban
 	focus = {
 		id = KAZ_talib_alash
@@ -8214,7 +8192,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Return by Force
 	focus = {
 		id = KAZ_war_russia_alash
@@ -8266,7 +8243,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Return by Force
 	focus = {
 		id = KAZ_war_chi_alash
