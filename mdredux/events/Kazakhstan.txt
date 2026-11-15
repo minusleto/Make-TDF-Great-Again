@@ -4245,8 +4245,8 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.1 }
 		add_relative_party_popularity = yes
 		swap_ideas = {
-			remove_idea = KAZ_soviet_tegr
-			add_idea = KAZ_soviet_tegr2
+			remove_idea = KAZ_soviet_tegr_idea
+			add_idea = KAZ_soviet_tegr2_idea
 		}
 	}
 }
@@ -4309,7 +4309,7 @@ country_event = {
 					target = ROOT
 					autonomy_state = autonomy_autonomous_federation
 				}
-				add_ideas = KAZ_alash_faction_super
+				add_ideas = KAZ_alash_faction_super_idea
 			}
 			if = {
 				limit = { NOT = { is_in_array = { ruling_party = 20 } } }
@@ -4435,7 +4435,7 @@ country_event = {
 			add_to_faction = PREV 
 			country_event = diplomatic_response.1
 		}
-		add_ideas = KAZ_alash_faction_super
+		add_ideas = KAZ_alash_faction_super_idea
 		add_opinion_modifier = { target = KAZ modifier = has_expressed_loyalty }
 		diplomatic_relation = {
 			country = KAZ
@@ -4619,7 +4619,7 @@ country_event = {
 			change_influence_percentage = yes
 		}
 		newline = yes
-		add_ideas = KAZ_alash_lat
+		add_ideas = KAZ_alash_lat_idea
 	}
 
 	option = {
@@ -4690,7 +4690,7 @@ country_event = {
 		set_temp_variable = { influence_target = TRK }
 		change_influence_percentage = yes
 		newline = yes
-		add_ideas = KAZ_alash_tyr
+		add_ideas = KAZ_alash_tyr_idea
 	}
 
 	option = {
@@ -4761,7 +4761,7 @@ country_event = {
 		set_temp_variable = { influence_target = ABK }
 		change_influence_percentage = yes
 		newline = yes
-		add_ideas = KAZ_alash_cyr
+		add_ideas = KAZ_alash_cyr_idea
 	}
 }
 
