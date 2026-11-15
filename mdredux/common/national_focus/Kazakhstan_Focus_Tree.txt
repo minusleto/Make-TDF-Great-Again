@@ -6860,6 +6860,7 @@ focus_tree = {
 		}
 	}
 
+	#Return of Alash
 	focus = {
 		id = KAZ_return_alash
 		icon = alash_start
