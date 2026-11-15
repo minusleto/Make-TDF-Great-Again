@@ -4859,7 +4859,7 @@ country_event = {
 
 	option = {
 		name = KAZ_aul.3.b
-		log = "[GetDateText]: [This.GetName]: KAZ_aul.3.b"
+		log = "[GetDateText]: [This.GetName]: KAZ_aul.3.a"
 		add_political_power = -50
 
 		ai_chance = {

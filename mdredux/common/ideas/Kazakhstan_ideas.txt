@@ -2515,6 +2515,17 @@ ideas = {
         }
 
         #### AUL BRANCH ####
+        # Auyl legacy hub
+        KAZ_aul_legacy_idea = {
+            picture = aul_start #todo
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+            modifier = {
+                custom_modifier_tooltip = KAZ_aul_legacy_idea_tt
+            }
+        }
         KAZ_aul_national_identity_idea = {
             picture = aul_patriotism
             allowed_civil_war = { always = yes }
@@ -2622,19 +2633,6 @@ ideas = {
             }
         }
         #### AUL BRANCH END ####
-
-        #### AUL ####
-        # Visible program hub; hidden reform spirits are summarized in its tooltip
-        KAZ_aul_legacy_idea = {
-            picture = aul_start
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-            modifier = {
-                custom_modifier_tooltip = KAZ_aul_legacy_idea_tt
-            }
-        }
 
         #### Alash ####
         # Alash legacy hub

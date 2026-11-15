@@ -103,6 +103,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_merge_national_bank"
 			hidden_effect = {
+				add_ideas = KAZ_aul_legacy_idea
 				remove_ideas = KAZ_HALYKBank_idea
 			}
 			effect_tooltip = {
@@ -5058,7 +5059,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Auyl Party
 	focus = {
 		id = KAZ_aul_party
@@ -5080,7 +5080,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aul_party"
 			country_event = KAZ_aul.1
-			add_ideas = KAZ_aul_legacy_idea
 			hidden_effect = {
 				if = {
 					limit = { NOT = { is_in_array = { ruling_party = 3 } } }
@@ -5128,7 +5127,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#State Apparatus Reform
 	focus = {
 		id = KAZ_aul_state_apparatus_reform
@@ -5160,7 +5158,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Unicameral Parliament
 	focus = {
 		id = KAZ_aul_unicameral_parliament
@@ -5188,7 +5185,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Judicial Reform
 	focus = {
 		id = KAZ_aul_judicial_reform
@@ -5222,7 +5218,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Agrarian Bank
 	focus = {
 		id = KAZ_aul_agrarian_bank
@@ -5301,7 +5296,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Restore Old Kazakh Names
 	focus = {
 		id = KAZ_aul_return_old_kazakh_names
@@ -5329,7 +5323,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Regional Decentralization
 	focus = {
 		id = KAZ_aul_decentralization_regions
@@ -5362,7 +5355,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Regulate Agro-Industry
 	focus = {
 		id = KAZ_aul_regulation_agro_industry
@@ -5396,7 +5388,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Rural Credit Police
 	focus = {
 		id = KAZ_aul_credit_farmer_police
@@ -5430,7 +5421,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Ban Insults to National Traditions
 	focus = {
 		id = KAZ_aul_ban_insult_national_traditions
@@ -5462,7 +5452,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Respect National Identity
 	focus = {
 		id = KAZ_aul_respect_national_identity
@@ -5498,7 +5487,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Labor Education
 	focus = {
 		id = KAZ_aul_labor_education
@@ -5526,7 +5514,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Support Entrepreneurship
 	focus = {
 		id = KAZ_aul_support_entrepreneurship
@@ -5557,7 +5544,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Food Aid Program
 	focus = {
 		id = KAZ_aul_food_aid
@@ -5592,7 +5578,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Food Security
 	focus = {
 		id = KAZ_aul_food_security
@@ -5624,7 +5609,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Volunteer and Patriotic Projects
 	focus = {
 		id = KAZ_aul_volunteer_patriotic_projects
@@ -5659,7 +5643,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Youth Policy
 	focus = {
 		id = KAZ_aul_youth_policy
@@ -5697,7 +5680,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Halal Export
 	focus = {
 		id = KAZ_aul_halal_export
@@ -5760,7 +5742,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Direct Access to Markets
 	focus = {
 		id = KAZ_aul_direct_market_access
@@ -5791,7 +5772,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Unified Social Standard
 	focus = {
 		id = KAZ_aul_unified_social_standard
@@ -5823,7 +5803,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Stop Internal Migration
 	focus = {
 		id = KAZ_aul_stop_internal_migration
@@ -5854,7 +5833,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Light in Every Village
 	focus = {
 		id = KAZ_aul_light_in_every_village
@@ -5893,7 +5871,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Family Policy
 	focus = {
 		id = KAZ_aul_family_policy
@@ -5930,7 +5907,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Investments and Innovations
 	focus = {
 		id = KAZ_aul_investment_and_innovation
@@ -5975,7 +5951,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Irrigation and Water Supply
 	focus = {
 		id = KAZ_aul_irrigation_and_water_supply
@@ -6011,7 +5986,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Agrarian Power
 	focus = {
 		id = KAZ_aul_agrarian_power
