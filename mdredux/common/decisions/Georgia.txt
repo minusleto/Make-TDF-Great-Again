@@ -1,0 +1,1099 @@
+GEO_goverment_category = {
+	#Eco
+	GEO_modernize_chiatura_mines = {
+		icon = GFX_decision_asteroid_mining
+		days_remove = 120
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_georgian_manganese
+		}
+		available = {
+			has_full_control_of_state = 707
+			has_idea = GEO_georgian_manganese_company
+			has_tech = excavation3
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 707
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 10 }
+		}
+		custom_cost_text = cost_10_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_modernize_chiatura_mines"
+			set_temp_variable = { treasury_change = -10 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_modernize_chiatura_mines"
+			add_resource = {
+				type = steel
+				amount = 5
+				state = 707
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	GEO_modernize_tkibuli_mines = {
+		icon = GFX_decision_asteroid_mining
+		days_remove = 120
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_mining_modernization_program
+		}
+		available = {
+			has_full_control_of_state = 707
+			has_idea = GEO_georgian_manganese_company
+			has_tech = excavation3
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 707
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 10 }
+		}
+		custom_cost_text = cost_10_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_modernize_tkibuli_mines"
+			set_temp_variable = { treasury_change = -10 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_modernize_tkibuli_mines"
+			add_resource = {
+				type = oil
+				amount = 5
+				state = 707
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	GEO_launch_madneuli_complex = {
+		icon = GFX_decision_nko_resource_extraction_button
+		days_remove = 120
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_mining_modernization_program
+		}
+		available = {
+			has_full_control_of_state = 707
+			has_tech = excavation3
+			has_idea = GEO_jsc_rmg_copper_company
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 707
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 10 }
+		}
+		custom_cost_text = cost_10_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_launch_madneuli_complex"
+			set_temp_variable = { treasury_change = -10 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_launch_madneuli_complex"
+			add_resource = {
+				type = chromium
+				amount = 5
+				state = 707
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	GEO_kokhta_mitarbi_lift_construction = {
+		icon = GFX_decisions_wages_up_button
+		days_remove = 120
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_mountain_resorts_development
+		}
+		available = {
+			has_idea = GEO_mrdc_company
+			has_full_control_of_state = 1033
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 1033
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 1.5 }
+		}
+		custom_cost_text = cost_1_5
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_kokhta_mitarbi_lift_construction"
+			set_temp_variable = { treasury_change = -1.5 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_kokhta_mitarbi_lift_construction"
+			set_temp_variable = { temp_productivity_change = 25 }
+			1033 = {
+				state_flat_productivity_change_effect = yes
+				set_temp_variable = { culture_to_add_temp = 25 }
+				add_culture = yes
+			}
+		}
+		ai_will_do = {
+			base = 30
+		}
+	}
+	#Anaklia Phase 1 - Breakwater & Dredging
+	GEO_anaklia_phase1_breakwater = {
+		icon = GFX_decision_syr_infra_button
+		days_remove = 180
+		fire_only_once = yes
+		visible = { has_completed_focus = GEO_anaklia_deep_sea_project }
+		available = { has_full_control_of_state = 707 }
+		highlight_states = { highlight_states_trigger = { state = 707 } }
+		custom_cost_trigger = { check_variable = { treasury > 8 } }
+		custom_cost_text = cost_8_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_anaklia_phase1_breakwater"
+			set_temp_variable = { treasury_change = -8 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_anaklia_phase1_breakwater"
+			707 = {
+				construct_building_in_random_province = { naval_base = 2 }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				add_extra_state_shared_building_slots = 1
+			}
+			set_temp_variable = { temp_productivity_change = 40 }
+			707 = { state_flat_productivity_change_effect = yes }
+			set_country_flag = GEO_anaklia_phase1_done
+		}
+		ai_will_do = { base = 50 }
+	}
+	#Anaklia Phase 2 - Container Terminal
+	GEO_anaklia_phase2_container = {
+		icon = GFX_decision_syr_infra_button
+		days_remove = 365
+		fire_only_once = yes
+		visible = { has_country_flag = GEO_anaklia_phase1_done }
+		available = { has_full_control_of_state = 707 }
+		highlight_states = { highlight_states_trigger = { state = 707 } }
+		custom_cost_trigger = { check_variable = { treasury > 20 } }
+		custom_cost_text = cost_20_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_anaklia_phase2_container"
+			set_temp_variable = { treasury_change = -20 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_anaklia_phase2_container"
+			707 = {
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+				add_extra_state_shared_building_slots = 2
+			}
+			set_temp_variable = { temp_productivity_change = 100 }
+			707 = { state_flat_productivity_change_effect = yes }
+			set_country_flag = GEO_anaklia_phase2_done
+			clr_country_flag = GEO_anaklia_phase1_done
+		}
+		ai_will_do = { base = 50 }
+	}
+	#Anaklia Phase 3 - Liquid Bulk Terminal
+	GEO_anaklia_phase3_liquid_bulk = {
+		icon = GFX_decision_syr_infra_button
+		days_remove = 240
+		fire_only_once = yes
+		visible = { has_country_flag = GEO_anaklia_phase2_done }
+		available = { has_full_control_of_state = 707 }
+		highlight_states = { highlight_states_trigger = { state = 707 } }
+		custom_cost_trigger = { check_variable = { treasury > 8 } }
+		custom_cost_text = cost_8_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_anaklia_phase3_liquid_bulk"
+			set_temp_variable = { treasury_change = -8 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_anaklia_phase3_liquid_bulk"
+			707 = {
+				add_building_construction = { type = fuel_silo level = 1 instant_build = yes }
+				add_resource = { type = oil amount = 2 }
+			}
+			set_temp_variable = { temp_productivity_change = 50 }
+			707 = { state_flat_productivity_change_effect = yes }
+			clr_country_flag = GEO_anaklia_phase2_done
+		}
+		ai_will_do = { base = 40 }
+	}
+	#No More Bought Diplomas
+	GEO_no_more_bought_diplomas = {
+		icon = GFX_decision_ISR_education_button
+		days_remove = 200
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_keep_the_talent_home
+		}
+		available = {
+			NOT = { has_idea = edu_01 }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 3 } }
+		custom_cost_text = cost_3_0
+		modifier = {
+			education_cost_multiplier_modifier = 0.05
+			corruption_cost_factor = -0.10
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_no_more_bought_diplomas"
+			set_temp_variable = { treasury_change = -3.00 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_no_more_bought_diplomas completed"
+			decrease_corruption = yes
+			swap_ideas = {
+				remove_idea = GEO_brain_drain1_idea
+				add_idea = GEO_brain_drain2_idea
+			}
+			block_edu_decrease = yes
+			set_country_flag = GEO_diplomas_done
+			unlock_decision_tooltip = GEO_return_of_specialists
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#Specialist Repatriation Program
+	GEO_return_of_specialists = {
+		icon = GFX_decision_ISR_education_button
+		days_remove = 250
+		fire_only_once = yes
+		visible = {
+			has_country_flag = GEO_diplomas_done
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 4 }
+		}
+		custom_cost_text = cost_4_0
+		modifier = {
+			migration_rate_value_factor = 0.07
+			small_businesses_productivity_modifier = 0.07
+			productivity_growth_modifier = 0.07
+			research_speed_factor = 0.07
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_return_of_specialists"
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			decrease_migration_law = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_return_of_specialists completed"
+			remove_ideas = GEO_brain_drain2_idea
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
+			clr_country_flag = GEO_diplomas_done
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#Finish the Khudoni Dam
+	GEO_khudoni_hpp = {
+		icon = GFX_decision_nko_build_farms_button
+		days_remove = 730
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_modernize_hydroelectric_capacity
+		}
+		available = {
+			has_full_control_of_state = 707
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 707
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 8 }
+		}
+		custom_cost_text = cost_8_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_khudoni_hpp"
+			set_temp_variable = { treasury_change = -8 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_khudoni_hpp completed"
+			707 = {
+				set_temp_variable = { electric_addition = 0.700 }
+				set_temp_variable = { storage_addition = 0.20 }
+				add_hydroelectric_energy_production_effect = yes
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#The Namakhvani Cascade
+	GEO_namakhvani_cascade = {
+		icon = GFX_POL_energy_decision_button
+		days_remove = 540
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_modernize_hydroelectric_capacity
+		}
+		available = {
+			has_full_control_of_state = 707
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 707
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 6 }
+		}
+		custom_cost_text = cost_6_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_namakhvani_cascade"
+			set_temp_variable = { treasury_change = -6 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_namakhvani_cascade completed"
+			707 = {
+				set_temp_variable = { electric_addition = 0.433 }
+				set_temp_variable = { storage_addition = 0.10 }
+				add_hydroelectric_energy_production_effect = yes
+			}
+		}
+		ai_will_do = {
+			base = 40
+		}
+	}
+	#Shuakhevi in the Adjarian Mountains
+	GEO_shuakhevi_cascade = {
+		icon = GFX_POL_energy_decision_button
+		days_remove = 365
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_modernize_hydroelectric_capacity
+		}
+		available = {
+			has_full_control_of_state = 466
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 466
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 4 }
+		}
+		custom_cost_text = cost_4_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_shuakhevi_cascade"
+			set_temp_variable = { treasury_change = -4 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_shuakhevi_cascade completed"
+			466 = {
+				set_temp_variable = { electric_addition = 0.185 }
+				set_temp_variable = { storage_addition = 0.05 }
+				add_hydroelectric_energy_production_effect = yes
+			}
+		}
+		ai_will_do = {
+			base = 30
+		}
+	}
+	#Dariali on the Tergi
+	GEO_dariali_hpp = {
+		icon = GFX_POL_energy_decision_button
+		days_remove = 365
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = GEO_modernize_hydroelectric_capacity
+		}
+		available = {
+			has_full_control_of_state = 708
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 708
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 3 }
+		}
+		custom_cost_text = cost_3_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_dariali_hpp"
+			set_temp_variable = { treasury_change = -3 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_dariali_hpp completed"
+			708 = {
+				set_temp_variable = { electric_addition = 0.108 }
+				set_temp_variable = { storage_addition = 0.05 }
+				add_hydroelectric_energy_production_effect = yes
+			}
+		}
+		ai_will_do = {
+			base = 30
+		}
+	}
+
+	############################################################################
+	# 1. ADJARAN SEPARATISM & AUTONOMY DECISIONS
+	############################################################################
+	GEO_negotiate_adjara_autonomy = {
+		icon = GFX_POL_administration_decision_button
+		fire_only_once = yes
+		cost = 100
+		visible = {
+			owns_state = 466
+			NOT = { country_exists = ADJ }
+		}
+		available = {
+			has_full_control_of_state = 466
+			custom_trigger_tooltip = {
+				tooltip = GEO_adjara_separatism_high_tt
+				check_variable = { ADJ.separatism > 35 }
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 466
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_negotiate_adjara_autonomy"
+			add_stability = 0.05
+			release = ADJ
+			if = {
+				limit = { has_dlc = "Together for Victory" }
+				set_autonomy = {
+					target = ADJ
+					autonomy_state = autonomy_puppet_federation
+				}
+				else = {
+					puppet = ADJ
+				}
+			}
+			clear_variable = ADJ.separatism
+			hidden_effect = {
+				ADJ = {
+					set_country_flag = GENERIC_autonomy_federation_flag
+					set_country_flag = GENERIC_separatism_rebeliion_flag
+				}
+			}
+		}
+		ai_will_do = {
+			base = 25
+		}
+	}
+
+	GEO_reintegrate_autonomous_adjara = {
+		icon = GFX_POL_administration_decision_button
+		fire_only_once = yes
+		days_remove = 120
+		cost = 200
+		visible = {
+			country_exists = ADJ
+			ADJ = { is_subject_of = ROOT }
+		}
+		available = {
+			ADJ = { is_subject_of = ROOT }
+			has_stability > 0.65
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_reintegrate_autonomous_adjara completed"
+			annex_country = {
+				target = ADJ
+				transfer_troops = yes
+			}
+			466 = { add_core_of = GEO }
+			add_political_power = 50
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+
+	############################################################################
+	# 2. MONADIRE (KODORI GORGE) AUTONOMY NEGOTIATIONS
+	############################################################################
+	GEO_monadire_financial_subsidies = {
+		icon = GFX_decision_ISR_military_button
+		days_remove = 30
+		days_re_enable = 90
+		visible = {
+			country_exists = MND
+			MND = { is_subject_of = ROOT }
+		}
+		available = {
+			MND = { is_subject_of = ROOT }
+		}
+		custom_cost_trigger = {
+			check_variable = { treasury > 4.0 }
+		}
+		custom_cost_text = cost_4_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_monadire_financial_subsidies"
+			set_temp_variable = { treasury_change = -4.0 }
+			modify_treasury_effect = yes
+			MND = {
+				set_temp_variable = { treasury_change = 4.0 }
+				modify_treasury_effect = yes
+				add_autonomy_ratio = {
+					value = -0.35
+					localization = GEO_monadire_financial_subsidies
+				}
+			}
+			set_temp_variable = { percent_change = 4 }
+			set_temp_variable = { tag_index = GEO }
+			set_temp_variable = { influence_target = MND }
+			change_influence_percentage = yes
+		}
+		ai_will_do = {
+			base = 40
+		}
+	}
+
+	GEO_monadire_weapons_shipments = {
+		icon = GFX_decision_ISR_military_button
+		days_remove = 30
+		days_re_enable = 90
+		cost = 50
+		visible = {
+			country_exists = MND
+			MND = { is_subject_of = ROOT }
+		}
+		available = {
+			MND = { is_subject_of = ROOT }
+			has_equipment = { Inf_equipment > 499 }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_monadire_weapons_shipments"
+			send_equipment = {
+				target = MND
+				type = Inf_equipment
+				amount = 500
+			}
+			MND = {
+				add_autonomy_ratio = {
+					value = -0.35
+					localization = GEO_monadire_weapons_shipments
+				}
+			}
+			set_temp_variable = { percent_change = 4 }
+			set_temp_variable = { tag_index = GEO }
+			set_temp_variable = { influence_target = MND }
+			change_influence_percentage = yes
+		}
+		ai_will_do = {
+			base = 40
+		}
+	}
+
+	GEO_monadire_full_integration = {
+		icon = GFX_decision_ISR_military_button
+		fire_only_once = yes
+		cost = 150
+		visible = {
+			country_exists = MND
+			MND = { is_subject_of = ROOT }
+		}
+		available = {
+			MND = {
+				is_subject_of = ROOT
+				custom_trigger_tooltip = {
+					tooltip = GEO_monadire_lowered_autonomy_status_tt
+					NOT = { has_autonomy_state = autonomy_associated_state }
+					NOT = { has_autonomy_state = autonomy_associated_state_colored }
+				}
+				compare_autonomy_progress_ratio < 0.20
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_monadire_full_integration"
+			annex_country = {
+				target = MND
+				transfer_troops = yes
+			}
+			709 = { add_core_of = GEO }
+			add_stability = 0.03
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	############################################################################
+	# 3. ABKHAZIA & SOUTH OSSETIA DIPLOMATIC STANCES & NEGOTIATIONS
+	############################################################################
+	GEO_stance_abandon_and_recognize = {
+		icon = GFX_decision_ISR_centralisation_button
+		cost = 100
+		visible = {
+			OR = {
+				country_exists = ABK
+				country_exists = SOO
+			}
+			NOT = { has_idea = GEO_stance_recognized_abk_soo_idea }
+		}
+		available = {
+			has_government = communism
+			NOT = { has_war_with = ABK }
+			NOT = { has_war_with = SOO }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_stance_abandon_and_recognize"
+			if = {
+				limit = { has_idea = GEO_stance_non_recognition_idea }
+				remove_ideas = GEO_stance_non_recognition_idea
+			}
+			if = {
+				limit = { has_idea = GEO_stance_hardliner_integrity_idea }
+				remove_ideas = GEO_stance_hardliner_integrity_idea
+			}
+			add_ideas = GEO_stance_recognized_abk_soo_idea
+			706 = {
+				remove_core_of = GEO
+				remove_claim_by = GEO
+			}
+			705 = {
+				remove_core_of = GEO
+				remove_claim_by = GEO
+			}
+			if = {
+				limit = { country_exists = ABK }
+				add_opinion_modifier = { target = ABK modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = ABK modifier = declaration_of_friendship }
+			}
+			if = {
+				limit = { country_exists = SOO }
+				add_opinion_modifier = { target = SOO modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = SOO modifier = declaration_of_friendship }
+			}
+			if = {
+				limit = { country_exists = SOV }
+				add_opinion_modifier = { target = SOV modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = SOV modifier = declaration_of_friendship }
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+	}
+
+	GEO_stance_neutral_non_recognition = {
+		icon = GFX_decision_ISR_centralisation_button
+		cost = 100
+		visible = {
+			OR = {
+				country_exists = ABK
+				country_exists = SOO
+			}
+			NOT = { has_idea = GEO_stance_non_recognition_idea }
+		}
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = democratic
+			}
+			NOT = { has_idea = GEO_stance_recognized_abk_soo_idea }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_stance_neutral_non_recognition"
+			if = {
+				limit = { has_idea = GEO_stance_hardliner_integrity_idea }
+				remove_ideas = GEO_stance_hardliner_integrity_idea
+			}
+			add_ideas = GEO_stance_non_recognition_idea
+			706 = { add_core_of = GEO }
+			705 = { add_core_of = GEO }
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+
+	GEO_stance_hardliner_territorial_integrity = {
+		icon = GFX_decision_ISR_centralisation_button
+		cost = 100
+		visible = {
+			OR = {
+				country_exists = ABK
+				country_exists = SOO
+			}
+			NOT = { has_idea = GEO_stance_hardliner_integrity_idea }
+		}
+		available = {
+			OR = {
+				AND = {
+					has_government = democratic
+					has_war_support > 0.50
+				}
+				has_government = nationalist
+			}
+			NOT = { has_idea = GEO_stance_recognized_abk_soo_idea }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_stance_hardliner_territorial_integrity"
+			if = {
+				limit = { has_idea = GEO_stance_non_recognition_idea }
+				remove_ideas = GEO_stance_non_recognition_idea
+			}
+			add_ideas = GEO_stance_hardliner_integrity_idea
+			add_war_support = 0.05
+			706 = { add_core_of = GEO }
+			705 = { add_core_of = GEO }
+			if = {
+				limit = { country_exists = ABK }
+				add_opinion_modifier = { target = ABK modifier = hostile_status }
+				reverse_add_opinion_modifier = { target = ABK modifier = hostile_status }
+			}
+			if = {
+				limit = { country_exists = SOO }
+				add_opinion_modifier = { target = SOO modifier = hostile_status }
+				reverse_add_opinion_modifier = { target = SOO modifier = hostile_status }
+			}
+		}
+		ai_will_do = {
+			base = 40
+		}
+	}
+
+	GEO_negotiate_ergneti_and_enguri_ceasefire = {
+		icon = GFX_decision_category_georgian_republics
+		days_remove = 90
+		days_re_enable = 180
+		cost = 80
+		visible = {
+			OR = {
+				country_exists = ABK
+				country_exists = SOO
+			}
+			NOT = { has_idea = GEO_stance_hardliner_integrity_idea }
+		}
+		available = {
+			NOT = { has_war_with = ABK }
+			NOT = { has_war_with = SOO }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_negotiate_ergneti_and_enguri_ceasefire"
+			add_stability = 0.03
+			set_temp_variable = { treasury_change = 2.5 }
+			modify_treasury_effect = yes
+			if = {
+				limit = { country_exists = ABK }
+				add_opinion_modifier = { target = ABK modifier = trade_mission }
+				reverse_add_opinion_modifier = { target = ABK modifier = trade_mission }
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = GEO }
+				set_temp_variable = { influence_target = ABK }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { country_exists = SOO }
+				add_opinion_modifier = { target = SOO modifier = trade_mission }
+				reverse_add_opinion_modifier = { target = SOO modifier = trade_mission }
+				set_temp_variable = { percent_change = 3 }
+				set_temp_variable = { tag_index = GEO }
+				set_temp_variable = { influence_target = SOO }
+				change_influence_percentage = yes
+			}
+		}
+		ai_will_do = {
+			base = 35
+		}
+	}
+
+	GEO_propose_abk_soo_autonomy = {
+		icon = GFX_decision_category_georgian_republics
+		fire_only_once = yes
+		cost = 200
+		visible = {
+			OR = {
+				country_exists = ABK
+				country_exists = SOO
+			}
+			has_idea = GEO_stance_non_recognition_idea
+		}
+		available = {
+			has_stability > 0.60
+			NOT = { has_war_with = ABK }
+			NOT = { has_war_with = SOO }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_propose_abk_soo_autonomy"
+			add_political_power = 50
+			if = {
+				limit = { country_exists = ABK }
+				set_temp_variable = { percent_change = 8 }
+				set_temp_variable = { tag_index = GEO }
+				set_temp_variable = { influence_target = ABK }
+				change_influence_percentage = yes
+				if = {
+					limit = {
+						ABK = {
+							NOT = { is_subject_of = SOV }
+							has_opinion = { target = GEO value > 50 }
+						}
+					}
+					set_autonomy = {
+						target = ABK
+						autonomy_state = autonomy_autonomous_state
+					}
+				}
+			}
+			if = {
+				limit = { country_exists = SOO }
+				set_temp_variable = { percent_change = 8 }
+				set_temp_variable = { tag_index = GEO }
+				set_temp_variable = { influence_target = SOO }
+				change_influence_percentage = yes
+				if = {
+					limit = {
+						SOO = {
+							NOT = { is_subject_of = SOV }
+							has_opinion = { target = GEO value > 50 }
+						}
+					}
+					set_autonomy = {
+						target = SOO
+						autonomy_state = autonomy_autonomous_state
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 40
+		}
+	}
+
+	############################################################################
+	# 4. HIDDEN ZSFSR & USSR SUBMISSION DECISIONS
+	############################################################################
+	GEO_demand_submission_of_armenia = {
+		icon = GFX_decision_generic_prepare_civil_war
+		fire_only_once = yes
+		cost = 100
+		visible = {
+			has_completed_focus = GEO_Towards_ZSFSR
+			country_exists = ARM
+			NOT = { ARM = { is_subject_of = ROOT } }
+		}
+		available = {
+			has_completed_focus = GEO_Towards_ZSFSR
+			country_exists = ARM
+			NOT = { ARM = { is_subject_of = ROOT } }
+			NOT = { has_war_with = ARM }
+			has_country_flag = GEO_zsfsr_arm_refused
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_demand_submission_of_armenia"
+			ARM = { country_event = { id = geo_communist.10 days = 1 } }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	GEO_demand_submission_of_azerbaijan = {
+		icon = GFX_decision_generic_prepare_civil_war
+		fire_only_once = yes
+		cost = 100
+		visible = {
+			has_completed_focus = GEO_Towards_ZSFSR
+			country_exists = AZE
+			NOT = { AZE = { is_subject_of = ROOT } }
+		}
+		available = {
+			has_completed_focus = GEO_Towards_ZSFSR
+			country_exists = AZE
+			NOT = { AZE = { is_subject_of = ROOT } }
+			NOT = { has_war_with = AZE }
+			has_country_flag = GEO_zsfsr_aze_refused
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_demand_submission_of_azerbaijan"
+			AZE = { country_event = { id = geo_communist.10 days = 1 } }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	GEO_integrate_transcaucasian_republics = {
+		icon = GFX_decision_generic_nationalism
+		fire_only_once = yes
+		days_remove = 90
+		cost = 100
+		visible = {
+			has_completed_focus = GEO_Towards_ZSFSR
+		}
+		available = {
+			has_completed_focus = GEO_Towards_ZSFSR
+			OR = {
+				NOT = { country_exists = ARM }
+				ARM = { is_subject_of = ROOT }
+			}
+			OR = {
+				NOT = { country_exists = AZE }
+				AZE = { is_subject_of = ROOT }
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GEO_integrate_transcaucasian_republics"
+			if = {
+				limit = { ARM = { is_subject_of = ROOT } }
+				annex_country = { target = ARM transfer_troops = yes }
+			}
+			if = {
+				limit = { AZE = { is_subject_of = ROOT } }
+				annex_country = { target = AZE transfer_troops = yes }
+			}
+			if = {
+				limit = { NKR = { is_subject_of = ROOT } }
+				annex_country = { target = NKR transfer_troops = yes }
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = ARM
+						is_core_of = AZE
+						is_core_of = NKR
+					}
+				}
+				add_core_of = ROOT
+			}
+			add_stability = 0.05
+			add_political_power = 75
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	GEO_demand_submission_for_ussr = {
+		icon = GFX_decision_generic_prepare_civil_war
+		fire_only_once = yes
+		cost = 150
+		visible = {
+			has_completed_focus = GEO_Red_Path_to_USSR
+			country_exists = SOV
+			NOT = { SOV = { is_subject_of = ROOT } }
+		}
+		available = {
+			has_completed_focus = GEO_Red_Path_to_USSR
+			country_exists = SOV
+			NOT = { SOV = { is_subject_of = ROOT } }
+			NOT = { has_war_with = SOV }
+			has_country_flag = GEO_ussr_unification_rejected
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_demand_submission_for_ussr"
+			SOV = { country_event = { id = geo_communist.14 days = 1 } }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	############################################################################
+	# 6. SAMTSKHE-JAVAKHETI CENTRALIZATION DECISIONS
+	############################################################################
+	GEO_samtskhe_language_integration_decision = {
+		icon = GFX_POL_education_decision_button
+		fire_only_once = yes
+		days_remove = 90
+		cost = 100
+		visible = {
+			has_completed_focus = GEO_Merge_it_with_Samtskhe
+		}
+		available = {
+			has_full_control_of_state = 1033
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 1033
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_samtskhe_language_integration_decision"
+			set_temp_variable = { percent_change = 4 }
+			change_domestic_influence_percentage = yes
+			if = {
+				limit = { country_exists = ARM }
+				add_opinion_modifier = { target = ARM modifier = recent_actions_negative }
+				reverse_add_opinion_modifier = { target = ARM modifier = recent_actions_negative }
+			}
+			1033 = {
+				custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_djavakheti_distrust_modifier }
+				add_to_variable = { GEO_djavakheti_construction_speed = 0.05 tooltip = state_production_speed_buildings_factor_tt }
+				add_to_variable = { GEO_djavakheti_productivity_growth = 0.05 tooltip = state_productivity_growth_modifier_tt }
+				add_to_variable = { GEO_djavakheti_local_manpower = 0.10 tooltip = local_manpower_tt }
+			}
+		}
+		ai_will_do = {
+			base = 40
+		}
+	}
+
+	GEO_samtskhe_security_checkpoints_decision = {
+		icon = GFX_decision_generic_military
+		fire_only_once = yes
+		days_remove = 90
+		cost = 100
+		visible = {
+			has_completed_focus = GEO_Merge_it_with_Samtskhe
+		}
+		available = {
+			has_full_control_of_state = 1033
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 1033
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GEO_samtskhe_security_checkpoints_decision"
+			set_temp_variable = { percent_change = 5 }
+			change_domestic_influence_percentage = yes
+			if = {
+				limit = { country_exists = ARM }
+				set_temp_variable = { percent_change = -4 }
+				set_temp_variable = { tag_index = ARM }
+				set_temp_variable = { influence_target = GEO }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = ARM modifier = recent_actions_negative }
+				reverse_add_opinion_modifier = { target = ARM modifier = hostile_status }
+			}
+			1033 = {
+				custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_djavakheti_distrust_modifier }
+				add_to_variable = { GEO_djavakheti_building_slots_factor = 0.05 tooltip = local_building_slots_factor_tt }
+				add_to_variable = { GEO_djavakheti_local_resources = 0.05 tooltip = state_resources_factor_tt }
+				add_to_variable = { GEO_djavakheti_local_manpower = 0.10 tooltip = local_manpower_tt }
+			}
+		}
+		ai_will_do = {
+			base = 40
+		}
+	}
+}
