@@ -103,7 +103,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_merge_national_bank"
 			hidden_effect = {
-				add_ideas = KAZ_aul_legacy_idea
 				remove_ideas = KAZ_HALYKBank_idea
 			}
 			effect_tooltip = {
@@ -5087,6 +5086,7 @@ focus_tree = {
 					set_temp_variable = { enable_elections = 0 }
 					change_ruling_party_effect = yes
 				}
+				add_ideas = KAZ_aul_legacy_idea
 			}
 		}
 
