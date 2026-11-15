@@ -1,0 +1,8050 @@
+add_namespace = georg
+add_namespace = georg_chech
+add_namespace = georg_test
+add_namespace = georg_revol
+add_namespace = georg_war2008
+add_namespace = georgia_news
+add_namespace = geo_misc
+add_namespace = georg_army
+add_namespace = georg_economy
+add_namespace = georg_geo_dream
+add_namespace = geo_communist
+add_namespace = georg_mkhedrioni
+add_namespace = georg_monarchist
+add_namespace = georg_fp
+
+country_event = {
+	id = georg.1000
+	title = georg.1000.t
+	desc = georg.1000.d
+	picture = GFX_era_of_shervad
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.1000.a
+		log = "[GetDateText]: [This.GetName]: georg.1000.a executed"
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = georg.1
+	title = georg.1.t
+	desc = georg.1.d
+	picture = GFX_report_event_Tavolo_Trattative_1
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.1.a
+		log = "[GetDateText]: [This.GetName]: georg.1.a executed"
+		add_political_power = -50
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.4
+		}
+		add_to_variable = {
+			party_pop_array^0 = 0.4
+		}
+		recalculate_party = yes
+	}
+	option = {
+		name = georg.1.b
+		log = "[GetDateText]: [This.GetName]: georg.1.b executed"
+		add_stability = 0.1
+		increase_corruption = yes
+		set_temp_variable = { treasury_change = -3 }
+		modify_treasury_effect = yes
+	}
+}
+
+country_event = {
+	id = georg.2
+	title = georg.2.t
+	desc = georg.2.d
+	picture = GFX_POL_protests1_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.2.a
+		log = "[GetDateText]: [This.GetName]: georg.2.a executed"
+		set_temp_variable = { party_index = 0 }
+		ban_party_scripted_call = yes
+		remove_ideas = GEO_political_opposition
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = {
+			party_popularity_increase = 0.2
+		}
+		set_temp_variable = {
+			temp_outlook_increase = 0.2
+		}
+		add_relative_party_popularity = yes
+		set_temp_variable = { modify_eurosceptic = 0.05 }
+		EU_eurosceptic_change = yes
+	}
+}
+
+country_event = {
+	id = georg.3
+	title = georg.3.t
+	desc = georg.3.d
+	picture = GFX_ssg_geo
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.3.a
+		log = "[GetDateText]: [This.GetName]: georg.3.a executed"
+		add_stability = 0.02
+		diplomatic_relation = {
+			country = GEO
+			relation = non_aggression_pact
+			active = no
+		}
+	}
+	option = {
+		name = georg.3.b
+		log = "[GetDateText]: [This.GetName]: georg.3.b executed"
+		add_political_power = 20
+		add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+	}
+}
+
+country_event = {
+	id = georg.4
+	title = georg.4.t
+	desc = georg.4.d
+	picture = GFX_ssg_geo
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.4.a
+		log = "[GetDateText]: [This.GetName]: georg.4.a executed"
+		set_country_flag = USR_georgia_create_union_state
+		add_ideas = USR_union_state_idea
+	}
+}
+
+country_event = {
+	id = georg.5
+	title = georg.5.t
+	desc = georg.5.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.5.a
+		log = "[GetDateText]: [This.GetName]: georg.5.a executed"
+		if = {
+			limit = {
+				SOV = {
+					NOT = {
+						has_military_access_to = GEO
+					}
+				}
+			}
+			SOV = {
+				diplomatic_relation = {
+					country = GEO
+					relation = military_access
+					active = yes
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				GEO = {
+					NOT = {
+						is_guaranteed_by = SOV
+					}
+				}
+			}
+			SOV = {
+				diplomatic_relation = {
+				country = GEO
+				relation = guarantee
+				active = yes
+				}
+			}
+		}
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = SOV modifier = recent_actions_positive }
+		reverse_add_opinion_modifier = { target = SOV modifier = recent_actions_positive }
+		GEO = { country_event = { id = georg.6 days = 1 } }
+	}
+	option = {
+		name = georg.5.b
+		log = "[GetDateText]: [This.GetName]: georg.5.b executed"
+		set_temp_variable = { percent_change = -2 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+		reverse_add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+		GEO = { country_event = { id = georg.7 days = 1 } }
+	}
+}
+
+country_event = {
+	id = georg.6
+	title = georg.6.t
+	desc = georg.6.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.6.a
+		log = "[GetDateText]: [This.GetName]: georg.6.a executed"
+	}
+}
+
+country_event = {
+	id = georg.7
+	title = georg.7.t
+	desc = georg.7.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.7.a
+		log = "[GetDateText]: [This.GetName]: georg.7.a executed"
+	}
+}
+
+country_event = {
+	id = georg.8
+	title = georg.8.t
+	desc = georg.8.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.8.a
+		log = "[GetDateText]: [This.GetName]: georg.8.a executed"
+		ABK = { country_event = { id = georg.9 days = 1 } }
+		SOO = { country_event = { id = georg.9 days = 1 } }
+	}
+	option = {
+		name = georg.8.b
+		log = "[GetDateText]: [This.GetName]: georg.8.b executed"
+		GEO = { country_event = { id = georg.12 days = 1 } }
+	}
+}
+
+country_event = {
+	id = georg.9
+	title = georg.9.t
+	desc = georg.9.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.9.a
+		log = "[GetDateText]: [This.GetName]: georg.9.a executed"
+		GEO = {
+			set_autonomy = {
+			target = ROOT
+			autonomy_state = autonomy_puppet_federation
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					ABK = { is_subject_of = GEO }
+					SOO = { is_subject_of = GEO }
+				}
+			}
+			GEO = { country_event = { id = georg.10 days = 1 } }
+		}
+	}
+	option = {
+		name = georg.9.b
+		log = "[GetDateText]: [This.GetName]: georg.9.b executed"
+		add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+		reverse_add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+		if = {
+			limit = {
+				ROOT = {
+					is_guaranteed_by = SOV
+				}
+			}
+			SOV = {
+				diplomatic_relation = {
+				country = ROOT
+				relation = guarantee
+				active = no
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				SOV = {
+					has_military_access_to = ROOT
+				}
+			}
+			SOV = {
+				diplomatic_relation = {
+				country = ROOT
+				relation = military_access
+				active = no
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				ROOT = {
+					is_in_faction_with = SOV
+				}
+			}
+			ROOT = {
+				leave_faction = yes
+			}
+		}
+		GEO = { country_event = { id = georg.11 days = 1 } }
+	}
+}
+
+country_event = {
+	id = georg.10
+	title = georg.10.t
+	desc = georg.10.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.10.a
+		log = "[GetDateText]: [This.GetName]: georg.10.a executed"
+		if = {
+			limit = {
+				AND = {
+					ABK = {
+						is_subject_of = GEO
+					}
+					SOO = {
+						is_subject_of = GEO
+					}
+				}
+			}
+			708 = { set_demilitarized_zone = yes }
+			SOV = {
+				set_truce = {
+					target = GEO
+					days = 3650
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = georg.11
+	title = georg.11.t
+	desc = georg.11.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.11.a
+		log = "[GetDateText]: [This.GetName]: georg.11.a executed"
+		create_wargoal = {
+			type = take_core_state
+			target = FROM
+		}
+	}
+	option = {
+		name = georg.11.b
+		log = "[GetDateText]: [This.GetName]: georg.11.b executed"
+		add_opinion_modifier = { target = FROM modifier = recent_actions_negative }
+		reverse_add_opinion_modifier = { target = FROM modifier = recent_actions_negative }
+	}
+}
+
+country_event = {
+	id = georg.12
+	title = georg.12.t
+	desc = georg.12.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.12.a
+		log = "[GetDateText]: [This.GetName]: georg.12.a executed"
+		add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+		reverse_add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+	}
+}
+######
+country_event = {
+	id = georg.13
+	title = georg.13.t
+	desc = georg.13.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.13.a
+		log = "[GetDateText]: [This.GetName]: georg.13.a executed"
+		#remove_trait = { trait = GEO_Zhvania }
+		add_command_power = 25
+		random_list = {
+			50 = {
+				country_event = {
+					id = georg.14
+					days = 1
+					random_days = 10
+				}
+			}
+			50 = {
+				country_event = {
+					id = georg.15
+					days = 1
+					random_days = 10
+				}
+			}
+		}
+	}
+	option = {
+		name = georg.13.b
+		log = "[GetDateText]: [This.GetName]: georg.13.b executed"
+		add_stability = 0.05
+		add_political_power = -50
+	}
+}
+country_event = {
+	id = georg.14
+	title = georg.14.t
+	desc = georg.14.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.14.a
+		log = "[GetDateText]: [This.GetName]: georg.14.a executed"
+		add_stability = -0.05
+		remove_country_leader_trait = GEO_Zhvania
+	}
+}
+country_event = {
+	id = georg.15
+	title = georg.15.t
+	desc = georg.15.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.15.a
+		log = "[GetDateText]: [This.GetName]: georg.15.a executed"
+		add_political_power = -125
+		add_timed_idea = {
+			idea = GEO_Zhvania_rage
+			days = 365
+		}
+	}
+}
+######
+
+country_event = {
+	id = georg.16
+	title = georg.16.t
+	desc = georg.16.d
+	picture = GFX_russian_media_influence
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.16.a
+		log = "[GetDateText]: [This.GetName]: georg.16.a executed"
+		add_stability = -0.07
+		set_temp_variable = { percent_change = 10 }
+		change_domestic_influence_percentage = yes
+
+	}
+	option = {
+		name = georg.16.b
+		log = "[GetDateText]: [This.GetName]: georg.16.b executed"
+		add_political_power = -50
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = {
+			party_popularity_increase = 0.05
+		}
+		set_temp_variable = {
+			temp_outlook_increase = 0.05
+		}
+		add_relative_party_popularity = yes
+	}
+}
+
+######
+
+country_event = {
+	id = georg.17
+	title = georg.17.t
+	desc = georg.17.d
+	picture = GFX_saakash_ukr
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.17.a
+		log = "[GetDateText]: [This.GetName]: georg.17.a executed"
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.06
+		}
+		recalculate_party = yes
+		set_country_flag = georgia_ukraine_sakash_deal
+		set_temp_variable = {
+			percent_change = 5
+		}
+		set_temp_variable = {
+			tag_index = UKR
+		}
+		set_temp_variable = {
+			influence_target = GEO
+		}
+		change_influence_percentage = yes
+		GEO = {
+			country_event = {
+				id = georg.18
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = georg.17.b
+		log = "[GetDateText]: [This.GetName]: georg.17.b executed"
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.06
+		}
+	    set_temp_variable = { percent_change = 5 }
+		change_domestic_influence_percentage = yes
+		GEO = {
+			country_event = {
+				id = georg.19
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = georg.18
+	title = georg.18.t
+	desc = georg.18.d
+	picture = GFX_saakash_ukr
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.18.a
+		log = "[GetDateText]: [This.GetName]: georg.18.a executed"
+		add_political_power = 50
+		set_temp_variable = {
+			percent_change = 5
+		}
+		set_temp_variable = {
+			tag_index = GEO
+		}
+		set_temp_variable = {
+			influence_target = UKR
+		}
+		change_influence_percentage = yes
+	}
+}
+
+country_event = {
+	id = georg.19
+	title = georg.19.t
+	desc = georg.19.d
+	picture = GFX_saakash_ukr
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.19.a
+		log = "[GetDateText]: [This.GetName]: georg.19.a executed"
+		add_political_power = -50
+	}
+}
+######
+
+country_event = {
+	id = georg.234
+	title = georg.234.t
+	desc = georg.234.d
+	picture = GFX_geopolice_game_event
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.234.a
+		log = "[GetDateText]: [This.GetName]: georg.234.a executed"
+		add_stability = 0.04
+		one_office_construction = yes
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = {
+			party_popularity_increase = 0.02
+		}
+		add_relative_party_popularity = yes
+	}
+}
+
+country_event = {
+	id = georg.1244
+	title = georg.1244.t
+	desc = georg.1244.d
+	picture = GFX_georg_army2008
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.1244.a
+		log = "[GetDateText]: [This.GetName]: georg.1244.a executed"
+		add_equipment_to_stockpile = {
+			type = CV_MR_Fighter2 	#su 30
+			amount = 4
+			producer = SOV
+		}
+		add_equipment_to_stockpile = {
+			type = transport_plane3
+			amount = 1
+			producer = SOV
+		}
+	}
+}
+
+country_event = {
+	id = georg.1243
+	title = georg.1243.t
+	desc = georg.1243.d
+	picture = GFX_war_osset
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.1243.a
+		log = "[GetDateText]: [This.GetName]: georg.1243.a executed"
+		SOV = {
+			diplomatic_relation = {
+				country = GEO
+				relation = military_access
+				active = no
+			}
+		}
+	}
+}
+
+country_event = {
+	id = georg_chech.1
+	title = georg_chech.1.t
+	desc = georg_chech.1.d
+	picture = GFX_gelayev_abkhaz
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_chech.1.a
+		log = "[GetDateText]: [This.GetName]: georg_chech.1 executed"
+		add_war_support = 0.05
+		add_political_power = 25
+	}
+}
+
+country_event = {
+	id = georg_chech.2
+	title = georg_chech.2.t
+	desc = georg_chech.2.d
+	picture = GFX_shervad_putin
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_chech.2.a
+		log = "[GetDateText]: [This.GetName]: georg_chech.2.a executed"
+	}
+
+	option = {
+		name = georg_chech.2.b
+		trigger = { tag = SOV }
+		ai_chance = {
+			base = 50
+			modifier = {
+				has_opinion = { target = GEO value > 30 }
+				add = 10
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.2.b executed"
+		GEO = { country_event = georg_chech.3 }
+	}
+
+	option = {
+		name = georg_chech.2.c
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.2.c executed"
+	}
+
+}
+
+country_event = {
+	id = georg_chech.3
+	title = georg_chech.3.t
+	desc = georg_chech.3.d
+	picture = GFX_georg_specops
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_chech.3.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.3.a executed"
+		add_manpower = 1000
+		add_political_power = 100
+	}
+}
+
+country_event = {
+	id = georg_chech.4
+	title = georg_chech.4.t
+	desc = georg_chech.4.d
+	picture = GFX_russia_specops
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_chech.4.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.4.a executed"
+	}
+
+	option = {
+		name = georg_chech.4.b
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.4.b executed"
+		add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				has_opinion = { target = GEO value > 30 }
+				add = 10
+			}
+		}
+	}
+
+	option = {
+		name = georg_chech.4.c
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.4.c executed"
+	}
+
+}
+
+country_event = {
+	id = georg_chech.5
+	title = georg_chech.5.t
+	desc = georg_chech.5.d
+	picture = GFX_russia_specops
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_chech.5.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.5.a executed"
+	}
+
+	option = {
+		name = georg_chech.5.b
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.5.b executed"
+		add_opinion_modifier = {
+			modifier = declaration_of_friendship
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = declaration_of_friendship
+			target = GEO
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				has_opinion = { target = GEO value > 30 }
+				add = 10
+			}
+		}
+	}
+
+	option = {
+		name = georg_chech.5.c
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.5.c executed"
+	}
+}
+
+country_event = {
+	id = georg_chech.6
+	title = georg_chech.6.t
+	desc = georg_chech.6.d
+	picture = GFX_southern_options
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_chech.6.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.6.a executed"
+	}
+
+	option = {
+		name = georg_chech.6.b
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.6.b executed"
+		ABK = {
+			diplomatic_relation = {
+				country = SOV
+				relation = military_access
+				active = no
+			}
+		}
+		SOV = {
+			add_political_power = 100
+		}
+		GEO = {
+			add_stability = 0.05
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				has_opinion = { target = GEO value > 30 }
+				add = 10
+			}
+		}
+	}
+
+	option = {
+		name = georg_chech.6.c
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_chech.6.c executed"
+	}
+}
+
+country_event = {
+	id = georg.30
+	title = georg.30.t
+	desc = georg.30.d
+	picture = GFX_southern_options
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.30.a
+		log = "[GetDateText]: [This.GetName]: georg.30.a executed"
+		add_stability = 0.02
+		add_opinion_modifier = {
+			modifier = recent_actions_positive
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = recent_actions_positive
+			target = GEO
+		}
+		GEO = { country_event = { id = georg.31 days = 1 } }
+		ai_chance = {
+			base = 80
+		}
+	}
+	option = {
+		name = georg.30.b
+		log = "[GetDateText]: [This.GetName]: georg.30.b executed"
+		add_political_power = 20
+		ai_chance = {
+			base = 20
+		}
+	}
+}
+
+country_event = {
+	id = georg.31
+	title = georg.31.t
+	desc = georg.31.d
+	picture = GFX_southern_options
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg.31.a
+		log = "[GetDateText]: [This.GetName]: georg.31.a executed"
+		add_political_power = 25
+		add_stability = 0.02
+	}
+}
+
+country_event = {
+	id = georg_revol.1
+	title = georg_revol.1.t
+	desc = georg_revol.1.d
+	picture = GFX_rose_revolut
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_revol.1.a
+		log = "[GetDateText]: [This.GetName]: georg_revol.1.a executed"
+		hidden_effect = {
+			clear_array = ruling_party
+			clear_array = gov_coalition_array
+			add_to_array = { ruling_party = 13 }
+			add_to_array = { gov_coalition_array = 0 }
+			set_temp_variable = { current_cons_popularity = party_pop_array^0 }
+			multiply_temp_variable = { current_cons_popularity = 9.5 }
+			# Remove most of support, retrack it to emerg communist party
+			subtract_from_variable = { party_pop_array^7 = current_cons_popularity }
+			add_to_variable = { party_pop_array^0 = current_cons_popularity }
+			recalculate_party = yes
+			update_government_coalition_strength = yes
+			update_party_name = yes
+			set_coalition_drift = yes
+			set_ruling_leader = yes
+			set_leader = yes
+		}
+		add_to_variable = { party_pop_array^0 = 0.30 }
+		recalculate_party = yes
+		create_country_leader = {
+			name = "Nino Burjanadze - Interim Government"
+			picture = "nino_burjanadze.dds"
+			expire = "2004.1.1"
+			ideology = Neutral_Autocracy
+			traits = {
+				political_dancer
+			}
+		}
+	}
+}
+
+country_event = {
+	id = georg_revol.2
+	title = georg_revol.2.t
+	desc = georg_revol.2.d
+	picture = GFX_anti_bill_protests
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_revol.2.a
+		log = "[GetDateText]: [This.GetName]: georg_revol.2.a executed"
+	}
+}
+
+country_event = {
+	id = georg_revol.3
+	title = georg_revol.3.t
+	desc = georg_revol.3.d
+	picture = GFX_era_of_saakash
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_revol.3.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_revol.3.a executed"
+	}
+}
+
+country_event = {
+	id = georg_war2008.1
+	title = georg_war2008.1.t
+	desc = georg_war2008.1.d
+	picture = GFX_georg_army2008
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.1.a
+		log = "[GetDateText]: [This.GetName]: georg_war2008.1.a executed"
+		set_country_flag = GEO_flag_chose_atak
+		reverse_add_opinion_modifier = { target = SOV modifier = small_decrease }
+		add_opinion_modifier = { target = SOV modifier = small_decrease }
+		ai_chance = {
+			base = 80
+			modifier = {
+				has_global_flag = GEO_ATTACK_RUS_PATH
+				add = 20
+			}
+		}
+	}
+
+	option = {
+		name = georg_war2008.1.b
+		set_country_flag = GEO_flag_chose_peace
+		log = "[GetDateText]: [This.GetName]: georg_war2008.1.b executed"
+		ai_chance = {
+			base = 20
+			modifier = {
+				has_global_flag = GEO_WEAKBOY_PATH
+				add = 80
+			}
+		}
+	}
+
+	option = {
+		name = georg_war2008.1.c
+		country_event = georg_war2008.2
+		log = "[GetDateText]: [This.GetName]: georg_war2008.1.c executed"
+	}
+}
+
+country_event = {
+	id = georg_war2008.2
+	title = georg_war2008.2.t
+	desc = georg_war2008.2.d
+	picture = GFX_eastern_europe
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.2.a
+		country_event = georg_war2008.1
+		log = "[GetDateText]: [This.GetName]: georg_war2008.1.a executed"
+	}
+}
+
+country_event = {
+	id = georg_war2008.3
+	title = georg_war2008.3.t
+	desc = georg_war2008.3.d
+	picture = GFX_una_unso_geo_two
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.3.a
+		trigger = {
+			tag = UKR
+		}
+		add_stability = 0.05
+		add_popularity = {
+			ideology = nationalist
+			popularity = 0.05
+		}
+		recalculate_party = yes
+		log = "[GetDateText]: [This.GetName]: georg_war2008.3.a executed"
+	}
+
+	option = {
+		name = georg_war2008.3.b
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_war2008.3.b executed"
+	}
+
+}
+
+country_event = {
+	id = georg_war2008.4
+	title = georg_war2008.4.t
+	desc = georg_war2008.4.d
+	picture = GFX_chechen_volunteers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.4.a
+		trigger = {
+			tag = SOV
+		}
+		add_stability = -0.05
+		log = "[GetDateText]: [This.GetName]: georg_war2008.4.a executed"
+	}
+
+	option = {
+		name = georg_war2008.4.b
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_war2008.4.b executed"
+	}
+}
+
+country_event = {
+	id = georg_war2008.5
+	title = georg_war2008.5.t
+	desc = georg_war2008.5.d
+	picture = GFX_medvedev_decision
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.5.a
+		trigger = {
+			tag = SOV
+		}
+		log = "[GetDateText]: [This.GetName]: georg_war2008.5.a executed"
+		GEO = {
+			remove_state_core = 706
+			remove_state_core = 705
+			set_rule = {
+				can_join_factions = no
+			}
+			add_opinion_modifier = {
+				modifier = declaration_of_friendship
+				target = SOV
+			}
+			reverse_add_opinion_modifier = {
+				modifier = declaration_of_friendship
+				target = SOV
+			}
+		}
+	}
+}
+
+# Georgia Warns Us about Special Operation
+country_event = {
+	id = georg_war2008.6
+	title = georg_war2008.6.t
+	desc = georg_war2008.6.d
+	picture = GFX_medvedev_decision
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		original_tag = SOV
+	}
+
+	option = {
+		name = georg_war2008.6.a
+		log = "[GetDateText]: [This.GetName]: georg_war2008.6.a executed"
+		GEO = {
+			cancel_border_war = {
+				dont_fire_events = yes
+				defender = 705
+				attacker = 707
+			}
+			if = {
+				limit = { NOT = { has_war_with = SOV } }
+				declare_war_on = {
+					target = SOV
+					type = take_claimed_state
+				}
+			}
+			hidden_effect = {
+				SOV = {
+					country_event = { id = georg_war2008.10 hours = 120 random_hours = 2 }
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 0.8
+				tag = SOV
+			}
+		}
+	}
+
+	option = {
+		name = georg_war2008.6.b
+		log = "[GetDateText]: [This.GetName]: georg_war2008.6.b executed"
+
+	}
+}
+
+country_event = {
+	id = georg_war2008.7
+	title = georg_war2008.7.t
+	desc = georg_war2008.7.d
+	picture = GFX_war_osset
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.7.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_war2008.7.a executed"
+		GEO = {
+			annex_country = {
+				target = SOO
+				transfer_troops = no
+			}
+			set_country_flag = GEO_won2008_war
+		}
+	}
+}
+
+country_event = {
+	id = georg_war2008.8
+	title = georg_war2008.8.t
+	desc = georg_war2008.8.d
+	picture = GFX_vostok_batallion
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.8.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_war2008.8.a executed"
+		GEO = {
+			white_peace = SOO
+			set_country_flag = GEO_lost2008_war
+		}
+		if = {
+			limit = {
+				GEO = {
+					has_war_with = NKO
+				}
+			}
+			GEO = {
+				white_peace = NKO
+				set_country_flag = GEO_lost2008_war
+			}
+		}
+	}
+}
+
+country_event = {
+	id = georg_war2008.9
+	title = georg_war2008.9.t
+	desc = georg_war2008.9.d
+	picture = GFX_vostok_batallion
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.9.a
+		trigger = {
+			tag = GEO
+		}
+		log = "[GetDateText]: [This.GetName]: georg_war2008.9.a executed"
+		GEO = {
+			white_peace = SOO
+			set_country_flag = GEO_lost2008_war
+		}
+		if = {
+			limit = {
+				GEO = {
+					has_war_with = NKO
+				}
+			}
+			GEO = {
+				white_peace = NKO
+				set_country_flag = GEO_lost2008_war
+			}
+		}
+	}
+}
+
+country_event = {
+	id = georg_war2008.10
+	title = georg_war2008.10.t
+	desc = georg_war2008.10.d
+	picture = GFX_vostok_batallion
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = georg_war2008.10.a
+		log = "[GetDateText]: [This.GetName]: georg_war2008.10.a executed"
+		GEO = {
+			white_peace = SOV
+			set_country_flag = GEO_lost2008_war
+		}
+		if = {
+			limit = {
+				GEO = {
+					has_war_with = NKO
+				}
+			}
+			GEO = {
+				white_peace = NKO
+				set_country_flag = GEO_lost2008_war
+			}
+		}
+
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 0.8
+				tag = SOV
+			}
+		}
+	}
+
+	option = {
+		name = georg_war2008.10.b
+		log = "[GetDateText]: [This.GetName]: georg_war2008.10.b executed"
+	}
+}
+
+news_event = {
+	id = georgia_news.1
+	title = georgia_news.1.t
+	desc = georgia_news.1.d
+	picture = GFX_arm_tur_prot_ev_news
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = georgia_news.1.o1
+		log = "[GetDateText]: [This.GetName]: georgia_news.1.o1 executed"
+	}
+}
+
+country_event = {
+	id = georg_war2008.11
+	title = georg_war2008.11.t
+	desc = georg_war2008.11.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_paris_convention
+	option = {
+		name = georg_war2008.11.a
+		log = "[GetDateText]: [This.GetName]: georg_war2008.11.a executed"
+		ai_chance = { base = 1 }
+		USA = {
+			give_guarantee = GEO
+		}
+	}
+	option = {
+		name = georg_war2008.11.b
+		ai_chance = { base = 1 }
+		log = "[GetDateText]: [This.GetName]: georg_war2008.11.b executed"
+	}
+}
+
+country_event = {
+	id = georg.21
+	title = georg.21.t
+	desc = georg.21.d
+	is_triggered_only = yes
+	picture = GFX_paris_convention
+	option = {
+		name = georg.21.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				has_opinion = { target = GEO value > 10 }
+			}
+		}
+		set_temp_variable = { treasury_change = -3.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 3.50 }
+		modify_international_investment_effect = yes
+		if = {
+			limit = { NOT = { is_in_array = { permanent_investment_targets = GEO } } }
+			add_to_array = { permanent_investment_targets = GEO }
+		}
+		set_temp_variable = { percent_change = 6 }
+		set_temp_variable = { tag_index = ROOT }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		log = "[GetDateText]: [This.GetName]: georg.21.a executed"
+		GEO = {
+			set_temp_variable = { int_investment_change = 3.50 }
+			modify_international_investment_effect = yes
+			707 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			708 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { receiver_nation = GEO.id sender_nation = ROOT.id }
+			set_improved_trade_agreement = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg.21.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value > 15 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+		log = "[GetDateText]: [This.GetName]: georg.21.b executed"
+	}
+}
+
+country_event = {
+	id = georg.22
+	title = georg.22.t
+	desc = georg.22.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_saakash_ukr
+	option = {
+		name = georg.22.a
+		log = "[GetDateText]: [This.GetName]: georg.22.a executed"
+		ai_chance = { base = 1 }
+		GEO = {
+			set_country_flag = GEO_saakash_freed
+		}
+	}
+	option = {
+		name = georg.22.b
+		log = "[GetDateText]: [This.GetName]: georg.22.b executed"
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 0.8
+				tag = GEO
+			}
+		}
+		country_event = georg.23
+	}
+}
+
+country_event = {
+	id = georg.23
+	title = georg.23.t
+	desc = georg.23.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_saakash_ukr_rel
+	option = {
+		name = georg.23.a
+		log = "[GetDateText]: [This.GetName]: georg.23.a executed"
+	}
+}
+
+country_event = {
+	id = georg.24
+	title = georg.24.t
+	desc = georg.24.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_bosnia_gov_building_2
+	option = {
+		name = georg.24.a
+		ai_chance = { base = 1 }
+		log = "[GetDateText]: [This.GetName]: georg.24.a executed"
+		if = {
+			limit = { NOT = { is_in_array = { ruling_party = 23 } } }
+			set_temp_variable = { rul_party_temp = 23 }
+			change_ruling_party_effect = yes
+			set_politics = {
+				ruling_party = nationalist
+				elections_allowed = no
+			}
+		}
+	}
+	option = {
+		name = georg.24.b
+		ai_chance = { base = 1 }
+		log = "[GetDateText]: [This.GetName]: georg.24.b executed"
+		create_country_leader = {
+			name = "Djaba The Great"
+			picture = "Djaba_yoseliani_schiz.dds"
+			ideology = Nat_Autocracy
+			traits = { nationalist_Monarchist }
+			expire = "2099.1.1"
+		}
+	}
+}
+
+country_event = {
+	id = georg.25
+	title = georg.25.t
+	desc = georg.25.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_paris_convention
+	option = {
+		name = georg.25.a
+		ai_chance = { base = 1 }
+		GEO = {
+			add_to_faction = ROOT
+		}
+		log = "[GetDateText]: [This.GetName]: georg.25.a executed"
+	}
+	option = {
+		name = georg.25.b
+		ai_chance = { base = 1 }
+		hidden_effect = {
+			GEO = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = ROOT
+				}
+			}
+			log = "[GetDateText]: [This.GetName]: georg.25.b executed"
+		}
+	}
+}
+
+# Defense Cooperation with Russia
+country_event = {
+	id = georg.26
+	title = georg.26.t
+	desc = georg.26.d
+	picture = GFX_political_deal
+
+	is_triggered_only = yes
+
+	option = {	#Accept
+		name = georg.26.a
+		log = "[GetDateText]: [This.GetName]: georg.26.a executed"
+		give_guarantee = GEO
+		if = {
+			limit = { has_equipment = { Inf_equipment > 1499 } }
+			add_equipment_to_stockpile = {
+				type = Inf_equipment
+				amount = -1500
+			}
+		}
+		if = {
+			limit = { has_equipment = { AA_Equipment > 99 } }
+			add_equipment_to_stockpile = {
+				type = AA_Equipment
+				amount = -100
+			}
+		}
+		set_temp_variable = { percent_change = 4 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			army_experience = 30
+			add_equipment_to_stockpile = {
+				type = Inf_equipment
+				amount = 1500
+				producer = SOV
+			}
+			add_equipment_to_stockpile = {
+				type = AA_Equipment
+				amount = 100
+				producer = SOV
+			}
+			country_event = diplomatic_response.1
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				has_opinion = { target = GEO value > 10 }
+			}
+		}
+	}
+
+	option = {	#Decline
+		name = georg.26.b
+		log = "[GetDateText]: [This.GetName]: georg.26.b executed"
+		GEO = { country_event = diplomatic_response.2 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value > 15 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = geo_misc.2
+	title = geo_misc.2.t
+	desc = geo_misc.2.d
+	picture = GFX_georg_arm_aze_train
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.2.a
+		army_experience = 10
+		log = "[GetDateText]: [This.GetName]: geo_misc.2.a executed"
+	}
+}
+
+country_event = {
+	id = geo_misc.3
+	title = geo_misc.3.t
+	desc = geo_misc.3.d
+	picture = GFX_medvedev_decision
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.3.a
+		log = "[GetDateText]: [This.GetName]: geo_misc.3.a executed"
+		diplomatic_relation = {
+			country = GEO
+			relation = non_aggression_pact
+			active = yes
+		}
+		GEO = {
+			add_political_power = 75
+			add_stability = 0.04
+			hidden_effect = {
+				remove_ideas = {
+					GEO_fp_russian_trade_idea
+					GEO_fp_gazprom_idea
+					GEO_fp_counter_russia_idea
+					GEO_fp_ukraine_axis_idea
+				}
+				add_ideas = GEO_fp_russian_detente_idea
+			}
+			add_opinion_modifier = { target = SOV modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = SOV modifier = declaration_of_friendship }
+			country_event = diplomatic_response.1
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				has_opinion = { target = GEO value > 0 }
+			}
+		}
+	}
+
+	option = {
+		name = geo_misc.3.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value > 15 }
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: geo_misc.3.b executed"
+		GEO = { country_event = geo_misc.4 }
+	}
+}
+
+country_event = {
+	id = geo_misc.4
+	title = geo_misc.4.t
+	desc = geo_misc.4.d
+	picture = GFX_vladimir_putin
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.4.a
+		log = "[GetDateText]: [This.GetName]: geo_misc.4.a executed"
+	}
+}
+country_event = {
+	id = geo_misc.5
+	title = geo_misc.5.t
+	desc = geo_misc.5.d
+	picture = GFX_southern_options
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.5.a
+		trigger = {
+			OR = {
+				tag = SOO
+				tag = ABK
+			}
+		}
+		diplomatic_relation = {
+			country = GEO
+			relation = non_aggression_pact
+			active = yes
+		}
+		GEO = { country_event = diplomatic_response.1 }
+		log = "[GetDateText]: [This.GetName]: geo_misc.5.a executed"
+		ai_chance = { base = 3 }
+	}
+
+	option = {
+		name = geo_misc.5.b
+		trigger = { tag = SOO }
+		ai_chance = { base = 1 }
+		GEO = {
+			country_event = geo_misc.6
+		}
+		log = "[GetDateText]: [This.GetName]: geo_misc.5.b executed"
+	}
+
+	option = {
+		name = geo_misc.5.c
+		trigger = { tag = ABK }
+		ai_chance = { base = 1 }
+		GEO = {
+			country_event = geo_misc.7
+		}
+		log = "[GetDateText]: [This.GetName]: geo_misc.5.c executed"
+	}
+
+}
+
+country_event = {
+	id = geo_misc.6
+	title = geo_misc.6.t
+	desc = geo_misc.6.d
+	picture = GFX_southern_options
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.6.a
+		log = "[GetDateText]: [This.GetName]: geo_misc.6.a executed"
+	}
+
+}
+
+country_event = {
+	id = geo_misc.7
+	title = geo_misc.7.t
+	desc = geo_misc.7.d
+	picture = GFX_southern_options
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.7.a
+		log = "[GetDateText]: [This.GetName]: geo_misc.7.a executed"
+	}
+}
+
+country_event = {
+	id = geo_misc.8
+	title = geo_misc.8.t
+	desc = geo_misc.8.d
+	picture = GFX_southern_options
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.8.a
+		GEO = {
+			puppet = ROOT
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				has_communist_government = yes
+				add = 10
+			}
+			modifier = {
+				GEO_has_30_percent_influence = yes
+				add = 10
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: geo_misc.8.a executed"
+	}
+	option = {
+		name = geo_misc.8.b
+		add_opinion_modifier = {
+			modifier = hostile_status
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = hostile_status
+			target = GEO
+		}
+		if = {
+			limit = { original_tag = ARM }
+			GEO = {
+				set_country_flag = GEO_zsfsr_arm_refused
+				country_event = { id = geo_communist.9 days = 1 }
+			}
+		}
+		else_if = {
+			limit = { original_tag = AZE }
+			GEO = {
+				set_country_flag = GEO_zsfsr_aze_refused
+				country_event = { id = geo_communist.9 days = 1 }
+			}
+		}
+		ai_chance = { base = 5 }
+		log = "[GetDateText]: [This.GetName]: geo_misc.8.b executed"
+	}
+
+}
+
+country_event = {
+	id = geo_misc.12
+	title = geo_misc.12.t
+	desc = geo_misc.12.d
+	picture = GFX_2008_protest_podav
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.12.a
+		log = "[GetDateText]: [This.GetName]: geo_misc.12.a executed"
+		1033 = {
+			add_core_of = ROOT
+			if = {
+				limit = { has_dynamic_modifier = { modifier = GEO_djavakheti_distrust_modifier } }
+				remove_dynamic_modifier = { modifier = GEO_djavakheti_distrust_modifier }
+			}
+		}
+		GEO = {
+			set_autonomy = {
+				target = ROOT
+				autonomous_state = autonomy_autonomous_state
+				end_wars = no
+				end_civil_wars = no
+			}
+		}
+		set_temp_variable = { rul_party_temp = 14 }
+		change_ruling_party_effect = yes
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		set_temp_variable = { party_index = 14 }
+		set_temp_variable = { party_popularity_increase = 0.50 }
+		set_temp_variable = { temp_outlook_increase = 0.50 }
+		add_relative_party_popularity = yes
+		create_country_leader = {
+			name = "Vardan Vardapetyan"
+			picture = "vardan_vardapetyan.dds"
+			ideology = Neutral_conservatism
+			traits = {
+				neutrality_Neutral_conservatism
+			}
+		}
+		set_cosmetic_tag = ARM_djavakhq
+		add_opinion_modifier = {
+			modifier = diplomatic_support
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = diplomatic_support
+			target = GEO
+		}
+		if = {
+			limit = { country_exists = ARM }
+			add_opinion_modifier = {
+				modifier = has_expressed_loyalty
+				target = ARM
+			}
+			reverse_add_opinion_modifier = {
+				modifier = has_expressed_loyalty
+				target = ARM
+			}
+		}
+		set_temp_variable = { percent_change = 25 }
+		change_domestic_influence_percentage = yes
+		set_temp_variable = { percent_change = 15 }
+		set_temp_variable = { tag_index = ARM }
+		set_temp_variable = { influence_target = ROOT }
+		change_influence_percentage = yes
+		set_temp_variable = { percent_change = 60 }
+		set_temp_variable = { tag_index = GEO }
+		set_temp_variable = { influence_target = ROOT }
+		change_influence_percentage = yes
+	}
+}
+
+
+country_event = {
+	id = geo_misc.9
+	title = geo_misc.9.t
+	desc = geo_misc.9.d
+	picture = GFX_southern_options
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.9.a
+		trigger = {
+			tag = ARM
+		}
+		log = "[GetDateText]: [This.GetName]: geo_misc.9.a executed"
+		ai_chance = { base = 3 }
+		GEO = {
+			country_event = geo_misc.10
+		}
+	}
+
+	option = {
+		name = geo_misc.9.b
+		trigger = {
+			tag = ARM
+		}
+		ai_chance = { base = 3 }
+		log = "[GetDateText]: [This.GetName]: geo_misc.9.b executed"
+	}
+
+	option = {
+		name = geo_misc.9.c
+		trigger = {
+			tag = GEO
+		}
+		ai_chance = { base = 3 }
+		ARM = {
+			country_event = geo_misc.10
+		}
+		log = "[GetDateText]: [This.GetName]: geo_misc.9.c executed"
+	}
+
+	option = {
+		name = geo_misc.9.d1
+		trigger = {
+			tag = GEO
+		}
+		ai_chance = { base = 3 }
+		log = "[GetDateText]: [This.GetName]: geo_misc.9.d1 executed"
+	}
+
+}
+
+country_event = {
+	id = geo_misc.10
+	title = geo_misc.10.t
+	desc = geo_misc.10.d
+	picture = GFX_southern_options
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.10.a
+		trigger = {
+			tag = ARM
+		}
+		log = "[GetDateText]: [This.GetName]: geo_misc.10.a executed"
+		ai_chance = { base = 15 }
+
+		effect_tooltip = {
+			1033 = {
+				remove_core_of = ARM
+			}
+			set_temp_variable = { percent_change = 10 }
+			set_temp_variable = { tag_index = ARM }
+			set_temp_variable = { influence_target = GEO }
+			change_influence_percentage = yes
+			ARM = {
+				add_political_power = 150
+				set_country_flag = ARM_GEO_stop_thing
+			}
+			GEO = {
+				add_political_power = 150
+				set_country_flag = ARM_GEO_stop_thing
+			}
+		}
+	}
+
+	option = {
+		name = geo_misc.10.b
+		trigger = { tag = GEO }
+		log = "[GetDateText]: [This.GetName]: geo_misc.10.b executed"
+		ai_chance = { base = 3 }
+		1033 = {
+			remove_core_of = ARM
+		}
+		set_temp_variable = { percent_change = 10 }
+		set_temp_variable = { tag_index = ARM }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		ARM = {
+			add_political_power = 150
+			set_country_flag = ARM_GEO_stop_thing
+		}
+		GEO = {
+			add_political_power = 150
+			set_country_flag = ARM_GEO_stop_thing
+		}
+	}
+}
+
+country_event = {
+	id = geo_misc.11
+	title = geo_misc.11.t
+	desc = geo_misc.11.d
+	picture = GFX_southern_options
+
+	is_triggered_only = yes
+
+	option = {
+		name = geo_misc.11.a
+		log = "[GetDateText]: [This.GetName]: geo_misc.11.a executed"
+		ai_chance = { base = 15 }
+		add_opinion_modifier = {
+			modifier = hostile_status
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = hostile_status
+			target = GEO
+		}
+	}
+
+	option = {
+		name = geo_misc.11.b
+		log = "[GetDateText]: [This.GetName]: geo_misc.11.a executed"
+		ai_chance = { base = 3 }
+		GEO = { puppet = ARM }
+	}
+}
+
+#Army
+#From Paper to Practice
+country_event = {
+	id = georg_army.1
+	title = georg_army.1.t
+	desc = georg_army.1.d
+	picture = GFX_geo_army_reform
+
+	is_triggered_only = yes
+
+	option = {
+		name = georg_army.1.a
+		log = "[GetDateText]: [This.GetName]: georg_army.1.a executed"
+		swap_ideas = {
+			remove_idea = GEO_paramilitary_legacy_1_idea
+			add_idea = GEO_paramilitary_legacy_2_idea
+		}
+		add_doctrine_cost_reduction = {
+			name = CAT_land_doctrine
+			cost_reduction = 1.0
+			uses = 1
+			category = CAT_land_doctrine
+		}
+	}
+}
+#Forged Among the Best
+country_event = {
+	id = georg_army.2
+	title = georg_army.2.t
+	desc = georg_army.2.d
+	picture = GFX_geo_sso
+
+	is_triggered_only = yes
+
+	option = {
+		name = georg_army.2.a
+		log = "[GetDateText]: [This.GetName]: georg_army.2.a executed"
+		division_template = {
+			name = "Komandos Bataioni"
+			regiments = {
+				Special_Forces = { x = 0 y = 0 }
+				Special_Forces = { x = 0 y = 1 }
+				Special_Forces = { x = 1 y = 0 }
+				Special_Forces = { x = 1 y = 1 }
+			}
+			priority = 2
+		}
+		random_owned_controlled_state = {
+			prioritize = { 707 }
+			create_unit = {
+				division = "name = \"Komandos Bataioni\" division_template = \"Komandos Bataioni\" start_experience_factor = 0.9"
+				owner = GEO
+				count = 1
+			}
+		}
+		custom_effect_tooltip = available_new_departament
+        show_ideas_tooltip = GEO_soc_idea
+	}
+}
+#A New Generation of Soldiers
+country_event = {
+	id = georg_army.3
+	title = georg_army.3.t
+	desc = georg_army.3.d
+	picture = GFX_geo_new_army
+
+	is_triggered_only = yes
+
+	option = {
+		name = georg_army.3.a
+		log = "[GetDateText]: [This.GetName]: georg_army.3.a executed"
+		add_doctrine_cost_reduction = {
+			name = CAT_land_doctrine
+			cost_reduction = 1.0
+			uses = 1
+			category = CAT_land_doctrine
+		}
+		add_ideas = GEO_modern_army_idea
+	}
+}
+#Israeli UAV Deal
+country_event = {
+	id = georg_army.4
+	title = georg_army.4.t
+	desc = georg_army.4.d
+	picture = GFX_GEO_generic
+	is_triggered_only = yes
+
+	option = {
+		name = georg_army.4.a
+		log = "[GetDateText]: [This.GetName]: georg_army.4.a executed"
+		set_temp_variable = { treasury_change = 2.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 0.5 }
+		set_temp_variable = { tag_index = ISR }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_technology = { Air_Kamikaze1 = 1 }
+			add_tech_bonus = {
+				name = GEO_army_bpla
+				uses = 2
+				bonus = 0.5
+				category = CAT_l_drone
+			}
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			country_event = { id = georg_army.5 days = 1 }
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				add = -1
+				has_opinion = {
+					target = GEO
+					value < 10
+				}
+			}
+		}
+	}
+	option = {
+		name = georg_army.4.b
+		log = "[GetDateText]: [This.GetName]: georg_army.4.b executed"
+		GEO = {
+			add_tech_bonus = {
+				name = GEO_army_bpla
+				uses = 2
+				bonus = 0.25
+				category = CAT_l_drone
+			}
+			set_temp_variable = { treasury_change = -5.00 }
+			modify_treasury_effect = yes
+			country_event = { id = georg_army.6 days = 1 }
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				add = -1
+				has_opinion = {
+					target = GEO
+					value > 10
+				}
+			}
+		}
+	}
+}
+#Israeli UAV Deal Accepted
+country_event = {
+	id = georg_army.5
+	title = georg_army.5.t
+	desc = georg_army.5.d
+	picture = GFX_ISR_generic
+	is_triggered_only = yes
+
+	option = {
+		name = georg_army.5.a
+		log = "[GetDateText]: [This.GetName]: georg_army.5.a executed"
+	}
+}
+#Israeli UAV Deal Rejected
+country_event = {
+	id = georg_army.6
+	title = georg_army.6.t
+	desc = georg_army.6.d
+	picture = GFX_ISR_generic
+	is_triggered_only = yes
+
+	option = {
+		name = georg_army.6.a
+		log = "[GetDateText]: [This.GetName]: georg_army.6.a executed"
+	}
+}
+#The Establishment of STC Delta
+country_event = {
+	id = georg_army.7
+	title = georg_army.7.t
+	desc = georg_army.7.d
+	picture = GFX_geo_delta
+	is_triggered_only = yes
+
+	option = {
+		name = georg_army.7.a
+		log = "[GetDateText]: [This.GetName]: georg_army.7.a executed"
+		add_tech_bonus = {
+			name = GEO_army_vpk_boost
+			bonus = 0.25
+			uses = 2
+			category = CAT_Military
+			category = CAT_inf
+			category = CAT_support_weapons
+		}
+		add_breakthrough_progress = {
+			specialization = specialization_land
+			value = 0.5
+		}
+		if = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			unlock_military_industrial_organization_tooltip = mio:GEO_stc_delta_materiel_manufacturer
+			mio:GEO_stc_delta_materiel_manufacturer = {
+				add_mio_funds = 1250
+			}
+		}
+		set_temp_variable = { temp_opinion = 5 }
+		change_defense_industry_opinion = yes
+	}
+}
+
+########## MKHEDRIONI & MONARCHIST EVENTS ##########
+country_event = {
+	id = georg_mkhedrioni.1
+	title = georg_mkhedrioni.1.t
+	desc = georg_mkhedrioni.1.d
+	picture = GFX_report_event_generic_political_reform
+
+	is_triggered_only = yes
+	option = {
+		name = georg_mkhedrioni.1.a
+		log = "[GetDateText]: [This.GetName]: georg_mkhedrioni.1.a executed"
+		add_stability = -0.05
+		add_war_support = 0.05
+	}
+
+}
+
+# 2. Return of Jaba Ioseliani - Dictatorship of the Military-Criminal Council
+country_event = {
+	id = georg_mkhedrioni.2
+	title = georg_mkhedrioni.2.t
+	desc = georg_mkhedrioni.2.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_mkhedrioni.2.a
+		log = "[GetDateText]: [This.GetName]: georg_mkhedrioni.2.a - Establish Jaba's Junta"
+		set_politics = {
+			ruling_party = nationalist
+			elections_allowed = no
+		}
+		set_temp_variable = { rul_party_temp = 22 }
+		change_ruling_party_effect = yes
+		add_political_power = 100
+		add_war_support = 0.08
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.15 }
+		set_temp_variable = { temp_outlook_increase = 0.15 }
+		add_relative_party_popularity = yes
+		set_temp_variable = { temp_opinion = 15 }
+		change_the_military_opinion = yes
+		if = {
+			limit = { NOT = { has_dynamic_modifier = { modifier = GEO_Mkhedrioni_State_modifier } } }
+			add_dynamic_modifier = { modifier = GEO_Mkhedrioni_State_modifier }
+		}
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Mkhedrioni_State_modifier }
+		add_to_variable = { GEO_Mkhedrioni_political_power_gain = 0.05 tooltip = political_power_gain_tt }
+		add_to_variable = { GEO_Mkhedrioni_nationalist_drift = 0.06 tooltip = nationalist_drift_tt }
+		add_to_variable = { GEO_Mkhedrioni_war_support_factor = 0.08 tooltip = war_support_factor_tt }
+	}
+}
+
+# 3. The Skeleton Dance / Purging the State Apparatus
+country_event = {
+	id = georg_mkhedrioni.3
+	title = georg_mkhedrioni.3.t
+	desc = georg_mkhedrioni.3.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_mkhedrioni.3.a
+		log = "[GetDateText]: [This.GetName]: georg_mkhedrioni.3.a executed"
+		add_stability = -0.05
+		add_war_support = 0.06
+		increase_corruption = yes
+		set_temp_variable = { temp_opinion = -15 }
+		change_intelligence_community_opinion = yes
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Mkhedrioni_State_modifier }
+		add_to_variable = { GEO_Mkhedrioni_army_attack_factor = 0.05 tooltip = army_attack_factor_tt }
+		add_to_variable = { GEO_Mkhedrioni_conscription_factor = 0.10 tooltip = conscription_factor_tt }
+		add_to_variable = { GEO_Mkhedrioni_corruption_cost_factor = 0.20 tooltip = corruption_cost_factor_tt }
+	}
+}
+
+# 4. Institutionalizing the Obshchak (Thieves in Black)
+country_event = {
+	id = georg_mkhedrioni.4
+	title = georg_mkhedrioni.4.t
+	desc = georg_mkhedrioni.4.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_mkhedrioni.4.a
+		log = "[GetDateText]: [This.GetName]: georg_mkhedrioni.4.a - State Syndicate"
+		set_temp_variable = { treasury_change = 3.50 }
+		modify_treasury_effect = yes
+		add_stability = -0.03
+		set_temp_variable = { temp_opinion = 15 }
+		change_oligarchs_opinion = yes
+		set_temp_variable = { temp_opinion = -10 }
+		change_small_medium_business_owners_opinion = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Mkhedrioni_State_modifier }
+		add_to_variable = { GEO_Mkhedrioni_companies_tax_gain_multiplier_modifier = 0.08 tooltip = companies_tax_gain_multiplier_modifier_tt }
+		add_to_variable = { GEO_Mkhedrioni_political_power_factor = 0.03 tooltip = political_power_factor_tt }
+	}
+}
+
+# 5. Traditions of the Caucasus (Highland Code & Patriarchal Ethics)
+country_event = {
+	id = georg_mkhedrioni.5
+	title = georg_mkhedrioni.5.t
+	desc = georg_mkhedrioni.5.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_mkhedrioni.5.a
+		log = "[GetDateText]: [This.GetName]: georg_mkhedrioni.5.a - Law of the Mountains"
+		add_political_power = 75
+		add_stability = 0.06
+		set_ban_lgbt = yes
+		set_no_women_effect = yes
+		set_temp_variable = { temp_opinion = 15 }
+		change_the_clergy_opinion = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Mkhedrioni_State_modifier }
+		add_to_variable = { GEO_Mkhedrioni_foreign_influence_defense_modifier = 0.15 tooltip = foreign_influence_defense_modifier_tt }
+		add_to_variable = { GEO_Mkhedrioni_stability_factor = 0.05 tooltip = stability_factor_tt }
+	}
+}
+
+# 6. Transcaucasian Underworld Summit (Use Our People)
+country_event = {
+	id = georg_mkhedrioni.6
+	title = georg_mkhedrioni.6.t
+	desc = georg_mkhedrioni.6.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_mkhedrioni.6.a
+		log = "[GetDateText]: [This.GetName]: georg_mkhedrioni.6.a - Cross-Border Brotherhood"
+		set_temp_variable = { treasury_change = 4.00 }
+		modify_treasury_effect = yes
+		if = {
+			limit = { country_exists = ARM }
+			add_opinion_modifier = { target = ARM modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = ARM modifier = declaration_of_friendship }
+		}
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Mkhedrioni_State_modifier }
+		add_to_variable = { GEO_Mkhedrioni_trade_opinion_factor = 0.15 tooltip = trade_opinion_factor_tt }
+		add_to_variable = { GEO_Mkhedrioni_police_cost_multiplier_modifier = -0.10 tooltip = police_cost_multiplier_modifier_tt }
+	}
+}
+
+# 7. Greater Georgian Project - Proclamation of Greater Sakartvelo
+country_event = {
+	id = georg_mkhedrioni.7
+	title = georg_mkhedrioni.7.t
+	desc = georg_mkhedrioni.7.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_mkhedrioni.7.a
+		log = "[GetDateText]: [This.GetName]: georg_mkhedrioni.7.a - Sakartvelos Gaumarjos"
+		add_war_support = 0.15
+		add_stability = -0.05
+		army_experience = 25
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Mkhedrioni_State_modifier }
+		add_to_variable = { GEO_Mkhedrioni_army_attack_factor = 0.08 tooltip = army_attack_factor_tt }
+		add_to_variable = { GEO_Mkhedrioni_war_support_factor = 0.10 tooltip = war_support_factor_tt }
+		add_to_variable = { GEO_Mkhedrioni_army_org_factor = 0.05 tooltip = army_org_factor_tt }
+	}
+}
+
+# 1. Audit of the Royal Accounts
+country_event = {
+	id = georg_monarchist.1
+	title = georg_monarchist.1.t
+	desc = georg_monarchist.1.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.1.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.1.a executed"
+		add_political_power = -75
+		add_stability = 0.05
+		set_temp_variable = { treasury_change = 2.5 }
+		modify_treasury_effect = yes
+	}
+}
+
+# 2. Godfather of the Georgian Nation
+country_event = {
+	id = georg_monarchist.2
+	title = georg_monarchist.2.t
+	desc = georg_monarchist.2.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.2.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.2.a executed"
+		add_political_power = 50
+		add_stability = 0.05
+		set_temp_variable = { temp_opinion = 5 }
+		change_the_clergy_opinion = yes
+	}
+}
+
+# 3. Friends in Rome
+country_event = {
+	id = georg_monarchist.3
+	title = georg_monarchist.3.t
+	desc = georg_monarchist.3.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.3.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.3.a executed"
+		add_political_power = 50
+		if = {
+			limit = { country_exists = HLS }
+			add_opinion_modifier = {
+				target = HLS
+				modifier = recent_actions_positive
+			}
+			reverse_add_opinion_modifier = {
+				target = HLS
+				modifier = recent_actions_positive
+			}
+		}
+		if = {
+			limit = { country_exists = ITA }
+			add_opinion_modifier = {
+				target = ITA
+				modifier = recent_actions_positive
+			}
+			reverse_add_opinion_modifier = {
+				target = ITA
+				modifier = recent_actions_positive
+			}
+		}
+	}
+}
+
+# 5. Heir of Two Houses (Georgia sends recognition envoy to Armenia)
+country_event = {
+	id = georg_monarchist.5
+	title = georg_monarchist.5.t
+	desc = georg_monarchist.5.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.5.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.5.a executed"
+		custom_effect_tooltip = GEO_bagratid_request_sent_tt
+		if = {
+			limit = { country_exists = ARM }
+			ARM = { country_event = { id = georg_monarchist.6 days = 1 } }
+		}
+	}
+}
+
+# 6. Armenia receives Bagrationi-Bagratuni Recognition Proposal
+country_event = {
+	id = georg_monarchist.6
+	title = georg_monarchist.6.t
+	desc = georg_monarchist.6.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.6.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.6.a executed"
+		add_timed_idea = {
+			idea = GEO_armenia_bagratid_awakening
+			days = 365
+		}
+		GEO = {
+			set_country_flag = GEO_armenia_recognized_bagrationi
+			country_event = { id = georg_monarchist.7 days = 1 }
+		}
+		add_opinion_modifier = {
+			target = GEO
+			modifier = GEO_bagratid_recognition_opinion
+		}
+		reverse_add_opinion_modifier = {
+			target = GEO
+			modifier = GEO_bagratid_recognition_opinion
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 1.2
+				check_variable = { party_pop_array^23 > 0.25 }
+			}
+		}
+	}
+
+	option = {
+		name = georg_monarchist.6.b
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.6.b executed"
+		GEO = {
+			country_event = { id = georg_monarchist.8 days = 1 }
+		}
+		add_opinion_modifier = {
+			target = GEO
+			modifier = GEO_bagratid_rejection_opinion
+		}
+		reverse_add_opinion_modifier = {
+			target = GEO
+			modifier = GEO_bagratid_rejection_opinion
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.8
+				check_variable = { party_pop_array^23 > 0.25 }
+			}
+		}
+	}
+}
+
+
+# Georgia receives Armenia's acceptance of dynastic recognition.
+country_event = {
+	id = georg_monarchist.7
+	title = georg_monarchist.7.t
+	desc = georg_monarchist.7.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.7.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.7.a executed"
+		add_political_power = 50
+		add_stability = 0.03
+		set_temp_variable = { party_index = 23 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		set_temp_variable = { temp_outlook_increase = 0.03 }
+		add_relative_party_popularity = yes
+	}
+}
+
+# Georgia receives Armenia's rejection of dynastic recognition.
+country_event = {
+	id = georg_monarchist.8
+	title = georg_monarchist.8.t
+	desc = georg_monarchist.8.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.8.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.8.a executed"
+		add_political_power = -100
+		add_stability = -0.02
+	}
+}
+
+# 9. The Royal Marriage at Sameba Cathedral (GEO_crucial_marriage)
+country_event = {
+	id = georg_monarchist.9
+	title = georg_monarchist.9.t
+	desc = georg_monarchist.9.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_monarchist.9.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.9.a executed"
+		add_political_power = 50
+		add_stability = 0.05
+		set_temp_variable = { party_index = 23 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+	}
+}
+
+# 10. The Svetitskhoveli Royal Coronation (GEO_the_bagrationi_settlement)
+country_event = {
+	id = georg_monarchist.10
+	title = georg_monarchist.10.t
+	desc = georg_monarchist.10.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+	option = {
+		name = georg_monarchist.10.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.10.a executed"
+		custom_effect_tooltip = GEO_settlement_armenia_tt
+		if = {
+			limit = { country_exists = ARM ARM = { NOT = { is_subject_of = GEO } } }
+			ARM = { country_event = { id = georg_monarchist.11 days = 1 } }
+		}
+	}
+}
+
+country_event = {
+	id = georg_monarchist.11
+	title = georg_monarchist.11.t
+	desc = georg_monarchist.11.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+	trigger = {
+		tag = ARM
+		country_exists = GEO
+		NOT = { is_subject_of = GEO }
+	}
+	option = {
+		name = georg_monarchist.11.a
+		trigger = { GEO_has_30_percent_influence = yes }
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.11.a executed"
+		set_temp_variable = { rul_party_temp = 23 }
+		change_ruling_party_effect = yes
+		set_politics = { ruling_party = nationalist elections_allowed = no }
+		GEO = {
+			set_autonomy = { target = ARM autonomy_state = autonomy_saeristavo_geo }
+			country_event = { id = georg_monarchist.12 days = 1 }
+		}
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = georg_monarchist.11.b
+		trigger = { NOT = { GEO_has_30_percent_influence = yes } }
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.11.b executed"
+		GEO = { country_event = { id = georg_monarchist.13 days = 1 } }
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = georg_monarchist.12
+	title = georg_monarchist.12.t
+	desc = georg_monarchist.12.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+	option = {
+		name = georg_monarchist.12.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.12.a executed"
+		set_country_flag = GEO_armenian_saeristavo_established
+	}
+}
+
+country_event = {
+	id = georg_monarchist.13
+	title = georg_monarchist.13.t
+	desc = georg_monarchist.13.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+	option = {
+		name = georg_monarchist.13.a
+		log = "[GetDateText]: [This.GetName]: georg_monarchist.13.a executed"
+		if = {
+			limit = { country_exists = ARM ARM = { NOT = { is_subject_of = GEO } } }
+			add_timed_idea = { idea = GEO_bagrationi_campaign days = 180 }
+			if = {
+				limit = { NOT = { has_war_with = ARM } }
+				create_wargoal = { type = puppet_wargoal_focus target = ARM expire = 180 }
+			}
+		}
+	}
+}
+
+
+#Economy
+#The Iron Silk Road
+country_event = {
+	id = georg_economy.1
+	title = georg_economy.1.t
+	desc = georg_economy.1.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.1.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.1.a executed"
+		set_temp_variable = { temp_productivity_change = 30 }
+		if = {
+			limit = { original_tag = AZE }
+			713 = { state_flat_productivity_change_effect = yes }
+			712 = { state_flat_productivity_change_effect = yes }
+			build_railway = {
+				level = 1
+				path = { 7661 7495 4614 4477 13919 11674 1539 12309 4605 }
+				start_state = 713
+				target_state = 712
+			}
+		}
+		if = {
+			limit = { original_tag = TUR }
+			163 = { state_flat_productivity_change_effect = yes }
+			build_railway = {
+				level = 1
+				path = { 10472 10403 7454 }
+				start_state = 163
+				target_state = 163
+			}
+		}
+		GEO = { country_event = { id = georg_economy.2 days = 1 } }
+		set_temp_variable = { treasury_change = -4.0 }
+		modify_treasury_effect = yes
+		add_opinion_modifier = { target = GEO modifier = recent_actions_positive }
+		reverse_add_opinion_modifier = { target = GEO modifier = recent_actions_positive }
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+	}
+	option = {
+		name = georg_economy.1.b
+		log = "[GetDateText]: [This.GetName]: georg_economy.1.b executed"
+		GEO = { country_event = { id = georg_economy.3 days = 1 } }
+		ai_chance = {
+			base = 1
+			modifier = {
+				add = -1
+				has_opinion = {
+					target = GEO
+					value > -19
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value < -25
+				}
+			}
+		}
+	}
+}
+#The Iron Silk Road Accept
+country_event = {
+	id = georg_economy.2
+	title = georg_economy.2.t
+	desc = georg_economy.2.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.2.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.2.a executed"
+		set_temp_variable = { temp_productivity_change = 30 }
+		707 = { state_flat_productivity_change_effect = yes }
+		1033 = { state_flat_productivity_change_effect = yes }
+		reverse_add_opinion_modifier = { modifier = recent_actions_negative target = ARM }
+	}
+}
+#The Iron Silk Road Refuse
+country_event = {
+	id = georg_economy.3
+	title = georg_economy.3.t
+	desc = georg_economy.3.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.3.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.3.a executed"
+		add_opinion_modifier = { modifier = recent_actions_negative target = FROM }
+	}
+}
+#Heidelberg Comes to Kaspi (Germany receives offer)
+country_event = {
+	id = georg_economy.4
+	title = georg_economy.4.t
+	desc = georg_economy.4.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.4.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.4.a executed"
+		GEO = {
+			add_offsite_building = { type = industrial_complex level = 2 }
+			add_tech_bonus = {
+				name = GEO_restore_kaspi_cement_plant
+				bonus = 0.50
+				uses = 2
+				category = CAT_construction_tech
+			}
+			country_event = { id = georg_economy.5 days = 1 }
+		}
+		set_temp_variable = { percent_change = 2.0 }
+		set_temp_variable = { tag_index = GER }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = recent_actions_positive }
+		reverse_add_opinion_modifier = { target = GEO modifier = recent_actions_positive }
+		set_temp_variable = { int_investment_change = 9.00 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { modify_capitalization =  0.0025 }
+        modify_capitalization_support = yes
+		set_temp_variable = { treasury_change = -10.0 }
+		modify_treasury_effect = yes
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+	}
+	option = {
+		name = georg_economy.4.b
+		log = "[GetDateText]: [This.GetName]: georg_economy.4.b executed"
+		GEO = { country_event = { id = georg_economy.6 days = 1 } }
+		ai_chance = {
+			base = 1
+			modifier = {
+				add = -1
+				has_opinion = {
+					target = GEO
+					value > 19
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value < 0
+				}
+			}
+		}
+	}
+}
+#Heidelberg Comes to Kaspi accepted
+country_event = {
+	id = georg_economy.5
+	title = georg_economy.5.t
+	desc = georg_economy.5.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.5.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.5.a executed"
+		hidden_effect = {
+			country_event = { id = georg_economy.7 days = 250 random_days = 100 }
+		}
+	}
+}
+#Heidelberg Comes to Kaspi refused
+country_event = {
+	id = georg_economy.6
+	title = georg_economy.6.t
+	desc = georg_economy.6.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.6.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.6.a executed"
+		add_opinion_modifier = { modifier = recent_actions_negative target = FROM }
+	}
+}
+#Kaspi Plant Stabilization
+country_event = {
+	id = georg_economy.7
+	title = georg_economy.7.t
+	desc = georg_economy.7.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.7.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.7.a executed"
+		add_offsite_building = { type = industrial_complex level = -2 }
+		random_owned_controlled_state = {
+			prioritize = { 707 }
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+#Looking for a Lifeline
+country_event = {
+	id = georg_economy.8
+	title = georg_economy.8.t
+	desc = georg_economy.8.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		trigger = {
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+			ENG = { NOT = { has_country_flag = declined_kutaisi_offer } }
+		}
+		name = georg_economy.8.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.8.a executed"
+		ENG = { country_event = { id = georg_economy.9 days = 1 } }
+		custom_effect_tooltip = effect_if_they_accept_TT
+		effect_tooltip = {
+			add_tech_bonus = {
+				name = CAT_util
+				bonus = 0.3
+				uses = 1
+				category = CAT_util
+			}
+			set_temp_variable = { percent_change = 2.5 }
+			set_temp_variable = { tag_index = ENG }
+			set_temp_variable = { influence_target = GEO }
+			change_influence_percentage = yes
+			add_opinion_modifier = { target = ENG modifier = economic_mission }
+			reverse_add_opinion_modifier = { target = ENG modifier = economic_mission }
+			add_ideas = GEO_kutaisi_auto_british
+		}
+	}
+	option = {
+		trigger = {
+			country_exists = RAJ
+			NOT = { has_war_with = RAJ }
+			RAJ = { NOT = { has_country_flag = declined_kutaisi_offer } }
+		}
+		name = georg_economy.8.b
+		log = "[GetDateText]: [This.GetName]: georg_economy.8.b executed"
+		RAJ = { country_event = { id = georg_economy.9 days = 1 } }
+		custom_effect_tooltip = effect_if_they_accept_TT
+		effect_tooltip = {
+			set_temp_variable = { percent_change = 2.5 }
+			set_temp_variable = { tag_index = RAJ }
+			set_temp_variable = { influence_target = GEO }
+			change_influence_percentage = yes
+			add_opinion_modifier = { target = RAJ modifier = economic_mission }
+			reverse_add_opinion_modifier = { target = RAJ modifier = economic_mission }
+			add_ideas = GEO_kutaisi_auto_mahindra
+		}
+	}
+	option = {
+		trigger = {
+			country_exists = UKR
+			NOT = { has_war_with = UKR }
+			UKR = { NOT = { has_country_flag = declined_kutaisi_offer } }
+		}
+		name = georg_economy.8.c
+		log = "[GetDateText]: [This.GetName]: georg_economy.8.c executed"
+		UKR = { country_event = { id = georg_economy.9 days = 1 } }
+		custom_effect_tooltip = effect_if_they_accept_TT
+		effect_tooltip = {
+			set_temp_variable = { percent_change = 2.5 }
+			set_temp_variable = { tag_index = UKR }
+			set_temp_variable = { influence_target = GEO }
+			change_influence_percentage = yes
+			add_opinion_modifier = { target = ENG modifier = economic_mission }
+			reverse_add_opinion_modifier = { target = ENG modifier = economic_mission }
+			add_ideas = GEO_kutaisi_auto_ukraine
+		}
+	}
+	option = {
+		name = georg_economy.8.e
+		log = "[GetDateText]: [This.GetName]: georg_economy.8.d executed"
+		add_ideas = GEO_kutaisi_auto_domestic
+		set_temp_variable = { treasury_change = -12.0 }
+		modify_treasury_effect = yes
+	}
+	option = {
+		trigger = {
+			OR = {
+				ENG = { has_country_flag = declined_kutaisi_offer }
+				RAJ = { has_country_flag = declined_kutaisi_offer }
+				UKR = { has_country_flag = declined_kutaisi_offer }
+			}
+		}
+		name = georg_economy.8.f
+		log = "[GetDateText]: [This.GetName]: georg_economy.8.f executed"
+		add_political_power = -25
+	}
+}
+#An Offer from Kutaisi
+country_event = {
+	id = georg_economy.9
+	title = georg_economy.9.t
+	desc = georg_economy.9.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.9.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.9.a executed"
+		set_temp_variable = { treasury_change = -5.0 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 5.0 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 2.5 }
+		set_temp_variable = { tag_index = THIS }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = FROM modifier = economic_mission }
+		reverse_add_opinion_modifier = { target = FROM modifier = economic_mission }
+		FROM = {
+			country_event = { id = georg_economy.10 days = 1 }
+		}
+		if = {
+			limit = { original_tag = ENG }
+			FROM = {
+				add_ideas = GEO_kutaisi_auto_british
+				add_tech_bonus = {
+					name = CAT_util
+					bonus = 0.3
+					uses = 1
+					category = CAT_util
+				}
+			}
+		}
+		else_if = {
+			limit = { original_tag = RAJ }
+			FROM = {
+				add_ideas = GEO_kutaisi_auto_mahindra
+			}
+		}
+		else_if = {
+			limit = { original_tag = UKR }
+			FROM = {
+				add_ideas = GEO_kutaisi_auto_ukraine
+				add_tech_bonus = {
+					name = GEO_kutaisi_auto_plant_dilemma
+					bonus = 0.25
+					uses = 1
+					category = CAT_agriculture_tech
+				}
+			}
+		}
+	}
+	option = {
+		name = georg_economy.9.b
+		log = "[GetDateText]: [This.GetName]: georg_economy.9.b executed"
+		add_opinion_modifier = { target = FROM modifier = recent_actions_negative }
+		set_country_flag = { flag = declined_kutaisi_offer days = 30 value = 1 }
+		FROM = { country_event = { id = georg_economy.11 days = 1 } }
+		ai_chance = { base = 1 }
+	}
+}
+#A Partner for Kutaisi
+country_event = {
+	id = georg_economy.10
+	title = georg_economy.10.t
+	desc = georg_economy.10.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.10.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.10.a executed"
+	}
+}
+#No Interest in Kutaisi
+country_event = {
+	id = georg_economy.11
+	title = georg_economy.11.t
+	desc = georg_economy.11.d
+	picture = GFX_geo_army_reform #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.11.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.11.a executed"
+		country_event = georg_economy.8
+	}
+}
+#TAV Airports - TUR decides
+country_event = {
+	id = georg_economy.12
+	title = georg_economy.12.t
+	desc = georg_economy.12.d
+	picture = GFX_GEO_generic #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.12.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.12.a executed"
+		set_temp_variable = { treasury_change = -3.75 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 3.75 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { modify_capitalization = 0.025 }
+		modify_capitalization_support = yes
+		set_temp_variable = { percent_change = 1.0 }
+		set_temp_variable = { tag_index = TUR }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = economic_mission }
+		reverse_add_opinion_modifier = { target = GEO modifier = economic_mission }
+		GEO = {
+			set_temp_variable = { temp_productivity_change = 15 }
+			capital_scope = {
+				state_flat_productivity_change_effect = yes
+				add_building_construction = { type = air_base level = 3 instant_build = yes }
+			}
+			country_event = georg_economy.13
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = georg_economy.12.b
+		log = "[GetDateText]: [This.GetName]: georg_economy.12.b executed"
+		GEO = { country_event = georg_economy.14 }
+		ai_chance = {
+			base = 1
+			modifier = { factor = 0 has_opinion = { target = GEO value > 20 } }
+		}
+	}
+}
+#TAV Accepts - GEO builds airport
+country_event = {
+	id = georg_economy.13
+	title = georg_economy.13.t
+	desc = georg_economy.13.d
+	picture = GFX_GEO_generic #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.13.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.13.a executed"
+	}
+}
+#TAV Refuses
+country_event = {
+	id = georg_economy.14
+	title = georg_economy.14.t
+	desc = georg_economy.14.d
+	picture = GFX_GEO_generic #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.14.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.14.a executed"
+		add_opinion_modifier = { target = TUR modifier = recent_actions_negative }
+	}
+}
+#Georgia Invest
+country_event = {
+	id = georg_economy.16
+	title = georg_economy.16.t
+	desc = georg_economy.16.d
+	picture = GFX_GEO_generic
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.16.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.16.a executed"
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 2.00 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = ROOT }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			country_event = georg_economy.17
+			set_temp_variable = { treasury_change = 2.00 }
+			modify_treasury_effect = yes
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				has_opinion = {
+					target = GEO
+					value > 29
+				}
+			}
+			modifier = {
+				add = -40
+				has_opinion = {
+					target = GEO
+					value < 9
+				}
+			}
+		}
+	}
+	option = {
+		name = georg_economy.16.b
+		log = "[GetDateText]: [This.GetName]: georg_economy.16.b executed"
+		GEO = { country_event = georg_economy.18 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = -40
+				has_opinion = {
+					target = GEO
+					value > 29
+				}
+			}
+			modifier = {
+				add = 50
+				has_opinion = {
+					target = GEO
+					value < 0
+				}
+			}
+		}
+	}
+}
+#Georgia Invest Accept
+country_event = {
+	id = georg_economy.17
+	title = georg_economy.17.t
+	desc = georg_economy.17.d
+	picture = GFX_handshake_black
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.17.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.17.a executed"
+	}
+}
+#Georgia Invest Decline
+country_event = {
+	id = georg_economy.18
+	title = georg_economy.18.t
+	desc = georg_economy.18.d
+	picture = GFX_united_states_dollar
+	is_triggered_only = yes
+
+	option = {
+		name = georg_economy.18.a
+		log = "[GetDateText]: [This.GetName]: georg_economy.18.a executed"
+		add_opinion_modifier = { target = FROM modifier = recent_actions_negative }
+	}
+}
+#LGBT position
+country_event = {
+	id = georg_geo_dream.1
+	title = georg_geo_dream.1.t
+	desc = georg_geo_dream.1.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = georg_geo_dream.1.a		
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.1.a executed"
+		add_ideas = GEO_Georgian_Dream_LGBT_idea
+		add_stability = -0.1
+			set_temp_variable = { temp_opinion = -10 }
+			change_the_clergy_opinion = yes
+			set_temp_variable = { party_index = 0 }
+			set_temp_variable = { party_popularity_increase = 0.10 }
+			set_temp_variable = { temp_outlook_increase = 0.10 }
+			add_relative_party_popularity = yes
+
+			set_temp_variable = { party_index = 15 }
+			set_temp_variable = { party_popularity_increase = -0.10 }
+			set_temp_variable = { temp_outlook_increase = -0.10 }
+			add_relative_party_popularity = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.1.b
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.1.b executed"
+		add_ideas = GEO_Georgian_Dream_Anti_LGBT_idea	
+		add_stability = 0.1
+			set_temp_variable = { temp_opinion = 10 }
+			change_the_clergy_opinion = yes	
+			set_temp_variable = { party_index = 0 }
+			set_temp_variable = { party_popularity_increase = -0.10 }
+			set_temp_variable = { temp_outlook_increase = -0.10 }
+			add_relative_party_popularity = yes
+
+			set_temp_variable = { party_index = 15 }
+			set_temp_variable = { party_popularity_increase = 0.10 }
+			set_temp_variable = { temp_outlook_increase = 0.10 }
+			add_relative_party_popularity = yes
+		ai_chance = {
+			factor = 1
+		}		
+	}
+}
+	#Demilitarisation
+country_event = {
+	id = georg_geo_dream.2
+	title = georg_geo_dream.2.t
+	desc = georg_geo_dream.2.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = georg_geo_dream.2.a		
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.2.a executed"
+		increase_military_spending = yes
+		add_war_support = 0.05
+		set_temp_variable = { temp_opinion = 5 }
+		change_the_military_opinion = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.2.b
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.2.b executed"
+		decrease_military_spending = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_GeogriaDream_modifier }
+		add_to_variable = { GEO_GeorgianDream_foreign_influence_defense_modifier = 0.10 tooltip = foreign_influence_defense_modifier_tt }
+		add_to_variable = { GEO_GeorgianDream_production_speed_buildings_factor = 0.05 tooltip = production_speed_buildings_factor_tt }
+		ai_chance = {
+			factor = 1
+		}		
+	}
+}
+
+# 3. Pragmatic Reset with Russia (Karasin-Abashidze Format)
+country_event = {
+	id = georg_geo_dream.3
+	title = georg_geo_dream.3.t
+	desc = georg_geo_dream.3.d
+	picture = GFX_handshake_black
+	is_triggered_only = yes
+
+	option = {
+		name = georg_geo_dream.3.a
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.3.a executed"
+		add_stability = 0.03
+		set_temp_variable = { treasury_change = 3.0 }
+		modify_treasury_effect = yes
+		add_opinion_modifier = {
+			target = SOV
+			modifier = recent_actions_positive
+		}
+		reverse_add_opinion_modifier = {
+			target = SOV
+			modifier = recent_actions_positive
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.3.b
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.3.b executed"
+		set_temp_variable = { treasury_change = 6.0 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		set_temp_variable = { temp_opinion = 5 }
+		change_farmers_opinion = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# 4. Attract Chinese Transit (Middle Corridor & Anaklia)
+country_event = {
+	id = georg_geo_dream.4
+	title = georg_geo_dream.4.t
+	desc = georg_geo_dream.4.d
+	picture = GFX_handshake_black
+	is_triggered_only = yes
+
+	option = {
+		name = georg_geo_dream.4.a
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.4.a executed"
+		set_temp_variable = { treasury_change = 5.0 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = CHI }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = {
+			target = CHI
+			modifier = economic_mission
+		}
+		reverse_add_opinion_modifier = {
+			target = CHI
+			modifier = economic_mission
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.4.b
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.4.b executed"
+		add_political_power = 50
+		set_temp_variable = { treasury_change = 2.0 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		change_domestic_influence_percentage = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# 5. Purge UNM Cadres (Restoration of Justice)
+country_event = {
+	id = georg_geo_dream.5
+	title = georg_geo_dream.5.t
+	desc = georg_geo_dream.5.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_geo_dream.5.a
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.5.a executed"
+		add_stability = 0.04
+		set_temp_variable = { party_index = 1 }
+		set_temp_variable = { party_popularity_increase = -0.04 }
+		set_temp_variable = { temp_outlook_increase = -0.04 }
+		add_relative_party_popularity = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.5.b
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.5.b executed"
+		add_political_power = 75
+		add_stability = -0.03
+		set_temp_variable = { party_index = 1 }
+		set_temp_variable = { party_popularity_increase = -0.08 }
+		set_temp_variable = { temp_outlook_increase = -0.08 }
+		add_relative_party_popularity = yes
+		set_temp_variable = { party_index = 18 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# 6. The Foreign Agents Law (Transparency of Foreign Influence)
+country_event = {
+	id = georg_geo_dream.6
+	title = georg_geo_dream.6.t
+	desc = georg_geo_dream.6.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_geo_dream.6.a
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.6.a executed"
+		add_political_power = 100
+		add_stability = -0.05
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Shadow_of_Ivanishvili_modifier }
+		add_to_variable = { GEO_Shadow_of_Ivanishvili_foreign_influence_defense_modifier = 0.10 tooltip = foreign_influence_defense_modifier_tt }
+		USA = {
+			add_opinion_modifier = {
+				target = GEO
+				modifier = recent_actions_negative
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.6.b
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.6.b executed"
+		add_political_power = 40
+		add_stability = 0.02
+		set_temp_variable = { percent_change = 2 }
+		change_domestic_influence_percentage = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# 7. The Zurabishvili Administration at Orbeliani Palace
+country_event = {
+	id = georg_geo_dream.7
+	title = georg_geo_dream.7.t
+	desc = georg_geo_dream.7.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_geo_dream.7.a
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.7.a executed"
+		add_political_power = 50
+		add_stability = 0.05
+		set_temp_variable = { party_index = 3 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+	}
+}
+
+# 8. Consolidation of the Georgian Dream One-Party State
+country_event = {
+	id = georg_geo_dream.8
+	title = georg_geo_dream.8.t
+	desc = georg_geo_dream.8.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_geo_dream.8.a
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.8.a executed"
+		add_political_power = 100
+		add_stability = 0.05
+		set_temp_variable = { party_index = 18 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+	}
+}
+
+# 9. Clash Between the President and the Prime Minister Over EU Partnership (GEO_Deal_with_Salome)
+country_event = {
+	id = georg_geo_dream.9
+	title = georg_geo_dream.9.t
+	desc = georg_geo_dream.9.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_geo_dream.9.a
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.9.a executed"
+		create_country_leader = {
+			name = "Salome Zurabishvili"
+			picture = "salome_zurabishvili.dds"
+			ideology = oligarchism
+			traits = {
+				neutrality_oligarchism
+				diplomat
+				ruthless
+			}
+		}
+		add_stability = 0.06
+		add_political_power = -50
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_GeogriaDream_modifier }
+		add_to_variable = { GEO_GeorgianDream_democratic_acceptance = 20 tooltip = democratic_acceptance_tt }
+		add_to_variable = { GEO_GeorgianDream_stability_factor = 0.05 tooltip = stability_factor_tt }
+		every_country = {
+			limit = {
+				has_idea = EU_member
+				OR = {
+					original_tag = FRA
+					original_tag = GER
+					original_tag = POL
+					original_tag = ITA
+				}
+			}
+			add_opinion_modifier = { target = GEO modifier = diplomatic_proximity }
+			reverse_add_opinion_modifier = { target = GEO modifier = diplomatic_proximity }
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.9.b
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.9.b executed"
+		add_stability = 0.08
+		add_political_power = 25
+		set_temp_variable = { party_index = 15 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		add_relative_party_popularity = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_GeogriaDream_modifier }
+		add_to_variable = { GEO_GeorgianDream_political_power_gain = 0.03 tooltip = political_power_gain_tt }
+		add_to_variable = { GEO_GeorgianDream_democratic_acceptance = 10 tooltip = democratic_acceptance_tt }
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = georg_geo_dream.9.c
+		log = "[GetDateText]: [This.GetName]: georg_geo_dream.9.c executed"
+		add_political_power = 75
+		add_stability = -0.05
+		set_temp_variable = { percent_change = 4 }
+		change_domestic_influence_percentage = yes
+		set_temp_variable = { party_index = 15 }
+		set_temp_variable = { party_popularity_increase = 0.06 }
+		set_temp_variable = { temp_outlook_increase = 0.06 }
+		add_relative_party_popularity = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Shadow_of_Ivanishvili_modifier }
+		add_to_variable = { GEO_Shadow_of_Ivanishvili_political_power_factor = 0.04 tooltip = political_power_factor_tt }
+		add_to_variable = { GEO_Shadow_of_Ivanishvili_foreign_influence_defense_modifier = 0.10 tooltip = foreign_influence_defense_modifier_tt }
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+#Commi
+#The Georgian SSR is Proclaimed
+country_event = {
+	id = geo_communist.1
+	title = geo_communist.1.t
+	desc = geo_communist.1.d
+	picture = GFX_united_states_dollar #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.1.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.1.a executed"
+		set_cosmetic_tag = GEO_AUTH_S_communism
+		add_political_power = 100
+		set_temp_variable = { party_index = 4 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+	}
+}
+#The Canonization of Joseph Stalin
+country_event = {
+	id = geo_communist.2
+	title = geo_communist.2.t
+	desc = geo_communist.2.d
+	picture = GFX_united_states_dollar #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.2.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.2.a executed"
+		set_temp_variable = { temp_opinion = 10 }
+		change_the_clergy_opinion = yes
+		add_stability = 0.03
+	}
+	option = {
+		name = geo_communist.2.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.2.b executed"
+		add_war_support = 0.05
+		set_temp_variable = { party_index = 4 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+	}
+	option = {
+		name = geo_communist.2.c
+		log = "[GetDateText]: [This.GetName]: geo_communist.2.c executed"
+		add_political_power = 75
+		set_temp_variable = { temp_opinion = 5 }
+		change_communist_cadres_opinion = yes
+	}
+}
+#The Last Hunt for the Silver Fox
+country_event = {
+	id = geo_communist.3
+	title = geo_communist.3.t
+	desc = geo_communist.3.d
+	picture = GFX_united_states_dollar #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.3.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.3.a executed"
+		add_stability = -0.02
+		set_temp_variable = { treasury_change = 2.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { temp_opinion = -15 }
+		change_oligarchs_opinion = yes
+		set_temp_variable = { temp_opinion = 15 }
+		change_communist_cadres_opinion = yes
+		decrease_corruption = yes
+		set_temp_variable = { party_index = 4 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+		if = {
+			limit = { country_exists = USA }
+			USA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = recent_actions_negative
+				}
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = geo_communist.3.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.3.b executed"
+		add_political_power = 75
+		add_war_support = 0.05
+		add_stability = -0.03
+		set_temp_variable = { temp_opinion = 10 }
+		change_communist_cadres_opinion = yes
+		set_temp_variable = { party_index = 4 }
+		set_temp_variable = { party_popularity_increase = 0.08 }
+		set_temp_variable = { temp_outlook_increase = 0.08 }
+		add_relative_party_popularity = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = GEO_Stalinist_Revival_modifier }
+		add_to_variable = { GEO_Stalinist_bureaucracy_cost_multiplier_modifier = -0.10 tooltip = bureaucracy_cost_multiplier_modifier_tt }
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# 4. Rehabilitation of Joseph Stalin in Gori
+country_event = {
+	id = geo_communist.4
+	title = geo_communist.4.t
+	desc = geo_communist.4.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.4.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.4.a executed"
+		add_political_power = 50
+		add_war_support = 0.05
+		set_temp_variable = { party_index = 4 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+	}
+}
+
+# 5. The Grand Purge of the State Apparatus
+country_event = {
+	id = geo_communist.5
+	title = geo_communist.5.t
+	desc = geo_communist.5.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.5.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.5.a executed"
+		add_political_power = 100
+		add_stability = 0.05
+		add_manpower = -1500
+		set_temp_variable = { temp_opinion = 10 }
+		change_communist_cadres_opinion = yes
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = geo_communist.5.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.5.b executed"
+		add_stability = 0.03
+		decrease_corruption = yes
+		set_temp_variable = { treasury_change = 5.0 }
+		modify_treasury_effect = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# 6. Revolutionary Tribunal Against Westernist Fifth Columnists
+country_event = {
+	id = geo_communist.6
+	title = geo_communist.6.t
+	desc = geo_communist.6.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.6.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.6.a executed"
+		add_political_power = 75
+		add_stability = 0.05
+		set_temp_variable = { percent_change = 5 }
+		change_domestic_influence_percentage = yes
+	}
+}
+
+# 7. The Revival of the Red Pioneers
+country_event = {
+	id = geo_communist.7
+	title = geo_communist.7.t
+	desc = geo_communist.7.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.7.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.7.a executed"
+		add_political_power = 50
+		add_war_support = 0.05
+		set_temp_variable = { party_index = 4 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		add_relative_party_popularity = yes
+	}
+}
+
+# 8. Proclamation of the Transcaucasian SFSR (ZSFSR)
+country_event = {
+	id = geo_communist.8
+	title = geo_communist.8.t
+	desc = geo_communist.8.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.8.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.8.a executed"
+		add_political_power = 100
+		add_stability = 0.05
+		add_war_support = 0.05
+	}
+}
+
+# 9. Refusal to Join the ZSFSR (Notifies GEO that Demand Submission decision is unlocked)
+country_event = {
+	id = geo_communist.9
+	title = geo_communist.9.t
+	desc = geo_communist.9.d
+	picture = GFX_southern_options
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.9.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.9.a executed"
+		add_war_support = 0.03
+		if = {
+			limit = { FROM = { original_tag = ARM } }
+			unlock_decision_tooltip = GEO_demand_submission_of_armenia
+		}
+		if = {
+			limit = { FROM = { original_tag = AZE } }
+			unlock_decision_tooltip = GEO_demand_submission_of_azerbaijan
+		}
+	}
+}
+
+# 10. Tbilisi Demands Immediate Submission to the ZSFSR (Received by ARM or AZE)
+country_event = {
+	id = geo_communist.10
+	title = geo_communist.10.t
+	desc = geo_communist.10.d
+	picture = GFX_southern_options
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.10.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.10.a executed"
+		GEO = {
+			set_autonomy = {
+				target = ROOT
+				autonomous_state = autonomy_autonomous_state
+				end_wars = no
+				end_civil_wars = no
+			}
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				add = 35
+				GEO_has_30_percent_influence = yes
+			}
+			modifier = {
+				add = 25
+				strength_ratio = { tag = GEO ratio < 0.75 }
+			}
+		}
+	}
+
+	option = {
+		name = geo_communist.10.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.10.b executed"
+		add_war_support = 0.05
+		GEO = {
+			country_event = { id = geo_communist.11 days = 1 }
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+
+# 11. Ultimatum Defied! (GEO receives wargoal against ARM or AZE)
+country_event = {
+	id = geo_communist.11
+	title = geo_communist.11.t
+	desc = geo_communist.11.d
+	picture = GFX_southern_options
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.11.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.11.a executed"
+		add_war_support = 0.05
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
+		}
+	}
+}
+
+# 12. Georgia Proposes Unification into the Restored USSR (Received by SOV)
+country_event = {
+	id = geo_communist.12
+	title = geo_communist.12.t
+	desc = geo_communist.12.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.12.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.12.a executed"
+		if = {
+			limit = {
+				GEO = { is_ai = no }
+			}
+			GEO = {
+				set_autonomy = {
+					target = SOV
+					autonomous_state = autonomy_autonomous_state
+					end_wars = no
+					end_civil_wars = no
+				}
+				add_political_power = 150
+				add_war_support = 0.10
+			}
+		}
+		else = {
+			SOV = {
+				set_autonomy = {
+					target = GEO
+					autonomous_state = autonomy_autonomous_state
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+		}
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = 40
+				has_communist_government = yes
+			}
+			modifier = {
+				add = 30
+				GEO_has_30_percent_influence = yes
+			}
+		}
+	}
+
+	option = {
+		name = geo_communist.12.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.12.b executed"
+		GEO = {
+			set_country_flag = GEO_ussr_unification_rejected
+			country_event = { id = geo_communist.13 days = 1 }
+		}
+		ai_chance = {
+			base = 60
+		}
+	}
+}
+
+# 13. Moscow Rejects Soviet Unification Proposal (Unlocks GEO_demand_submission_for_ussr decision)
+country_event = {
+	id = geo_communist.13
+	title = geo_communist.13.t
+	desc = geo_communist.13.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.13.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.13.a executed"
+		add_war_support = 0.05
+		unlock_decision_tooltip = GEO_demand_submission_for_ussr
+	}
+}
+
+# 14. Tbilisi Demands Moscow's Submission to the Restored USSR (Received by SOV)
+country_event = {
+	id = geo_communist.14
+	title = geo_communist.14.t
+	desc = geo_communist.14.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.14.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.14.a executed"
+		GEO = {
+			puppet = SOV
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = 40
+				GEO_has_30_percent_influence = yes
+			}
+			modifier = {
+				add = 30
+				strength_ratio = { tag = GEO ratio < 0.75 }
+			}
+		}
+	}
+
+	option = {
+		name = geo_communist.14.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.14.b executed"
+		GEO = {
+			country_event = { id = geo_communist.15 days = 1 }
+		}
+		ai_chance = {
+			base = 70
+		}
+	}
+}
+
+# 15. Moscow Defies the Soviet Ultimatum! (GEO receives wargoal and claims on SOV)
+country_event = {
+	id = geo_communist.15
+	title = geo_communist.15.t
+	desc = geo_communist.15.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.15.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.15.a executed"
+		add_war_support = 0.10
+		every_state = {
+			limit = { is_core_of = SOV }
+			add_claim_by = GEO
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = SOV
+		}
+	}
+}
+
+# 16. The Grandson of the Vozhd Takes Command (Yevgeny Dzhugashvili)
+country_event = {
+	id = geo_communist.16
+	title = geo_communist.16.t
+	desc = geo_communist.16.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.16.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.16.a executed"
+		ai_chance = { factor = 2 }
+		army_experience = 25
+		add_war_support = 0.05
+		if = {
+			limit = { has_idea = GEO_fragmented_command_idea }
+			remove_ideas = GEO_fragmented_command_idea
+		}
+		set_temp_variable = { temp_opinion = 10 }
+		change_the_military_opinion = yes
+	}
+
+	option = {
+		name = geo_communist.16.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.16.b executed"
+		ai_chance = { factor = 1 }
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		one_random_arms_factory = yes
+		add_political_power = 50
+	}
+}
+
+# 17. The Red Synod of Tbilisi: Elder Tsiklauri's Blessing
+country_event = {
+	id = geo_communist.17
+	title = geo_communist.17.t
+	desc = geo_communist.17.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.17.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.17.a executed"
+		add_political_power = 75
+		add_stability = 0.05
+		set_temp_variable = { percent_change = 5 }
+		change_domestic_influence_percentage = yes
+	}
+}
+
+# 18. From Minsk to Tbilisi: Georgian-Belarusian Socialist Partnership (Sent to BLR)
+country_event = {
+	id = geo_communist.18
+	title = geo_communist.18.t
+	desc = geo_communist.18.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.18.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.18.a executed"
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 15 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 2.00 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = BLR }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		diplomatic_relation = {
+			country = GEO
+			relation = non_aggression_pact
+			active = yes
+		}
+		give_guarantee = GEO
+		add_opinion_modifier = { target = GEO modifier = diplomatic_proximity }
+		reverse_add_opinion_modifier = { target = GEO modifier = diplomatic_proximity }
+		GEO = {
+			set_temp_variable = { int_investment_change = 2.00 }
+			modify_international_investment_effect = yes
+			one_random_industrial_complex = yes
+			give_guarantee = BLR
+			set_temp_variable = { receiver_nation = GEO.id sender_nation = BLR.id }
+			set_improved_trade_agreement = yes
+			add_tech_bonus = {
+				name = GEO_Belarus_Georgia_Alliance
+				bonus = 0.50
+				uses = 2
+				category = CAT_industry
+				category = CAT_agriculture_tech
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+
+	option = {
+		name = geo_communist.18.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.18.b executed"
+		ai_chance = {
+			base = 25
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value > 25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 19. Hot War, Frozen Peace: The Fate of Abkhazia & South Ossetia (GEO)
+country_event = {
+	id = geo_communist.19
+	title = geo_communist.19.t
+	desc = geo_communist.19.d
+	picture = GFX_southern_options
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.19.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.19.a executed (Hot War)"
+		ai_chance = { factor = 2 }
+		add_war_support = 0.05
+		add_state_core = 705
+		add_state_core = 706
+		if = {
+			limit = {
+				country_exists = ABK
+				NOT = { ABK = { is_subject_of = ROOT } }
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = ABK
+			}
+		}
+		if = {
+			limit = {
+				country_exists = SOO
+				NOT = { SOO = { is_subject_of = ROOT } }
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = SOO
+			}
+		}
+	}
+
+	option = {
+		name = geo_communist.19.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.19.b executed (Socialist Autonomous Reintegration)"
+		ai_chance = { factor = 1 }
+		add_stability = 0.04
+		add_state_core = 705
+		add_state_core = 706
+		if = {
+			limit = {
+				country_exists = ABK
+				NOT = { ABK = { is_subject_of = ROOT } }
+			}
+			ABK = { country_event = { id = geo_communist.20 days = 1 } }
+		}
+		if = {
+			limit = {
+				country_exists = SOO
+				NOT = { SOO = { is_subject_of = ROOT } }
+			}
+			SOO = { country_event = { id = geo_communist.20 days = 1 } }
+		}
+	}
+}
+
+# 20. Tbilisi Proposes Socialist Autonomous Republic Reintegration (Received by ABK / SOO)
+country_event = {
+	id = geo_communist.20
+	title = geo_communist.20.t
+	desc = geo_communist.20.d
+	picture = GFX_southern_options
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.20.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.20.a executed"
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 30
+				has_communist_government = yes
+			}
+			modifier = {
+				add = 20
+				GEO_has_30_percent_influence = yes
+			}
+		}
+		GEO = {
+			set_autonomy = {
+				target = ROOT
+				autonomous_state = autonomy_autonomous_state
+				end_wars = yes
+				end_civil_wars = yes
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+
+	option = {
+		name = geo_communist.20.b
+		log = "[GetDateText]: [This.GetName]: geo_communist.20.b executed"
+		ai_chance = {
+			base = 30
+		}
+		GEO = {
+			create_wargoal = {
+				type = annex_everything
+				target = ROOT
+			}
+			country_event = diplomatic_response.2
+		}
+	}
+}
+
+# 21. The Red Road Back to the Union: Tbilisi Proclaims Soviet Restoration (GEO)
+country_event = {
+	id = geo_communist.21
+	title = geo_communist.21.t
+	desc = geo_communist.21.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = geo_communist.21.a
+		log = "[GetDateText]: [This.GetName]: geo_communist.21.a executed"
+		add_political_power = 100
+		add_war_support = 0.05
+	}
+}
+
+
+################################################
+###### GEORGIAN FOREIGN POLICY EVENTS ##########
+################################################
+
+# 1. Georgia Proposes Restoration of Bilateral Trade (SOV)
+country_event = {
+	id = georg_fp.1
+	title = georg_fp.1.t
+	desc = georg_fp.1.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.1.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.1.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 25
+		set_temp_variable = { treasury_change = 1.0 }
+		modify_treasury_effect = yes
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_idea = GEO_fp_gazprom_idea
+							has_idea = GEO_fp_russian_detente_idea
+							has_idea = GEO_fp_russian_visa_idea
+						}
+					}
+					add_ideas = GEO_fp_russian_trade_idea
+				}
+			}
+			set_temp_variable = { treasury_change = 1.0 }
+			modify_treasury_effect = yes
+			add_opinion_modifier = { target = SOV modifier = trade_mission }
+			reverse_add_opinion_modifier = { target = SOV modifier = trade_mission }
+			set_improved_trade_agreement = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.1.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.1.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		add_political_power = -15
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 2. Gazprom Transit Agreement with Georgia (SOV)
+country_event = {
+	id = georg_fp.2
+	title = georg_fp.2.t
+	desc = georg_fp.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.2.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.2.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		set_temp_variable = { treasury_change = 1.0 }
+		modify_treasury_effect = yes
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = { has_idea = GEO_fp_russian_trade_idea }
+					swap_ideas = {
+						remove_idea = GEO_fp_russian_trade_idea
+						add_idea = GEO_fp_gazprom_idea
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							has_idea = GEO_fp_russian_detente_idea
+							has_idea = GEO_fp_russian_visa_idea
+						}
+					}
+					add_ideas = GEO_fp_gazprom_idea
+				}
+			}
+			set_temp_variable = { treasury_change = 1.0 }
+			modify_treasury_effect = yes
+			set_temp_variable = { percent_change = 2 }
+			set_temp_variable = { tag_index = SOV }
+			set_temp_variable = { influence_target = GEO }
+			change_influence_percentage = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.2.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.2.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 3. Georgia Lifts Visa Regime for Russian Citizens (SOV)
+country_event = {
+	id = georg_fp.3
+	title = georg_fp.3.t
+	desc = georg_fp.3.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.3.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.3.a executed"
+		set_temp_variable = {
+			percent_change = 3
+		}
+		set_temp_variable = {
+			tag_index = SOV
+		}
+		set_temp_variable = {
+			influence_target = GEO
+		}
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		GEO = {
+			hidden_effect = {
+				remove_ideas = {
+					GEO_fp_russian_trade_idea
+					GEO_fp_gazprom_idea
+					GEO_fp_russian_detente_idea
+				}
+				add_ideas = GEO_fp_russian_visa_idea
+			}
+			add_stability = 0.04
+			set_temp_variable = { treasury_change = 1.0 }
+			modify_treasury_effect = yes
+			set_temp_variable = { temp_productivity_change = 1 }
+			flat_productivity_change_effect = yes
+			country_event = diplomatic_response.1
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				sender_influence_higher_5 = yes
+			}
+			modifier = {
+				factor = 3
+				sender_influence_higher_15 = yes
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 15
+				}
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 50
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value > 100
+				}
+			}
+		}
+	}
+	option = {
+		name = georg_fp.3.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.3.b executed"
+		set_temp_variable = {
+			percent_change = 2
+		}
+		change_domestic_influence_percentage = yes
+		add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		GEO = { country_event = diplomatic_response.2 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				sender_influence_higher_30 = yes
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value < -15
+				}
+			}
+			modifier = {
+				add = 30
+				has_opinion = {
+					target = GEO
+					value < -50
+				}
+			}
+			modifier = {
+				add = 50
+				has_opinion = {
+					target = GEO
+					value < -100
+				}
+			}
+		}
+	}
+}
+
+# 4. Audit of Strategic Assets & FSB Networks (GEO)
+country_event = {
+	id = georg_fp.4
+	title = georg_fp.4.t
+	desc = georg_fp.4.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.4.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.4.a executed"
+		ai_chance = { base = 70 }
+		add_political_power = 50
+		set_temp_variable = { treasury_change = 1.5 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = -2 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+	}
+	option = {
+		name = georg_fp.4.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.4.b executed"
+		ai_chance = { base = 30 }
+		add_stability = 0.04
+		set_temp_variable = { temp_opinion = 5 }
+		change_intelligence_community_opinion = yes
+	}
+}
+
+# 5. Tbilisi-Kyiv Black Sea Strategic Axis (UKR)
+country_event = {
+	id = georg_fp.5
+	title = georg_fp.5.t
+	desc = georg_fp.5.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.5.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.5.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 50
+		army_experience = 15
+		give_guarantee = GEO
+		GEO = {
+			hidden_effect = {
+				remove_ideas = {
+					GEO_fp_counter_russia_idea
+					GEO_fp_russian_trade_idea
+					GEO_fp_gazprom_idea
+					GEO_fp_russian_detente_idea
+					GEO_fp_russian_visa_idea
+				}
+				add_ideas = GEO_fp_ukraine_axis_idea
+			}
+			army_experience = 25
+			give_guarantee = UKR
+			add_opinion_modifier = { target = UKR modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = UKR modifier = declaration_of_friendship }
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.5.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.5.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		add_political_power = 20
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 6. Franco-Georgian Defense & Mountain Warfare Cooperation (FRA)
+country_event = {
+	id = georg_fp.6
+	title = georg_fp.6.t
+	desc = georg_fp.6.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.6.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.6.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 25
+		army_experience = 15
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = FRA }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			army_experience = 20
+			add_opinion_modifier = { target = FRA modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = FRA modifier = declaration_of_friendship }
+			add_tech_bonus = {
+				name = GEO_friendship_with_france
+				bonus = 0.50
+				uses = 1
+				category = CAT_aa
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.6.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.6.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 7. EU Member States: Georgian EU Association & Reform Fund
+country_event = {
+	id = georg_fp.7
+	title = georg_fp.7.t
+	desc = georg_fp.7.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.7.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.7.a executed"
+		add_political_power = -50
+		set_temp_variable = {
+			percent_change = 2
+		}
+		set_temp_variable = {
+			tag_index = THIS
+		}
+		set_temp_variable = {
+			influence_target = GEO
+		}
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 20
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				add = 30
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+	}
+	option = {
+		name = georg_fp.7.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.7.b executed"
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 30
+				has_opinion = { target = GEO value < 0 }
+			}
+		}
+	}
+}
+
+# 8. Georgia Enters the IMET Program (USA)
+country_event = {
+	id = georg_fp.8
+	title = georg_fp.8.t
+	desc = georg_fp.8.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.8.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.8.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 25
+		army_experience = 10
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = USA }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_idea = GEO_fp_gtep_idea
+							has_idea = GEO_fp_nato_integration_idea
+						}
+					}
+					add_ideas = GEO_fp_us_imet_idea
+				}
+			}
+			army_experience = 25
+			add_doctrine_cost_reduction = {
+				name = GEO_enact_IMET
+				cost_reduction = 0.50
+				uses = 1
+				category = CAT_land_doctrine
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.8.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.8.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 9. Launch of the Georgia Train and Equip Program - GTEP (USA)
+country_event = {
+	id = georg_fp.9
+	title = georg_fp.9.t
+	desc = georg_fp.9.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.9.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.9.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		army_experience = 15
+		add_opinion_modifier = { target = GEO modifier = military_deals }
+		if = {
+			limit = { has_equipment = { Inf_equipment > 1499 } }
+			add_equipment_to_stockpile = {
+				type = Inf_equipment
+				amount = -1500
+			}
+		}
+		if = {
+			limit = { has_equipment = { C4ISTAR_equipment > 149 } }
+			add_equipment_to_stockpile = {
+				type = C4ISTAR_equipment
+				amount = -150
+			}
+		}
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = USA }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = { has_idea = GEO_fp_us_imet_idea }
+					swap_ideas = {
+						remove_idea = GEO_fp_us_imet_idea
+						add_idea = GEO_fp_gtep_idea
+					}
+				}
+				else_if = {
+					limit = { NOT = { has_idea = GEO_fp_nato_integration_idea } }
+					add_ideas = GEO_fp_gtep_idea
+				}
+			}
+			army_experience = 35
+			add_equipment_to_stockpile = {
+				type = infantry_weapons3
+				amount = 1500
+				producer = USA
+			}
+			add_equipment_to_stockpile = {
+				type = command_control_equipment2
+				amount = 150
+				producer = USA
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.9.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.9.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 10. US Special Forces Instructors Arrive at Krtsanisi (GEO)
+country_event = {
+	id = georg_fp.10
+	title = georg_fp.10.t
+	desc = georg_fp.10.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.10.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.10.a executed"
+		army_experience = 25
+		add_command_power = 20
+		add_war_support = 0.03
+	}
+}
+
+# 11. Georgia Requests NATO Integration & Security Guarantees (USA)
+country_event = {
+	id = georg_fp.11
+	title = georg_fp.11.t
+	desc = georg_fp.11.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.11.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.11.a executed"
+		trigger = {
+			OR = {
+				GEO = { controls_state = 705 }
+				SOO = { is_subject_of = GEO }
+			}
+			OR = {
+				GEO = { controls_state = 706 }
+				ABK = { is_subject_of = GEO }
+			}
+		}
+		ai_chance = {
+			base = 80
+			modifier = {
+				factor = 1.2
+				has_opinion = { target = GEO value > 50 }
+			}
+		}
+		give_guarantee = GEO
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		GEO = {
+			hidden_effect = {
+				remove_ideas = {
+					GEO_fp_us_imet_idea
+					GEO_fp_gtep_idea
+				}
+				add_ideas = GEO_fp_nato_integration_idea
+			}
+			NATO_join = yes
+			add_political_power = 100
+			add_war_support = 0.05
+			add_stability = 0.04
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.11.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.11.b executed"
+		ai_chance = {
+			base = 20
+			modifier = {
+				factor = 10.0
+				NOT = {
+					AND = {
+						OR = {
+							GEO = { controls_state = 705 }
+							SOO = { is_subject_of = GEO }
+						}
+						OR = {
+							GEO = { controls_state = 706 }
+							ABK = { is_subject_of = GEO }
+						}
+					}
+				}
+			}
+		}
+		give_guarantee = GEO
+		GEO = {
+			if = {
+				limit = { NOT = { has_idea = Major_Non_NATO_Ally } }
+				add_ideas = Major_Non_NATO_Ally
+			}
+			add_political_power = 50
+			country_event = diplomatic_response.2
+		}
+	}
+}
+
+# 12. The GUAM Summit for Democracy and Economic Development (UKR/AZE/MLD)
+country_event = {
+	id = georg_fp.12
+	title = georg_fp.12.t
+	desc = georg_fp.12.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.12.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.12.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 35
+		set_temp_variable = { treasury_change = 1.0 }
+		modify_treasury_effect = yes
+		add_opinion_modifier = { target = GEO modifier = diplomatic_proximity }
+		reverse_add_opinion_modifier = { target = GEO modifier = diplomatic_proximity }
+		GEO = { country_event = diplomatic_response.1 }
+	}
+	option = {
+		name = georg_fp.12.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.12.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 13. Inauguration of the Baku-Tbilisi-Ceyhan & South Caucasus Pipelines (AZE)
+country_event = {
+	id = georg_fp.13
+	title = georg_fp.13.t
+	desc = georg_fp.13.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.13.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.13.a executed"
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				sender_influence_higher_5 = yes
+			}
+			modifier = {
+				factor = 3
+				sender_influence_higher_15 = yes
+			}
+			modifier = {
+				add = 5
+				has_opinion = { target = GEO value > 15 }
+			}
+			modifier = {
+				add = 5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = GEO value > 100 }
+			}
+		}
+		GEO = {
+			country_event = georg_fp.13_geo
+		}
+		set_temp_variable = { percent_change = 6 }
+		set_temp_variable = { tag_index = GEO }
+		set_temp_variable = { influence_target = ROOT }
+		change_influence_percentage = yes
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = fossil_powerplant
+				level = 1
+				instant_build = yes
+			}
+			add_resource = {
+				type = oil
+				amount = 2
+			}
+		}
+		newline = yes
+		set_temp_variable = { treasury_change = -2 }
+		modify_treasury_effect = yes
+	}
+
+	option = {
+		name = georg_fp.13.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.13.b executed"
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				sender_influence_higher_30 = yes
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = GEO value < -15 }
+			}
+			modifier = {
+				add = 30
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				add = 50
+				has_opinion = { target = GEO value < -100 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 13 Confirmation for Georgia
+country_event = {
+	id = georg_fp.13_geo
+	title = georg_fp.13_geo.t
+	desc = georg_fp.13_geo.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.13_geo.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.13_geo.a executed"
+		custom_effect_tooltip = GEO_fp_pipeline_transit_tt
+		hidden_effect = {
+			if = {
+				limit = { has_idea = GEO_fp_guam_charter_idea }
+				swap_ideas = {
+					remove_idea = GEO_fp_guam_charter_idea
+					add_idea = GEO_fp_pipeline_transit_idea
+				}
+			}
+			else_if = {
+				limit = { NOT = { has_idea = GEO_fp_pipeline_transit_idea } }
+				add_ideas = GEO_fp_pipeline_transit_idea
+			}
+		}
+		custom_effect_tooltip = egy_petr_tt
+		set_temp_variable = {
+			treasury_change = -2
+		}
+		modify_treasury_effect = yes
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = fossil_powerplant
+				level = 1
+				instant_build = yes
+			}
+			add_resource = {
+				type = oil
+				amount = 2
+			}
+		}
+	}
+}
+
+# 14. The David Gareja Border Demarcation (GEO)
+country_event = {
+	id = georg_fp.14
+	title = georg_fp.14.t
+	desc = georg_fp.14.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.14.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.14.a executed (Double Down)"
+		ai_chance = { base = 50 }
+		if = {
+			limit = { country_exists = AZE NOT = { has_war_with = AZE } }
+			AZE = {
+				country_event = { id = georg_fp.40 days = 1 }
+			}
+		}
+	}
+	option = {
+		name = georg_fp.14.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.14.b executed (Cede Disputed Territory)"
+		ai_chance = { base = 50 }
+		if = {
+			limit = { country_exists = AZE }
+			AZE = {
+				set_temp_variable = { treasury_change = -5.0 }
+				modify_treasury_effect = yes
+				add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+			}
+		}
+		set_temp_variable = { treasury_change = 5.0 }
+		modify_treasury_effect = yes
+		708 = {
+			remove_dynamic_modifier = { modifier = GEO_border_dispute_azerbaijan }
+		}
+		add_stability = 0.03
+		add_political_power = 25
+	}
+}
+
+# 15. Georgian-Armenian Intergovernmental Commission (ARM)
+country_event = {
+	id = georg_fp.15
+	title = georg_fp.15.t
+	desc = georg_fp.15.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.15.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.15.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 35
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_idea = GEO_fp_armenia_trade_idea
+							has_idea = GEO_fp_armenia_visa_free_idea
+							has_idea = GEO_fp_armenia_border_coop_idea
+						}
+					}
+					add_ideas = GEO_fp_armenia_trade_idea
+				}
+			}
+			add_opinion_modifier = { target = ARM modifier = diplomatic_proximity }
+			reverse_add_opinion_modifier = { target = ARM modifier = diplomatic_proximity }
+			set_temp_variable = { percent_change = 2 }
+			set_temp_variable = { tag_index = GEO }
+			set_temp_variable = { influence_target = ARM }
+			change_influence_percentage = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.15.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.15.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 16. Georgian-Armenian High-Voltage Energy & Transit Accord (ARM)
+country_event = {
+	id = georg_fp.16
+	title = georg_fp.16.t
+	desc = georg_fp.16.d
+	picture = GFX_report_event_Corruption_1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.16.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.16.a executed"
+		add_timed_idea = {
+			idea = ARM_amenia_georgia_electro_agre
+			days = 600
+		}
+		set_temp_variable = { treasury_change = 15 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = ARM }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = trade_mission }
+		reverse_add_opinion_modifier = { target = GEO modifier = trade_mission }
+		GEO = {
+			add_timed_idea = {
+				idea = ARM_amenia_georgia_electro
+				days = 600
+			}
+			set_temp_variable = { treasury_change = -15 }
+			modify_treasury_effect = yes
+			set_temp_variable = { receiver_nation = ARM.id sender_nation = GEO.id }
+			set_improved_trade_agreement = yes
+			country_event = diplomatic_response.1
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				sender_influence_higher_5 = yes
+			}
+			modifier = {
+				factor = 3
+				sender_influence_higher_15 = yes
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 15
+				}
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 50
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value > 100
+				}
+			}
+		}
+	}
+	option = {
+		name = georg_fp.16.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.16.b executed"
+		add_political_power = 50
+		GEO = { country_event = diplomatic_response.2 }
+		add_opinion_modifier = {
+			target = GEO
+			modifier = recent_actions_negative
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				sender_influence_higher_30 = yes
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value < -15
+				}
+			}
+			modifier = {
+				add = 30
+				has_opinion = {
+					target = GEO
+					value < -50
+				}
+			}
+			modifier = {
+				add = 50
+				has_opinion = {
+					target = GEO
+					value < -100
+				}
+			}
+		}
+	}
+}
+
+# 17. The Trabzon Declaration: Georgian-Turkish Strategic Partnership (TUR)
+country_event = {
+	id = georg_fp.17
+	title = georg_fp.17.t
+	desc = georg_fp.17.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.17.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.17.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 35
+		set_temp_variable = { treasury_change = -3.00 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 3.00 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = TUR }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = trade_mission }
+		reverse_add_opinion_modifier = { target = GEO modifier = trade_mission }
+		GEO = {
+			set_temp_variable = { int_investment_change = 3.00 }
+			modify_international_investment_effect = yes
+			466 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { receiver_nation = GEO.id sender_nation = TUR.id }
+			set_improved_trade_agreement = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.17.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.17.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 18. Georgian-Israeli Defense & Avionics Partnership (ISR)
+country_event = {
+	id = georg_fp.18
+	title = georg_fp.18.t
+	desc = georg_fp.18.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.18.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.18.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		set_temp_variable = { treasury_change = 1.0 }
+		modify_treasury_effect = yes
+		army_experience = 15
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = ISR }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			army_experience = 25
+			air_experience = 15
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
+			add_opinion_modifier = { target = ISR modifier = military_deals }
+			reverse_add_opinion_modifier = { target = ISR modifier = military_deals }
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.18.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.18.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 19. Israeli Cyber-Defense & Drip-Irrigation Technology Transfer (ISR)
+country_event = {
+	id = georg_fp.19
+	title = georg_fp.19.t
+	desc = georg_fp.19.d
+	picture = GFX_report_event_generic_political_reform
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.19.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.19.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		set_temp_variable = { treasury_change = 1.0 }
+		modify_treasury_effect = yes
+		GEO = {
+			add_stability = 0.03
+			set_temp_variable = { treasury_change = -1.0 }
+			modify_treasury_effect = yes
+			add_tech_bonus = {
+				name = GEO_israeli_cyber_and_agro_tech
+				bonus = 0.50
+				uses = 2
+				category = CAT_computing_tech
+			}
+			set_temp_variable = { temp_productivity_change = 1 }
+			flat_productivity_change_effect = yes
+			set_temp_variable = { temp_opinion = 5 }
+			change_intelligence_community_opinion = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.19.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.19.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 20. Warsaw-Vilnius-Tallinn Military Cooperation (POL/LIT/EST)
+country_event = {
+	id = georg_fp.20
+	title = georg_fp.20.t
+	desc = georg_fp.20.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.20.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.20.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		army_experience = 15
+		add_command_power = 15
+		give_guarantee = GEO
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		GEO = {
+			army_experience = 25
+			add_command_power = 20
+			add_war_support = 0.04
+			add_political_power = 40
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.20.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.20.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 21. KazMunayGas Acquires the Batumi Oil Terminal (KAZ)
+country_event = {
+	id = georg_fp.21
+	title = georg_fp.21.t
+	desc = georg_fp.21.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.21.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.21.a executed"
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				sender_influence_higher_5 = yes
+			}
+			modifier = {
+				factor = 3
+				sender_influence_higher_15 = yes
+			}
+			modifier = {
+				add = 5
+				has_opinion = { target = GEO value > 15 }
+			}
+			modifier = {
+				add = 5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = GEO value > 100 }
+			}
+		}
+		GEO = {
+			country_event = georg_fp.21_geo
+		}
+		set_temp_variable = { percent_change = 6 }
+		set_temp_variable = { tag_index = GEO }
+		set_temp_variable = { influence_target = ROOT }
+		change_influence_percentage = yes
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = fossil_powerplant
+				level = 1
+				instant_build = yes
+			}
+			add_resource = {
+				type = oil
+				amount = 2
+			}
+		}
+		newline = yes
+		set_temp_variable = { treasury_change = -2 }
+		modify_treasury_effect = yes
+	}
+
+	option = {
+		name = georg_fp.21.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.21.b executed"
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				sender_influence_higher_30 = yes
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = GEO value < -15 }
+			}
+			modifier = {
+				add = 30
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				add = 50
+				has_opinion = { target = GEO value < -100 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 21 Confirmation for Georgia
+country_event = {
+	id = georg_fp.21_geo
+	title = georg_fp.21_geo.t
+	desc = georg_fp.21_geo.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.21_geo.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.21_geo.a executed"
+		custom_effect_tooltip = egy_petr_tt
+		set_temp_variable = {
+			treasury_change = -2
+		}
+		modify_treasury_effect = yes
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = fossil_powerplant
+				level = 1
+				instant_build = yes
+			}
+			add_resource = {
+				type = oil
+				amount = 2
+			}
+		}
+	}
+}
+
+# 22. The Tbilisi Silk Road Forum: Eurasian Middle Corridor (CHI)
+country_event = {
+	id = georg_fp.22
+	title = georg_fp.22.t
+	desc = georg_fp.22.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.22.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.22.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 35
+		set_temp_variable = { treasury_change = -5.00 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 5.00 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 4 }
+		set_temp_variable = { tag_index = CHI }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = trade_mission }
+		reverse_add_opinion_modifier = { target = GEO modifier = trade_mission }
+		GEO = {
+			hidden_effect = {
+				remove_ideas = GEO_fp_silk_road_diplomacy_idea
+				add_ideas = GEO_fp_eurasian_hub_idea
+			}
+			add_political_power = 75
+			add_stability = 0.04
+			set_temp_variable = { int_investment_change = 2.50 }
+			modify_international_investment_effect = yes
+			set_temp_variable = { treasury_change = 2.50 }
+			modify_treasury_effect = yes
+			708 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { temp_productivity_change = 1 }
+				state_flat_productivity_change_effect = yes
+			}
+			set_temp_variable = { receiver_nation = GEO.id sender_nation = CHI.id }
+			set_improved_trade_agreement = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.22.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.22.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 23. European Neighbourhood Action Plan with Georgia (GER/FRA IO Leader)
+country_event = {
+	id = georg_fp.23
+	title = georg_fp.23.t
+	desc = georg_fp.23.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.23.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.23.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 25
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_idea = GEO_fp_eu_visa_free_idea
+							has_idea = GEO_fp_eu_dcfta_idea
+						}
+					}
+					add_ideas = GEO_fp_enp_idea
+				}
+			}
+			add_political_power = 50
+			set_temp_variable = { treasury_change = 1.0 }
+			modify_treasury_effect = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.23.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.23.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 24. EU-Georgia Visa-Free Schengen Regime (GER/FRA IO Leader)
+country_event = {
+	id = georg_fp.24
+	title = georg_fp.24.t
+	desc = georg_fp.24.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.24.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.24.a executed"
+		set_temp_variable = {
+			percent_change = 3
+		}
+		set_temp_variable = {
+			tag_index = THIS
+		}
+		set_temp_variable = {
+			influence_target = GEO
+		}
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = { has_idea = GEO_fp_enp_idea }
+					swap_ideas = {
+						remove_idea = GEO_fp_enp_idea
+						add_idea = GEO_fp_eu_visa_free_idea
+					}
+				}
+				else_if = {
+					limit = { NOT = { has_idea = GEO_fp_eu_dcfta_idea } }
+					add_ideas = GEO_fp_eu_visa_free_idea
+				}
+			}
+			add_stability = 0.04
+			add_political_power = 50
+			country_event = diplomatic_response.1
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				sender_influence_higher_5 = yes
+			}
+			modifier = {
+				factor = 3
+				sender_influence_higher_15 = yes
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 15
+				}
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 50
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value > 100
+				}
+			}
+		}
+	}
+	option = {
+		name = georg_fp.24.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.24.b executed"
+		set_temp_variable = {
+			percent_change = 2
+		}
+		change_domestic_influence_percentage = yes
+		add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		GEO = { country_event = diplomatic_response.2 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				sender_influence_higher_30 = yes
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value < -15
+				}
+			}
+			modifier = {
+				add = 30
+				has_opinion = {
+					target = GEO
+					value < -50
+				}
+			}
+			modifier = {
+				add = 50
+				has_opinion = {
+					target = GEO
+					value < -100
+				}
+			}
+		}
+	}
+}
+
+# 25. US-Georgian Coast Guard & Poti Naval Facility Modernization (USA)
+country_event = {
+	id = georg_fp.25
+	title = georg_fp.25.t
+	desc = georg_fp.25.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.25.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.25.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		navy_experience = 15
+		set_temp_variable = { treasury_change = -1.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 1.50 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = USA }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			navy_experience = 35
+			set_temp_variable = { int_investment_change = 1.50 }
+			modify_international_investment_effect = yes
+			707 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 9626
+					instant_build = yes
+				}
+			}
+			add_doctrine_cost_reduction = {
+				name = GEO_coast_guard_coop
+				cost_reduction = 0.50
+				uses = 1
+				category = CAT_naval_doctrine
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.25.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.25.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 26. Georgian Contingent Joins ISAF in Afghanistan (USA)
+country_event = {
+	id = georg_fp.26
+	title = georg_fp.26.t
+	desc = georg_fp.26.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.26.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.26.a executed"
+		ai_chance = { base = 100 }
+		army_experience = 15
+		GEO = {
+			army_experience = 50
+			add_war_support = 0.05
+			add_equipment_to_stockpile = {
+				type = util_vehicle_3
+				amount = 100
+				producer = USA
+			}
+			if = {
+				limit = { NOT = { has_idea = GEO_peacekeepers_idea } }
+				hidden_effect = { add_ideas = GEO_peacekeepers_idea }
+			}
+			add_opinion_modifier = { target = USA modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = USA modifier = declaration_of_friendship }
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.26.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.26.b executed"
+		ai_chance = { base = 0 }
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 27. Georgian Brigade Deploys to Multi-National Force – Iraq (USA)
+country_event = {
+	id = georg_fp.27
+	title = georg_fp.27.t
+	desc = georg_fp.27.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.27.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.27.a executed"
+		ai_chance = { base = 100 }
+		army_experience = 15
+		GEO = {
+			add_ideas = Enduring_Freedom
+			army_experience = 35
+			set_temp_variable = { treasury_change = 1.0 }
+			modify_treasury_effect = yes
+			add_opinion_modifier = { target = USA modifier = recent_actions_positive }
+			reverse_add_opinion_modifier = { target = USA modifier = recent_actions_positive }
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.27.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.27.b executed"
+		ai_chance = { base = 0 }
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 28. Georgian-Azerbaijani Strategic Partnership Charter (AZE)
+country_event = {
+	id = georg_fp.28
+	title = georg_fp.28.t
+	desc = georg_fp.28.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.28.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.28.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 35
+		set_temp_variable = { treasury_change = -2.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 2.50 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = AZE }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_temp_variable = { treasury_change = 1.00 }
+			modify_treasury_effect = yes
+			add_opinion_modifier = { target = AZE modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = AZE modifier = declaration_of_friendship }
+			set_temp_variable = { percent_change = 2 }
+			set_temp_variable = { tag_index = GEO }
+			set_temp_variable = { influence_target = AZE }
+			change_influence_percentage = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.28.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.28.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 29. Georgian-Azerbaijani Education & Fiber-Optic Corridor Accord (AZE)
+country_event = {
+	id = georg_fp.29
+	title = georg_fp.29.t
+	desc = georg_fp.29.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.29.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.29.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_political_power = 25
+		add_tech_bonus = {
+			name = GEO_cooperation_in_education_information
+			bonus = 0.50
+			uses = 1
+			category = CAT_computing_tech
+		}
+		GEO = {
+			add_stability = 0.03
+			add_tech_bonus = {
+				name = GEO_cooperation_in_education_information
+				bonus = 0.50
+				uses = 1
+				category = CAT_computing_tech
+			}
+			707 = {
+				set_temp_variable = { temp_productivity_change = 1 }
+				state_flat_productivity_change_effect = yes
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.29.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.29.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 30. Georgian-Azerbaijani Power Grid Synchronization (AZE)
+country_event = {
+	id = georg_fp.30
+	title = georg_fp.30.t
+	desc = georg_fp.30.d
+	picture = GFX_report_event_Corruption_1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.30.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.30.a executed"
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				sender_influence_higher_5 = yes
+			}
+			modifier = {
+				factor = 3
+				sender_influence_higher_15 = yes
+			}
+			modifier = {
+				add = 5
+				has_opinion = { target = GEO value > 15 }
+			}
+			modifier = {
+				add = 5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = GEO value > 100 }
+			}
+		}
+		GEO = {
+			country_event = georg_fp.30_geo
+		}
+		add_timed_idea = {
+			idea = GEO_azerbaijan_georgia_electro_agre
+			days = 600
+		}
+		set_temp_variable = { treasury_change = 15 }
+		modify_treasury_effect = yes
+		set_temp_variable = { receiver_nation = AZE.id sender_nation = GEO.id }
+		set_improved_trade_agreement = yes
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = AZE }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+	}
+
+	option = {
+		name = georg_fp.30.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.30.b executed"
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				sender_influence_higher_30 = yes
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = GEO value < -15 }
+			}
+			modifier = {
+				add = 30
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				add = 50
+				has_opinion = { target = GEO value < -100 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 30 Confirmation for Georgia
+country_event = {
+	id = georg_fp.30_geo
+	title = georg_fp.30_geo.t
+	desc = georg_fp.30_geo.d
+	picture = GFX_report_event_Corruption_1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.30_geo.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.30_geo.a executed"
+		add_timed_idea = {
+			idea = GEO_azerbaijan_georgia_electro
+			days = 600
+		}
+		set_temp_variable = { treasury_change = -15 }
+		modify_treasury_effect = yes
+	}
+}
+
+# 31. Tbilisi-Yerevan Highway & Rail Transit Modernization (ARM)
+country_event = {
+	id = georg_fp.31
+	title = georg_fp.31.t
+	desc = georg_fp.31.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.31.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.31.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		set_temp_variable = { treasury_change = -0.75 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 0.75 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = ARM }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			707 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { temp_productivity_change = 1 }
+				state_flat_productivity_change_effect = yes
+			}
+			set_temp_variable = { percent_change = 2 }
+			set_temp_variable = { tag_index = GEO }
+			set_temp_variable = { influence_target = ARM }
+			change_influence_percentage = yes
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.31.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.31.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 32. Georgian-Armenian Visa-Free Travel & Labor Mobility Treaty (ARM)
+country_event = {
+	id = georg_fp.32
+	title = georg_fp.32.t
+	desc = georg_fp.32.d
+	picture = GFX_arab_spring_defection
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.32.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.32.a executed"
+		add_ideas = GEO_fp_armenia_visa_free_idea
+		set_temp_variable = {
+			percent_change = 3
+		}
+		set_temp_variable = {
+			tag_index = GEO
+		}
+		set_temp_variable = {
+			influence_target = ARM
+		}
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		GEO = {
+			hidden_effect = {
+				if = {
+					limit = { has_idea = GEO_fp_armenia_trade_idea }
+					swap_ideas = {
+						remove_idea = GEO_fp_armenia_trade_idea
+						add_idea = GEO_fp_armenia_visa_free_idea
+					}
+				}
+				else_if = {
+					limit = { NOT = { has_idea = GEO_fp_armenia_border_coop_idea } }
+					add_ideas = GEO_fp_armenia_visa_free_idea
+				}
+			}
+			add_stability = 0.03
+			country_event = diplomatic_response.1
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				sender_influence_higher_5 = yes
+			}
+			modifier = {
+				factor = 3
+				sender_influence_higher_15 = yes
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 15
+				}
+			}
+			modifier = {
+				add = 5
+				has_opinion = {
+					target = GEO
+					value > 50
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value > 100
+				}
+			}
+		}
+	}
+
+	option = {
+		name = georg_fp.32.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.32.b executed"
+		set_temp_variable = {
+			percent_change = 2
+		}
+		change_domestic_influence_percentage = yes
+		add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		reverse_add_opinion_modifier = {
+			modifier = drama
+			target = GEO
+		}
+		GEO = {
+			country_event = diplomatic_response.2
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				sender_influence_higher_30 = yes
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = GEO
+					value < -15
+				}
+			}
+			modifier = {
+				add = 30
+				has_opinion = {
+					target = GEO
+					value < -50
+				}
+			}
+			modifier = {
+				add = 50
+				has_opinion = {
+					target = GEO
+					value < -100
+				}
+			}
+		}
+	}
+}
+
+# 33. Sadakhlo-Bagratashen Joint Border Management Protocol (ARM)
+country_event = {
+	id = georg_fp.33
+	title = georg_fp.33.t
+	desc = georg_fp.33.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.33.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.33.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		army_experience = 15
+		GEO = {
+			hidden_effect = {
+				remove_ideas = {
+					GEO_fp_armenia_trade_idea
+					GEO_fp_armenia_visa_free_idea
+				}
+				add_ideas = GEO_fp_armenia_border_coop_idea
+			}
+			army_experience = 20
+			add_command_power = 20
+			add_opinion_modifier = { target = ARM modifier = military_deals }
+			reverse_add_opinion_modifier = { target = ARM modifier = military_deals }
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.33.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.33.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 34. Sarpi One-Stop Customs & Marneuli Airbase Modernization (TUR)
+country_event = {
+	id = georg_fp.34
+	title = georg_fp.34.t
+	desc = georg_fp.34.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.34.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.34.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		air_experience = 15
+		set_temp_variable = { treasury_change = -1.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 1.50 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = TUR }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_temp_variable = { int_investment_change = 1.50 }
+			modify_international_investment_effect = yes
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+			466 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { temp_productivity_change = 2 }
+				state_flat_productivity_change_effect = yes
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.34.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.34.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 35. The Trilateral Caucasus Strategic Pact (Sent to Turkey)
+country_event = {
+	id = georg_fp.35
+	title = georg_fp.35.t
+	desc = georg_fp.35.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.35.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.35.a executed"
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = AZE value > 50 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < 0 }
+			}
+		}
+		AZE = {
+			country_event = georg_fp.45
+		}
+	}
+
+	option = {
+		name = georg_fp.35.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.35.b executed"
+		ai_chance = {
+			base = 25
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value > 50 }
+				has_opinion = { target = AZE value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+		}
+		GEO = {
+			country_event = georg_fp.46
+		}
+	}
+}
+
+# 45. The Trilateral Caucasus Strategic Pact (Sent to Azerbaijan)
+country_event = {
+	id = georg_fp.45
+	title = georg_fp.45.t
+	desc = georg_fp.45.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.45.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.45.a executed"
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = TUR value > 50 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < 0 }
+			}
+		}
+		diplomatic_relation = { country = GEO relation = non_aggression_pact active = yes }
+		diplomatic_relation = { country = TUR relation = non_aggression_pact active = yes }
+		give_military_access = GEO
+		give_military_access = TUR
+		give_guarantee = GEO
+		give_guarantee = TUR
+		add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+		add_opinion_modifier = { target = TUR modifier = declaration_of_friendship }
+		reverse_add_opinion_modifier = { target = TUR modifier = declaration_of_friendship }
+		army_experience = 25
+		add_command_power = 20
+		add_war_support = 0.05
+		add_political_power = 50
+
+		TUR = {
+			diplomatic_relation = { country = GEO relation = non_aggression_pact active = yes }
+			diplomatic_relation = { country = AZE relation = non_aggression_pact active = yes }
+			give_military_access = GEO
+			give_military_access = AZE
+			give_guarantee = GEO
+			give_guarantee = AZE
+			add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = GEO modifier = declaration_of_friendship }
+			add_opinion_modifier = { target = AZE modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = AZE modifier = declaration_of_friendship }
+			country_event = georg_fp.48
+		}
+
+		GEO = {
+			diplomatic_relation = { country = TUR relation = non_aggression_pact active = yes }
+			diplomatic_relation = { country = AZE relation = non_aggression_pact active = yes }
+			give_military_access = TUR
+			give_military_access = AZE
+			give_guarantee = TUR
+			give_guarantee = AZE
+			add_opinion_modifier = { target = TUR modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = TUR modifier = declaration_of_friendship }
+			add_opinion_modifier = { target = AZE modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = AZE modifier = declaration_of_friendship }
+			country_event = georg_fp.47
+		}
+	}
+
+	option = {
+		name = georg_fp.45.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.45.b executed"
+		ai_chance = {
+			base = 25
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value > 50 }
+				has_opinion = { target = TUR value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+		}
+		GEO = { country_event = georg_fp.49 }
+		TUR = { country_event = georg_fp.49 }
+	}
+}
+
+# 46. Turkey Declined Trilateral Caucasus Pact (Sent to GEO)
+country_event = {
+	id = georg_fp.46
+	title = georg_fp.46.t
+	desc = georg_fp.46.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.46.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.46.a executed"
+		add_political_power = -25
+	}
+}
+
+# 47. Trilateral Caucasus Strategic Pact Ratified (Sent to GEO)
+country_event = {
+	id = georg_fp.47
+	title = georg_fp.47.t
+	desc = georg_fp.47.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.47.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.47.a executed"
+		army_experience = 25
+		add_command_power = 20
+		add_war_support = 0.05
+		add_political_power = 50
+	}
+}
+
+# 48. Trilateral Caucasus Strategic Pact Ratified (Sent to TUR)
+country_event = {
+	id = georg_fp.48
+	title = georg_fp.48.t
+	desc = georg_fp.48.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.48.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.48.a executed"
+		army_experience = 25
+		add_command_power = 20
+		add_war_support = 0.05
+		add_political_power = 50
+	}
+}
+
+# 49. Azerbaijan Declined Trilateral Caucasus Pact (Sent to GEO & TUR)
+country_event = {
+	id = georg_fp.49
+	title = georg_fp.49.t
+	desc = georg_fp.49.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.49.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.49.a executed"
+		add_political_power = -25
+	}
+}
+
+# 36. Elbit Systems & Rafael SPYDER-SR Air-Defense Contract (ISR)
+country_event = {
+	id = georg_fp.36
+	title = georg_fp.36.t
+	desc = georg_fp.36.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.36.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.36.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		set_temp_variable = { treasury_change = 3.00 }
+		modify_treasury_effect = yes
+		if = {
+			limit = { has_equipment = { AA_Equipment > 149 } }
+			add_equipment_to_stockpile = {
+				type = AA_Equipment
+				amount = -150
+			}
+		}
+		if = {
+			limit = { has_equipment = { C4ISTAR_equipment > 59 } }
+			add_equipment_to_stockpile = {
+				type = C4ISTAR_equipment
+				amount = -60
+			}
+		}
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = ISR }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_temp_variable = { treasury_change = -3.00 }
+			modify_treasury_effect = yes
+			add_equipment_to_stockpile = {
+				type = AA_Equipment
+				amount = 150
+				producer = ISR
+			}
+			add_equipment_to_stockpile = {
+				type = command_control_equipment2
+				amount = 60
+				producer = ISR
+			}
+			add_tech_bonus = {
+				name = GEO_elbit_and_spyder_contracts
+				bonus = 0.50
+				uses = 1
+				category = CAT_aa
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.36.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.36.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = {
+			country_event = diplomatic_response.2
+		}
+	}
+}
+
+# 37. Black Sea Ferry & Subsea Cable Link: Poti-Constanta-Varna (ROM/BUL)
+country_event = {
+	id = georg_fp.37
+	title = georg_fp.37.t
+	desc = georg_fp.37.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.37.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.37.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		navy_experience = 15
+		add_opinion_modifier = { target = GEO modifier = trade_mission }
+		reverse_add_opinion_modifier = { target = GEO modifier = trade_mission }
+		set_temp_variable = { treasury_change = -1.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 1.50 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = THIS }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_temp_variable = { int_investment_change = 1.50 }
+			modify_international_investment_effect = yes
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+			navy_experience = 20
+			466 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 3653
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { temp_productivity_change = 1 }
+				state_flat_productivity_change_effect = yes
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.37.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.37.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 38. Persian Gulf-Black Sea Transit Corridor & Sovereign Wealth Investment (PER/UAE)
+country_event = {
+	id = georg_fp.38
+	title = georg_fp.38.t
+	desc = georg_fp.38.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.38.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.38.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.2
+				has_opinion = { target = GEO value < -25 }
+			}
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value < -50 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		add_opinion_modifier = { target = GEO modifier = trade_mission }
+		reverse_add_opinion_modifier = { target = GEO modifier = trade_mission }
+		set_temp_variable = { receiver_nation = GEO.id }
+		set_temp_variable = { sender_nation = THIS.id }
+		set_improved_trade_agreement = yes
+		set_temp_variable = { treasury_change = -2.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 2.50 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = THIS }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_temp_variable = { receiver_nation = PREV.id }
+			set_temp_variable = { sender_nation = GEO.id }
+			set_improved_trade_agreement = yes
+			set_temp_variable = { int_investment_change = 2.50 }
+			modify_international_investment_effect = yes
+			set_temp_variable = { treasury_change = 1.00 }
+			modify_treasury_effect = yes
+			707 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { temp_productivity_change = 1 }
+				state_flat_productivity_change_effect = yes
+			}
+			country_event = diplomatic_response.1
+		}
+	}
+	option = {
+		name = georg_fp.38.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.38.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value > 25 }
+			}
+			modifier = {
+				factor = 0.1
+				has_opinion = { target = GEO value > 50 }
+			}
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 5.0
+				has_opinion = { target = GEO value < -25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
+# 39. The Status of Russian Military Bases in Georgia (GEO)
+country_event = {
+	id = georg_fp.39
+	title = georg_fp.39.t
+	desc = georg_fp.39.d
+	picture = GFX_war_osset
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.39.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.39.a executed"
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 40
+				OR = {
+					has_government = democratic
+					has_government = nationalist
+				}
+			}
+		}
+		add_political_power = 50
+		army_experience = 15
+		add_war_support = 0.03
+		set_temp_variable = { percent_change = 3 }
+		change_domestic_influence_percentage = yes
+		set_temp_variable = { percent_change = -3 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		if = {
+			limit = { country_exists = SOV }
+			remove_opinion_modifier = { target = SOV modifier = trade_mission }
+			SOV = { remove_opinion_modifier = { target = GEO modifier = trade_mission } }
+			add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+			reverse_add_opinion_modifier = { target = SOV modifier = recent_actions_negative }
+			add_opinion_modifier = { target = SOV modifier = resisted_territorial_ambition }
+			reverse_add_opinion_modifier = { target = SOV modifier = resisted_territorial_ambition }
+			SOV = { country_event = georg.1243 }
+		}
+		country_event = { id = georg.1244 days = 2 }
+	}
+
+	option = {
+		name = georg_fp.39.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.39.b executed"
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 40
+				has_government = communism
+			}
+		}
+		add_political_power = 50
+		add_stability = 0.03
+		set_temp_variable = { treasury_change = 1.0 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 2 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		if = {
+			limit = { country_exists = SOV }
+			SOV = {
+				diplomatic_relation = {
+					country = GEO
+					relation = military_access
+					active = yes
+				}
+			}
+			add_opinion_modifier = { target = SOV modifier = recent_actions_positive }
+			reverse_add_opinion_modifier = { target = SOV modifier = recent_actions_positive }
+		}
+	}
+}
+
+# 40. Georgia Demands Full Demarcation of David Gareja (AZE)
+country_event = {
+	id = georg_fp.40
+	title = georg_fp.40.t
+	desc = georg_fp.40.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.40.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.40.a executed (Azerbaijan Yields)"
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 40 }
+			}
+			modifier = {
+				factor = 0.3
+				has_opinion = { target = GEO value < 0 }
+			}
+		}
+		add_opinion_modifier = { target = GEO modifier = recent_actions_negative }
+		reverse_add_opinion_modifier = { target = GEO modifier = recent_actions_negative }
+		GEO = {
+			country_event = { id = georg_fp.41 days = 1 }
+		}
+	}
+	option = {
+		name = georg_fp.40.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.40.b executed (Refuse and Clash)"
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 2.0
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = { target = GEO value > 40 }
+			}
+		}
+		add_opinion_modifier = { target = GEO modifier = border_conflict_started }
+		reverse_add_opinion_modifier = { target = GEO modifier = border_conflict_started }
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 708
+				num_provinces = 4
+				on_win = georg_fp.42
+				on_lose = georg_fp.43
+				on_cancel = georg_fp.43
+				modifier = 0.1
+				dig_in_factor = 5
+			}
+			defender = {
+				state = 712
+				num_provinces = 4
+				on_win = georg_fp.43
+				on_lose = georg_fp.42
+				on_cancel = georg_fp.43
+			}
+		}
+	}
+}
+
+# 41. Azerbaijan Cedes the Disputed Ridge (GEO)
+country_event = {
+	id = georg_fp.41
+	title = georg_fp.41.t
+	desc = georg_fp.41.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.41.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.41.a executed"
+		708 = {
+			set_variable = { GEO_gareja_construction = 0 }
+			set_variable = { GEO_gareja_productivity = 0 }
+			set_variable = { GEO_gareja_manpower = 0.05 }
+			set_variable = { GEO_gareja_defence = 0.10 }
+		}
+		add_political_power = 50
+		add_stability = 0.03
+	}
+}
+
+# 42. Victory in David Gareja Border Clashes (GEO)
+country_event = {
+	id = georg_fp.42
+	title = georg_fp.42.t
+	desc = georg_fp.42.d
+	picture = GFX_war_osset
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.42.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.42.a executed"
+		708 = {
+			set_variable = { GEO_gareja_construction = 0 }
+			set_variable = { GEO_gareja_productivity = 0 }
+			set_variable = { GEO_gareja_manpower = 0.05 }
+			set_variable = { GEO_gareja_defence = 0.10 }
+		}
+		army_experience = 25
+		add_war_support = 0.05
+		add_political_power = 40
+	}
+}
+
+# 43. Border Conflict Ends in Standoff or Repulsion (GEO)
+country_event = {
+	id = georg_fp.43
+	title = georg_fp.43.t
+	desc = georg_fp.43.d
+	picture = GFX_war_osset
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.43.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.43.a executed"
+		add_war_support = -0.02
+		add_stability = -0.02
+	}
+}
+
+# 50. Russian Capital Investments in Georgian Energy & Industry (SOV)
+country_event = {
+	id = georg_fp.50
+	title = georg_fp.50.t
+	desc = georg_fp.50.d
+	picture = GFX_paris_convention
+	is_triggered_only = yes
+
+	option = {
+		name = georg_fp.50.a
+		log = "[GetDateText]: [This.GetName]: georg_fp.50.a executed"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = GEO value > 15 }
+			}
+			modifier = {
+				factor = 0.4
+				has_opinion = { target = GEO value < 0 }
+			}
+			modifier = {
+				factor = 0
+				has_war_with = GEO
+			}
+		}
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 2.00 }
+		modify_international_investment_effect = yes
+		if = {
+			limit = { NOT = { is_in_array = { permanent_investment_targets = GEO } } }
+			add_to_array = { permanent_investment_targets = GEO }
+		}
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = GEO }
+		change_influence_percentage = yes
+		GEO = {
+			set_temp_variable = { int_investment_change = 2.00 }
+			modify_international_investment_effect = yes
+			one_random_infrastructure = yes
+			one_random_industrial_complex = yes
+			set_temp_variable = { receiver_nation = GEO.id sender_nation = SOV.id }
+			set_improved_trade_agreement = yes
+			country_event = diplomatic_response.1
+		}
+	}
+
+	option = {
+		name = georg_fp.50.b
+		log = "[GetDateText]: [This.GetName]: georg_fp.50.b executed"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0
+				has_opinion = { target = GEO value > 25 }
+			}
+		}
+		GEO = { country_event = diplomatic_response.2 }
+	}
+}
+
