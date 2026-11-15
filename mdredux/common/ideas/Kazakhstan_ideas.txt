@@ -393,11 +393,6 @@ ideas = {
         #### NAZ BRANCH END ####
         #### TOK BRANCH START ####
 
-
-
-
-
-
         #### TOK BRANCH END ####
         #### TOK BRANCH START ####
         KAZ_tok_opposition_law = {
@@ -464,17 +459,6 @@ ideas = {
             }
         }
         #### TOK BRANCH END ####
-
-
-
-
-
-
-
-
-
-
-
 
         # Последствия девальвации
         KAZ_consequences_of_hyperinflation_idea = {
@@ -966,7 +950,6 @@ ideas = {
             }
         }
 
-
         #### Alash Hidden Ideas ####
         KAZ_country_defense_idea = {
             allowed_civil_war = { always = yes }
@@ -1222,7 +1205,6 @@ ideas = {
                 monthly_population = 0.15
             }
         }
-
 
         #### Ak Zhol Hidden Ideas ####
         KAZ_language_idea_akz = {
@@ -1584,8 +1566,6 @@ ideas = {
             }
         }
 
-
-
         KAZ_tok_adiletti_complete_idea = {
             name = KAZ_tok_adiletti_idea
             allowed_civil_war = { always = yes }
@@ -1762,16 +1742,6 @@ ideas = {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         KAZ_tok_mass_protests_idea = {
             picture = factory_strikes
             allowed_civil_war = { always = yes }
@@ -1899,30 +1869,6 @@ ideas = {
                 tax_gain_multiplier_modifier = 0.05
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         # UNIVERSAL
         # Однопалатный парламент
@@ -2164,8 +2110,6 @@ ideas = {
         #### ARMY, NAVAL FORCES ####
 
         #### Start Ideas End ####
-
-
 
         KAZ_tok_support_business = {
             allowed_civil_war = { always = yes }
@@ -2852,7 +2796,6 @@ ideas = {
                 custom_modifier_tooltip = KAZ_akz_reformist_mandate_idea_tt
             }
         }
-
 
         #Foreign policy
         KAZ_BLR_agro_modernization_idea = {
