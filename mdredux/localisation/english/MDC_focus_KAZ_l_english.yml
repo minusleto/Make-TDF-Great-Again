@@ -926,7 +926,7 @@
  KAZ_alan_2_desc: "The pre-production Alan-2 was designed as a new platform rather than a licensed conversion, with 70-75% of its components reportedly made in Kazakhstan. We will develop the prototype for the special forces who asked for it."
  KAZ_army_programm: "Rearmament Programme"
  KAZ_army_programm_desc: "Kazakhstan Engineering lists an anti-tank missile prototype and the modernization of the Strela among its planned products. We will fund a programme to make our infantry's rifles, anti-tank and anti-air weapons cheaper at home than anything bought abroad."
- KAZ_aibat_israel: "Development of 120mm \"Aibat\" Self-Propelled Mortar"
+ KAZ_aibat_israel: "Restore the Aibat"
  KAZ_aibat_israel_desc: "The original Aibat paired Soltam's CARDOM 120 mm mortar with an MT-LB chassis in Kazakh service. The programme was later interrupted; renewed Israeli technical cooperation would let us restore the system and return mobile mortar support to our artillery units."
  KAZ_army_sarp: "Integration of Turkish \"SARP\" Combat Modules"
  KAZ_army_sarp_desc: "A vehicle is only as effective as the crew's view of the battlefield. We will integrate Aselsan's SARP remote weapon stations into our armoured fleet, adding remotely operated firepower and a lasting Turkish defence partnership. The contract will draw on the treasury."
@@ -1867,11 +1867,11 @@
  kaz_army.37.d: "[FROM.GetName] has agreed to license the SandCat to KPE. The agreement provides assembly documentation and technical support, allowing Kazakhstan to build and maintain the Alan locally. The production line will also give our industry experience with future licensed vehicle programmes."
  kaz_army.37.a: "Establish the production line"
  kaz_army.38.t: "[FROM.GetNameWithFlag] Seeks to Revive the Aibat Programme"
- kaz_army.38.d: "The original Aibat programme paired Soltam's CARDOM 120 mm mortar with an MT-LB chassis in Kazakh service. A batch entered service, but further work was derailed by a corruption investigation. Astana now proposes to reopen technical cooperation around the system. Do we resume the partnership?"
+ kaz_army.38.d: "The original Aibat programme paired Soltam's CARDOM 120 mm mortar with an MT-LB chassis in Kazakh service. A batch entered service, but further work was derailed by a corruption investigation. [FROM.GetCapital] now proposes to reopen technical cooperation around the system. Do we resume the partnership?"
  kaz_army.38.a: "Resume technical cooperation"
  kaz_army.38.b: "Leave the programme closed"
  kaz_army.39.t: "Israel Agrees to Revive the Aibat Programme"
- kaz_army.39.d: "Israel has agreed to renew technical cooperation on the Aibat. The CARDOM mortar will again be integrated with the MT-LB platform, giving our artillery a mobile 120 mm system. An initial batch of 18 systems will return the design to service and give our crews experience with the restored system."
+ kaz_army.39.d: "[FROM.GetName] has agreed to renew technical cooperation on the Aibat. The CARDOM mortar will again be integrated with the MT-LB platform, giving our artillery a mobile 120 mm system. An initial batch of 18 systems will return the design to service and give our crews experience with the restored system."
  kaz_army.39.a: "Return the Aibat to service"
 
  #Army Ideas
@@ -1925,7 +1925,8 @@
  KAZ_taimas_tooltip_loc: "If §BTurkey§! agrees, we will receive §4120 TAIMAS 8x8§! IFV for §R5.5 Billion§! and unlock their production."
  KAZ_naiza_tooltip_loc: "If §BIsrael§! agrees, we will pay §R6 Billion§! and receive 40 §4Naiza MLRS§!, and unlocking their production."
  KAZ_semser_tooltip_loc: "If §BIsrael§! agrees, we will pay §R5 Billion§! and receive §418 Semser§! SPH, unlocking their production."
- KAZ_aibat_tooltip_loc: "If §BIsrael§! agrees, we will receive §418 Aibat§! self-propelled mortars."
+ KAZ_alan_tooltip_loc: "If §BIsrael§! agrees, military cooperation will make Israeli equipment licences cheaper to purchase and faster to produce."
+ KAZ_aibat_tooltip_loc: "If §BIsrael§! agrees, we will receive §418 Aibat§! self-propelled mortars and improve the terms for future Israeli equipment licences."
 
   # Alash Events
  KAZ_alash.1.t: "Aron Atabek in Power"
