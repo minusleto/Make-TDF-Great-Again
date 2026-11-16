@@ -3229,7 +3229,9 @@ country_event = {
 		KAZ_upgrade_drone_program = yes
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 # Airmobile Forces
 country_event = {
@@ -3333,7 +3335,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -6 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 # ISR Skylark UAV Proposal
 country_event = {
@@ -3388,7 +3392,9 @@ country_event = {
 		KAZ_upgrade_drone_program = yes
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 # SAF Barys 6x6 Licence Proposal
 country_event = {
@@ -3470,7 +3476,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -5.5 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 
 # SAF Barys 8x8 Licence Proposal
@@ -3558,7 +3566,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -5.5 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 
 # TUR Naval Shipyard Partnership Proposal
@@ -3627,7 +3637,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -1 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 
 # SOV Naval Cooperation Proposal
@@ -3777,7 +3789,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -7.5 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 #Kazakhstan Requests Taimas 8x8 Cooperation
 country_event = {
@@ -3867,7 +3881,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -5.5 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 #Kazakhstan Requests SARP Combat Modules
 country_event = {
@@ -3920,7 +3936,9 @@ country_event = {
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
 		add_ideas = KAZ_SARP_modules_idea
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 #Kazakhstan Requests Naiza MLRS Cooperation
 country_event = {
@@ -4004,7 +4022,9 @@ country_event = {
 			amount = 18
 		}
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 #Kazakhstan Requests Semser SPH Cooperation
 country_event = {
@@ -4085,7 +4105,9 @@ country_event = {
 		}
 		add_opinion_modifier = { target = ISR modifier = military_cooperation }
 		reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 # SAF Arlan Production Proposal
 country_event = {
@@ -4148,7 +4170,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -4 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 # ISR Alan Development Proposal
 country_event = {
@@ -4197,7 +4221,7 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		add_relation_modifier = { target = FROM modifier = military_cooperation }
-		set_temp_variable = { temp_opinion = 1 }
+		set_temp_variable = { temp_opinion = 2 }
 		change_the_military_opinion = yes
 		set_temp_variable = { treasury_change = -4 }
 		modify_treasury_effect = yes
@@ -4243,7 +4267,7 @@ country_event = {
 	option = {
 		name = kaz_army.39.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.39.a executed"
-		set_temp_variable = { temp_opinion = 1 }
+		set_temp_variable = { temp_opinion = 2 }
 		change_the_military_opinion = yes
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		add_relation_modifier = { target = FROM modifier = military_cooperation }
@@ -5296,7 +5320,9 @@ country_event = {
 		mio:KAZ_KPE_tank_manufacturer = {
 			add_mio_funds = 200
 		}
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 #Minsk Refused Military-Technical Exchange
 country_event = {
@@ -5535,7 +5561,9 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -12 }
 		modify_treasury_effect = yes
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 #Moscow Refused the Air Defense Deal
 country_event = {
@@ -5779,7 +5807,9 @@ country_event = {
 		}
 		mio:KAZ_Kazakhstan_Engineering_manufacturing = { add_mio_funds = 200 }
 		mio:KAZ_KPE_tank_manufacturer = { add_mio_funds = 200 }
-	}
+	
+		set_temp_variable = { temp_opinion = 2 }
+		change_the_military_opinion = yes}
 }
 #Kyiv Declined
 country_event = {
