@@ -4195,11 +4195,8 @@ country_event = {
 		name = kaz_army.37.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		if = {
-			limit = { NOT = { has_tech = util_vehicle_5 } }
-			set_technology = { util_vehicle_5 = 1 }
-		}
-		add_ideas = KAZ_alan_license_idea
+		set_temp_variable = { temp_opinion = 1 }
+		change_the_military_opinion = yes
 		set_temp_variable = { treasury_change = -4 }
 		modify_treasury_effect = yes
 	}
@@ -4244,10 +4241,15 @@ country_event = {
 	option = {
 		name = kaz_army.39.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.39.a executed"
+		set_temp_variable = { temp_opinion = 1 }
+		change_the_military_opinion = yes
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		reverse_add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		create_equipment_variant = {
 			name = "Aibat"
 			type = medium_tank_artillery_chassis_2
 			parent_version = 0
+			design_team = mio:KAZ_Kazakhstan_Engineering_manufacturing
 			allow_without_tech = yes
 			modules = {
 				main_armament_slot = art_med_gun_gen1

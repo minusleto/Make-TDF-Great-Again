@@ -781,12 +781,6 @@ ideas = {
                 }
             }
         }
-        KAZ_alan_license_idea = {
-            allowed_civil_war = { always = yes }
-            modifier = {
-                license_production_speed = 0.10
-            }
-        }
         KAZ_regional_commands_idea = {
             allowed_civil_war = { always = yes }
             modifier = {
