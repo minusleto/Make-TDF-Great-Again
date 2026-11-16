@@ -4195,13 +4195,79 @@ country_event = {
 		name = kaz_army.37.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		set_technology = { util_vehicle_5 = 1 }
-		add_equipment_to_stockpile = {
-			type = util_vehicle_5
-			amount = 100
+		if = {
+			limit = { NOT = { has_tech = util_vehicle_5 } }
+			set_technology = { util_vehicle_5 = 1 }
 		}
+		add_ideas = KAZ_alan_license_idea
 		set_temp_variable = { treasury_change = -4 }
 		modify_treasury_effect = yes
+	}
+}
+
+# ISR Aibat Cooperation Proposal
+country_event = {
+	id = kaz_army.38
+	title = kaz_army.38.t
+	desc = kaz_army.38.d
+	picture = GFX_handshake_black #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.38.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.38.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		KAZ = { country_event = { id = kaz_army.39 days = 1 } }
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = kaz_army.38.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.38.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = {
+			base = 5
+			modifier = {
+				has_opinion = { target = FROM value > 9 }
+				factor = 0
+			}
+		}
+	}
+}
+# ISR Aibat Cooperation agreed
+country_event = {
+	id = kaz_army.39
+	title = kaz_army.39.t
+	desc = kaz_army.39.d
+	picture = GFX_handshake_black #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.39.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.39.a executed"
+		create_equipment_variant = {
+			name = "Aibat"
+			type = medium_tank_artillery_chassis_2
+			parent_version = 0
+			allow_without_tech = yes
+			modules = {
+				main_armament_slot = art_med_gun_gen1
+				turret_type_slot = tank_no_turret
+				reload_type_slot = automatic_loading
+				ammunition_load_slot = artillery_light_ammo_1
+				suspension_type_slot = tank_torsion_bar_suspension_medium
+				engine_type_slot = tank_diesel_engine_gen2
+				special_type_slot_4 = tank_battlestation_2
+				special_type_slot_5 = mortar_barrel_conversion
+			}
+			upgrades = { tank_nsb_fire_upgrade = 2 }
+			obsolete = no
+			icon = "GFX_ISR_SPR2"
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_artillery_chassis_2
+			variant_name = "Aibat"
+			amount = 18
+		}
 	}
 }
 
