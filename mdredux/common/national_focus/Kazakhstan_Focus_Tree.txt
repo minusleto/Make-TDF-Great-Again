@@ -1908,7 +1908,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kazakh_color"
-			set_temp_variable = { treasury_change = -1 }
+			one_random_culture_infrastructure = yes
+			set_temp_variable = { culture_to_add_temp = 10 }
+			add_culture = yes
+			set_temp_variable = { treasury_change = -0.4 }
 			modify_treasury_effect = yes
 			add_stability = 0.03
 		}
