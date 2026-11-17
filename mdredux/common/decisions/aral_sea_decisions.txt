@@ -8,6 +8,9 @@ aral_sea_decisions = {
 			aral_unlocked_program = yes
 			NOT = { has_country_flag = aral_ifas_done }
 		}
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
 		custom_cost_text = aral_ifas_cost_label
 		cost = 25
@@ -37,6 +40,9 @@ aral_sea_decisions = {
 		visible = {
 			aral_unlocked_program = yes
 			NOT = { has_country_flag = aral_loan_done }
+		}
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
 		custom_cost_text = aral_loan_cost_label
@@ -75,6 +81,9 @@ aral_sea_decisions = {
 			aral_unlocked_program = yes
 			NOT = { has_country_flag = aral_dike_done }
 			NOT = { has_country_flag = aral_kokaral_done }
+		}
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.04 } }
 		custom_cost_text = aral_dike_cost_label
@@ -115,6 +124,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_channel_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
@@ -144,7 +154,7 @@ aral_sea_decisions = {
 			set_country_flag = aral_channel_done
 			add_to_variable = { aral_pending = 15 tooltip = aral_channel_gain_tt }
 			custom_effect_tooltip = aral_infra_tt
-			717 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			717 = { if = { limit = { is_owned_by = ROOT } add_building_construction = { type = infrastructure level = 1 instant_build = yes } } }
 			aral_finish = yes
 		}
 		ai_will_do = { base = 25 }
@@ -159,6 +169,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_kokaral_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.15 } }
@@ -202,6 +213,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_aklak_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
@@ -243,6 +255,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_irrigation_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_channel has_country_flag = aral_channel_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.4 } }
@@ -273,7 +286,7 @@ aral_sea_decisions = {
 			custom_effect_tooltip = aral_irrigation_drift_tt
 			custom_effect_tooltip = aral_irrigation_bonus_tt
 			custom_effect_tooltip = aral_agri_tt
-			1224 = { add_building_construction = { type = agriculture_district level = 1 instant_build = yes } }
+			1224 = { if = { limit = { is_owned_by = ROOT } add_building_construction = { type = agriculture_district level = 1 instant_build = yes } } }
 			aral_finish = yes
 		}
 		ai_will_do = { base = 25 }
@@ -288,6 +301,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_fish_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 			custom_trigger_tooltip = { tooltip = aral_req_level_36 check_variable = { aral_sea_level > 35.99 } }
 		}
@@ -328,6 +342,9 @@ aral_sea_decisions = {
 			aral_unlocked_program = yes
 			NOT = { has_country_flag = aral_saxaul1_done }
 		}
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+		}
 		custom_cost_trigger = { check_variable = { treasury > 0.15 } }
 		custom_cost_text = aral_saxaul1_cost_label
 		days_remove = 540
@@ -365,6 +382,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_saxaul2_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_saxaul1 has_country_flag = aral_saxaul1_done }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 		}
@@ -407,6 +425,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_uzb_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_ifas has_country_flag = aral_ifas_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
@@ -440,6 +459,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_amanotkel_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_aklak has_country_flag = aral_aklak_done }
 			custom_trigger_tooltip = { tooltip = aral_req_irrigation has_country_flag = aral_irrigation_done }
 		}
@@ -482,6 +502,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_phase2_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_amanotkel has_country_flag = aral_amanotkel_done }
 			custom_trigger_tooltip = { tooltip = aral_req_level_42 check_variable = { aral_sea_level > 41.99 } }
 			custom_trigger_tooltip = { tooltip = aral_excl_phase2_tt NOT = { has_country_flag = aral_dam2_started } }
@@ -527,6 +548,7 @@ aral_sea_decisions = {
 			NOT = { has_country_flag = aral_dam2_done }
 		}
 		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_amanotkel has_country_flag = aral_amanotkel_done }
 			custom_trigger_tooltip = { tooltip = aral_req_uzb has_country_flag = aral_uzb_done }
 			custom_trigger_tooltip = { tooltip = aral_req_level_42 check_variable = { aral_sea_level > 41.99 } }

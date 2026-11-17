@@ -17,6 +17,9 @@ reasons for every choice are in issue #12.
 - Once a year the Syr Darya is dry (20%), wet (15%, +2 water) or normal. A dry year is an event: pay 0.03 bn + 15 PP for
   extra releases or lose 3% (2% with Aklak, 1% with Amanotkel, +2% after the Second Dam).
 - The earth dike halves the drying but is washed out with 3% chance per month until the Kokaral dam stands.
+- **Control of the coast.** Every decision needs `controls_state = 717` (Kyzylorda, the Aral coast), and the monthly tick runs only while
+  Kazakhstan exists and controls it. Building effects and state modifiers touch a state only while Kazakhstan owns it
+  (`is_owned_by = ROOT`), so a conqueror never gets free infrastructure. A lost coast freezes the sea until it is retaken.
 
 ## Projects (14 decisions)
 IFAS programme, SYNAS loan, emergency dike, Syr Darya channel, Kokaral dam, Aklak works, irrigation modernization,
@@ -41,6 +44,7 @@ live in the base mod and are parameters.
 
 ## In-game check (what the scripts cannot see)
 - [ ] `error.log` has no lines about `aral`, `aral_sea.gui`, the decisions or the events.
+- [ ] Let an enemy take control of state 717 (console `controlled_by`/occupation): every decision is greyed out with the tooltip about the Kyzylorda region and the sea stops changing.
 - [ ] Day 1: the panel shows 30 m, the picture frame 4, penalties on the national spirit and on Kyzylorda (state view).
 - [ ] The price line of a decision shows treasury and PP (for example `$0.15 bn + 60 PP`) and fits in the row.
 - [ ] Take IFAS, the loan and the dike: the dike halves the monthly change in the tooltip of the trend line.

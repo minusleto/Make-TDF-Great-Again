@@ -8,22 +8,25 @@
 
 # One state; the weight aral_w is 1 for Kyzylorda, 0.5 for its neighbours, 0.25 for the far west.
 aral_state_update = {
-	if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } }
-	set_variable = { aral_s_prod = ROOT.aral_deficit }
-	multiply_variable = { aral_s_prod = aral_w }
-	multiply_variable = { aral_s_prod = -0.0010 }
-	set_variable = { aral_s_pop = ROOT.aral_deficit }
-	multiply_variable = { aral_s_pop = aral_w }
-	multiply_variable = { aral_s_pop = -0.0005 }
-	set_variable = { aral_s_slots = ROOT.aral_deficit }
-	multiply_variable = { aral_s_slots = aral_w }
-	multiply_variable = { aral_s_slots = -0.0006 }
-	set_variable = { aral_s_recruit = ROOT.aral_deficit }
-	multiply_variable = { aral_s_recruit = aral_w }
-	multiply_variable = { aral_s_recruit = -0.0010 }
-	set_variable = { aral_s_level = ROOT.aral_sea_level }
-	set_variable = { aral_s_change = ROOT.aral_monthly_change }
-	force_update_dynamic_modifier = yes
+	if = { limit = { is_owned_by = ROOT NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } }
+	if = {
+		limit = { is_owned_by = ROOT }
+		set_variable = { aral_s_prod = ROOT.aral_deficit }
+		multiply_variable = { aral_s_prod = aral_w }
+		multiply_variable = { aral_s_prod = -0.0010 }
+		set_variable = { aral_s_pop = ROOT.aral_deficit }
+		multiply_variable = { aral_s_pop = aral_w }
+		multiply_variable = { aral_s_pop = -0.0005 }
+		set_variable = { aral_s_slots = ROOT.aral_deficit }
+		multiply_variable = { aral_s_slots = aral_w }
+		multiply_variable = { aral_s_slots = -0.0006 }
+		set_variable = { aral_s_recruit = ROOT.aral_deficit }
+		multiply_variable = { aral_s_recruit = aral_w }
+		multiply_variable = { aral_s_recruit = -0.0010 }
+		set_variable = { aral_s_level = ROOT.aral_sea_level }
+		set_variable = { aral_s_change = ROOT.aral_monthly_change }
+		force_update_dynamic_modifier = yes
+	}
 }
 
 aral_update_states = {

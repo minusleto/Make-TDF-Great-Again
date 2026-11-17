@@ -1,9 +1,10 @@
 # MERGE into your existing on_monthly block if you already have one.
+# The mechanic only runs while Kazakhstan exists and controls state 717 (Kyzylorda, the Aral coast).
 on_actions = {
 	on_monthly = {
 		effect = {
 			if = {
-				limit = { original_tag = KAZ }
+				limit = { original_tag = KAZ controls_state = 717 }
 				aral_monthly_tick = yes
 			}
 		}
