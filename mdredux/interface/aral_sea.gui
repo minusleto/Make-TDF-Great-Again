@@ -746,11 +746,11 @@ guiTypes = {
 			pdx_tooltip = "ARAL_TICK_36"
 		}
 		iconType = {
-			name = "aral_tick_40"
+			name = "aral_tick_46"
 			spriteType = "GFX_aral_milestone"
 			Orientation = "CENTER_UP"
-			position = { x = 22 y = 274 }
-			pdx_tooltip = "ARAL_TICK_40"
+			position = { x = 102 y = 274 }
+			pdx_tooltip = "ARAL_TICK_46"
 		}
 		iconType = {
 			name = "aral_tick_42"

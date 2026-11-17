@@ -1,18 +1,10 @@
 # MERGE into your existing on_monthly block if you already have one.
-# Start values are set in history/countries/KAZ - Kazakhstan.txt, so no on_startup is needed.
 on_actions = {
-	# Monthly: apply the drying. (Safety net: if the history block did not run, set everything up now.)
 	on_monthly = {
 		effect = {
 			if = {
 				limit = { original_tag = KAZ }
-				if = {
-					limit = { NOT = { has_country_flag = aral_sea_initialized } }
-					init_aral_sea = yes
-				}
-				else = {
-					aral_monthly_tick = yes
-				}
+				aral_monthly_tick = yes
 			}
 		}
 	}

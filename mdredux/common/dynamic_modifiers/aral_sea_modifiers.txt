@@ -1,14 +1,12 @@
-# Values are VARIABLES set in update_aral_sea. Penalties shrink as restoration -> 100.
+# Values are VARIABLES set in update_aral_sea. Penalties shrink as the deficit falls.
 # Country-wide national spirit
 aral_sea_dynamic_modifier = {
 	icon = GFX_modifiers_aral_sea
 	agricolture_productivity_modifier = aral_mod_agri          # agriculture
-	production_speed_infrastructure_factor = aral_mod_infra    # infrastructure
-	productivity_growth_modifier = aral_mod_prod               # productivity
+	agriculture_tax_modifier = aral_mod_agtax                  # income from agriculture and fishing
 	monthly_population = aral_mod_pop                          # population growth
 	migration_rate_value_factor = aral_mod_migr                # migration
 	base_unemployment_modifier = aral_mod_jobs                 # jobs
-	agriculture_tax_modifier = aral_mod_agtax                  # income from agriculture/fishing
 }
 
 # State modifier, applied to Kyzylorda (full), Turkistan/Aktobe/Ulutau (x0.5), Mangystau/Atyrau (x0.25)
@@ -18,5 +16,4 @@ aral_state_modifier = {
 	state_monthly_population = aral_s_pop
 	local_building_slots_factor = aral_s_slots
 	recruitable_population_factor = aral_s_recruit
-	state_renewable_energy_generation_modifier = aral_s_renew
 }

@@ -244,12 +244,8 @@
 	set_variable = { var = population_tax_rate value = 9 }
 	set_variable = { var = int_investments value = 10 }
 
-	### Aral Sea mechanic: all start values live here, so no on_startup file is needed
-	set_variable = { aral_sea_restoration = 0 }	#water restored, -30..100 (0 = the sea as it is at the start date)
-	set_variable = { aral_relief = 0 }			#fallout eased by forests / fisheries (does not add water)
-	set_variable = { aral_pending = 0 }			#water earned by finished projects that has not arrived yet
-	aral_sea_first_setup = yes					#country + state dynamic modifiers
-	update_aral_sea = yes						#level, debuffs, picture frame, GUI refresh
+	### Aral Sea mechanic: all variables start at 0 (the sea as it is at the start date); this adds the modifiers
+	update_aral_sea = yes
 
 	set_popularities = {
 		democratic = 8
