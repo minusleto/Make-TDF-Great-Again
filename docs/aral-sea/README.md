@@ -43,13 +43,14 @@ The simulator parses the code, so its report never drifts from the mod. Treasury
 live in the base mod and are parameters.
 
 ## In-game check (what the scripts cannot see)
+The full list with expected numbers is in issue #12.
 - [ ] `error.log` has no lines about `aral`, `aral_sea.gui`, the decisions or the events.
-- [ ] Let an enemy take control of state 717 (console `controlled_by`/occupation): every decision is greyed out with the tooltip about the Kyzylorda region and the sea stops changing.
+- [ ] Let an enemy take control of state 717 (in a test war): every decision is greyed out with the tooltip about the Kyzylorda region and the sea stops changing.
 - [ ] Day 1: the panel shows 30 m, the picture frame 4, penalties on the national spirit and on Kyzylorda (state view).
 - [ ] The price line of a decision shows treasury and PP (for example `$0.15 bn + 60 PP`) and fits in the row.
 - [ ] Take IFAS, the loan and the dike: the dike halves the monthly change in the tooltip of the trend line.
-- [ ] Console `set_country_flag aral_dike`, then wait: the washed-out event appears at about 3% per month and `Rebuild` charges 0.04 bn.
-- [ ] Console `set_variable aral_year_clock = 11` and wait a month: roll of dry / wet / normal year.
+- [ ] Build the dike and wait: the washed-out event appears at about 3% per month and `Rebuild` charges 0.04 bn (console `event aral_sea.2` shows it at once; console commands are not verified in this build).
+- [ ] The dry-year event rolls once a year (20%); console `event aral_sea.1` shows it at once.
 - [ ] After Kokaral the sea fills to 42.4 m within a year and does not go higher however much water is added.
 - [ ] Phase II and the Second Dam stay locked below 42 m and exclude each other; the second one adds drying and dry-year loss.
 - [ ] Ticks on the bar: 36, 42, 44, 46 m; the part of the bar to the right of 46 m stays empty (the lost sea).
