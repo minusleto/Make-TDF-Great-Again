@@ -216,6 +216,7 @@ ideas = {
                 ct_effectiveness_modifier = 0.15
                 fascism_drift = -0.05
                 stability_factor = 0.05
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
             }
         }
 
@@ -236,6 +237,7 @@ ideas = {
                 monthly_population = 0.2
                 migration_rate_value_factor = 0.2
                 border_control_multiplier_modifier = -0.15
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
             }
         }
 
@@ -261,6 +263,7 @@ ideas = {
                 monthly_population = 0.2
                 migration_rate_value_factor = 0.2
                 border_control_multiplier_modifier = -0.15
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
             }
         }
 
@@ -288,6 +291,7 @@ ideas = {
                 border_control_multiplier_modifier = -0.15
                 communism_drift = 0.02
                 censorship_laws_cost_factor = -0.1
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
             }
         }
 
