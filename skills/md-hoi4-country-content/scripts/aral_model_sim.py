@@ -255,7 +255,7 @@ def main():
         dbt = sum(d["debt"] for k, d in D.items() if k != skip)
         print("route %-6s: water %g -> ceiling %.1f m; relief %g; money %.2f treasury + %.2f debt = %.2f bn" % (route, water, level(C, water), sum(d["relief"] for d in D.values()), tre, dbt, tre + dbt))
     nothing = run(C, D, 0, 0, "phase2", "no", False, False, 600, random.Random(1))["lv"]
-    print("do nothing: the level stays at %.1f m (the natural level, nothing holds more water)" % min(nothing))
+    print("do nothing: the level hovers around the natural level (lowest %.1f m after dry years, %.1f m at the end)" % (min(nothing), nothing[-1]))
 
     if a.once:
         res = run(C, D, a.income or 0.1, a.pp, a.route, a.dike, True, True, a.months, random.Random(a.seed), trace=True)

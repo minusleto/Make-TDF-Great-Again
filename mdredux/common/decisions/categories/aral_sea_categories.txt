@@ -1,4 +1,4 @@
-aral_sea_decisions = {
+KAZ_aral_sea_category = {
 	icon = generic_construction
 	priority = 60
 	allowed = { original_tag = KAZ }

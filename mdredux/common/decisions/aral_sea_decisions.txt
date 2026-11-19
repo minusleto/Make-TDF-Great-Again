@@ -1,4 +1,4 @@
-aral_sea_decisions = {
+KAZ_aral_sea_category = {
 
 	#### ifas   [unlock group: program]
 	aral_ifas = {
