@@ -1908,12 +1908,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kazakh_color"
-			one_random_culture_infrastructure = yes
-			set_temp_variable = { culture_to_add_temp = 10 }
+			two_random_culture_infrastructure = yes
+			set_temp_variable = { culture_to_add_temp = 25 }
 			add_culture = yes
-			set_temp_variable = { treasury_change = -0.4 }
-			modify_treasury_effect = yes
-			add_stability = 0.03
+			add_ideas = KAZ_kazakh_cultural_revival_idea
 		}
 
 		ai_will_do = {
@@ -1941,11 +1939,169 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_union_with_trade_org"
-			swap_ideas = {
-				remove_idea = oligarchs
-				add_idea = labour_unions
+			custom_effect_tooltip = KAZ_union_with_trade_org_effect_tt
+			if = {
+				limit = { NOT = { has_idea = labour_unions } }
+				if = {
+					limit = { has_idea = oligarchs }
+					swap_ideas = {
+						remove_idea = oligarchs
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = small_medium_business_owners }
+					swap_ideas = {
+						remove_idea = small_medium_business_owners
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = international_bankers }
+					swap_ideas = {
+						remove_idea = international_bankers
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = industrial_conglomerates }
+					swap_ideas = {
+						remove_idea = industrial_conglomerates
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = fossil_fuel_industry }
+					swap_ideas = {
+						remove_idea = fossil_fuel_industry
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = maritime_industry }
+					swap_ideas = {
+						remove_idea = maritime_industry
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = defense_industry }
+					swap_ideas = {
+						remove_idea = defense_industry
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = landowners }
+					swap_ideas = {
+						remove_idea = landowners
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = farmers }
+					swap_ideas = {
+						remove_idea = farmers
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = communist_cadres }
+					swap_ideas = {
+						remove_idea = communist_cadres
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_military }
+					swap_ideas = {
+						remove_idea = the_military
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = intelligence_community }
+					swap_ideas = {
+						remove_idea = intelligence_community
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_priesthood }
+					swap_ideas = {
+						remove_idea = the_priesthood
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_ulema }
+					swap_ideas = {
+						remove_idea = the_ulema
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_clergy }
+					swap_ideas = {
+						remove_idea = the_clergy
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = wahabi_ulema }
+					swap_ideas = {
+						remove_idea = wahabi_ulema
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_donju }
+					swap_ideas = {
+						remove_idea = the_donju
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = saudi_royal_family }
+					swap_ideas = {
+						remove_idea = saudi_royal_family
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = iranian_quds_force }
+					swap_ideas = {
+						remove_idea = iranian_quds_force
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = foreign_jihadis }
+					swap_ideas = {
+						remove_idea = foreign_jihadis
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = wall_street }
+					swap_ideas = {
+						remove_idea = wall_street
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = chaebols }
+					swap_ideas = {
+						remove_idea = chaebols
+						add_idea = labour_unions
+					}
+				}
+				else = { add_ideas = labour_unions }
 			}
-			add_ideas = KAZ_trade_union_alliance_idea
+			if = {
+				limit = { NOT = { has_idea = freedom_trade_unions_01 } }
+				set_ghent_system = yes
+			}
 		}
 
 		ai_will_do = {
@@ -2008,23 +2164,31 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_nationaliz_of_industr"
+			add_political_power = -50
+			add_stability = -0.05
 			set_temp_variable = { temp_opinion = -7 }
 			change_oligarchs_opinion = yes
 			set_temp_variable = { temp_opinion = -7 }
 			change_international_bankers_opinion = yes
 			newline = yes
 			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = { building = arms_factory size > 0 include_locked = yes }
+				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = industrial_complex
+					type = arms_factory
 					level = 1
 					instant_build = yes
 				}
 			}
 			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = { building = agriculture_district size > 0 include_locked = yes }
+				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = industrial_complex
+					type = agriculture_district
 					level = 1
 					instant_build = yes
 				}
@@ -2057,21 +2221,27 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_revision_of_privat"
+			add_political_power = -50
 			set_temp_variable = { temp_opinion = -7 }
 			change_oligarchs_opinion = yes
 			newline = yes
 			random_owned_controlled_state = {
-			add_extra_state_shared_building_slots = 1
+				limit = {
+					free_building_slots = { building = offices size > 0 include_locked = yes }
+				}
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = arms_factory
+					type = offices
 					level = 1
 					instant_build = yes
 				}
 			}
 			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 1
+				limit = {
+					free_building_slots = { building = infrastructure size > 0 include_locked = yes }
+				}
 				add_building_construction = {
-					type = industrial_complex
+					type = infrastructure
 					level = 1
 					instant_build = yes
 				}

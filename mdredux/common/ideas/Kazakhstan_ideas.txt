@@ -1,17 +1,6 @@
 ideas = {
     hidden_ideas = {
-        KAZ_kazakh_cultural_revival_idea = {
-            picture = culture_resistance_idea
-            allowed_civil_war = { always = yes }
-            modifier = {
-                culture_defence_modifier = 0.10
-                stability_factor = 0.05
-                production_speed_culture_infrastructure_factor = 0.15
-                country_culture_modifier = 5
-            }
-        }
-
-	#Eco
+        #Eco
         KAZ_energy_crisis = {
             allowed_civil_war = { always = yes }
             modifier = {
