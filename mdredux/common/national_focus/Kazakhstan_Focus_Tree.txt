@@ -4357,6 +4357,11 @@ focus_tree = {
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				unlock_military_industrial_organization_tooltip = mio:KAZ_KPE_tank_manufacturer
+				mio:KAZ_KPE_tank_manufacturer = {
+					add_mio_size_up_requirement_factor = -0.03
+					add_mio_funds = 500
+					add_mio_research_bonus = 0.01
+				}
 			}
 		}
 
@@ -4406,6 +4411,14 @@ focus_tree = {
 				change_influence_percentage = yes
 				set_temp_variable = { treasury_change = -5.5 }
 				modify_treasury_effect = yes
+				if = {
+					limit = { has_dlc = "Arms Against Tyranny" }
+					mio:KAZ_KPE_tank_manufacturer = {
+						add_mio_size_up_requirement_factor = -0.03
+						add_mio_funds = 1000
+						add_mio_research_bonus = 0.02
+					}
+				}
 			}
 		}
 
