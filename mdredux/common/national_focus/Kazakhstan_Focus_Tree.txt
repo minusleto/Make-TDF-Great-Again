@@ -4701,12 +4701,6 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naiza_israel"
 			ISR = { country_event = { id = kaz_army.30 days = 1 } }
 			custom_effect_tooltip = KAZ_naiza_tooltip_loc
-			set_temp_variable = { percent_change = 2 }
-			set_temp_variable = { tag_index = ISR }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			add_opinion_modifier = { target = ISR modifier = military_cooperation }
-			reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
 		}
 
 		ai_will_do = {
@@ -4745,29 +4739,6 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_semser_israel"
 			ISR = { country_event = { id = kaz_army.32 days = 1 } }
 			custom_effect_tooltip = KAZ_semser_tooltip_loc
-			if = {
-				limit = { has_dlc = "No Step Back" }
-				create_equipment_variant = {
-					name = "Semser"
-					type = medium_tank_artillery_chassis_2
-					parent_version = 0
-					allow_without_tech = yes
-					modules = {
-						main_armament_slot = art_med_gun_gen1
-						turret_type_slot = tank_no_turret
-						reload_type_slot = manual_loading
-						ammunition_load_slot = artillery_light_ammo_1
-						suspension_type_slot = tank_wheeled_suspension_medium
-						engine_type_slot = tank_diesel_engine_gen2
-						special_type_slot_4 = tank_battlestation_2
-						special_type_slot_5 = direct_fire_conversion_medium
-					}
-					upgrades = { tank_nsb_fire_upgrade = 2 }
-					obsolete = no
-					icon = "GFX_ISR_SPG3"
-				}
-				add_equipment_to_stockpile = { type = medium_tank_artillery_chassis_2 variant_name = "Semser" amount = 6 }
-			}
 		}
 
 		ai_will_do = {
