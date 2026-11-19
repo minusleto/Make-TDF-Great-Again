@@ -363,9 +363,6 @@ ideas = {
         }
         #### NAZ BRANCH END ####
         #### TOK BRANCH START ####
-
-        #### TOK BRANCH END ####
-        #### TOK BRANCH START ####
         KAZ_tok_opposition_law = {
             allowed_civil_war = { always = yes }
             cancel = {
