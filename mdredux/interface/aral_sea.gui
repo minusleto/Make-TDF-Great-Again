@@ -739,31 +739,31 @@ guiTypes = {
 			pdx_tooltip = "ARAL_TICK_0"
 		}
 		iconType = {
-			name = "aral_tick_36"
+			name = "aral_tick_415"
 			spriteType = "GFX_aral_milestone"
 			Orientation = "CENTER_UP"
-			position = { x = -32 y = 274 }
-			pdx_tooltip = "ARAL_TICK_36"
+			position = { x = -66 y = 274 }
+			pdx_tooltip = "ARAL_TICK_415"
 		}
 		iconType = {
 			name = "aral_tick_46"
 			spriteType = "GFX_aral_milestone"
 			Orientation = "CENTER_UP"
-			position = { x = 102 y = 274 }
+			position = { x = 72 y = 274 }
 			pdx_tooltip = "ARAL_TICK_46"
 		}
 		iconType = {
 			name = "aral_tick_42"
 			spriteType = "GFX_aral_milestone"
 			Orientation = "CENTER_UP"
-			position = { x = 48 y = 274 }
+			position = { x = -51 y = 274 }
 			pdx_tooltip = "ARAL_TICK_42"
 		}
 		iconType = {
 			name = "aral_tick_44"
 			spriteType = "GFX_aral_milestone"
 			Orientation = "CENTER_UP"
-			position = { x = 75 y = 274 }
+			position = { x = 11 y = 274 }
 			pdx_tooltip = "ARAL_TICK_44"
 		}
 		instantTextBoxType = {

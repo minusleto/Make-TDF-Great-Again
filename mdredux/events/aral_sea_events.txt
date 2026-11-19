@@ -41,7 +41,7 @@ country_event = {
 		ai_chance = { base = 2 }
 		set_temp_variable = { treasury_change = -0.04 }
 		modify_treasury_effect = yes
-		add_to_variable = { aral_pending = 10 }
+		add_to_variable = { aral_pending = 12 }
 		update_aral_sea = yes
 	}
 	option = {

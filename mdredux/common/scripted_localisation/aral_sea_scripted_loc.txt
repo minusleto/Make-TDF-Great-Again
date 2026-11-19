@@ -1,15 +1,15 @@
 defined_text = {
 	name = GetAralStatus
 	text = {
-		trigger = { check_variable = { aral_sea_restoration < -8 } }
+		trigger = { check_variable = { aral_sea_restoration < -4 } }
 		localization_key = ARAL_STATUS_CRITICAL
 	}
 	text = {
-		trigger = { check_variable = { aral_sea_restoration > 59.99 } }
+		trigger = { check_variable = { aral_sea_restoration > 39.99 } }
 		localization_key = ARAL_STATUS_RECOVERY
 	}
 	text = {
-		trigger = { check_variable = { aral_sea_restoration > 24.99 } }
+		trigger = { check_variable = { aral_sea_restoration > 14.99 } }
 		localization_key = ARAL_STATUS_STABLE
 	}
 	text = {

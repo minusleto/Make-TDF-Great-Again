@@ -58,27 +58,22 @@ def parse(root):
     m = re.search(r"var = aral_sea_restoration min = (-?[\d.]+) max = (\S+)", upd)
     C["r_min"] = fl(m.group(1))
     C["cap0"] = fl(re.search(r"set_variable = \{ aral_cap = ([\d.]+) \}", upd).group(1))
-    C["caps"] = [(f, fl(v)) for f, v in re.findall(r"has_country_flag = aral_(\w+)_done \} set_variable = \{ aral_cap = ([\d.]+)", upd)]
-    C["r_max"] = C["cap0"]
+    C["caps"] = [(f.replace("_done", ""), fl(v)) for f, v in re.findall(r"has_country_flag = aral_(\w+) \} set_variable = \{ aral_cap = ([\d.]+)", upd)]
+    C["r_max"] = max(v for f, v in C["caps"])
     C["dry_base"] = fl(re.search(r"set_variable = \{ aral_dry_loss = ([\d.]+) \}", upd).group(1))
     C["dry_adj"] = [(f, (-1 if o == "subtract_from" else 1) * fl(v)) for f, o, v in re.findall(r"has_country_flag = aral_(\w+)_done \} (subtract_from|add_to)_variable = \{ aral_dry_loss = ([\d.]+)", upd)]
     C["deficit_base"] = fl(re.search(r"aral_deficit = ([\d.]+) \}", upd).group(1))
     C["level_k"] = fl(re.search(r"multiply_variable = \{ aral_sea_level = ([\d.]+)", upd).group(1))
     C["level_0"] = fl(re.search(r"add_to_variable = \{ aral_sea_level = ([\d.]+)", upd).group(1))
     C["mods"] = {k: fl(v) for k, v in re.findall(r"multiply_variable = \{ (aral_mod_\w+) = (-?[\d.]+) \}", upd)}
-    ds = re.findall(r"aral_drift = ([\d.]+) \}", drift)
-    C["drift0"] = fl(ds[0])
-    C["drift_dike"] = fl(re.search(r"aral_dike \} set_variable = \{ aral_drift = ([\d.]+)", drift).group(1))
-    C["drift_dam"] = fl(re.search(r"aral_kokaral_done \}\s*set_variable = \{ aral_drift = ([\d.]+)", drift).group(1))
-    C["drift_adj"] = {f: fl(v) for f, v in re.findall(r"has_country_flag = (aral_\w+_done) \} add_to_variable = \{ aral_drift = (-?[\d.]+)", drift)}
-    C["drift_floor"] = fl(re.search(r"aral_sea_restoration < (-?[\d.]+) \} \} set_variable = \{ aral_drift = 0", drift).group(1))
+    C["drift0"] = fl(re.search(r"set_variable = \{ aral_drift = (-?[\d.]+) \}", drift).group(1))
+    C["drift_adj"] = {f: fl(v) for f, v in re.findall(r"has_country_flag = aral_(\w+)_done \} add_to_variable = \{ aral_drift = (-?[\d.]+)", drift)}
     C["fill_rate"] = fl(re.search(r"multiply_variable = \{ aral_fill = ([\d.]+)", drift).group(1))
     C["fill_min"] = fl(re.search(r"aral_fill < ([\d.]+) \} \} set_variable = \{ aral_fill = ([\d.]+)", drift).group(2))
     C["p_dry"] = int(re.search(r"(\d+) = \{ country_event = \{ id = aral_sea\.1", tick).group(1)) / 100
     m = re.search(r"(\d+) = \{ add_to_variable = \{ aral_pending = ([\d.]+)", tick)
     C["p_wet"], C["wet_pts"] = int(m.group(1)) / 100, fl(m.group(2))
     C["p_dike"] = int(re.search(r"(\d+) = \{ country_event = \{ id = aral_sea\.2", tick).group(1)) / 100
-    C["dike_loss"] = fl(re.search(r"aral_loss = ([\d.]+)", sect(eff, "aral_dike_lost")).group(1))
     e1 = evt[evt.index("id = aral_sea.1"):evt.index("id = aral_sea.2")]
     C["dry_buy"] = abs(fl(re.search(r"treasury_change = (-?[\d.]+)", e1).group(1)))
     C["dry_pp"] = fl(re.search(r"add_political_power = -(\d+)", e1).group(1))
@@ -133,11 +128,14 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
             running.remove((fin, n))
             d = D[n]
             done.add(n)
-            pend += d["pending"]
+            if d["dike"]:
+                if "kokaral" not in done:   # a dike that finishes after the dam changes nothing
+                    pend += d["pending"]
+                    dike = True
+            else:
+                pend += d["pending"]
             if d["clrdike"]:
                 dike = False
-            if d["dike"]:
-                dike = True
             relief += d["relief"]
             if trace:
                 log.append((mth, "done " + n))
@@ -158,17 +156,17 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
             remaining.remove(n)
             if trace:
                 log.append((mth, "start " + n))
-        # monthly tick (mirrors aral_calc_drift + aral_monthly_tick)
-        drift = C["drift0"]
-        if dike:
-            drift = C["drift_dike"]
-        if "kokaral" in done:
-            drift = C["drift_dam"] + sum(v for f, v in C["drift_adj"].items() if f[5:-5] in done)
-        if r < C["drift_floor"]:
-            drift = 0.0
+        # monthly tick (mirrors the caps in update_aral_sea, aral_calc_drift and aral_monthly_tick)
+        cap = C["cap0"]
+        for f, v in C["caps"]:
+            if (f == "dike" and dike) or (f != "dike" and f in done):
+                cap = v
+        drift = C["drift0"] + sum(v for f, v in C["drift_adj"].items() if f in done)
         fill = min(pend, max(pend * C["fill_rate"], C["fill_min"])) if pend > 0.001 else 0.0
-        if r > 99.9:
+        if cap - r < 0.01:  # at the crest the inflow only spills over
             fill = 0.0
+            if drift < 0:
+                drift = 0.0
         r = r - drift + fill
         pend = max(0.0, pend - fill)
         clock += 1
@@ -187,12 +185,8 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
                 pend += C["wet_pts"]
         if dike and rng.random() < C["p_dike"]:
             breaks += 1
-            loss = C["dike_loss"]
-            if pend >= loss:
-                pend -= loss
-            else:
-                r -= loss - pend
-                pend = 0.0
+            pend = 0.0          # the washed-out dike takes everything above the natural level
+            r = min(r, 0.0)
             if rebuild and tre > C["dike_rebuild"]:
                 tre -= C["dike_rebuild"]
                 spent_t += C["dike_rebuild"]
@@ -201,9 +195,11 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
                 dike = False
         cap = C["cap0"]
         for f, v in C["caps"]:
-            if f in done:
+            if (f == "dike" and dike) or (f != "dike" and f in done):
                 cap = v
         r = max(C["r_min"], min(cap, r))
+        if cap - r < 0.01:
+            pend = 0.0
         lv.append(level(C, r))
     return {"lv": lv, "dry": dry, "breaks": breaks, "spent": spent_t + spent_d, "log": log, "done": done}
 
@@ -242,9 +238,9 @@ def main():
     start = datetime.date.fromisoformat(a.start)
     print("# Constants parsed from the code")
     print("level = %.0f + %.2f x restoration; %.1f m (restoration %.0f) .. %.1f m (%.0f)" % (C["level_0"], C["level_k"], level(C, C["r_min"]), C["r_min"], level(C, C["r_max"]), C["r_max"]))
-    print("drift %.2f%%/month; behind a dike %.2f; after Kokaral %.2f %s; floor %.1f" % (C["drift0"], C["drift_dike"], C["drift_dam"], C["drift_adj"], C["drift_floor"]))
-    print("fill %.0f%% of pending per month (min %.1f); yearly river: dry %.0f%%, wet %.0f%% (+%g); dike washed out %.0f%%/month (takes %g back)" % (C["fill_rate"] * 100, C["fill_min"], C["p_dry"] * 100, C["p_wet"] * 100, C["wet_pts"], C["p_dike"] * 100, C["dike_loss"]))
-    print("crest cap: %s (restoration max); dry year costs %g %s or pay %.2f bn + %g PP; start treasury %.3f bn" % (
+    print("drift (negative = the river refills the sea, in decimetres per month): base %+.2f, improvements %s" % (C["drift0"], C["drift_adj"]))
+    print("fill %.0f%% of pending per month (min %.1f); yearly river: dry %.0f%%, wet %.0f%% (+%g); dike washed out %.0f%%/month (the sea falls back to the natural level)" % (C["fill_rate"] * 100, C["fill_min"], C["p_dry"] * 100, C["p_wet"] * 100, C["wet_pts"], C["p_dike"] * 100))
+    print("crest cap: %s (restoration, 1 point = 1 dm); dry year costs %g %s or pay %.2f bn + %g PP; start treasury %.3f bn" % (
         ", ".join("%s %g" % (f, v) for f, v in [("open", C["cap0"])] + C["caps"]), C["dry_base"], C["dry_adj"], C["dry_buy"], C["dry_pp"], C["treasury0"]))
     print("modifier coefficients per 1 deficit:", C["mods"])
     print("\n# Projects (parsed)")
@@ -259,8 +255,7 @@ def main():
         dbt = sum(d["debt"] for k, d in D.items() if k != skip)
         print("route %-6s: water %g -> ceiling %.1f m; relief %g; money %.2f treasury + %.2f debt = %.2f bn" % (route, water, level(C, water), sum(d["relief"] for d in D.values()), tre, dbt, tre + dbt))
     nothing = run(C, D, 0, 0, "phase2", "no", False, False, 600, random.Random(1))["lv"]
-    fl0 = next((i for i, x in enumerate(nothing) if x <= level(C, C["r_min"]) + 0.15), None)
-    print("do nothing: the floor (%.1f m) is reached in month %s (%s)" % (level(C, C["r_min"]), fl0, dt(start, fl0) if fl0 else "-"))
+    print("do nothing: the level stays at %.1f m (the natural level, nothing holds more water)" % min(nothing))
 
     if a.once:
         res = run(C, D, a.income or 0.1, a.pp, a.route, a.dike, True, True, a.months, random.Random(a.seed), trace=True)

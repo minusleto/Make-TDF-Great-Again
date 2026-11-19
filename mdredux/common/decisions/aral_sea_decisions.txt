@@ -107,9 +107,12 @@ aral_sea_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_dike done"
 			set_country_flag = aral_dike_done
-			add_to_variable = { aral_pending = 10 tooltip = aral_dike_gain_tt }
-			set_country_flag = aral_dike
-			custom_effect_tooltip = aral_dike_risk_tt
+			if = {
+				limit = { NOT = { has_country_flag = aral_kokaral_done } }
+				add_to_variable = { aral_pending = 12 tooltip = aral_dike_gain_tt }
+				set_country_flag = aral_dike
+				custom_effect_tooltip = aral_dike_risk_tt
+			}
 			aral_finish = yes
 		}
 		ai_will_do = { base = 25 }
@@ -152,7 +155,7 @@ aral_sea_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_channel done"
 			set_country_flag = aral_channel_done
-			add_to_variable = { aral_pending = 15 tooltip = aral_channel_gain_tt }
+			custom_effect_tooltip = aral_channel_drift_tt
 			custom_effect_tooltip = aral_infra_tt
 			717 = { if = { limit = { is_owned_by = ROOT } add_building_construction = { type = infrastructure level = 1 instant_build = yes } } }
 			aral_finish = yes
@@ -197,7 +200,8 @@ aral_sea_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_kokaral done"
 			set_country_flag = aral_kokaral_done
-			add_to_variable = { aral_pending = 55 tooltip = aral_kokaral_gain_tt }
+			add_to_variable = { aral_pending = 30 tooltip = aral_kokaral_gain_tt }
+			custom_effect_tooltip = aral_kokaral_crest_tt
 			clr_country_flag = aral_dike
 			aral_finish = yes
 		}
@@ -303,7 +307,7 @@ aral_sea_decisions = {
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
-			custom_trigger_tooltip = { tooltip = aral_req_level_36 check_variable = { aral_sea_level > 35.99 } }
+			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.1 } }
 		custom_cost_text = aral_fish_cost_label
@@ -504,7 +508,7 @@ aral_sea_decisions = {
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_amanotkel has_country_flag = aral_amanotkel_done }
-			custom_trigger_tooltip = { tooltip = aral_req_level_42 check_variable = { aral_sea_level > 41.99 } }
+			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 			custom_trigger_tooltip = { tooltip = aral_excl_phase2_tt NOT = { has_country_flag = aral_dam2_started } }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.3 } }
@@ -533,7 +537,8 @@ aral_sea_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_phase2 done"
 			set_country_flag = aral_phase2_done
-			add_to_variable = { aral_pending = 12 tooltip = aral_phase2_gain_tt }
+			add_to_variable = { aral_pending = 30 tooltip = aral_phase2_gain_tt }
+			custom_effect_tooltip = aral_phase2_crest_tt
 			aral_finish = yes
 		}
 		ai_will_do = { base = 25 }
@@ -551,7 +556,7 @@ aral_sea_decisions = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_amanotkel has_country_flag = aral_amanotkel_done }
 			custom_trigger_tooltip = { tooltip = aral_req_uzb has_country_flag = aral_uzb_done }
-			custom_trigger_tooltip = { tooltip = aral_req_level_42 check_variable = { aral_sea_level > 41.99 } }
+			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 			custom_trigger_tooltip = { tooltip = aral_excl_dam2_tt NOT = { has_country_flag = aral_phase2_started } }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.8 } }
@@ -580,7 +585,8 @@ aral_sea_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_dam2 done"
 			set_country_flag = aral_dam2_done
-			add_to_variable = { aral_pending = 22 tooltip = aral_dam2_gain_tt }
+			add_to_variable = { aral_pending = 50 tooltip = aral_dam2_gain_tt }
+			custom_effect_tooltip = aral_dam2_crest_tt
 			custom_effect_tooltip = aral_dam2_drift_tt
 			aral_finish = yes
 		}
