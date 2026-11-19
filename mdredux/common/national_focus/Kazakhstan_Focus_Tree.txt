@@ -4700,6 +4700,16 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naiza_israel"
 			ISR = { country_event = { id = kaz_army.30 days = 1 } }
+			effect_tooltip = {
+				ISR = {
+					set_temp_variable = { percent_change = 2 }
+					set_temp_variable = { tag_index = ISR }
+					set_temp_variable = { influence_target = KAZ }
+					change_influence_percentage = yes
+					add_opinion_modifier = { target = KAZ modifier = military_cooperation }
+				}
+				add_opinion_modifier = { target = ISR modifier = military_cooperation }
+			}
 			custom_effect_tooltip = KAZ_naiza_tooltip_loc
 		}
 
