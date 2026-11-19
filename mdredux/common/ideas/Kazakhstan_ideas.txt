@@ -190,6 +190,73 @@ ideas = {
             }
         }
 
+        KAZ_naz_test_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.03
+                education_cost_multiplier_modifier = -0.1
+                education_budget_cost_factor = -0.5
+                corruption_cost_factor = -0.05
+            }
+        }
+
+        KAZ_naz_test_idea2 = {
+            name = KAZ_naz_test_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.05
+                education_cost_multiplier_modifier = -0.1
+                education_budget_cost_factor = -0.5
+                corruption_cost_factor = -0.05
+                research_speed_factor = 0.05
+                monthly_population = 0.05
+            }
+        }
+
+        KAZ_naz_test_idea3 = {
+            name = KAZ_naz_test_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.05
+                education_cost_multiplier_modifier = -0.1
+                education_budget_cost_factor = -0.5
+                corruption_cost_factor = -0.05
+                research_speed_factor = 0.1
+                monthly_population = 0.05
+                foreign_influence_defense_modifier = -0.05
+                political_power_factor = -0.02
+            }
+        }
+
+        KAZ_naz_egov_idea = {
+            name = KAZ_naz_egov_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_internet_station_factor = 0.05
+                country_productivity_growth_modifier = 0.04
+            }
+        }
+
         #### NAZ BRANCH END ####
         #### TOK BRANCH START ####
         KAZ_tok_opposition_law = {
@@ -1368,72 +1435,9 @@ ideas = {
             }
         }
 
-        KAZ_naz_test_idea = {
-            allowed_civil_war = { always = yes }
 
-            cancel = {
-                emerging_autocracy_are_not_in_power = yes
-            }
 
-            modifier = {
-                stability_factor = 0.03
-                education_cost_multiplier_modifier = -0.1
-                education_budget_cost_factor = -0.5
-                corruption_cost_factor = -0.05
-            }
-        }
 
-        KAZ_naz_test_idea2 = {
-            name = KAZ_naz_test_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                emerging_autocracy_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.05
-                education_cost_multiplier_modifier = -0.1
-                education_budget_cost_factor = -0.5
-                corruption_cost_factor = -0.05
-                research_speed_factor = 0.05
-                monthly_population = 0.05
-            }
-        }
-
-        KAZ_naz_test_idea3 = {
-            name = KAZ_naz_test_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                emerging_autocracy_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.05
-                education_cost_multiplier_modifier = -0.1
-                education_budget_cost_factor = -0.5
-                corruption_cost_factor = -0.05
-                research_speed_factor = 0.1
-                monthly_population = 0.05
-                foreign_influence_defense_modifier = -0.05
-                political_power_factor = -0.02
-            }
-        }
-
-        KAZ_naz_egov_idea = {
-            name = KAZ_naz_egov_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                emerging_autocracy_are_not_in_power = yes
-            }
-
-            modifier = {
-                production_speed_internet_station_factor = 0.05
-                country_productivity_growth_modifier = 0.04
-            }
-        }
 
         # Tokayev national spirits
 
