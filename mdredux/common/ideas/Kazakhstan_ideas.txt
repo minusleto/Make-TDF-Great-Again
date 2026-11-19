@@ -58,7 +58,9 @@ ideas = {
             name = KAZ_language_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 research_speed_factor = 0.08
@@ -72,7 +74,9 @@ ideas = {
         KAZ_naz_2030_idea = {
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 production_speed_buildings_factor = 0.05
@@ -85,7 +89,9 @@ ideas = {
             name = KAZ_naz_2030_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 production_speed_buildings_factor = 0.15
@@ -100,7 +106,9 @@ ideas = {
         KAZ_naz_2050_idea = {
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 production_speed_buildings_factor = 0.25
@@ -112,7 +120,9 @@ ideas = {
         KAZ_naz_create_money_idea = {
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 stability_factor = 0.1
@@ -126,7 +136,9 @@ ideas = {
         KAZ_naz_party_building_idea = {
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 stability_factor = 0.05
@@ -144,7 +156,9 @@ ideas = {
             name = KAZ_naz_party_building_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 stability_factor = 0.05
@@ -163,7 +177,9 @@ ideas = {
         KAZ_samruk_idea = {
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 corporate_tax_income_multiplier_modifier = 0.04
@@ -177,7 +193,9 @@ ideas = {
         KAZ_naz_era_idea = {
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 custom_modifier_tooltip = KAZ_naz_era_idea_tt
@@ -188,7 +206,9 @@ ideas = {
             name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 command_power_gain = 0.25
@@ -203,7 +223,9 @@ ideas = {
             name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 command_power_gain = 0.25
@@ -221,7 +243,9 @@ ideas = {
             name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 enemy_declare_war_tension = 0.05
@@ -244,7 +268,9 @@ ideas = {
             name = KAZ_naz_era_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 enemy_declare_war_tension = 0.05
@@ -268,7 +294,9 @@ ideas = {
         KAZ_naz_test_idea = {
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 stability_factor = 0.03
@@ -282,7 +310,9 @@ ideas = {
             name = KAZ_naz_test_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 stability_factor = 0.05
@@ -298,7 +328,9 @@ ideas = {
             name = KAZ_naz_test_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 stability_factor = 0.05
@@ -316,7 +348,9 @@ ideas = {
             name = KAZ_naz_egov_idea
             allowed_civil_war = { always = yes }
 
-            cancel = { emerging_autocracy_are_not_in_power = yes }
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
 
             modifier = {
                 production_speed_internet_station_factor = 0.05
