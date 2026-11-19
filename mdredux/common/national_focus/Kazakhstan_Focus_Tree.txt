@@ -9809,7 +9809,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Strategy 1997-2030
 	focus = {
 		id = KAZ_naz_2030
@@ -9838,7 +9837,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Creation of National Fund
 	focus = {
 		id = KAZ_naz_create_money
@@ -9868,7 +9866,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Party Building
 	focus = {
 		id = KAZ_naz_party_building
@@ -9897,7 +9894,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Reform of KNB and Presidential Security Service
 	focus = {
 		id = KAZ_naz_knb_president
@@ -9931,7 +9927,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Creation of National Guard
 	focus = {
 		id = KAZ_naz_create_nac
@@ -9992,7 +9987,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Fight Against Religious Extremism
 	focus = {
 		id = KAZ_naz_war_religion
@@ -10045,7 +10039,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Strengthening Nur-Otan
 	focus = {
 		id = KAZ_naz_nur_otan
@@ -10074,7 +10067,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Creation of FNB Samruk-Kazyna
 	focus = {
 		id = KAZ_naz_samruk
@@ -10105,7 +10097,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Unified National Testing
 	focus = {
 		id = KAZ_naz_test
@@ -10138,7 +10129,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Kazakhstan Institute of Strategic Studies
 	focus = {
 		id = KAZ_naz_university
@@ -10171,7 +10161,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Creation of Turkic Council
 	focus = {
 		id = KAZ_naz_turkic_soviet
@@ -10227,7 +10216,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Revival of Turkestan
 	focus = {
 		id = KAZ_naz_create_turkestan
@@ -10255,7 +10243,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#State Language Development Fund
 	focus = {
 		id = KAZ_naz_language
@@ -10288,7 +10275,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Return of Ethnic Kazakhs
 	focus = {
 		id = KAZ_naz_etnic_kazakhs
@@ -10320,7 +10306,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Development of the "Bolashaq" program
 	focus = {
 		id = KAZ_naz_bolashak
@@ -10359,7 +10344,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Network of Intellectual Schools
 	focus = {
 		id = KAZ_naz_schools
@@ -10394,7 +10378,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Rukhani Jangyru Program
 	focus = {
 		id = KAZ_naz_lat
@@ -10444,7 +10427,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Expansion of Social Assistance
 	focus = {
 		id = KAZ_naz_help
@@ -10478,7 +10460,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Strategy Kazakhstan-2050
 	focus = {
 		id = KAZ_naz_kazakhstan_2050
@@ -10512,7 +10493,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Sacred Geography and Museum Heritage
 	focus = {
 		id = KAZ_naz_geography
@@ -10543,7 +10523,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Electronic Government
 	focus = {
 		id = KAZ_naz_e_government
@@ -10584,7 +10563,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Anti-Corruption Agency
 	focus = {
 		id = KAZ_naz_anticorruption
@@ -10620,7 +10598,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Constitutional Amendments
 	focus = {
 		id = KAZ_naz_constitution
@@ -10657,7 +10634,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Reform of the Supreme Judicial Council
 	focus = {
 		id = KAZ_naz_soviet
@@ -10690,7 +10666,6 @@ focus_tree = {
 			base = 2
 		}
 	}
-
 	#Conferment of Elbasy Status
 	focus = {
 		id = KAZ_naz_elbasy
