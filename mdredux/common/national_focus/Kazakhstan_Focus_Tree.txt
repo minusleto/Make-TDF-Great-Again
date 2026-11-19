@@ -2129,7 +2129,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kill_euro3"
-			set_party_index_to_ruling_party = yes
+			set_temp_variable = { party_index = 4 }
 			set_temp_variable = { party_popularity_increase = 0.025 }
 			set_temp_variable = { temp_outlook_increase = 0.025 }
 			add_relative_party_popularity = yes
@@ -2137,6 +2137,8 @@ focus_tree = {
 			change_oligarchs_opinion = yes
 			newline = yes
 			decrease_corruption = yes
+			set_temp_variable = { modify_capitalization = -0.035 }
+			modify_capitalization_support = yes
 		}
 
 		ai_will_do = {
@@ -4452,8 +4454,6 @@ focus_tree = {
 					uses = 1
 					category = CAT_util
 				}
-				add_opinion_modifier = { target = SAF modifier = military_cooperation }
-				add_relation_modifier = { target = SAF modifier = military_cooperation }
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = SAF }
 				set_temp_variable = { influence_target = KAZ }
@@ -4482,7 +4482,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
-			has_tech = util_vehicle_5
 			ISR = {
 				has_opinion = { target = KAZ value > 9 }
 				has_tech = util_vehicle_5
@@ -4495,12 +4494,13 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan"
 			ISR = { country_event = { id = kaz_army.36 days = 1 } }
-			custom_effect_tooltip = KAZ_alan_tooltip_loc
+			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
-				add_opinion_modifier = { target = ISR modifier = military_cooperation }
-				add_relation_modifier = { target = ISR modifier = military_cooperation }
-				set_temp_variable = { temp_opinion = 1 }
-				change_the_military_opinion = yes
+				set_technology = { util_vehicle_5 = 1 }
+				add_equipment_to_stockpile = {
+					type = util_vehicle_5
+					amount = 100
+				}
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = ISR }
 				set_temp_variable = { influence_target = KAZ }
@@ -4772,7 +4772,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-	#Restore the Aibat
+	#Development of 120mm "Aibat" Self-Propelled Mortar
 	focus = {
 		id = KAZ_aibat_israel
 		icon = kaz_aibat
@@ -4802,8 +4802,26 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aibat_israel"
-			ISR = { country_event = { id = kaz_army.38 days = 1 } }
-			custom_effect_tooltip = KAZ_aibat_tooltip_loc
+			create_equipment_variant = {
+				name = "Aibat"
+				type = medium_tank_artillery_chassis_2
+				parent_version = 0
+				allow_without_tech = yes
+				modules = {
+					main_armament_slot = art_med_gun_gen1
+					turret_type_slot = tank_no_turret
+					reload_type_slot = automatic_loading
+					ammunition_load_slot = artillery_light_ammo_1
+					suspension_type_slot = tank_wheeled_suspension_medium
+					engine_type_slot = tank_diesel_engine_gen2
+					special_type_slot_4 = tank_battlestation_2
+					special_type_slot_5 = mortar_barrel_conversion
+				}
+				upgrades = { tank_nsb_fire_upgrade = 2 }
+				obsolete = no
+				icon = "GFX_ISR_SPR2"
+			}
+			add_equipment_to_stockpile = { type = medium_tank_artillery_chassis_2 variant_name = "Aibat" amount = 18 }
 		}
 
 		ai_will_do = {
