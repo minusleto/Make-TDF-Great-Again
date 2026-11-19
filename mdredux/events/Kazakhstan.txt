@@ -4252,6 +4252,8 @@ country_event = {
 		name = kaz_army.38.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.38.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { treasury_change = 4 }
+		modify_treasury_effect = yes
 		KAZ = { country_event = { id = kaz_army.39 days = 1 } }
 		ai_chance = { base = 70 }
 	}
@@ -4308,6 +4310,8 @@ country_event = {
 			variant_name = "Aibat"
 			amount = 18
 		}
+		set_temp_variable = { treasury_change = -4 }
+		modify_treasury_effect = yes
 	}
 }
 
