@@ -400,3 +400,45 @@ defined_text = {
 	name = KAZ_akz_language_loc
 	text = { trigger = { has_idea = KAZ_language_idea_akz } localization_key = KAZ_akz_language_loc1 }
 }
+# OTAN: hidden Nazarbayev-era spirits are summarized in the visible era hub.
+defined_text = {
+	name = KAZ_otan_era_loc
+	text = { trigger = { has_idea = KAZ_naz_era_idea2 } localization_key = KAZ_otan_era_loc1 }
+	text = { trigger = { has_idea = KAZ_naz_era_idea3 } localization_key = KAZ_otan_era_loc2 }
+	text = { trigger = { has_idea = KAZ_naz_era_idea4 } localization_key = KAZ_otan_era_loc3 }
+	text = { trigger = { has_idea = KAZ_naz_era_idea5 } localization_key = KAZ_otan_era_loc4 }
+}
+defined_text = {
+	name = KAZ_otan_2030_loc
+	text = { trigger = { has_idea = KAZ_naz_2030_idea } localization_key = KAZ_otan_2030_loc1 }
+	text = { trigger = { has_idea = KAZ_naz_2030_idea2 } localization_key = KAZ_otan_2030_loc2 }
+	text = { trigger = { has_idea = KAZ_naz_2050_idea } localization_key = KAZ_otan_2030_loc3 }
+}
+defined_text = {
+	name = KAZ_otan_national_fund_loc
+	text = { trigger = { has_idea = KAZ_naz_create_money_idea } localization_key = KAZ_otan_national_fund_loc1 }
+}
+defined_text = {
+	name = KAZ_otan_party_building_loc
+	text = { trigger = { has_idea = KAZ_naz_party_building_idea } localization_key = KAZ_otan_party_building_loc1 }
+	text = { trigger = { has_idea = KAZ_naz_party_building_idea2 } localization_key = KAZ_otan_party_building_loc2 }
+}
+defined_text = {
+	name = KAZ_otan_samruk_loc
+	text = { trigger = { has_idea = KAZ_samruk_idea } localization_key = KAZ_otan_samruk_loc1 }
+	text = { trigger = { has_idea = KAZ_samruk_idea2 } localization_key = KAZ_otan_samruk_loc2 }
+}
+defined_text = {
+	name = KAZ_otan_testing_loc
+	text = { trigger = { has_idea = KAZ_naz_test_idea } localization_key = KAZ_otan_testing_loc1 }
+	text = { trigger = { has_idea = KAZ_naz_test_idea2 } localization_key = KAZ_otan_testing_loc2 }
+	text = { trigger = { has_idea = KAZ_naz_test_idea3 } localization_key = KAZ_otan_testing_loc3 }
+}
+defined_text = {
+	name = KAZ_otan_language_loc
+	text = { trigger = { has_idea = KAZ_language_idea_naz } localization_key = KAZ_otan_language_loc1 }
+}
+defined_text = {
+	name = KAZ_otan_egovernment_loc
+	text = { trigger = { has_idea = KAZ_naz_egov_idea } localization_key = KAZ_otan_egovernment_loc1 }
+}

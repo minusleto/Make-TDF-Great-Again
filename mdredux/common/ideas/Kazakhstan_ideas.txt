@@ -216,6 +216,7 @@ ideas = {
             }
 
             modifier = {
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
             }
         }
 
