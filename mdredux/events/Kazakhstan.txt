@@ -1552,6 +1552,25 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = KAZ_naz.7
+	title = KAZ_naz.7.t
+	desc = KAZ_naz.7.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = KAZ_naz.7.a
+		log = "[GetDateText]: [This.GetName]: KAZ_naz.7.a executed"
+		add_political_power = 150
+		set_temp_variable = { party_index = 7 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+		add_country_leader_trait = elbasy
+	}
+}
+
 #### TOKAEV ####
 country_event = { # New President of Kazakhstan
 	id = KAZ_tok.1

@@ -10686,7 +10686,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_elbasy"
-			country_event = KAZ_naz.5
+			country_event = KAZ_naz.7
 		}
 
 		ai_will_do = {
