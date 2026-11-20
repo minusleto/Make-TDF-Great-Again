@@ -57,12 +57,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_economy"
 			increase_economic_growth = yes
-			add_ideas = {
-				KAZ_economy_oil_dependence_idea
-				KAZ_economy_state_capitalism_idea
-				KAZ_economy_external_shocks_idea
-				KAZ_economy_regional_disparities_idea
-			}
 		}
 
 		ai_will_do = {
