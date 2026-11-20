@@ -13023,7 +13023,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Modernize Shymkent Refinery
+	#Modernize Shymkent Refinery
 	focus = {
 		id = KAZ_modernize_shymkent_refinery
 		icon = kaz_chi_npz
@@ -13086,7 +13086,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Aiju Agroparks
+	#Aiju Agroparks
 	focus = {
 		id = KAZ_aiju_agroparks
 		icon = kaz_chi_ferma
@@ -13145,7 +13145,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Zhanazhol Gas Processing Plant
+	#Zhanazhol Gas Processing Plant
 	focus = {
 		id = KAZ_zhanazhol_gas_plant
 		icon = kaz_chi_gas
@@ -13207,7 +13207,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Allur and JAC Auto Cluster
+	#Allur and JAC Auto Cluster
 	focus = {
 		id = KAZ_allur_jac_auto_cluster
 		icon = kaz_chi_cars
@@ -13269,7 +13269,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Lovol Tractors
+	#Lovol Tractors
 	focus = {
 		id = KAZ_lovol_tractors
 		icon = kaz_chi_lovol
@@ -13332,7 +13332,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Zhanatas Wind Power
+	#Zhanatas Wind Power
 	focus = {
 		id = KAZ_zhanatas_wind_power
 		icon = cooperation_with_china
@@ -13392,7 +13392,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Huawei Infrastructure
+	#Huawei Infrastructure
 	focus = {
 		id = KAZ_huawei_infrastructure
 		icon = huawei
@@ -13459,7 +13459,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Modernize Aktau Port
+	#Modernize Aktau Port
 	focus = {
 		id = KAZ_modernize_aktau_port
 		icon = kaz_port_aktau
@@ -13520,7 +13520,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Copper Smelter in Abay
+	#Copper Smelter in Abay
 	focus = {
 		id = KAZ_copper_smelter_abay
 		icon = kaz_cop_chi
@@ -13582,7 +13582,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# CITIC Fertilizer Plants
+	#CITIC Fertilizer Plants
 	focus = {
 		id = KAZ_citic_fertilizer_plants
 		icon = kaz_chi_udobr
@@ -13643,7 +13643,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Jibek Joly Steel Plant
+	#Jibek Joly Steel Plant
 	focus = {
 		id = KAZ_jibek_joly_steel_plant
 		icon = kaz_chi_jiber
@@ -13705,7 +13705,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Hengtong Data Centers
+	#Hengtong Data Centers
 	focus = {
 		id = KAZ_hengtong_data_centers
 		icon = kaz_data_centres
@@ -14052,7 +14052,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Pharmaceutical Cluster and R&D Center
+	#Pharmaceutical Cluster and R&D Center
 	focus = {
 		id = KAZ_pharma_cluster_rnd_center
 		icon = kaz_india_tabletki
@@ -14114,7 +14114,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Construction of Class A Logistics Warehouses
+	#Construction of Class A Logistics Warehouses
 	focus = {
 		id = KAZ_class_a_logistics_warehouses
 		icon = kaz_singapur
@@ -14177,7 +14177,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Water Infrastructure with ICD
+	#Water Infrastructure with ICD
 	focus = {
 		id = KAZ_water_infrastructure_icd
 		icon = kaz_water_islam
@@ -14202,7 +14202,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Joint Startup Support Fund
+	#Joint Startup Support Fund
 	focus = {
 		id = KAZ_joint_startup_support_fund
 		icon = kaz_startap
@@ -14263,7 +14263,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Qatar Gas Chemistry Alliance
+	#Qatar Gas Chemistry Alliance
 	focus = {
 		id = KAZ_qatar_gas_chemistry_alliance
 		icon = generic_muslim_quatar
@@ -14328,7 +14328,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# ACWA Green Power Deal
+	#ACWA Green Power Deal
 	focus = {
 		id = KAZ_acwa_power_wind_deal
 		icon = kaz_sau_acwa
@@ -14396,7 +14396,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# CICA Diplomatic Center
+	#CICA Diplomatic Center
 	focus = {
 		id = KAZ_cica_diplomatic_center
 		icon = kaz_cica
@@ -14422,7 +14422,7 @@ focus_tree = {
 	}
 	### CAS ###
 
-	# Central Asian Cooperation
+	#Central Asian Cooperation
 	focus = {
 		id = KAZ_cas_central_asian_cooperation
 		icon = kaz_cas_start
@@ -14446,7 +14446,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Increase Political Influence
+	#Increase Political Influence
 	focus = {
 		id = KAZ_cas_increase_political_influence
 		icon = kaz_cas_influence
@@ -14506,7 +14506,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Good Neighbourhood Treaty
+	#Good Neighbourhood Treaty
 	focus = {
 		id = KAZ_cas_good_neighbourhood_treaty
 		icon = kaz_cas_friends
@@ -14562,7 +14562,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Transport Space
+	#Single Transport Space
 	focus = {
 		id = KAZ_cas_single_transport_space
 		icon = kaz_cas_roads
@@ -14623,7 +14623,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Coordination Security HQ
+	#Coordination Security HQ
 	focus = {
 		id = KAZ_cas_coordination_security_hq
 		icon = kaz_cas_defense
@@ -14680,7 +14680,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Market Central Asia
+	#Single Market Central Asia
 	focus = {
 		id = KAZ_cas_single_market_central_asia
 		icon = kaz_cas_rynok
@@ -14736,7 +14736,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Energy Union
+	#Energy Union
 	focus = {
 		id = KAZ_cas_energy_union
 		icon = kaz_cas_electr
@@ -14789,7 +14789,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# General Staff Academy
+	#General Staff Academy
 	focus = {
 		id = KAZ_cas_general_staff_academy
 		icon = kaz_cas_army_study
@@ -14852,7 +14852,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Peacekeeping Corps Central Asia
+	#Peacekeeping Corps Central Asia
 	focus = {
 		id = KAZ_cas_peacekeeping_corps_central_asia
 		icon = kaz_cas_mir
@@ -14905,7 +14905,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Central Asian Development Bank
+	#Central Asian Development Bank
 	focus = {
 		id = KAZ_cas_central_asian_development_bank
 		icon = kaz_cas_bank
@@ -14964,7 +14964,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Joint Military Anti-Terror Exercises
+	#Joint Military Anti-Terror Exercises
 	focus = {
 		id = KAZ_cas_joint_military_anti_terror_exercises
 		icon = kaz_cas_antiterror
@@ -15025,7 +15025,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Joint Food Security Program
+	#Joint Food Security Program
 	focus = {
 		id = KAZ_cas_joint_food_security_program
 		icon = kaz_cas_foods
@@ -15079,7 +15079,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Made In Central Asia
+	#Made In Central Asia
 	focus = {
 		id = KAZ_cas_made_in_central_asia
 		icon = kaz_made_in_cas
@@ -15133,7 +15133,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Air Defense System
+	#Single Air Defense System
 	focus = {
 		id = KAZ_cas_single_air_defense_system
 		icon = kaz_cas_pvo
@@ -15206,7 +15206,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Expand Kazakh Military Industrial Complex
+	#Expand Kazakh Military Industrial Complex
 	focus = {
 		id = KAZ_cas_expand_kazakh_mic
 		icon = kaz_cas_ke_kpe
@@ -15266,7 +15266,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Currency Altai
+	#Single Currency Altai
 	focus = {
 		id = KAZ_cas_single_currency_altyn
 		icon = kaz_cas_altyn
@@ -15325,7 +15325,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Strengthen Central Asian Forces
+	#Strengthen Central Asian Forces
 	focus = {
 		id = KAZ_cas_strengthen_central_asian_forces
 		icon = kaz_cas_mg
@@ -15403,7 +15403,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Confederate Treaty
+	#Confederate Treaty
 	focus = {
 		id = KAZ_cas_confederate_treaty
 		icon = kaz_cas_final
@@ -15469,7 +15469,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Referendum Single State
+	#Referendum Single State
 	focus = {
 		id = KAZ_cas_referendum_single_state
 		icon = kaz_cas_unity
@@ -15650,7 +15650,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Strengthen Confederation
+	#Strengthen Confederation
 	focus = {
 		id = KAZ_cas_strengthen_confederation
 		icon = kaz_cas_mg_2
