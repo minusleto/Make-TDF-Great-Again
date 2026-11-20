@@ -1,6 +1,37 @@
 ideas = {
     hidden_ideas = {
         #Eco
+        # Starting economic structure
+        KAZ_economy_oil_dependence_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                resource_export_multiplier = 0.05
+                country_productivity_growth_modifier = -0.02
+            }
+        }
+        KAZ_economy_state_capitalism_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                industrial_capacity_factory = 0.03
+                production_speed_buildings_factor = 0.03
+                corruption_cost_factor = 0.03
+            }
+        }
+        KAZ_economy_external_shocks_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                inflation_defence_multiplier_modifier = -0.05
+                country_productivity_growth_modifier = -0.01
+            }
+        }
+        KAZ_economy_regional_disparities_idea = {
+            allowed_civil_war = { always = yes }
+            modifier = {
+                infrastructure_construction_cost = 0.05
+                production_speed_infrastructure_factor = -0.03
+            }
+        }
+
         KAZ_energy_crisis = {
             allowed_civil_war = { always = yes }
             modifier = {
