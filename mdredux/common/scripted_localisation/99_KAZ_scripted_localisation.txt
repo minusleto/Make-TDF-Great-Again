@@ -400,14 +400,6 @@ defined_text = {
 	name = KAZ_akz_language_loc
 	text = { trigger = { has_idea = KAZ_language_idea_akz } localization_key = KAZ_akz_language_loc1 }
 }
-# OTAN: hidden Nazarbayev-era spirits are summarized in the visible era hub.
-defined_text = {
-	name = KAZ_otan_era_loc
-	text = { trigger = { has_idea = KAZ_naz_era_idea2 } localization_key = KAZ_otan_era_loc1 }
-	text = { trigger = { has_idea = KAZ_naz_era_idea3 } localization_key = KAZ_otan_era_loc2 }
-	text = { trigger = { has_idea = KAZ_naz_era_idea4 } localization_key = KAZ_otan_era_loc3 }
-	text = { trigger = { has_idea = KAZ_naz_era_idea5 } localization_key = KAZ_otan_era_loc4 }
-}
 defined_text = {
 	name = KAZ_otan_2030_loc
 	text = { trigger = { has_idea = KAZ_naz_2030_idea } localization_key = KAZ_otan_2030_loc1 }
