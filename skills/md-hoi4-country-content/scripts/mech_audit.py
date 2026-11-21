@@ -178,12 +178,21 @@ def main():
     triggers = blocks(trg_text, 0)
     dyn = blocks(dm_text, 0)
     events = {}
-    for m in re.finditer(r"\bcountry_event\s*=\s*\{", ev_text):
-        e = match_brace(ev_text, m.end() - 1)
-        b = ev_text[m.end():e]
-        i = re.search(r"\bid\s*=\s*(\S+)", b)
-        if i:
-            events[i.group(1)] = b
+    depth, pos = 0, 0
+    for m in re.finditer(r"\{|\}|\bcountry_event\s*=\s*\{", ev_text):
+        tok = m.group(0)
+        if tok == "}":
+            depth -= 1
+        elif tok == "{":
+            depth += 1
+        else:  # a definition only at depth 0: calls inside other events are not definitions
+            if depth == 0:
+                e = match_brace(ev_text, m.end() - 1)
+                b = ev_text[m.end():e]
+                i = re.search(r"\bid\s*=\s*(\S+)", b)
+                if i:
+                    events[i.group(1)] = b
+            depth += 1
 
     # ---------- C. decisions ----------
     pp_re = re.compile(r"(?:PP|ПВ)\b")
@@ -279,6 +288,8 @@ def main():
         area = "event " + i
         if i not in fired:
             add("WARN", area, "never fired from any effect in the mechanic")
+        if re.search(r"\bhidden\s*=\s*yes", b):
+            continue  # a hidden event has no text
         tk = re.search(r"title\s*=\s*(\S+)", b)
         dk = re.search(r"desc\s*=\s*(\S+)", b)
         for lg in langs:
@@ -352,7 +363,7 @@ def main():
     called = collections.Counter(re.findall(r"\b([a-z][a-z0-9_]*)\s*=\s*yes\b", code_all))
     ext = []
     KEYWORDS = {"always", "fire_only_once", "is_triggered_only", "visible_when_empty", "instant_build", "hidden",
-                "force_update_dynamic_modifier", "newline", "show_effect_tooltip", "is_good", "major", "hidden_ideas"}
+                "force_update_dynamic_modifier", "newline", "show_effect_tooltip", "is_good", "major", "hidden_ideas", "has_war"}
     for n, c in called.items():
         if n in effects or n in triggers or n in KEYWORDS:
             continue

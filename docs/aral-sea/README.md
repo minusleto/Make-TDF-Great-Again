@@ -27,14 +27,28 @@ and the older second-dam plan. Design notes and the reason for every choice are 
 - **Control of the coast.** Every decision needs `controls_state = 717` (Kyzylorda), and the monthly tick runs only while
   Kazakhstan exists and controls it. Building effects and state modifiers touch a state only while Kazakhstan owns it.
 
-## Projects (14 decisions)
+## Projects (14 decisions) and the Siberian chain (3 more)
 IFAS programme, SYNAS loan, emergency dike, Syr Darya channel, Kokaral dam, Aklak works, irrigation modernization,
 fisheries (needs 41.5 m), protective forests I and II, Uzbekistan flow agreement, Amanotkel complex, then one of
 Phase II (44 m) or the Second Dam (46 m, about twice the cost, evaporates more). Both need 41.5 m.
 
+## Siberian water (the Sibaral question)
+What really happened: the Soviet plan to turn Siberian rivers south was approved in 1976 and ended by a Politburo decision in
+1986. In 2002 Uzbekistan and the mayor of Moscow revived it, Putin asked a commission to study it, the press mocked it and
+nothing was decided. Nazarbayev backed it in 2006 and again in 2010, and in 2025 the idea came back with pipelines. It has
+never been approved or built. The mechanic therefore mostly fails, and success is a costly dependency, not a gift.
+1. **Request** (`aral_sibaral`, 50 PP, needs IFAS and the loan, Russia must exist): Russia studies it (60%, never at war) or declines.
+2. **Commission** (540 days): feasible 15%, more studies 30% (another year), shelved 55% (closed for 15 years, then it can return).
+3. **Technology**, only if feasible and the Kokaral dam stands: the **canal** (8 years, 4 bn, more water, fee 0.06 bn a year,
+   15% a year that Russia reopens the price) or the **pipeline** (5 years, 5 bn, less water, fee 0.04, 8%). They exclude each other.
+4. **Effect:** the sea refills faster (+0.30 / +0.15 dm a month), a dry year costs 3 / 2 dm less, agriculture +8% / +4%.
+   It never raises the crest: only the dams do that.
+5. **Dependence:** every year the fee is paid; a price review means +50% to the fee for good, or no supply for two years
+   (no benefits, no fee). Roughly one run in four gets the water within 35 years.
+
 ## Files
 `common/` decisions, scripted_effects, scripted_triggers, dynamic_modifiers, on_actions, scripted_guis, scripted_localisation;
-`events/aral_sea_events.txt` (dry year, dike washed out, salt storms); `interface/aral_sea.gui|gfx`, `gfx/`; EN and RU
+`events/aral_sea_events.txt` (dry year, dike washed out, salt storms, the Siberian chain); `interface/aral_sea.gui|gfx`, `gfx/`; EN and RU
 localisation; three lines in the KAZ history file. `optional/aral_sea/` holds a focus-gated trigger set, six focuses and a
 province photo (not loaded). Install the on_actions file only if your mod has no `on_monthly` block, otherwise merge the call
 `aral_monthly_tick = yes` for KAZ.

@@ -64,6 +64,9 @@ update_aral_sea = {
 	if = { limit = { has_country_flag = aral_aklak_done } subtract_from_variable = { aral_dry_loss = 1 } }
 	if = { limit = { has_country_flag = aral_amanotkel_done } subtract_from_variable = { aral_dry_loss = 1 } }
 	if = { limit = { has_country_flag = aral_dam2_done } add_to_variable = { aral_dry_loss = 2 } }
+	if = { limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } } subtract_from_variable = { aral_dry_loss = 3 } }
+	if = { limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } } subtract_from_variable = { aral_dry_loss = 2 } }
+	clamp_variable = { var = aral_dry_loss min = 0 }
 	# penalties: 100 at the start, 1.25 per decimetre gained, minus the fallout that forests and fisheries ease
 	set_variable = { aral_deficit = aral_sea_restoration }
 	multiply_variable = { aral_deficit = -1.25 }
@@ -90,6 +93,8 @@ update_aral_sea = {
 	multiply_variable = { aral_mod_jobs = 0.0005 }
 	if = { limit = { has_country_flag = aral_irrigation_done } add_to_variable = { aral_mod_agri = 0.05 } }
 	if = { limit = { has_country_flag = aral_fish_done } add_to_variable = { aral_mod_agtax = 0.05 } }
+	if = { limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_mod_agri = 0.08 } }
+	if = { limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_mod_agri = 0.04 } }
 
 	# water already earned but still arriving (pale "ghost" segments on the bar)
 	set_variable = { aral_potential = aral_sea_restoration }
@@ -115,6 +120,8 @@ aral_calc_drift = {
 	if = { limit = { has_country_flag = aral_uzb_done } add_to_variable = { aral_drift = -0.05 } }
 	if = { limit = { has_country_flag = aral_irrigation_done } add_to_variable = { aral_drift = -0.05 } }
 	if = { limit = { has_country_flag = aral_dam2_done } add_to_variable = { aral_drift = 0.1 } }
+	if = { limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_drift = -0.3 } }
+	if = { limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_drift = -0.15 } }
 
 	set_variable = { aral_fill = aral_pending }
 	multiply_variable = { aral_fill = 0.15 }
@@ -166,6 +173,25 @@ aral_monthly_tick = {
 			20 = { country_event = { id = aral_sea.1 } }
 			15 = { add_to_variable = { aral_pending = 2 } }
 			65 = { }
+		}
+		# Siberian water is paid for every year, and Russia may reopen the price
+		if = {
+			limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } }
+			set_temp_variable = { treasury_change = aral_sib_fee }
+			modify_treasury_effect = yes
+			random_list = {
+				15 = { country_event = { id = aral_sea.9 } }
+				85 = { }
+			}
+		}
+		if = {
+			limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } }
+			set_temp_variable = { treasury_change = aral_sib_fee }
+			modify_treasury_effect = yes
+			random_list = {
+				8 = { country_event = { id = aral_sea.9 } }
+				92 = { }
+			}
 		}
 	}
 	# an earth dike is washed out by a spring flood about once in three years

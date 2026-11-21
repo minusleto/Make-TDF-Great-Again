@@ -592,4 +592,128 @@ KAZ_aral_sea_category = {
 		}
 		ai_will_do = { base = 25 }
 	}
+
+	#### sibaral   [unlock group: diplomacy]
+	aral_sibaral = {
+		icon = generic_political_discourse
+		allowed = { original_tag = KAZ }
+		visible = {
+			aral_unlocked_diplomacy = yes
+			NOT = { has_country_flag = aral_sib_dead }
+			NOT = { has_country_flag = aral_sib_ok }
+			NOT = { has_country_flag = aral_sib_canal_done }
+			NOT = { has_country_flag = aral_sib_pipe_done }
+		}
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_russia_tt country_exists = SOV }
+			custom_trigger_tooltip = { tooltip = aral_req_nostudy_tt NOT = { has_country_flag = aral_sib_study } }
+			custom_trigger_tooltip = { tooltip = aral_req_ifas has_country_flag = aral_ifas_done }
+			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
+		custom_cost_text = aral_sibaral_cost_label
+		cost = 50
+		days_remove = 540
+		days_re_enable = 365
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_sibaral"
+			custom_effect_tooltip = aral_sibaral_cost_tt
+			custom_effect_tooltip = aral_sibaral_tt
+			SOV = { country_event = { id = aral_sea.4 } }
+			hidden_effect = {
+				set_temp_variable = { treasury_change = -0.05 }
+				modify_treasury_effect = yes
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_sibaral done"
+			if = {
+				limit = { has_country_flag = aral_sib_study }
+				country_event = { id = aral_sea.5 }
+			}
+			else = { country_event = { id = aral_sea.8 } }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	#### sib_canal   [unlock group: diplomacy]
+	aral_sib_canal = {
+		icon = generic_construction
+		allowed = { original_tag = KAZ }
+		visible = {
+			aral_unlocked_diplomacy = yes
+			NOT = { has_country_flag = aral_sib_canal_done }
+			has_country_flag = aral_sib_ok
+		}
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
+			custom_trigger_tooltip = { tooltip = aral_excl_sib_canal_tt NOT = { has_country_flag = aral_sib_pipe_started } }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 0.8 } }
+		custom_cost_text = aral_sib_canal_cost_label
+		cost = 80
+		days_remove = 2920
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_canal"
+			custom_effect_tooltip = aral_sib_canal_cost_tt
+			hidden_effect = {
+				set_temp_variable = { treasury_change = -0.8 }
+				modify_treasury_effect = yes
+				set_temp_variable = { debt_change = 3.2 }
+				modify_debt_effect = yes
+				set_country_flag = aral_sib_canal_started
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_canal done"
+			set_country_flag = aral_sib_canal_done
+			custom_effect_tooltip = aral_sib_canal_tt
+			set_variable = { aral_sib_fee = -0.06 }
+			aral_finish = yes
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	#### sib_pipe   [unlock group: diplomacy]
+	aral_sib_pipe = {
+		icon = generic_construction
+		allowed = { original_tag = KAZ }
+		visible = {
+			aral_unlocked_diplomacy = yes
+			NOT = { has_country_flag = aral_sib_pipe_done }
+			has_country_flag = aral_sib_ok
+		}
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
+			custom_trigger_tooltip = { tooltip = aral_excl_sib_pipe_tt NOT = { has_country_flag = aral_sib_canal_started } }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 1.2 } }
+		custom_cost_text = aral_sib_pipe_cost_label
+		cost = 80
+		days_remove = 1825
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_pipe"
+			custom_effect_tooltip = aral_sib_pipe_cost_tt
+			hidden_effect = {
+				set_temp_variable = { treasury_change = -1.2 }
+				modify_treasury_effect = yes
+				set_temp_variable = { debt_change = 3.8 }
+				modify_debt_effect = yes
+				set_country_flag = aral_sib_pipe_started
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_pipe done"
+			set_country_flag = aral_sib_pipe_done
+			custom_effect_tooltip = aral_sib_pipe_tt
+			set_variable = { aral_sib_fee = -0.04 }
+			aral_finish = yes
+		}
+		ai_will_do = { base = 5 }
+	}
 }

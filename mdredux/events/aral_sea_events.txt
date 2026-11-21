@@ -74,3 +74,103 @@ country_event = {
 		add_stability = -0.02
 	}
 }
+
+# Russia: Kazakhstan raises the Siberian water question (sent by the decision; FROM = Kazakhstan)
+country_event = {
+	id = aral_sea.4
+	title = aral_sea.4.t
+	desc = aral_sea.4.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.4.a
+		ai_chance = {
+			base = 60
+			modifier = { factor = 0 has_war = yes }
+		}
+		FROM = { set_country_flag = aral_sib_study }
+	}
+	option = {
+		name = aral_sea.4.b
+		ai_chance = {
+			base = 40
+			modifier = { add = 60 has_war = yes }
+		}
+	}
+}
+
+# The commission's verdict (hidden roll): feasible 15%, more studies 30%, shelved 55%
+country_event = {
+	id = aral_sea.5
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		random_list = {
+			15 = { country_event = { id = aral_sea.6 } }
+			30 = { country_event = { id = aral_sea.7 } }
+			55 = { country_event = { id = aral_sea.8 } }
+		}
+	}
+}
+
+country_event = {
+	id = aral_sea.6
+	title = aral_sea.6.t
+	desc = aral_sea.6.d
+	picture = GFX_report_event_generic_construction
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.6.a
+		custom_effect_tooltip = aral_sib_ok_tt
+		clr_country_flag = aral_sib_study
+		set_country_flag = aral_sib_ok
+	}
+}
+
+country_event = {
+	id = aral_sea.7
+	title = aral_sea.7.t
+	desc = aral_sea.7.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.7.a
+		country_event = { id = aral_sea.5 days = 365 }
+	}
+}
+
+country_event = {
+	id = aral_sea.8
+	title = aral_sea.8.t
+	desc = aral_sea.8.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.8.a
+		custom_effect_tooltip = aral_sea.8.a_tt
+		clr_country_flag = aral_sib_study
+		set_country_flag = { flag = aral_sib_dead days = 5475 }
+	}
+}
+
+# Russia reopens the price of Siberian water
+country_event = {
+	id = aral_sea.9
+	title = aral_sea.9.t
+	desc = aral_sea.9.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.9.a
+		ai_chance = { base = 3 }
+		custom_effect_tooltip = aral_sea.9.a_tt
+		multiply_variable = { aral_sib_fee = 1.5 }
+	}
+	option = {
+		name = aral_sea.9.b
+		ai_chance = { base = 1 }
+		custom_effect_tooltip = aral_sea.9.b_tt
+		set_country_flag = { flag = aral_sib_cut days = 730 }
+		hidden_effect = { update_aral_sea = yes }
+	}
+}
