@@ -1,25 +1,51 @@
 # Скилы TDF / MDC
 
-Как выбрать. Если коротко: читай `tdf-country-content`, остальное по ссылкам из него.
+Это пакет скилов внутри репозитория Make-TDF-Great-Again. Пути ниже указаны относительно этой папки (`skills/`).
 
-| Задача | Скил | Начать с |
-|---|---|---|
-| Писать или ревьюить фокусы, нацдухи, события, локализацию страны; вопросы "как устроена страна", "что должен давать фокус" | `tdf-country-content` | `tdf-country-content/SKILL.md` |
-| Рабочий цикл по одному фокусу, числа баланса, примеры кода, дипломатические цепочки, уроки по Казахстану | `md-hoi4-country-content` | `md-hoi4-country-content/SKILL.md` |
-| Создавать и проверять составные/вложенные нацдухи ("нацдух в нацдухе"): духи-хабы, скрытые идеи-компоненты и их общие tooltip | `hoi4-nested-national-spirits` | `hoi4-nested-national-spirits/SKILL.md` |
+## Маршрутизация
 
-Приоритет: при противоречии `tdf-country-content` главнее (он новее и измерен по десяти деревьям). Для составных национальных духов дополнительно читать профильный скил.
+Для работы над контентом стран в этом репозитории основной и единственный общий скил — `tdf-country-content`. Не загружай вместе с ним `md-hoi4-country-content`: это общий скил для других MD/HOI4-проектов, и его правила не должны конкурировать с проектными правилами TDF.
 
-## Быстрый старт для агента
-1. Прочитать `tdf-country-content/SKILL.md` и `tdf-country-content/references/design-guide.md` (философия: фокус даёт инструмент; что кодить, зачем и как; шаблоны веток).
-2. Справочники лежат в `tdf-country-content/references/`: геймдизайн - `design-guide.md`; текст фокуса - `focus-loc.md`; события - `event-loc.md`; духи - `national-spirits.md`; ветка и код - `focus-design.md`; числа и ошибки - `balance-and-pitfalls.md`; что входит в страну - `country-structure.md`.
-3. При создании или ревью вложенных/составных нацдухов читать также `hoi4-nested-national-spirits/SKILL.md`.
-4. После правок: `python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --tags TAG --details TAG` (из корня репозитория). Ошибок (ERROR-проверок) не должно прибавиться.
-5. Не утверждать, что мод запускали; репозиторий - только срез без базового мода.
+| Задача | Что читать |
+|---|---|
+| Любая работа с контентом страны TDF/MDC в этом репозитории | `tdf-country-content/SKILL.md` |
+| Проектирование или ревью целой ветки, выбор между фокусом, решением, событием и духом | Дополнительно `tdf-country-content/references/design-guide.md` |
+| Структура страны и полный обзор её систем | `tdf-country-content/references/country-structure.md` |
+| Код фокусов, prerequisite, `available`, `bypass`, структура дерева | `tdf-country-content/references/focus-design.md` |
+| Описания и локализация фокусов | `tdf-country-content/references/focus-loc.md` |
+| События, цепочки и локализация событий | `tdf-country-content/references/event-loc.md` |
+| Обычные национальные духи | `tdf-country-content/references/national-spirits.md` |
+| Составной дух-хаб с несколькими скрытыми идеями-компонентами и общим tooltip | Дополнительно `hoi4-nested-national-spirits/SKILL.md` |
+| Баланс, типовые ошибки и итоговый чек-лист | `tdf-country-content/references/balance-and-pitfalls.md` |
+| Любая работа с Казахстаном (структура, код, локализация, исторические детали) | Дополнительно `tdf-country-content/references/kazakhstan-maintenance.md` |
 
-## Где что
-- `tdf-country-content/` - SKILL.md, `references/` (7 файлов), `scripts/tdf_audit.py`
-- `md-hoi4-country-content/` - SKILL.md, `references/` (4 файла), `scripts/mdindex.py` (нужен только вне репозитория)
-- `hoi4-nested-national-spirits/` - SKILL.md; правила для составных национальных духов, скрытых идей-компонентов, прогрессии и tooltip
-- `../docs/research/` - аудиты; главный `2026-10-tdf-trees-audit.md`
-- `../md-hoi4-country-content.skill` - старый zip-пакет, не обновляется
+Читай только материалы, относящиеся к текущей задаче. Не загружай весь каталог `references/` по умолчанию. `design-guide.md` нужен для проектирования или содержательного ревью целой ветки; для точечной правки одного фокуса, события или ключа локализации не открывай его автоматически.
+
+## Выборочные материалы общего MD Skill
+
+`md-hoi4-country-content/SKILL.md` предназначен для других Millennium Dawn / HOI4-проектов и в этом репозитории не активируется. Если в TDF-задаче нужен отдельный технический шаблон, можно открыть только соответствующий файл из его `references/` — без загрузки самого generic Skill:
+
+- `md-hoi4-country-content/references/balance.md` — числовые медианы и ориентиры;
+- `md-hoi4-country-content/references/code-patterns.md` — отдельные шаблоны кода и дипломатических цепочек.
+
+Оба файла — вспомогательные примеры, а не источник приоритета над TDF-правилами. Проверяй синтаксис и применимость по текущему репозиторию и wiki.
+
+## Проверка после правок
+
+Из корня репозитория, после связанной серии изменений (не после каждой мелкой правки):
+
+```bash
+python3 -I skills/tdf-country-content/scripts/tdf_audit.py .
+python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --tags KAZ
+python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --details KAZ
+```
+
+`--tags` ограничивает сводку выбранными тегами; `--details` выводит подробные списки для одного тега. Ошибки (ERROR) требуют проверки, WARN — ручного разбора; статистика и DESIGN не равны багам. Скрипт проверяет текстовую структуру, но не запускает игру и не проверяет базовый мод.
+
+## Состав пакета
+
+- `tdf-country-content/` — основной скил проекта, проектные справочники и `tdf_audit.py`.
+- `hoi4-nested-national-spirits/` — узкий дополнительный скил для составных национальных духов.
+- `md-hoi4-country-content/` — общий скил для других MD/HOI4-проектов; в этом TDF-репозитории не активировать. `scripts/mdindex.py` нужен для больших наборов загруженных файлов, а не для поиска в checkout-репозитории.
+- `../docs/research/` — проектные аудиты и фактчеки; основной аудит деревьев: `2026-10-tdf-trees-audit.md`.
+- `../md-hoi4-country-content.skill` — старый упакованный пакет, не синхронизируется с живыми файлами в `skills/`.

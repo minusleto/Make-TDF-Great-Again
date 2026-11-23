@@ -1,13 +1,13 @@
 ---
 name: hoi4-nested-national-spirits
-description: Как создавать и проверять составные национальные духи HOI4 / Millennium Dawn / TDF — игровые «нацдухи в нацдухе» или «вложенные нацдухи»: дух-хаб, скрытые дочерние идеи, составные tooltip и развитие компонентов по этапам. Использовать при работе с экономическими, военными, политическими и дипломатическими нацдухами, которые показывают несколько внутренних направлений в одном общем духе.
+description: 'Specialist guidance for HOI4/MD/TDF composite national-spirit hubs: multiple hidden idea components, staged progression and a shared tooltip. Use only to design or review this pattern, not ordinary standalone spirits or unrelated long tooltips.'
 ---
 
 # Вложенные национальные духи HOI4
 
 Этот скил посвящён игровому паттерну «нацдух в нацдухе» / «вложенный нацдух». Это не отдельный тип объекта движка и не просто scripted localization: это композиция из основного духа-хаба, внутренних идей-компонентов и tooltip, который показывает игроку их эффекты.
 
-Скил дополняет `tdf-country-content`. При проектировании нацдухов сначала читать `skills/tdf-country-content/references/national-spirits.md`, а здесь — правила именно для составных духов.
+Это профильный скил, а не замена общим правилам национальных духов. В TDF сначала читать `skills/tdf-country-content/references/national-spirits.md`, затем — только нужные здесь правила составных хабов. Для других модов следовать базовым правилам соответствующего проекта. Не подключать этот скил к обычной идее без нескольких связанных игровых компонентов.
 
 ## 1. Что это за паттерн
 

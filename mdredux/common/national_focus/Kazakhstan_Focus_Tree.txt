@@ -292,7 +292,7 @@ focus_tree = {
 		search_filters = { economy }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kashagan"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_neftinvest"
 		}
 
 		ai_will_do = {
@@ -380,7 +380,7 @@ focus_tree = {
 		search_filters = { economy }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kashagan"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_tengiz"
 		}
 
 		ai_will_do = {
@@ -402,7 +402,7 @@ focus_tree = {
 		search_filters = { economy }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kashagan"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_karachaganak"
 		}
 
 		ai_will_do = {
@@ -10235,7 +10235,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_turkic_soviet"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_create_turkestan"
 			country_event = KAZ_naz.6
 		}
 
@@ -10294,7 +10294,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_entic_kazakhs"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_etnic_kazakhs"
 			swap_ideas = {
 				remove_idea = KAZ_naz_era_idea2
 				add_idea = KAZ_naz_era_idea3
@@ -10481,7 +10481,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_kazakhstan_2030"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_kazakhstan_2050"
 			one_random_infrastructure = yes
 			swap_ideas = {
 				remove_idea = KAZ_naz_2030_idea
