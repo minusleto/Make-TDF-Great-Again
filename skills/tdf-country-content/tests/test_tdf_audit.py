@@ -192,7 +192,7 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
             self.assertNotIn("PER", countries)
             self.assertNotIn("CHI", countries)
 
-    def test_discover_includes_eng_tree_from_standard_folder(self):
+    def test_discover_includes_eng_tree_and_britain_event_alias(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             self.make_repo(root)
@@ -203,9 +203,51 @@ focus_tree = {
   focus = { id = ENG_test completion_reward = { log = "Focus ENG_test" } }
 }
 """, encoding="utf-8")
-            countries, _ = audit.discover(root)
+            events = root / "mdredux" / "events" / "Britain.txt"
+            events.write_text("""
+add_namespace = britain_test
+country_event = {
+  id = britain_test.1
+  title = britain_test.1.t
+  desc = britain_test.1.d
+  option = {
+    name = ENG_test_option
+    log = "selected"
+    add_ideas = ENG_missing_idea
+  }
+}
+""", encoding="utf-8")
+
+            countries, loc_index = audit.discover(root)
             self.assertIn("ENG", countries)
             self.assertEqual(countries["ENG"]["tree"], tree)
+            self.assertEqual(countries["ENG"]["events"], events)
+
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            event_report = audit.build_event_audit(root, countries, loc_index, event_parsed, content)
+            candidate = next(
+                item for item in event_report["missing_event_idea_candidates"]
+                if item["idea"] == "ENG_missing_idea"
+            )
+            self.assertEqual(candidate["classification"], "local_candidate")
+
+    def test_discover_finds_focus_trees_in_nested_directories(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            nested = root / "mdredux" / "common" / "national_focus" / "regional"
+            nested.mkdir()
+            tree = nested / "Serbia_Focus_Tree.txt"
+            tree.write_text("""
+focus_tree = {
+  country = { original_tag = SER }
+  focus = { id = SER_test }
+}
+""", encoding="utf-8")
+            countries, _ = audit.discover(root)
+            self.assertIn("SER", countries)
+            self.assertEqual(countries["SER"]["tree"], tree)
 
     def test_localisation_duplicates_are_found_across_files(self):
         with tempfile.TemporaryDirectory() as temp:

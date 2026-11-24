@@ -372,7 +372,7 @@ def discover(repo: Union[str, Path]):
         event_files_by_stem.setdefault(path.stem.lower(), path)
 
     countries = {}
-    for path in sorted(nf.glob("*_Focus_Tree.txt")):
+    for path in sorted(nf.rglob("*_Focus_Tree.txt")):
         source = read(path)
         parsed = parse_hoi(source)
         tag = detect_tag(parsed)
@@ -383,7 +383,10 @@ def discover(repo: Union[str, Path]):
             "tree": path,
             "tree_source": source,
             "tree_parsed": parsed,
-            "events": event_files_by_stem.get(stem.lower()),
+            "events": (
+                event_files_by_stem.get(stem.lower())
+                or (event_files_by_stem.get("britain") if tag == "ENG" else None)
+            ),
         }
     if not countries:
         raise AuditInputError("не удалось обнаружить ни одного *_Focus_Tree.txt с тегом страны в {}".format(nf))

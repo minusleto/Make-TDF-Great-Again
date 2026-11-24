@@ -1,6 +1,6 @@
 ---
 status: source-of-truth-map
-updated: 2026-11-24
+updated: 2026-11-25
 scope: Canonical authority map for TDF/MDC skill rules, references, audit severity and verification boundaries.
 limits: This is a routing and authority index, not a replacement for domain references or a guarantee of HOI4 runtime behaviour.
 ---
@@ -69,4 +69,8 @@ skills/tdf-country-content/tests/ — регрессионная база audito
 - отсутствие picture — INFO, не обязательный структурный дефект;
 - отключённые ветки и допустимые внешние ссылки отделяются от активных локальных ошибок.
 
-Запуск полного набора: python3 -I -m unittest discover -s skills/tdf-country-content/tests -v. CI в репозитории не настроен; не утверждай, что тесты прошли, пока команда действительно не запущена.
+Запуск полного набора: `python3 -I -m unittest discover -s skills/tdf-country-content/tests -v`.
+
+Автоматический CI настроен в `.github/workflows/tdf-audit-validation.yml` (GitHub Actions). Workflow запускается при изменениях в `mdredux/**`, `skills/tdf-country-content/**`, реестре внешних зависимостей и самом workflow; также доступен через `workflow_dispatch`. Он выполняет unit-тесты, полный статический аудит, отдельные проверки всех 12 стран и структурную инвентаризацию. JSON-отчёты и журналы загружаются как artifacts на 14 дней.
+
+Общий CI run может завершиться с `failure`, пока аудитор обнаруживает реальные ERROR-кандидаты в содержимом: отдельно смотри результат job unit-tests, страновые отчёты и артефакты полного аудита. Успешный запуск тестов не означает, что полный аудит контента чистый; ни workflow, ни unit-тесты не заменяют проверку HOI4 runtime.
