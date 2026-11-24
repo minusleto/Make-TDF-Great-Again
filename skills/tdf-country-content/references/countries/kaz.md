@@ -1,3 +1,10 @@
+---
+status: contextual-country-reference
+country: KAZ
+scope: "Selected themes and examples already present in the local KAZ country content."
+limits: "Not exhaustive; technical notes and historical claims require current-code and external verification; re-scan before assuming a theme is absent."
+---
+
 # KAZ — Country style card
 
 **Срез:** 2026-11-24, `main` @ `26a6d8c`. **Основной файл:** [Kazakhstan_Focus_Tree.txt](https://github.com/minusleto/Make-TDF-Great-Again/blob/26a6d8ca1f21fdaabbe7ca1c9294401727c1c165/mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt). Уверенность высокая для наличия ID и связей в дереве; средняя для редакторской интерпретации. Исторические утверждения не подтверждались внешним фактчекингом.

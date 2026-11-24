@@ -1,3 +1,10 @@
+---
+status: contextual-country-reference
+country: SYR
+scope: "Selected themes and examples already present in the local SYR country content."
+limits: "Not exhaustive; satirical style applies only where supported by the specific branch; historical claims need separate verification."
+---
+
 # SYR — Country style card
 
 **Срез:** 2026-11-24, `main` @ `26a6d8c`. **Основной файл:** [Syria_Focus_Tree.txt](https://github.com/minusleto/Make-TDF-Great-Again/blob/26a6d8ca1f21fdaabbe7ca1c9294401727c1c165/mdredux/common/national_focus/Syria_Focus_Tree.txt). Уверенность высокая для наличия ID и структуры указанных веток; средняя для редакторской интерпретации. Исторические утверждения не подтверждались отдельно.

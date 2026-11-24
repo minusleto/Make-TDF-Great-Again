@@ -1,3 +1,10 @@
+---
+status: project-reference
+updated: 2026-11-24
+scope: "TDF ideas/national spirits, roles, staged lifecycle, hidden components and tooltip composition."
+limits: "Country counts are historical; static checks do not prove runtime visibility, balance or that every external grant/removal source is present."
+---
+
 # Нацдухи (национальные духи, ideas)
 
 Измерения и страновые сравнения ниже — исторический аналитический срез 2026-10-30, а не актуальное число идей в main. В текущем срезе на 2026-11-24 найдено 15 файлов ideas; единый структурный парсер насчитал 1 806 непосредственных блоков в `country` и 795 в `hidden_ideas` (2 601 всего). Метод и область подсчёта: `docs/research/2026-11-24-tdf-inventory.md`. Подсчёт модификаторов в старой таблице считает пары `ключ = число` в блоке `modifier`, поэтому вложенные блоки и `equipment_bonus` могут слегка искажать.

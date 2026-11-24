@@ -1,3 +1,10 @@
+---
+status: project-reference
+updated: 2026-11-24
+scope: "Static cross-file analysis of flags, variables, arrays, scripted effects/triggers, on_actions, history and direct decision/event links."
+limits: "Evidence candidates only; cannot resolve dynamic scopes, indirect calls, execution order or missing base-MD content and does not simulate HOI4 runtime."
+---
+
 # Межфайловые связи и жизненный цикл состояния
 
 Статический справочник и маршрут аудита для tdf_audit.py (JSON-раздел _state_flow). Он дополняет проверки focus, event, decision, idea и MIO/equipment, но не симулирует runtime HOI4.

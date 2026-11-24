@@ -1,3 +1,10 @@
+---
+status: historical-reference
+updated: 2026-11-24
+scope: "How country content is split across TDF files and how the available country systems connect."
+limits: "Detailed measurements are the 2026-10-30 ten-tree sample; the 2026-11-24 inventory is the current file-count source. The base Millennium Dawn mod is absent."
+---
+
 # Как устроена страна в ТДФ
 
 Что именно входит в "страну" в репозитории и как эти части связаны. Исторический аналитический срез по десяти деревьям — 2026-10-30; актуальная структура main за 2026-11-24 приведена в `docs/research/2026-11-24-tdf-inventory.md` (12 focus trees, 15 idea files, 6 decision files, 10 event files, 7 country-history files, 10 scripted-localisation files и другие категории). Таблицы ниже, содержащие измерения и числа, относятся к старой выборке и не являются текущей инвентаризацией. Базовый мод в репозитории отсутствует; системы вроде влияния, коалиций и внутренних фракций описаны по тому, как их вызывают деревья.

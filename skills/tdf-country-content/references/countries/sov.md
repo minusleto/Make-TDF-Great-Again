@@ -1,3 +1,10 @@
+---
+status: contextual-country-reference
+country: SOV
+scope: "Selected themes and examples already present in the local SOV country content."
+limits: "Not exhaustive; historical claims, companies and external dependencies need separate verification; Russian style is not a universal standard."
+---
+
 # SOV — Country style card
 
 **Срез:** 2026-11-24, `main` @ `26a6d8c`. **Основной файл:** [Russia_Focus_Tree.txt](https://github.com/minusleto/Make-TDF-Great-Again/blob/26a6d8ca1f21fdaabbe7ca1c9294401727c1c165/mdredux/common/national_focus/Russia_Focus_Tree.txt). Уверенность высокая для наличия указанных ID и локальных связей; редакторские оценки — средняя. Не трактовать эту карточку как историческую верификацию.

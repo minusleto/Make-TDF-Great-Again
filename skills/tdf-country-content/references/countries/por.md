@@ -1,3 +1,10 @@
+---
+status: contextual-country-reference
+country: POR
+scope: "Selected themes and examples already present in the local POR country content."
+limits: "Not exhaustive; company status and historical claims require separate sources; do not treat Portuguese style as a universal standard."
+---
+
 # POR — Country style card
 
 **Срез:** 2026-11-24, `main` @ `26a6d8c`. **Основной файл:** [Portugal_Focus_Tree.txt](https://github.com/minusleto/Make-TDF-Great-Again/blob/26a6d8ca1f21fdaabbe7ca1c9294401727c1c165/mdredux/common/national_focus/Portugal_Focus_Tree.txt). Уверенность высокая для присутствия указанных ID, средняя для редакторской интерпретации; исторические сведения здесь не проверялись.

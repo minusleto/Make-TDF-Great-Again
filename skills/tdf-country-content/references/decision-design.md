@@ -2,6 +2,7 @@
 status: project reference
 updated: 2026-11-24
 scope: TDF/MDC decision categories and decisions in mdredux/common/decisions
+limits: "Not every decision needs every field or a timer; auditor results are static candidates and cannot prove runtime, balance or external definitions."
 ---
 
 # Решения TDF/MDC: устройство, проектирование и проверка

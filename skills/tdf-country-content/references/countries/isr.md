@@ -1,3 +1,10 @@
+---
+status: contextual-country-reference
+country: ISR
+scope: "Selected themes and examples already present in the local ISR country content."
+limits: "Not exhaustive; historical claims are not independently fact-checked; re-scan current files before assuming a theme is absent."
+---
+
 # ISR — Country style card
 
 **Срез:** 2026-11-24, `main` @ `26a6d8c`. **Основной файл:** [Israel_Focus_Tree.txt](https://github.com/minusleto/Make-TDF-Great-Again/blob/26a6d8ca1f21fdaabbe7ca1c9294401727c1c165/mdredux/common/national_focus/Israel_Focus_Tree.txt). Уверенность высокая для перечисленных ID и локальных связей; средняя для редакторской интерпретации. Внешняя историческая проверка не выполнялась.

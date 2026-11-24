@@ -1,3 +1,10 @@
+---
+status: team-design-guidance
+updated: 2026-11-24
+scope: "Country-branch design choices, tool selection and examples for whole-branch planning or substantive review."
+limits: "Records team design positions and repository examples, not HOI4 engine specification; examples marked [?] and historical context need verification."
+---
+
 # Геймдизайн страны: что кодить, зачем и как
 
 Статус: действующее проектное руководство по геймдизайну стран TDF/MDC; это позиция команды и набор проверенных примеров, а не спецификация движка HOI4. Остальные справочники отвечают на вопрос "как оформить" (текст, код, числа), этот — "что и зачем делать". Использовать при проектировании или содержательном ревью целой ветки; для точечной правки одного фокуса открывать его только при необходимости. Синтаксис ниже взят из файлов репозитория; непроверенные места помечены [?].

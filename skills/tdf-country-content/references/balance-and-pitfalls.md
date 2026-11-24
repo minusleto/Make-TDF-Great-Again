@@ -1,3 +1,10 @@
+---
+status: editorial-guidance
+updated: 2026-11-24
+scope: "Shared balance warnings, recurring implementation pitfalls and the final review checklist for TDF country-content changes."
+limits: "Editorial and balance heuristics, not engine limits or universal numeric caps; historical examples and the four-country MD medians require contextual review."
+---
+
 # Баланс модификаторов и частые ошибки
 
 Статус: справочник редакторских и балансных предупреждений, не спецификация движка и не универсальные числовые лимиты. Основа — практика по дереву Казахстана и её проверка по репозиторию 2026-10-30; неподтверждённые положения отмечаются отдельно. Медианы по четырём странам взяты из исторической выборки `skills/md-hoi4-country-content/references/balance.md` (в `.skill`-пакете); использовать их только как ориентиры, а не как актуальную статистику всего TDF.

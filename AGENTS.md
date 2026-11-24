@@ -2,7 +2,7 @@
 
 Репозиторий: срез мода TDF / MDC (Hearts of Iron IV, Millennium Dawn) в `mdredux/`, wiki по коду в `wiki/`, исследования в `docs/research/`. Полного base MD, vanilla и DLC в checkout нет. External IDs сверять с `docs/research/external-dependencies.md` и `docs/research/external-dependencies.json`; статусы и источники сохранять явно. Upstream baseline 2026-11-24 (Millennium Dawn main @ `04b2ba126fc1057bf2ab4bac0407b3235983994c`, descriptor 2.0.0 / HOI4 1.19.*) — справочный snapshot, не утверждение о совместимости с целевой TDF-сборкой. ID, отсутствующий в checkout, не считать ошибкой без проверки intended MD / HOI4 / DLC source.
 
-Перед работой с контентом страны прочитать `skills/README.md` и `skills/tdf-country-content/SKILL.md`. После этого, если для тега есть country style card, открывать только `skills/tdf-country-content/references/countries/<TAG>.md`; не загружать все карточки сразу. Карточка — краткий контекст и карта уже использованных тем, а не шаблон ветки или подтверждение исторических фактов.
+Перед работой с контентом страны прочитать `skills/README.md` и `skills/tdf-country-content/SKILL.md`. Единственные основные источники доменных правил и их маршрутизация перечислены в `skills/tdf-country-content/references/README.md`; не копировать их содержание в AGENTS. Если для тега есть country style card, открывать только `skills/tdf-country-content/references/countries/<TAG>.md`, не загружать все карточки. Карточка — контекстный reference, не шаблон ветки и не историческая верификация.
 
 Профильные справочники открывать по маршрутизации из README. `design-guide.md` нужен для проектирования или содержательного ревью целой ветки и выбора механики; для точечной правки одного фокуса, события или ключа локализации его не открывать автоматически.
 

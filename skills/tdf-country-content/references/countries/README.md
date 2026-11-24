@@ -1,3 +1,9 @@
+---
+status: country-card-index
+scope: "Contextual index of country style cards available for TDF/MDC."
+limits: "Only eight country cards are currently provided; cards are not exhaustive audits or historical fact-checks."
+---
+
 # Country style cards
 
 Краткие карточки контекста для стран, представленных в TDF/MDC. Они помогают не повторять уже использованные сюжеты и находить уместные примеры, но не являются стандартами качества, полными аудитами или историческими справочниками.

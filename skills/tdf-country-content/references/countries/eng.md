@@ -1,3 +1,10 @@
+---
+status: contextual-country-reference
+country: ENG
+scope: "Selected themes and examples already present in the local ENG country content."
+limits: "Not exhaustive; historical claims are not independently fact-checked; re-scan current files before assuming a theme is absent."
+---
+
 # ENG — Country style card
 
 **Срез:** 2026-11-24, `main` @ `26a6d8c`. **Основной файл:** [United Kingdom_Focus_Tree.txt](https://github.com/minusleto/Make-TDF-Great-Again/blob/26a6d8ca1f21fdaabbe7ca1c9294401727c1c165/mdredux/common/national_focus/United%20Kingdom_Focus_Tree.txt). Уверенность высокая для наличия указанных ID, средняя для редакторской интерпретации. Исторические утверждения отдельно не фактчекались.

@@ -1,4 +1,5 @@
 import importlib.util
+import re
 import subprocess
 import sys
 import tempfile
@@ -1289,5 +1290,37 @@ KAZ_test_category = {
             self.assertIn("KAZ", data)
 
 
+class DocumentationPolicyTests(unittest.TestCase):
+    def test_editorial_heuristics_remain_warnings_or_info(self):
+        editorial_warnings = (
+            "title_gt30", "desc_lt150", "desc_gt340", "banned_phrase",
+            "event_generic_label", "event_label_gt35",
+        )
+        for key in editorial_warnings:
+            with self.subTest(key=key):
+                self.assertIn(key, audit.WARNS)
+                self.assertNotIn(key, audit.ERRORS)
+        self.assertIn("event_without_picture", audit.INFOS)
+        self.assertNotIn("event_without_picture", audit.ERRORS)
+
+    def test_reference_index_local_links_resolve(self):
+        repo_root = Path(__file__).parents[3]
+        index_path = repo_root / "skills" / "tdf-country-content" / "references" / "README.md"
+        self.assertTrue(index_path.is_file(), "Missing canonical reference index")
+        content = index_path.read_text(encoding="utf-8")
+        targets = re.findall(r"\]\(([^)]+)\)", content)
+        broken = []
+        from urllib.parse import unquote
+        for target in targets:
+            target = target.split("#", 1)[0].split("?", 1)[0]
+            if not target or target.startswith(("http://", "https://", "mailto:")):
+                continue
+            resolved = (index_path.parent / unquote(target)).resolve()
+            if not resolved.exists():
+                broken.append(target)
+        self.assertEqual(broken, [], "Broken local links in reference index")
+
 if __name__ == "__main__":
     unittest.main()
+
+

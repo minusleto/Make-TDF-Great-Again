@@ -1,3 +1,10 @@
+---
+status: project-reference
+updated: 2026-11-24
+scope: "Static QA and design review for MIO organisations, equipment, modules, technologies, variants and stockpile grants."
+limits: "Local repository slice lacks full base MD, vanilla and DLC; unknown IDs and unlock behaviour require external or in-game verification."
+---
+
 # MIO, equipment and military industry
 
 Справочник для проектирования и технического ревью MIO, вариантов техники, выдачи оборудования и связей с технологиями. Это инструкция для статического аудита; она не заменяет проверку в игре.
