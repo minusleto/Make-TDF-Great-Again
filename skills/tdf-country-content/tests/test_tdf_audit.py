@@ -152,13 +152,16 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
         main_text += chr(10) + ' kaz_test.1.t:0 "A test event."' + chr(10) + ' kaz_test.1.d:0 "The test event description is sufficiently long."' + chr(10)
         main_loc.write_text(main_text, encoding="utf-8")
         events = root / "mdredux" / "events" / "Kazakhstan.txt"
-        event_text = events.read_text(encoding="utf-8")
-        event_text = event_text.replace(
-            "country_event = { id = kaz_test.1 " ,
-            "country_event = { id = kaz_test.1 title = kaz_test.1.t desc = kaz_test.1.d ",
-            1,
+        events.write_text(
+            "add_namespace = kaz_test\\n"
+            "country_event = {\\n"
+            "  id = kaz_test.1\\n"
+            "  title = kaz_test.1.t\\n"
+            "  desc = kaz_test.1.d\\n"
+            '  option = { name = KAZ_visible log = "selected" }\\n'
+            "}\\n",
+            encoding="utf-8",
         )
-        events.write_text(event_text, encoding="utf-8")
 
     def audit_fixture(self, root):
         countries, loc_index = audit.discover(root)
