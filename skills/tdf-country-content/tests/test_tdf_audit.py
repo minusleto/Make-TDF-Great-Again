@@ -702,6 +702,117 @@ technologies = {
             self.assertTrue(any(item["amount"] == "5" and item["producer"] == "KAZ"
                                 for item in report["stockpile_grants"]))
 
+    def test_idea_lifecycle_audit_keeps_legacy_ids_and_checks_tooltip_modes(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+
+            ideas_path = root / "mdredux" / "common" / "ideas" / "Kazakhstan_ideas.txt"
+            ideas_path.write_text("""\
+ideas = {
+  country = {
+    KAZ_valid_idea = {
+      picture = generic_company
+      modifier = { stability_factor = 0.02 }
+    }
+    KAZ_legacy = {
+      name = KAZ_legacy_name
+      picture = generic_company
+      on_add = { add_to_array = { global.KAZ_registry = THIS } }
+      on_remove = { remove_from_array = { global.KAZ_registry = THIS } }
+      cancel = { has_war = yes }
+      allowed_civil_war = { always = yes }
+      modifier = { custom_modifier_tooltip = KAZ_static_tt }
+    }
+    KAZ_legacy_stage1 = {
+      name = KAZ_legacy
+      picture = generic_company
+      modifier = { custom_modifier_tooltip = KAZ_dynamic_tt }
+    }
+    CPLP_member = {
+      name = CPLP_member
+      picture = generic_company
+      modifier = { stability_factor = 0.01 }
+    }
+  }
+  hidden_ideas = {
+    KAZ_hidden_component = {
+      name = KAZ_legacy
+      on_add = { set_country_flag = KAZ_hidden_live }
+      on_remove = { clr_country_flag = KAZ_hidden_live }
+      modifier = { consumer_goods_factor = -0.01 }
+    }
+  }
+}
+""", encoding="utf-8")
+
+            focus_path = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
+            focus_text = focus_path.read_text(encoding="utf-8")
+            focus_text = focus_text.rsplit("}", 1)[0] + """
+  focus = {
+    id = KAZ_idea_lifecycle_test
+    completion_reward = {
+      add_ideas = CPLP_member
+      add_timed_idea = { idea = KAZ_hidden_component days = 30 }
+      swap_ideas = { remove_idea = KAZ_legacy add_idea = KAZ_legacy_stage1 }
+    }
+  }
+}
+"""
+            focus_path.write_text(focus_text, encoding="utf-8")
+
+            script_path = root / "mdredux" / "common" / "scripted_localisation" / "99_KAZ_scripted_localisation.txt"
+            script_text = script_path.read_text(encoding="utf-8") + """
+defined_text = {
+  name = KAZ_dynamic_loc
+  text = {
+    trigger = { has_idea = KAZ_hidden_component }
+    localization_key = KAZ_dynamic_piece
+  }
+}
+"""
+            script_path.write_text(script_text, encoding="utf-8")
+
+            loc_path = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
+            loc_text = loc_path.read_text(encoding="utf-8") + """
+ KAZ_valid_idea:0 "Valid idea"
+ KAZ_legacy_name:0 "Legacy spirit"
+ KAZ_legacy:0 "Legacy spirit"
+ CPLP_member:0 "CPLP member"
+ KAZ_static_tt:0 "$KAZ_static_piece$"
+ KAZ_static_piece:0 "Static component."
+ KAZ_dynamic_tt:0 "[KAZ_dynamic_loc]"
+ KAZ_dynamic_piece:0 "Dynamic component."
+"""
+            loc_path.write_text(loc_text, encoding="utf-8")
+
+            countries, loc_index = audit.discover(root)
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_idea_lifecycle_audit(root, countries, loc_index, content, event_parsed)
+
+            self.assertIn("CPLP_member", content["idea_ids"]["KAZ"])
+            self.assertEqual(report["counts"]["idea_files"], 1)
+            self.assertEqual(report["counts"]["definitions"], 5)
+            self.assertTrue(any(item["idea"] == "KAZ_legacy"
+                                for item in report["legacy_ids_without_idea_suffix"]))
+            self.assertTrue(any(item["idea"] == "KAZ_legacy_stage1" and item["base_idea"] == "KAZ_legacy"
+                                for item in report["stage_name_links"]))
+            self.assertTrue(any(item["idea"] == "KAZ_hidden_component" and item["usage"] == "timed_add"
+                                for item in report["idea_references"]))
+            self.assertTrue(any(item["idea"] == "CPLP_member" and item["usage"] == "add"
+                                for item in report["idea_references"]))
+            self.assertTrue(any(item["idea"] == "KAZ_legacy" and item["usage"] == "remove"
+                                for item in report["idea_references"]))
+            self.assertFalse(any(item["tooltip_key"] == "KAZ_static_tt"
+                                 for item in report["custom_modifier_tooltip_scripted_loc_candidates"]))
+            self.assertTrue(any(item["tooltip_key"] == "KAZ_dynamic_tt"
+                                and "KAZ_dynamic_loc" in item["bracket_references"]
+                                for item in report["custom_modifier_tooltip_scripted_loc_candidates"]))
+            self.assertFalse(report["missing_name_localisation"])
+            self.assertTrue(any(item["idea"] == "KAZ_missing_idea"
+                                for item in report["missing_local_idea_references"]))
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

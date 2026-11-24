@@ -391,6 +391,69 @@ def discover(repo: Union[str, Path]):
     return countries, loc_index
 
 
+def build_idea_definition_index(repo, countries):
+    """Index visible and hidden idea definitions, including unprefixed legacy IDs."""
+    mod = Path(repo) / "mdredux"
+    country_tags = set(countries)
+    definitions = []
+    parse_errors = []
+    for path in iter_files(mod / "common" / "ideas", ".txt"):
+        parsed = parse_hoi(read(path))
+        tags_in_file = set()
+        raw_definitions = []
+        for ideas_block in find_named_blocks(parsed.root, "ideas"):
+            for entry in walk_entries(ideas_block):
+                if not isinstance(entry.value, Block):
+                    continue
+                match = re.match(r"^([A-Z]{3})_[A-Za-z0-9_]+$", entry.key.value)
+                if match:
+                    tags_in_file.add(match.group(1))
+            for group_name in ("country", "hidden_ideas"):
+                for group_entry in direct_entries(ideas_block, group_name):
+                    if not isinstance(group_entry.value, Block):
+                        continue
+                    for entry in group_entry.value.entries:
+                        if isinstance(entry, Entry) and isinstance(entry.value, Block):
+                            raw_definitions.append((entry.key.value, entry.value, group_name, entry.line))
+
+        fallback_tag = None
+        if not path.name.startswith("AA_") and len(tags_in_file) == 1:
+            fallback_tag = next(iter(tags_in_file))
+
+        for idea_id, block, group_name, line in raw_definitions:
+            match = re.match(r"^([A-Z]{3})_", idea_id)
+            owner_tag = match.group(1) if match else fallback_tag
+            modifier_blocks = direct_entries(block, "modifier")
+            custom_tooltips = [
+                scalar(item) for item in nested_entries(block, "custom_modifier_tooltip")
+                if scalar(item)
+            ]
+            definitions.append({
+                "id": idea_id,
+                "owner_tag": owner_tag,
+                "group": group_name,
+                "visibility": "hidden" if group_name == "hidden_ideas" else "visible",
+                "name": get_scalar(block, "name"),
+                "picture": get_scalar(block, "picture"),
+                "has_modifier": bool(modifier_blocks),
+                "modifier_entries": sum(
+                    len(item.value.entries) for item in modifier_blocks
+                    if isinstance(item.value, Block)
+                ),
+                "has_on_add": bool(direct_entries(block, "on_add")),
+                "has_on_remove": bool(direct_entries(block, "on_remove")),
+                "has_cancel": bool(direct_entries(block, "cancel")),
+                "has_allowed_civil_war": bool(direct_entries(block, "allowed_civil_war")),
+                "days_remove": get_scalar(block, "days_remove"),
+                "custom_modifier_tooltips": custom_tooltips,
+                "path": str(path),
+                "line": line,
+            })
+        for issue in parsed.issues:
+            parse_errors.append("{}:{}: {}".format(path.name, issue.line, issue.message))
+    return definitions, parse_errors
+
+
 def build_content_indexes(repo: Union[str, Path], countries, loc_index):
     """Index country ideas and scripted localisation declared inside this repository."""
     mod = Path(repo) / "mdredux"
@@ -458,12 +521,240 @@ def build_content_indexes(repo: Union[str, Path], countries, loc_index):
                 if tag in country_tags:
                     scripted_refs[tag].add(name)
 
+    idea_definitions, idea_parse_errors = build_idea_definition_index(repo, countries)
+    for item in idea_definitions:
+        owner_tag = item["owner_tag"]
+        if owner_tag:
+            idea_ids[owner_tag].add(item["id"])
+
     return {
         "idea_ids": idea_ids,
+        "idea_definitions": idea_definitions,
+        "idea_parse_errors": idea_parse_errors,
         "scripted_defs": scripted_defs,
         "scripted_refs": scripted_refs,
         "script_parse_errors": script_parse_errors,
     }
+
+
+
+def build_idea_lifecycle_audit(repo, countries, loc_index, content_indexes, event_parsed=None):
+    """Audit idea definitions, their grant/removal chain and custom tooltip references."""
+    mod = Path(repo) / "mdredux"
+    country_tags = set(countries)
+    definitions = list(content_indexes.get("idea_definitions", []))
+    definitions_by_id = defaultdict(list)
+    for item in definitions:
+        definitions_by_id[item["id"]].append(item)
+    defined_ids = set(definitions_by_id)
+
+    duplicate_idea_ids = [
+        {"id": idea_id, "definitions": [
+            {"path": item["path"], "line": item["line"], "visibility": item["visibility"]}
+            for item in values
+        ]}
+        for idea_id, values in sorted(definitions_by_id.items()) if len(values) > 1
+    ]
+
+    def resolved_name_key(item):
+        key = item.get("name") or item["id"]
+        seen = {item["id"]}
+        while key in definitions_by_id and key not in seen:
+            seen.add(key)
+            base = definitions_by_id[key][0]
+            key = base.get("name") or base["id"]
+        return key
+
+    missing_name_localisation = []
+    stage_name_links = []
+    legacy_ids_without_suffix = []
+    for item in definitions:
+        if item["owner_tag"] not in country_tags:
+            continue
+        name_key = resolved_name_key(item)
+        if name_key not in loc_index:
+            missing_name_localisation.append({
+                "idea": item["id"], "name_key": name_key,
+                "path": item["path"], "line": item["line"],
+            })
+        if item.get("name") in defined_ids and item["name"] != item["id"]:
+            stage_name_links.append({
+                "idea": item["id"], "base_idea": item["name"],
+                "path": item["path"], "line": item["line"],
+            })
+        if not item["id"].endswith("_idea"):
+            legacy_ids_without_suffix.append({
+                "idea": item["id"], "path": item["path"], "line": item["line"],
+            })
+
+    # Inspect common scripts, events and country history; idea definitions themselves
+    # are excluded so their metadata is not mistaken for grant/read/remove effects.
+    sources = []
+    common_dir = mod / "common"
+    ideas_dir = common_dir / "ideas"
+    for path in iter_files(common_dir, ".txt"):
+        if ideas_dir in path.parents:
+            continue
+        sources.append((path, parse_hoi(read(path))))
+    for path, parsed in (event_parsed or {}).items():
+        sources.append((Path(path), parsed))
+    history_dir = mod / "history"
+    history_files = iter_files(history_dir, ".txt") if history_dir.exists() else []
+    for path in history_files:
+        sources.append((path, parse_hoi(read(path))))
+
+    references = []
+    granted_ids = set()
+    source_parse_errors = []
+
+    def values_from(entry):
+        if isinstance(entry.value, Token):
+            return [entry.value.value]
+        if not isinstance(entry.value, Block):
+            return []
+        values = []
+        for child in entry.value.items:
+            if isinstance(child, Token):
+                values.append(child.value)
+            elif isinstance(child, Entry) and child.key.value in ("idea", "add_idea", "remove_idea"):
+                value = scalar(child)
+                if value:
+                    values.append(value)
+        return values
+
+    def add_ref(idea_id, usage, path, line):
+        if not idea_id or idea_id.lower() in ("no", "none", "empty"):
+            return
+        references.append({"idea": idea_id, "usage": usage, "path": str(path), "line": line})
+        if usage in ("add", "timed_add"):
+            granted_ids.add(idea_id)
+
+    for path, parsed in sources:
+        for issue in parsed.issues:
+            source_parse_errors.append("{}:{}: {}".format(path, issue.line, issue.message))
+        for entry in walk_entries(parsed.root):
+            key = entry.key.value
+            if key in ("add_ideas", "add_idea"):
+                for idea_id in values_from(entry):
+                    add_ref(idea_id, "add", path, entry.line)
+            elif key in ("remove_ideas", "remove_idea"):
+                for idea_id in values_from(entry):
+                    add_ref(idea_id, "remove", path, entry.line)
+            elif key in ("has_idea", "has_ideas"):
+                for idea_id in values_from(entry):
+                    add_ref(idea_id, "condition", path, entry.line)
+            elif key == "add_timed_idea" and isinstance(entry.value, Block):
+                add_ref(get_scalar(entry.value, "idea"), "timed_add", path, entry.line)
+
+    missing_local_references = []
+    external_references = []
+    unresolved_unprefixed_references = []
+    for item in references:
+        if item["idea"] in defined_ids:
+            continue
+        match = re.match(r"^([A-Z]{3})_", item["idea"])
+        if match and match.group(1) in country_tags:
+            missing_local_references.append(dict(item))
+        elif match:
+            external_references.append(dict(item))
+        else:
+            unresolved_unprefixed_references.append(dict(item))
+
+    scripted_names = {
+        item["name"]
+        for definitions_for_tag in content_indexes.get("scripted_defs", {}).values()
+        for item in definitions_for_tag
+    }
+    tooltip_missing_loc = []
+    tooltip_scripted_candidates = []
+    tooltip_static_key_candidates = []
+    for item in definitions:
+        if item["owner_tag"] not in country_tags:
+            continue
+        for tooltip_key in item["custom_modifier_tooltips"]:
+            if tooltip_key not in loc_index:
+                tooltip_missing_loc.append({
+                    "idea": item["id"], "tooltip_key": tooltip_key,
+                    "path": item["path"], "line": item["line"],
+                })
+                continue
+            value = get_loc_value(loc_index, tooltip_key) or ""
+            bracket_refs = re.findall(r"\[([A-Za-z_][A-Za-z0-9_]*)\]", value)
+            if bracket_refs:
+                tooltip_scripted_candidates.append({
+                    "idea": item["id"], "tooltip_key": tooltip_key,
+                    "bracket_references": bracket_refs,
+                    "defined_text_names_found": [
+                        name for name in bracket_refs if name in scripted_names
+                    ],
+                    "path": item["path"], "line": item["line"],
+                })
+            for nested_key in re.findall(r"\$([A-Za-z0-9_.-]+)\$", value):
+                if nested_key.startswith(item["owner_tag"] + "_") and nested_key not in loc_index:
+                    tooltip_static_key_candidates.append({
+                        "idea": item["id"], "tooltip_key": tooltip_key,
+                        "nested_localisation_key": nested_key,
+                        "path": item["path"], "line": item["line"],
+                    })
+
+    scripted_idea_refs = {
+        idea_id
+        for definitions_for_tag in content_indexes.get("scripted_defs", {}).values()
+        for definition in definitions_for_tag
+        for idea_id in definition.get("idea_refs", [])
+    }
+    hidden_ids = {item["id"] for item in definitions if item["visibility"] == "hidden"}
+    hidden_with_scripted_refs = hidden_ids & scripted_idea_refs
+
+    locally_ungranted = [
+        {
+            "idea": item["id"], "path": item["path"], "line": item["line"],
+            "visibility": item["visibility"], "owner_tag": item["owner_tag"],
+        }
+        for item in definitions
+        if item["owner_tag"] in country_tags and item["id"] not in granted_ids
+    ]
+    locally_ungranted.sort(key=lambda item: (item["owner_tag"], item["idea"]))
+
+    return {
+        "counts": {
+            "idea_files": len(iter_files(ideas_dir, ".txt")),
+            "definitions": len(definitions),
+            "visible_ideas": sum(1 for item in definitions if item["visibility"] == "visible"),
+            "hidden_ideas": len(hidden_ids),
+            "idea_references": len(references),
+            "add_references": sum(1 for item in references if item["usage"] == "add"),
+            "timed_add_references": sum(1 for item in references if item["usage"] == "timed_add"),
+            "remove_references": sum(1 for item in references if item["usage"] == "remove"),
+            "condition_references": sum(1 for item in references if item["usage"] == "condition"),
+            "ideas_with_on_add": sum(1 for item in definitions if item["has_on_add"]),
+            "ideas_with_on_remove": sum(1 for item in definitions if item["has_on_remove"]),
+            "ideas_with_cancel": sum(1 for item in definitions if item["has_cancel"]),
+            "ideas_with_allowed_civil_war": sum(1 for item in definitions if item["has_allowed_civil_war"]),
+            "custom_modifier_tooltips": sum(len(item["custom_modifier_tooltips"]) for item in definitions),
+            "history_files": len(history_files),
+        },
+        "parse_errors": list(content_indexes.get("idea_parse_errors", [])),
+        "source_parse_errors": source_parse_errors,
+        "duplicate_idea_ids": duplicate_idea_ids,
+        "missing_name_localisation": missing_name_localisation,
+        "stage_name_links": stage_name_links,
+        "legacy_ids_without_idea_suffix": legacy_ids_without_suffix,
+        "missing_local_idea_references": missing_local_references,
+        "external_idea_references": external_references,
+        "unresolved_unprefixed_idea_references": unresolved_unprefixed_references,
+        "not_locally_granted_candidates": locally_ungranted[:100],
+        "not_locally_granted_candidates_truncated": max(0, len(locally_ungranted) - 100),
+        "custom_modifier_tooltip_missing_localisation": tooltip_missing_loc,
+        "custom_modifier_tooltip_scripted_loc_candidates": tooltip_scripted_candidates,
+        "custom_modifier_tooltip_static_key_candidates": tooltip_static_key_candidates,
+        "hidden_ideas_with_scripted_loc_refs": len(hidden_with_scripted_refs),
+        "hidden_ideas_without_scripted_loc_refs": len(hidden_ids - hidden_with_scripted_refs),
+        "history_inventory_available": bool(history_files),
+        "idea_definitions": definitions,
+        "idea_references": references,
+    }
+
 
 
 def build_global_indexes(countries, repo=None):
@@ -1744,6 +2035,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         countries, loc_index = discover(args.repo)
         all_focus, defined_events, defined_namespaces, event_parsed = build_global_indexes(countries, args.repo)
         content_indexes = build_content_indexes(args.repo, countries, loc_index)
+        idea_report = build_idea_lifecycle_audit(args.repo, countries, loc_index, content_indexes, event_parsed)
         event_report = build_event_audit(args.repo, countries, loc_index, event_parsed, content_indexes)
         decision_report = build_decision_audit(args.repo, countries, loc_index, all_focus, defined_events,
                                                defined_namespaces, event_parsed, content_indexes)
@@ -1819,6 +2111,18 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "events_without_picture"):
             print("  {}: {}".format(key, len(event_report[key])))
 
+        print("\nАудит нацдухов: {} файлов, {} идей (видимых {}, скрытых {}), {} ссылок.".format(
+            idea_report["counts"]["idea_files"], idea_report["counts"]["definitions"],
+            idea_report["counts"]["visible_ideas"], idea_report["counts"]["hidden_ideas"],
+            idea_report["counts"]["idea_references"]))
+        for key in ("parse_errors", "source_parse_errors", "duplicate_idea_ids", "missing_name_localisation",
+                    "missing_local_idea_references", "external_idea_references",
+                    "unresolved_unprefixed_idea_references", "not_locally_granted_candidates",
+                    "custom_modifier_tooltip_missing_localisation",
+                    "custom_modifier_tooltip_scripted_loc_candidates",
+                    "custom_modifier_tooltip_static_key_candidates"):
+            print("  ideas {}: {}".format(key, len(idea_report[key])))
+
         if args.details:
             tag = args.details.upper()
             result = results[tag]
@@ -1833,11 +2137,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             report_data["_events"] = event_report
             report_data["_decisions"] = decision_report
             report_data["_industry"] = industry_report
+            report_data["_ideas"] = idea_report
             with open(args.json, "w", encoding="utf-8", newline="\n") as handle:
                 json.dump(report_data, handle, ensure_ascii=False, indent=2)
                 handle.write("\n")
 
         has_errors = any(result.get(key) for result in results.values() for key in ERRORS)
+        has_errors = has_errors or bool(idea_report["parse_errors"])
         has_errors = has_errors or bool(event_report["parse_errors"] or event_report["missing_event_ids"]
                                          or event_report["duplicate_event_ids"] or event_report["unresolved_references"]
                                          or event_report["missing_localisation"] or event_report["missing_option_localisation"])
