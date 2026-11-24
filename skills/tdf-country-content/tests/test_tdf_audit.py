@@ -387,6 +387,189 @@ country_event = {
             self.assertIn(("kaz_test.1", "kaz_test.1.d"), result["event_desc_key_missing"])
             self.assertIn("kaz_test.1.a", result["event_option_label_missing"])
 
+
+    def test_effect_tooltips_are_not_calls_and_scripted_effects_are_uncertain_roots(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  option = { name = kaz_test.1.a effect_tooltip = { country_event = kaz_test.4 } }
+}
+country_event = { id = kaz_test.2 title = kaz_test.2.t desc = kaz_test.2.d is_triggered_only = yes }
+country_event = { id = kaz_test.3 title = kaz_test.3.t desc = kaz_test.3.d is_triggered_only = yes }
+country_event = { id = kaz_test.4 title = kaz_test.4.t desc = kaz_test.4.d is_triggered_only = yes }
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.1.t:0 "One"
+ kaz_test.1.d:0 "One description."
+ kaz_test.1.a:0 "Continue"
+ kaz_test.2.t:0 "Two"
+ kaz_test.2.d:0 "Two description."
+ kaz_test.3.t:0 "Three"
+ kaz_test.3.d:0 "Three description."
+ kaz_test.4.t:0 "Four"
+ kaz_test.4.d:0 "Four description."
+""", encoding="utf-8")
+            on_actions = root / "mdredux" / "common" / "on_actions"
+            on_actions.mkdir(parents=True)
+            (on_actions / "00_on_actions.txt").write_text(
+                "on_monthly = { effect = { country_event = { id = kaz_test.2 } } }", encoding="utf-8")
+            scripted = root / "mdredux" / "common" / "scripted_effects"
+            scripted.mkdir(parents=True)
+            (scripted / "KAZ_effects.txt").write_text(
+                "KAZ_test_effect = { country_event = kaz_test.3 }", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_event_audit(root, countries, loc_index, parsed, content)
+            self.assertFalse(any(item["id"] == "kaz_test.2" for item in report["unreachable_triggered_events"]))
+            self.assertFalse(any(item["id"] == "kaz_test.3" for item in report["unreachable_triggered_events"]))
+            self.assertTrue(any(item["target"] == "kaz_test.3" for item in report["scripted_effect_references"]))
+            self.assertTrue(any(item["id"] == "kaz_test.4" for item in report["unreachable_triggered_events"]))
+            self.assertEqual(list(audit.iter_event_calls(
+                audit.parse_hoi("effect_tooltip = { country_event = kaz_test.4 }").root)), [])
+
+    def test_global_event_audit_checks_ideas_scripted_loc_and_generic_options(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  option = { name = kaz_test.1.a add_ideas = KAZ_missing_idea }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.1.t:0 "A title [KAZ_missing_script]"
+ kaz_test.1.d:0 "A description."
+ kaz_test.1.a:0 "Good"
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_event_audit(root, countries, loc_index, parsed, content)
+            self.assertTrue(any(item["idea"] == "KAZ_missing_idea" for item in report["missing_event_idea_candidates"]))
+            self.assertTrue(any(item["scripted_localisation"] == "KAZ_missing_script"
+                                for item in report["missing_event_scripted_localisation"]))
+            self.assertTrue(any(item["label"] == "Good" for item in report["generic_option_labels"]))
+
+    def test_decision_audit_checks_local_ids_refs_costs_and_repeatability(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            decisions = root / "mdredux" / "common" / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""
+KAZ_test_category = {
+  KAZ_test_decision = {
+    cost = 10
+    visible = { AND = { has_completed_focus = KAZ_visible NOT = { has_decision = KAZ_missing_decision } } }
+    available = { OR = { has_idea = KAZ_valid_idea FROM = { has_decision = BASE_MD_DECISION } } }
+    highlight_states = { highlight_state_targets = { state = 123 } }
+    complete_effect = { set_temp_variable = { treasury_change = -5 } modify_treasury_effect = yes country_event = { id = kaz_test.1 } }
+  }
+  KAZ_repeat_decision = {
+    fire_only_once = yes
+    days_remove = 30
+    days_re_enable = 365
+    custom_cost_trigger = { check_variable = { treasury > 5 } }
+    custom_cost_text = KAZ_cost_text
+    visible = { has_decision = KAZ_missing_decision }
+    available = { has_country_flag = KAZ_missing_flag }
+    complete_effect = {
+      add_political_power = 5
+      country_event = kaz_test.404
+      add_ideas = KAZ_missing_idea
+      has_completed_focus = KAZ_missing_focus
+    }
+    custom_effect_tooltip = KAZ_missing_tooltip
+  }
+}
+KAZ_duplicate_category = {
+  KAZ_test_decision = { cost = 10 complete_effect = { add_political_power = 1 } }
+}
+KAZ_duplicate_category = {
+  KAZ_another_decision = { cost = -1 }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
+            text = loc.read_text(encoding="utf-8")
+            text += """
+ KAZ_test_category:0 "Test category"
+ KAZ_duplicate_category:0 "Duplicate category"
+ KAZ_test_decision:0 "Test decision"
+ KAZ_repeat_decision:0 "Repeat decision"
+ KAZ_another_decision:0 "Another decision"
+ KAZ_cost_text:0 "Treasury 5"
+"""
+            loc.write_text(text, encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_decision_audit(root, countries, loc_index, all_focus,
+                                                defined_events, namespaces, event_parsed, content)
+            self.assertEqual(report["counts"], {"files": 1, "categories": 3, "decisions": 4})
+            self.assertEqual(report["duplicate_category_ids"][0]["scope"], "same_file")
+            self.assertEqual(len(report["duplicate_decision_ids"]), 1)
+            self.assertTrue(any(item["target"] == "KAZ_missing_decision" for item in report["missing_decision_references"]))
+            self.assertTrue(any(item["target"] == "BASE_MD_DECISION" for item in report["external_decision_references"]))
+            self.assertTrue(any(item["target"] == "KAZ_missing_focus" for item in report["missing_focus_references"]))
+            self.assertTrue(any(item["target"] == "kaz_test.404" for item in report["missing_event_references"]))
+            self.assertTrue(any(item["idea"] == "KAZ_missing_idea" for item in report["idea_reference_candidates"]))
+            self.assertTrue(any(item["flag"] == "KAZ_missing_flag" for item in report["flag_reference_candidates"]))
+            self.assertTrue(any(item["decision"] == "KAZ_repeat_decision" for item in report["custom_cost_without_debit"]))
+            self.assertTrue(any(item["decision"] == "KAZ_repeat_decision" for item in report["repeatability_warnings"]))
+            self.assertTrue(any(item["decision"] == "KAZ_another_decision" and item["field"] == "cost"
+                                for item in report["invalid_numeric_fields"]))
+            self.assertFalse(report["state_inventory_available"])
+            self.assertFalse(report["unknown_highlight_states"])
+
+    def test_decision_audit_separates_external_refs_and_accepts_timer_and_custom_cost_patterns(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            decisions = root / "mdredux" / "common" / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""
+KAZ_category = {
+  KAZ_external = {
+    days_remove = -1
+    custom_cost_trigger = { check_variable = { treasury > 10 } }
+    custom_cost_text = cost_10_0
+    visible = { has_decision = BASE_MD_DECISION }
+    complete_effect = { subtract_from_variable = { treasury = 10 } news_event = base_md_event.1 }
+  }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
+            text = loc.read_text(encoding="utf-8")
+            text += """
+ KAZ_category:0 "Category"
+ KAZ_external:0 "External"
+"""
+            loc.write_text(text, encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_decision_audit(root, countries, loc_index, all_focus,
+                                                defined_events, namespaces, event_parsed, content)
+            self.assertTrue(any(item["target"] == "BASE_MD_DECISION" for item in report["external_decision_references"]))
+            self.assertTrue(any(item["target"] == "base_md_event.1" for item in report["external_event_references"]))
+            self.assertFalse(report["invalid_numeric_fields"])
+            self.assertFalse(report["custom_cost_without_debit"])
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

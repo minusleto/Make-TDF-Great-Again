@@ -1,6 +1,6 @@
 ---
 name: tdf-country-content
-description: 'Project-specific guide for designing, editing and reviewing country content in Make-TDF-Great-Again (TDF/MDC): focus trees, national spirits, events and localisation. Use for any country-content task in this repository, from whole branches to a single focus or localisation key. For other HOI4/MD projects use md-hoi4-country-content.'
+description: 'Project-specific guide for designing, editing and reviewing country content in Make-TDF-Great-Again (TDF/MDC): focus trees, decisions, national spirits, events and localisation. Use for any country-content task in this repository, from whole branches to a single focus or localisation key. For other HOI4/MD projects use md-hoi4-country-content.'
 ---
 
 # TDF country content
@@ -15,7 +15,7 @@ description: 'Project-specific guide for designing, editing and reviewing countr
 
 ## 1. Философия: фокус даёт инструмент
 
-Справочники читать по задаче, не все сразу: проектирование или содержательное ревью целой ветки и выбор механики → `references/design-guide.md`; структура страны и её системы → `references/country-structure.md`; код фокусов, гейты и структура дерева → `references/focus-design.md`; локализация фокуса → `references/focus-loc.md`; события → `references/event-loc.md`; обычные нацдухи → `references/national-spirits.md`; баланс и типовые ошибки → `references/balance-and-pitfalls.md`. При работе с Казахстаном дополнительно читать `references/kazakhstan-maintenance.md`. Для составного духа-хаба с несколькими скрытыми компонентами — также `skills/hoi4-nested-national-spirits/SKILL.md`. Не открывать `design-guide.md` автоматически для точечной правки одного фокуса, события или ключа локализации: в таких задачах достаточно профильного справочника.
+Справочники читать по задаче, не все сразу: проектирование или содержательное ревью целой ветки и выбор механики → `references/design-guide.md`; структура страны и её системы → `references/country-structure.md`; код фокусов, гейты и структура дерева → `references/focus-design.md`; локализация фокуса → `references/focus-loc.md`; решения → `references/decision-design.md`; события → `references/event-loc.md`; обычные нацдухи → `references/national-spirits.md`; баланс и типовые ошибки → `references/balance-and-pitfalls.md`. При работе с Казахстаном дополнительно читать `references/kazakhstan-maintenance.md`. Для составного духа-хаба с несколькими скрытыми компонентами — также `skills/hoi4-nested-national-spirits/SKILL.md`. Не открывать `design-guide.md` автоматически для точечной правки одного фокуса, события или ключа локализации: в таких задачах достаточно профильного справочника.
 
 Позиция команды: фокус даёт ИНСТРУМЕНТ, который расширяет контент и даёт стране уникальную механику. Лучше меньше фокусов, но каждый с механикой, чем длинное дерево из "+числа" (антипримеры по словам команды - Нидерланды и Чехия; их нет в этом репозитории, поэтому здесь они не оцениваются). Механик в моде много, взаимодействие с ними должно быть простым. Мы не Political Power Dawn: контент держится на грани "интересно" и "легко понять".
 
@@ -47,7 +47,7 @@ description: 'Project-specific guide for designing, editing and reviewing countr
 - Политика - самая большая часть: у каждой значимой субидеологии свой маршрут и свой набор фокусов.
 - Гейты везде: у 73-89% фокусов есть `available` (партия, мнение, партнёр, предыдущий фокус), а не даты.
 - Страна работает на системах мода: казна, влияние, партии и коалиции, внутренние фракции, законы, ЕС и НАТО, компании, энергетика.
-- Механика страны живёт в духах, решениях и событиях, а не в самом фокусе: фокус открывает дверь.
+- Механика страны живёт в духах, решениях и событиях, а не в самом фокусе: фокус открывает дверь. Решение — повторяемое/целевое действие, а дух — состояние, которое оно может изменить.
 
 ## 3. Рабочий цикл на один фокус
 
@@ -97,6 +97,8 @@ description: 'Project-specific guide for designing, editing and reviewing countr
 5. Очень стараться объединять все изменения в рамках одной задачи в ОДИН коммит, даже если затронуто несколько файлов: так пользователю проще проверять diff и историю. Не делать отдельный коммит на каждый файл или мелкую правку. Перед коммитом завершить связанные изменения и общий аудит; разбивать на несколько коммитов только если этого прямо просит пользователь или есть объективная техническая необходимость, которую нужно заранее объяснить.
 
 ## 5. Проверка
+
+Для решений читай `references/decision-design.md`. Общий auditor проверяет категории, ID, локализацию и локальные ссылки на решения, фокусы, идеи и события.
 
 Для событий запускай общий auditor с полным checkout. Он проверяет title/desc/option keys, повторы локализации, дубли ID и namespace, ссылки из focus/decisions/events, а также цепочки в обеих синтаксических формах вызова. External namespace и потенциально осиротевшие triggered-only events остаются диагностическими WARN-кандидатами, пока не проверен полный базовый MD.
 
