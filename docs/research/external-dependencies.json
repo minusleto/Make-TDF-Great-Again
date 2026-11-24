@@ -550,6 +550,41 @@
         }
       ],
       "notes": "Upstream search exposed suffixed tech_combat_radar_1 etc., but did not establish the bare ID; verify it against the target MD version."
+    },
+    {
+      "type": "event",
+      "id": "georg_monarchist.14",
+      "namespace": "georg_monarchist",
+      "status": "unknown",
+      "expected_source": "Unknown; not found in TDF local Georgia events or pinned Millennium Dawn Georgia events",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Georgia_Focus_Tree.txt",
+          "line": 7901,
+          "usage": "country_event call from GEO_crucial_marriage"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "TDF caller",
+          "path": "mdredux/common/national_focus/Georgia_Focus_Tree.txt",
+          "line": 7901,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/common/national_focus/Georgia_Focus_Tree.txt#L7901"
+        },
+        {
+          "kind": "TDF local event source checked; no matching definition",
+          "path": "mdredux/events/Georgia.txt",
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/events/Georgia.txt"
+        },
+        {
+          "kind": "pinned upstream Georgia event source checked; no matching definition",
+          "path": "events/Georgia.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Georgia.txt"
+        }
+      ],
+      "notes": "The focus calls this ID, but no definition was found in the TDF Georgia event file or the pinned Millennium Dawn 04b2ba1 Georgia event file. Keep status unknown because another installed module or a different base-MD revision may still supply it; the available evidence makes it a high-priority missing-event candidate."
     }
   ]
 }

@@ -3,7 +3,8 @@
 Consolidated reviews and fact-checking notes for TDF / MDC.
 
 ## Documents
-- [TDF Stage 9 static integration review (2026-11-24)](2026-11-24-tdf-stage9-static-integration.md) — partial cross-file review of ENG, ISR and countries without local event/decision files; the full unit-test and auditor run remains pending.
+- [TDF Stage 9 static integration review (2026-11-24)](2026-11-24-tdf-stage9-static-integration.md) — initial selective cross-file review of ENG, ISR and countries without local event/decision files.
+- [TDF Stage 9 executed validation (2026-11-24)](2026-11-24-tdf-stage9-validation.md) — 43 unit tests passed; full and all 12 per-country audits executed, with outstanding ERROR candidates and limitations recorded.
 - [TDF inventory (2026-11-24)](2026-11-24-tdf-inventory.md) — reproducible file and block counts from main, with scope, counting method and limitations.
 - [TDF trees audit vs skills (2026-10-30)](2026-10-tdf-trees-audit.md) — historical audit of the 10-tree sample available on 2026-10-30; its counts and findings are not the current repository baseline.
 - [Kazakhstan navy branch review (2026-10-31)](2026-10-kazakhstan-navy-design-review.md) — navy branch run through design-guide: Russia event routing and gate bugs fixed, descriptions rewritten, open design decisions.
@@ -12,7 +13,7 @@ Consolidated reviews and fact-checking notes for TDF / MDC.
 - [Kazakhstan aviation fact-check](2026-10-kazakhstan-aviation-fact-check.md) — China / US / Iran procurement status and recommendations for the 2000–2030 sandbox.
 - [Standard vs MD skill and country trees](2026-10-standard-vs-country-trees.md) — comparison with the Claude/MD skill and static review of Portugal, Russia, Syria, Armenia, Israel, Poland and Kazakhstan.
 
-These documents are research and recommendations, not game-script patches. Findings marked as localization candidates require checking shared focuses and text overrides before edits. The Stage 9 note is explicitly a partial static review: it does not claim that unit tests, the full auditor, or HOI4 runtime checks have passed.
+These documents are research and recommendations, not game-script patches. Findings marked as localisation candidates require checking shared focuses and text overrides before edits. The initial Stage 9 static note remains a partial source review; the executed validation report records the actual unittest and full/per-country auditor results. Neither report claims HOI4 runtime validation.
 
 - [External dependency registry](external-dependencies.md) — machine-readable IDs, source/status evidence and dated official Millennium Dawn baseline; auditor output: `_external_dependencies`.
 
