@@ -59,6 +59,14 @@ jobs:
             echo "Full audit returned exit code $status; see uploaded report."
             exit "$status"
           fi
+      - name: Run structural inventory
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p reports
+          python -I skills/tdf-country-content/scripts/tdf_inventory.py . --json reports/inventory.json > reports/inventory.log
+          cat reports/inventory.log
+
       - name: Upload full audit report
         if: always()
         uses: actions/upload-artifact@v4
