@@ -1,0 +1,94 @@
+name: TDF auditor validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "mdredux/**"
+      - "skills/tdf-country-content/**"
+      - "docs/research/external-dependencies.*"
+      - ".github/workflows/tdf-audit-validation.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "mdredux/**"
+      - "skills/tdf-country-content/**"
+      - "docs/research/external-dependencies.*"
+      - ".github/workflows/tdf-audit-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    name: Auditor and inventory unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run all auditor unit tests
+        run: python -m unittest discover -s skills/tdf-country-content/tests -v
+
+  full-audit:
+    name: Full and per-country static audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run full audit and every country separately
+        shell: bash
+        run: |
+          mkdir -p reports
+          printf "scope,exit_code\n" > reports/audit-status.csv
+
+          if python -I skills/tdf-country-content/scripts/tdf_audit.py . --json reports/full-audit.json > reports/full-audit.log 2>&1; then
+            full_status=0
+          else
+            full_status=$?
+          fi
+          printf "ALL,%s\n" "$full_status" >> reports/audit-status.csv
+
+          for tag in ARM BLR ENG GEO HUN ISR KAZ POL POR SLO SOV SYR; do
+            if python -I skills/tdf-country-content/scripts/tdf_audit.py . --tags "$tag" > "reports/audit-$tag.log" 2>&1; then
+              status=0
+            else
+              status=$?
+            fi
+            printf "%s,%s\n" "$tag" "$status" >> reports/audit-status.csv
+          done
+
+          {
+            echo "# TDF auditor run"
+            echo
+            echo "| Scope | Exit code |"
+            echo "|---|---:|"
+            while IFS=, read -r scope status; do
+              [ "$scope" = "scope" ] && continue
+              echo "| $scope | $status |"
+            done < reports/audit-status.csv
+            echo
+            echo "Exit code 0 = no auditor ERROR; 1 = auditor ERROR findings; 2 = input/runtime failure."
+          } > reports/audit-summary.md
+      - name: Upload audit reports and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tdf-audit-reports
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Fail when the auditor reports errors
+        run: |
+          if awk -F, 'NR > 1 && $2 != 0 { failed = 1 } END { exit !failed }' reports/audit-status.csv; then
+            echo "One or more full/per-country audit runs returned a non-zero exit code."
+            exit 1
+          fi
