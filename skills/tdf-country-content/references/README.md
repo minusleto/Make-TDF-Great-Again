@@ -43,7 +43,7 @@ limits: This is a routing and authority index, not a replacement for domain refe
 | Ideas / national spirits и lifecycle | [national-spirits.md](national-spirits.md) | Проектный reference; численные сравнения — исторические наблюдения |
 | Составные hidden-idea hubs | [Nested national spirits skill](../../hoi4-nested-national-spirits/SKILL.md) | Специализированный pattern; не загружать для обычного духа |
 | MIO, equipment, modules, technologies и variants | [mio-and-equipment.md](mio-and-equipment.md) | Статический QA; missing base-MD definitions не объявлять доказанной ошибкой |
-| Межфайловые flags, variables, arrays, scripts, history | [state-flow.md](state-flow.md) | Статический evidence graph; не runtime simulation |
+| Межфайловые flags, variables, arrays, scripts, history и связность focus/event/idea/MIO-цепочек | [state-flow.md](state-flow.md) | Статический typed evidence graph _state_flow + _branch_connectivity; candidates не доказывают runtime-reachability |
 | Балансные предупреждения и общий checklist | [balance-and-pitfalls.md](balance-and-pitfalls.md) | [RECOMMENDED] Никаких универсальных числовых лимитов |
 | Файловая структура страны и общие системы | [country-structure.md](country-structure.md) | Частично исторический обзор; подробные измерения — срез 2026-10-30 |
 | Дополнительные соглашения Казахстана | [kazakhstan-maintenance.md](kazakhstan-maintenance.md) | Country-specific; не переносить на остальные страны |
@@ -66,6 +66,7 @@ skills/tdf-country-content/tests/ — регрессионная база audito
 - неизвестные namespace/ID и shared cross-country MIO не должны автоматически становиться missing-local ERROR;
 - extensionless scripted effects и country history участвуют в карте связей;
 - generic event option label отражается как редакторский кандидат, а не запрещённая строка;
+- branch-connectivity fixture связывает focus → event → idea → tooltip/scripted localisation → следующую focus gate, а также отделяет внешний event namespace и незамкнутый local chain как review candidates;
 - отсутствие picture — INFO, не обязательный структурный дефект;
 - отключённые ветки и допустимые внешние ссылки отделяются от активных локальных ошибок.
 

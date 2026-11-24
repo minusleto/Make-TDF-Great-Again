@@ -1,6 +1,6 @@
 ---
 status: project-reference
-updated: 2026-11-24
+updated: 2026-11-25
 scope: "Static cross-file analysis of flags, variables, arrays, scripted effects/triggers, on_actions, history and direct decision/event links."
 limits: "Evidence candidates only; cannot resolve dynamic scopes, indirect calls, execution order or missing base-MD content and does not simulate HOI4 runtime."
 ---
@@ -76,3 +76,21 @@ python3 -I -m unittest discover -s skills/tdf-country-content/tests -v
 Flag links сопоставляют точный ID и отдельно отмечают совместимость setter/getter scope (country/global/state/province). Timed flag setters сравниваются с соответствующим обычным getter scope. Idea links связывают `add_ideas`, `add_idea` и `add_timed_idea` с `has_idea` / `has_ideas`. Проверки внутри `NOT` и `NOR` не трактуются как положительное условие разблокировки. Совпадения внутри того же event ID исключаются, чтобы не считать внутренний цикл межобъектной связью.
 
 Это evidence-кандидаты, а не доказательство корректной цепочки: статический анализ не подтверждает порядок выполнения, совпадение фактического country scope/получателя, отсутствие снятия флага/духа между объектами или влияние scripted effects, которых нет в прямом блоке. Он также не разрешает динамические ID и scope chains, а базовый MD в checkout отсутствует. Поэтому результаты не повышают уровень ERROR и требуют ручной проверки.
+
+## Связность целых веток — JSON _branch_connectivity
+
+Дополнительный отчёт собирает существующие локальные ссылки в единый граф:
+- focus → prerequisite focus (игровая зависимость; отдельно хранится relative_position_id, это только layout);
+- focus → event → event;
+- focus/event → выдаваемые идеи и технику;
+- focus → idea gate (available/bypass) и источники выдачи идеи по цепочке prerequisite ancestors → called events;
+- idea → custom_modifier_tooltip → scripted localisation → idea conditions;
+- focus → MIO и MIO → focus из visible;
+- прямые event/decision state handoffs, найденные state-flow анализом.
+
+focus_idea_gate_paths — review candidate, если локально определённая идея используется как gate, но среди prerequisite ancestors и событий, вызванных ими, не найден локальный grant. Возможны стартовая выдача через history, decision, on_action, scripted effect или базовый MD; отчёт перечисляет известные локальные writers и не считает отсутствие доказательства доказательством ошибки.
+
+unresolved_local_event_calls, external_event_calls, tooltip_script_resolution, unreachable_triggered_events и ссылки MIO показываются как отдельные типы кандидатов. Внешние namespace не превращаются в локальный missing ID. Ни один новый candidate не повышает exit code: существующие точные ERROR/WARN правила остаются источником статуса. В JSON данные расположены в _branch_connectivity, краткая статистика выводится при запуске, подробные кандидаты — через --details TAG.
+
+**Ограничения:** prerequisite ancestry — консервативное объединение ID, а не полная симуляция AND/OR, войны, DLC, динамических scope, вероятностей AI или порядка исполнения. Наличие локального пути доказывает только статическую связь вызовов, не успешное выполнение эффекта в игре. Отсутствие локального writer может означать базовый MD/историю/скрипт, которого нет в checkout. Использовать граф для навигации и ручного ревью, не для автоматического вывода о runtime-reachability.
+

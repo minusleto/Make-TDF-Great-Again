@@ -1441,6 +1441,258 @@ KAZ_test_category = {
             self.assertIn("KAZ", data)
 
 
+
+    def test_branch_connectivity_links_focus_event_idea_tooltip_and_next_focus(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            tree = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
+            tree.write_text("""
+focus_tree = {
+  country = { original_tag = KAZ }
+  focus = {
+    id = KAZ_flow_root
+    completion_reward = {
+      log = "[GetDateText]: [Root.GetName]: Focus KAZ_flow_root"
+      country_event = { id = kaz_flow.1 days = 1 }
+      show_ideas_tooltip = KAZ_flow_spirit
+    }
+  }
+  focus = {
+    id = KAZ_flow_next
+    prerequisite = { focus = KAZ_flow_root }
+    available = { has_idea = KAZ_flow_spirit_2 }
+    completion_reward = { log = "[GetDateText]: [Root.GetName]: Focus KAZ_flow_next" }
+  }
+  focus = {
+    id = KAZ_flow_negative_gate
+    prerequisite = { focus = KAZ_flow_root }
+    available = { NOT = { has_idea = KAZ_flow_spirit_2 } }
+    bypass = { has_idea = KAZ_never_used_for_access }
+    completion_reward = { log = "[GetDateText]: [Root.GetName]: Focus KAZ_flow_negative_gate" }
+  }
+}
+""", encoding="utf-8")
+
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_flow
+country_event = {
+  id = kaz_flow.1
+  title = kaz_flow.1.t
+  desc = kaz_flow.1.d
+  is_triggered_only = yes
+  option = {
+    name = kaz_flow.1.a
+    log = "[GetDateText]: [This.GetName]: kaz_flow.1.a"
+    country_event = kaz_flow.2
+  }
+}
+country_event = {
+  id = kaz_flow.2
+  title = kaz_flow.2.t
+  desc = kaz_flow.2.d
+  is_triggered_only = yes
+  option = {
+    name = kaz_flow.2.a
+    log = "[GetDateText]: [This.GetName]: kaz_flow.2.a"
+    add_ideas = KAZ_flow_spirit_2
+  }
+}
+""", encoding="utf-8")
+
+            ideas = root / "mdredux" / "common" / "ideas" / "Kazakhstan_ideas.txt"
+            ideas.write_text("""
+ideas = {
+  country = {
+    KAZ_flow_spirit = {
+      name = KAZ_flow_spirit
+      custom_modifier_tooltip = KAZ_flow_spirit_tt
+    }
+    KAZ_flow_spirit_2 = {
+      name = KAZ_flow_spirit
+    }
+  }
+}
+""", encoding="utf-8")
+
+            scripted = root / "mdredux" / "common" / "scripted_localisation"
+            (scripted / "99_KAZ_scripted_localisation.txt").write_text("""
+defined_text = {
+  name = KAZ_flow_spirit_stage
+  text = {
+    trigger = { has_idea = KAZ_flow_spirit_2 }
+    localization_key = KAZ_flow_spirit_stage_desc
+  }
+}
+""", encoding="utf-8")
+
+            mio_dir = root / "mdredux" / "common" / "military_industrial_organization" / "organizations"
+            mio_dir.mkdir(parents=True)
+            (mio_dir / "KAZ_mio.txt").write_text("""
+KAZ_flow_mio = {
+  allowed = { original_tag = KAZ }
+  visible = { has_completed_focus = KAZ_flow_root }
+  name = KAZ_flow_mio_name
+  include = generic_tank_equipment_organization
+}
+""", encoding="utf-8")
+
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_flow.1.t:0 "Offer"
+ kaz_flow.1.d:0 "The offer is presented."
+ kaz_flow.1.a:0 "Continue"
+ kaz_flow.2.t:0 "Delivery"
+ kaz_flow.2.d:0 "The delivery is arranged."
+ kaz_flow.2.a:0 "Accept"
+ KAZ_flow_root:0 "Root"
+ KAZ_flow_root_desc:0 "A sufficiently long description used by a branch connectivity fixture."
+ KAZ_flow_next:0 "Next"
+ KAZ_flow_next_desc:0 "A sufficiently long description used by a branch connectivity fixture."
+ KAZ_flow_spirit:0 "First stage"
+ KAZ_flow_spirit_tt:0 "Current stage: [KAZ_flow_spirit_stage]"
+ KAZ_flow_spirit_stage_desc:0 "The upgraded stage is active."
+ KAZ_flow_mio_name:0 "Kazakhstan test organization"
+""", encoding="utf-8")
+
+            countries, loc_index = audit.discover(root)
+            _, _, _, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            event_report = audit.build_event_audit(root, countries, loc_index, event_parsed, content)
+            idea_report = audit.build_idea_lifecycle_audit(root, countries, loc_index, content, event_parsed)
+            all_focus = {
+                audit.get_scalar(body, "id")
+                for body in audit.find_named_blocks(countries["KAZ"]["tree_parsed"].root, "focus")
+                if audit.get_scalar(body, "id")
+            }
+            industry_report = audit.build_industry_audit(root, countries, loc_index, all_focus, event_parsed)
+            state_report = audit.build_state_flow_audit(root, countries, event_parsed)
+            report = audit.build_branch_connectivity_audit(
+                countries, event_report, idea_report, industry_report, state_report,
+                event_parsed, content, loc_index, tags=["KAZ"],
+            )
+            flow = report["by_country"]["KAZ"]
+
+            self.assertTrue(any(
+                edge["from"] == "KAZ_flow_root" and edge["to"] == "kaz_flow.1"
+                for edge in flow["focus_event_edges"]
+            ))
+            self.assertTrue(any(
+                edge["from"] == "kaz_flow.1" and edge["to"] == "kaz_flow.2"
+                for edge in flow["event_event_edges"]
+            ))
+            self.assertTrue(any(
+                edge["from"] == "kaz_flow.2" and edge["to"] == "KAZ_flow_spirit_2"
+                for edge in flow["event_idea_grant_edges"]
+            ))
+            tooltip_relations = {edge["relation"] for edge in flow["idea_tooltip_edges"]}
+            self.assertIn("custom_modifier_tooltip", tooltip_relations)
+            self.assertIn("localisation_calls_scripted_localisation", tooltip_relations)
+            self.assertIn("scripted_localisation_checks_idea", tooltip_relations)
+            self.assertTrue(any(
+                edge["from"] == "KAZ_flow_mio" and edge["to"] == "KAZ_flow_root"
+                for edge in flow["mio_visibility_edges"]
+            ))
+            gate = next(edge for edge in flow["focus_idea_gate_edges"]
+                        if edge["from"] == "KAZ_flow_next" and edge["to"] == "KAZ_flow_spirit_2")
+            self.assertEqual(gate["path_status"], "local_upstream_grant_found")
+            self.assertFalse(flow["review_candidates"]["focus_idea_gate_paths"])
+            self.assertFalse(any(
+                item["focus"] == "KAZ_flow_negative_gate"
+                for item in flow["review_candidates"]["focus_idea_gate_paths"]
+            ))
+            self.assertTrue(any(
+                edge["from"] == "KAZ_flow_negative_gate" and edge["gate"] == "bypass"
+                for edge in flow["focus_idea_gate_edges"]
+            ))
+            self.assertFalse(flow["review_candidates"]["tooltip_script_resolution"])
+
+    def test_branch_connectivity_separates_local_gaps_from_external_dependencies(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            tree = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
+            tree.write_text("""
+focus_tree = {
+  country = { original_tag = KAZ }
+  focus = {
+    id = KAZ_flow_root
+    available = { has_idea = KAZ_orphan_spirit }
+    completion_reward = {
+      log = "[GetDateText]: [Root.GetName]: Focus KAZ_flow_root"
+      country_event = kaz_flow.404
+      country_event = base_md_event.1
+    }
+  }
+}
+""", encoding="utf-8")
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_flow
+country_event = {
+  id = kaz_flow.1
+  title = kaz_flow.1.t
+  desc = kaz_flow.1.d
+}
+""", encoding="utf-8")
+            ideas = root / "mdredux" / "common" / "ideas" / "Kazakhstan_ideas.txt"
+            ideas.write_text("""
+ideas = {
+  country = {
+    KAZ_orphan_spirit = {
+      name = KAZ_orphan_spirit
+      custom_modifier_tooltip = KAZ_orphan_tooltip
+    }
+  }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_flow.1.t:0 "Event"
+ kaz_flow.1.d:0 "A description."
+ KAZ_flow_root:0 "Root"
+ KAZ_flow_root_desc:0 "A sufficiently long description used by a branch connectivity fixture."
+ KAZ_orphan_spirit:0 "Orphan"
+ KAZ_orphan_tooltip:0 "An unfinished tooltip: [KAZ_missing_script]"
+""", encoding="utf-8")
+
+            countries, loc_index = audit.discover(root)
+            _, _, _, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            event_report = audit.build_event_audit(root, countries, loc_index, event_parsed, content)
+            idea_report = audit.build_idea_lifecycle_audit(root, countries, loc_index, content, event_parsed)
+            all_focus = {
+                audit.get_scalar(body, "id")
+                for body in audit.find_named_blocks(countries["KAZ"]["tree_parsed"].root, "focus")
+                if audit.get_scalar(body, "id")
+            }
+            industry_report = audit.build_industry_audit(root, countries, loc_index, all_focus, event_parsed)
+            state_report = audit.build_state_flow_audit(root, countries, event_parsed)
+            report = audit.build_branch_connectivity_audit(
+                countries, event_report, idea_report, industry_report, state_report,
+                event_parsed, content, loc_index, tags=["KAZ"],
+            )
+            candidates = report["by_country"]["KAZ"]["review_candidates"]
+
+            self.assertTrue(any(
+                item["to"] == "kaz_flow.404" and item["status"] == "missing_in_declared_local_namespace"
+                for item in candidates["unresolved_local_event_calls"]
+            ))
+            self.assertTrue(any(
+                item["to"] == "base_md_event.1" and item["status"] == "external_or_unknown_namespace"
+                for item in candidates["external_event_calls"]
+            ))
+            self.assertTrue(any(
+                item["focus"] == "KAZ_flow_root" and item["idea"] == "KAZ_orphan_spirit"
+                for item in candidates["focus_idea_gate_paths"]
+            ))
+            self.assertTrue(any(
+                item["scripted_localisation"] == "KAZ_missing_script"
+                for item in candidates["tooltip_script_resolution"]
+            ))
+
+
 class DocumentationPolicyTests(unittest.TestCase):
     def test_editorial_heuristics_remain_warnings_or_info(self):
         editorial_warnings = (
