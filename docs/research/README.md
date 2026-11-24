@@ -3,7 +3,8 @@
 Consolidated reviews and fact-checking notes for TDF / MDC.
 
 ## Documents
-- [TDF trees audit vs skills (2026-10-30)](2026-10-tdf-trees-audit.md) — all 10 focus trees measured against the skill rules: bugs by country, "tool per focus" metric, description/event style, skill health, fix priorities.
+- [TDF inventory (2026-11-24)](2026-11-24-tdf-inventory.md) — reproducible file and block counts from main, with scope, counting method and limitations.
+- [TDF trees audit vs skills (2026-10-30)](2026-10-tdf-trees-audit.md) — historical audit of the 10-tree sample available on 2026-10-30; its counts and findings are not the current repository baseline.
 - [Kazakhstan navy branch review (2026-10-31)](2026-10-kazakhstan-navy-design-review.md) — navy branch run through design-guide: Russia event routing and gate bugs fixed, descriptions rewritten, open design decisions.
 - [Content review principles](2026-10-content-review-principles.md) — reusable checklist, with summary takeaways from Portugal, Poland and Russia.
 - [Kazakhstan military tree audit](2026-10-kazakhstan-tree-audit.md) — focus-level issues and technical QA priorities from the focus tree.
@@ -13,4 +14,4 @@ Consolidated reviews and fact-checking notes for TDF / MDC.
 These documents are research and recommendations, not game-script patches. Findings marked as localization candidates require checking shared focuses and text overrides before edits.
 
 ## Skills
-- [`skills/tdf-country-content`](../../skills/tdf-country-content/SKILL.md) — how to write focuses, national spirits, events and localisation for TDF, plus `scripts/tdf_audit.py`.
+- [`skills/tdf-country-content`](../../skills/tdf-country-content/SKILL.md) — how to write focuses, national spirits, events and localisation for TDF, plus `scripts/tdf_audit.py` and `scripts/tdf_inventory.py`.

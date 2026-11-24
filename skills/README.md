@@ -35,6 +35,7 @@
 Из корня репозитория, после связанной серии изменений (не после каждой мелкой правки):
 
 ```bash
+python3 -I skills/tdf-country-content/scripts/tdf_inventory.py .
 python3 -I skills/tdf-country-content/scripts/tdf_audit.py .
 python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --tags KAZ
 python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --details KAZ
@@ -47,5 +48,6 @@ python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --details KAZ
 - `tdf-country-content/` — основной скил проекта, проектные справочники и `tdf_audit.py`.
 - `hoi4-nested-national-spirits/` — узкий дополнительный скил для составных национальных духов.
 - `md-hoi4-country-content/` — общий скил для других MD/HOI4-проектов; в этом TDF-репозитории не активировать. `scripts/mdindex.py` нужен для больших наборов загруженных файлов, а не для поиска в checkout-репозитории.
-- `../docs/research/` — проектные аудиты и фактчеки; основной аудит деревьев: `2026-10-tdf-trees-audit.md`.
+- `../docs/research/` — проектные аудиты и фактчеки; текущая структурная инвентаризация на 2026-11-24: `2026-11-24-tdf-inventory.md`; аудит деревьев 2026-10 — исторический срез.
+
 - `../md-hoi4-country-content.skill` — старый упакованный пакет, не синхронизируется с живыми файлами в `skills/`.
