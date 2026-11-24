@@ -323,11 +323,23 @@ def iter_files(root: Path, suffix: str) -> List[Path]:
 
 
 def detect_tag(parsed: ParseResult) -> Optional[str]:
-    for key in ("tag", "original_tag"):
-        for entry in nested_entries(parsed.root, key):
-            value = scalar(entry)
-            if value and TAG_RE.fullmatch(value):
-                return value
+    """Detect the tree's country selector, not target tags used inside focus logic."""
+    tree_blocks = find_named_blocks(parsed.root, "focus_tree") or [parsed.root]
+    for tree in tree_blocks:
+        country = get_block(tree, "country")
+        if country is None:
+            continue
+        # original_tag identifies the country more explicitly. Both selectors must
+        # be read only from the focus_tree country block: nested focus conditions
+        # can contain tag = PER/CHI/etc. for strength_ratio and other targets.
+        for key in ("original_tag", "tag"):
+            for entry in nested_entries(country, key):
+                value = scalar(entry)
+                if value and TAG_RE.fullmatch(value):
+                    return value
+
+    # Older or partial trees may omit a country selector; infer from their own
+    # focus IDs rather than mistaking a target tag in an effect/condition for owner.
     focus_ids = []
     for body in find_named_blocks(parsed.root, "focus"):
         fid = get_scalar(body, "id")

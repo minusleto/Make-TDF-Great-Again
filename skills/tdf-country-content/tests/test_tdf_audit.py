@@ -119,6 +119,24 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
                                      set(countries), defined_events, namespaces, event_parsed, content)
         return result
 
+    def test_discover_uses_country_selector_not_target_tags_in_focus_logic(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            tree = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
+            text = tree.read_text(encoding="utf-8")
+            text = text.replace(
+                "id = KAZ_visible completion_reward",
+                "id = KAZ_visible available = { tag = PER } "
+                "ai_will_do = { modifier = { strength_ratio = { tag = CHI } } } "
+                "completion_reward",
+            )
+            tree.write_text(text, encoding="utf-8")
+            countries, _ = audit.discover(root)
+            self.assertIn("KAZ", countries)
+            self.assertNotIn("PER", countries)
+            self.assertNotIn("CHI", countries)
+
     def test_localisation_duplicates_are_found_across_files(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
