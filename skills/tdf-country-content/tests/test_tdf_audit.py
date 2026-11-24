@@ -42,7 +42,7 @@ milestones = {
             if entry.key.value == "set_variable"
         ]
         self.assertEqual(
-            [entry.value.entries[0].key.value for entry in variable_entries],
+            [audit.scalar(entry) for entry in variable_entries],
             ["fighters_milestone_var", "bombers_milestone_var"],
         )
         self.assertEqual(
