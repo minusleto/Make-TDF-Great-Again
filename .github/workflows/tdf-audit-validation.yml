@@ -48,7 +48,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p reports
-          if python -I skills/tdf-country-content/scripts/tdf_audit.py . --json reports/full-audit.json > reports/full-audit.log 2>&1; then
+          if python -I skills/tdf-country-content/scripts/tdf_audit.py . --require-external-registry --json reports/full-audit.json > reports/full-audit.log 2>&1; then
             status=0
           else
             status=$?
@@ -88,7 +88,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p reports
-          if python -I skills/tdf-country-content/scripts/tdf_audit.py . --tags "${{ matrix.tag }}" --json "reports/audit-${{ matrix.tag }}.json" > "reports/audit-${{ matrix.tag }}.log" 2>&1; then
+          if python -I skills/tdf-country-content/scripts/tdf_audit.py . --tags "${{ matrix.tag }}" --require-external-registry --json "reports/audit-${{ matrix.tag }}.json" > "reports/audit-${{ matrix.tag }}.log" 2>&1; then
             status=0
           else
             status=$?

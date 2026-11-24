@@ -3246,6 +3246,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ap.add_argument("--tags", help="список тегов через запятую, например POR,KAZ")
     ap.add_argument("--details", help="показать подробности проверок одной страны")
     ap.add_argument("--json", metavar="PATH", help="сохранить полный отчёт в UTF-8 JSON")
+    ap.add_argument(
+        "--require-external-registry", action="store_true",
+        help="завершиться с ошибкой, если реестр внешних зависимостей отсутствует",
+    )
     args = ap.parse_args(argv)
 
     try:
@@ -3261,6 +3265,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         external_dependency_report = build_external_dependency_audit(
             args.repo, event_report, decision_report, idea_report, industry_report, state_flow_report
         )
+        if args.require_external_registry and not external_dependency_report.get("registry_available"):
+            raise AuditInputError(
+                "обязательный реестр внешних зависимостей не найден: {}".format(
+                    external_dependency_report.get("registry_path", "docs/research/external-dependencies.json")
+                )
+            )
         wanted = [part.strip().upper() for part in args.tags.split(",") if part.strip()] if args.tags else sorted(countries)
         unknown = sorted(set(wanted) - set(countries))
         if unknown:
@@ -3406,9 +3416,17 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             idea_report, event_report, decision_report, industry_report, state_flow_report,
             {"script_parse_errors": content_index_script_errors},
         ) or registry_errors
-        has_errors = has_errors or bool(event_report["missing_event_ids"]
-                                         or event_report["duplicate_event_ids"] or event_report["unresolved_references"]
-                                         or event_report["missing_localisation"] or event_report["missing_option_localisation"])
+        has_errors = has_errors or bool(
+            event_report["missing_event_ids"]
+            or event_report["duplicate_event_ids"]
+            or event_report["unresolved_references"]
+            or event_report["missing_localisation"]
+            or event_report["missing_option_localisation"]
+            or event_report["missing_title_fields"]
+            or event_report["missing_desc_fields"]
+            or event_report["missing_option_names"]
+            or event_report["options_without_log"]
+        )
         same_file_category_duplicates = any(
             item["scope"] == "same_file" for item in decision_report["duplicate_category_ids"]
         )

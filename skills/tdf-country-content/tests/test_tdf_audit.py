@@ -115,6 +115,8 @@ focus_tree = {
  KAZ_hidden_desc:0 "A sufficiently long description for testing. "
  KAZ_visible:0 "Visible"
  KAZ_visible_desc:0 "A sufficiently long description for testing. "
+ kaz_test.1.t:0 "A test event"
+ kaz_test.1.d:0 "A test event description."
 ''', encoding="utf-8")
         (loc / "zz_extra_l_english.yml").write_text('''l_english:
  KAZ_visible:0 "Duplicate Visible"
@@ -128,7 +130,12 @@ focus_tree = {
 ''', encoding="utf-8")
         (events / "Kazakhstan.txt").write_text('''
 add_namespace = kaz_test
-country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected" } }
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  option = { name = KAZ_visible log = "selected" }
+}
 ''', encoding="utf-8")
         (ideas / "Kazakhstan_ideas.txt").write_text(
             'ideas = { country = { KAZ_valid_idea = { allowed = { always = yes } } } }\n', encoding="utf-8")
@@ -254,6 +261,57 @@ focus_tree = {
             result = subprocess.run(
                 [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ"],
                 universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_cli_missing_event_fields_and_option_log_return_nonzero(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_clean_cli_fixture(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.missing_fields
+  option = { }
+}
+""", encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ"],
+                universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, check=False,
+            )
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("missing_title_fields: 1", result.stdout)
+            self.assertIn("missing_desc_fields: 1", result.stdout)
+            self.assertIn("missing_option_names: 1", result.stdout)
+            self.assertIn("options_without_log: 1", result.stdout)
+
+    def test_cli_require_external_registry_rejects_missing_registry(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_clean_cli_fixture(root)
+            result = subprocess.run(
+                [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ",
+                 "--require-external-registry"],
+                universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, check=False,
+            )
+            self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+            self.assertIn("обязательный реестр внешних зависимостей не найден", result.stderr)
+
+    def test_cli_require_external_registry_accepts_valid_registry(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_clean_cli_fixture(root)
+            registry = root / "docs" / "research" / "external-dependencies.json"
+            registry.parent.mkdir(parents=True)
+            registry.write_text('{"schema_version": 1, "dependencies": []}', encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ",
+                 "--require-external-registry"],
+                universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, check=False,
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
