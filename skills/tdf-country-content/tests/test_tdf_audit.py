@@ -37,9 +37,13 @@ milestones = {
         self.assertEqual(parsed.issues, [])
         self.assertEqual(parsed.brace_balance, 0)
         milestones = audit.get_block(parsed.root, "milestones")
+        variable_entries = [
+            entry for entry in audit.walk_entries(milestones)
+            if entry.key.value == "set_variable"
+        ]
         self.assertEqual(
-            [audit.get_scalar(effect, "set_variable") for effect in audit.find_named_blocks(milestones, "effect")],
-            [None, None],
+            [entry.value.entries[0].key.value for entry in variable_entries],
+            ["fighters_milestone_var", "bombers_milestone_var"],
         )
         self.assertEqual(
             sum(1 for entry in audit.walk_entries(milestones) if entry.key.value == "set_variable"),
