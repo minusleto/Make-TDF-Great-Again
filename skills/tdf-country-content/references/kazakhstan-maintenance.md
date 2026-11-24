@@ -1,6 +1,6 @@
 ---
 status: country-specific-standard
-updated: 2026-11-24
+updated: 2026-11-25
 scope: "Additional maintenance agreements, technical notes and open checks for Kazakhstan (KAZ) only."
 limits: "Not a generic HOI4 or TDF rulebook; fact and code notes may become stale and must be checked against current files and base MD."
 ---
@@ -8,6 +8,37 @@ limits: "Not a generic HOI4 or TDF rulebook; fact and code notes may become stal
 # Kazakhstan maintenance (TDF repository)
 
 Статус: действующие проектные соглашения и накопленные заметки только для Казахстана (`KAZ`), обновляемые по мере работы; это не универсальная спецификация HOI4. Примеры и фактологические сведения нужно перепроверять по актуальным файлам, brief, wiki и источникам. При конфликте сверять данные и сообщать о расхождении.
+
+## 0. Быстрый маршрут для задач KAZ
+
+Сначала открыть [KAZ style card](countries/kaz.md), затем выбрать только нужный маршрут. Не читать все references и все страновые карточки подряд.
+
+| Тип задачи | Минимальный контекст в репозитории | Основные references |
+|---|---|---|
+| Новый фокус или ветка | Участок `mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt` вокруг родителя, соседних веток и всех связанных ID; соответствующие KAZ ideas и English localisation | `focus-design.md`, `focus-loc.md` |
+| Дипломатия, предложение, закупка | Фокус-инициатор, `mdredux/events/Kazakhstan.txt`, событие партнёра/ответ, используемые ideas, flags/variables и localization | `event-loc.md`, `state-flow.md`, реестр внешних зависимостей |
+| National spirit / idea | Определение в `mdredux/common/ideas/Kazakhstan_ideas.txt`, все add/remove callers, scripted localisation и ключи | `national-spirits.md`; nested-spirit skill только для составного hidden-idea hub |
+| Армия, MIO, техника | Связанный фокус, `mdredux/common/military_industrial_organization/organizations/MDC_KAZ_organizations.txt`, нужные equipment/module/technology definitions и localisation | `mio-and-equipment.md`, при необходимости `focus-design.md` |
+| Decision | Сначала найти существующую категорию, все KAZ callers и доступные общие/base-MD решения; в текущем inventory отдельного KAZ decision-файла нет, поэтому не создавать новый файл автоматически | `decision-design.md`, `state-flow.md` |
+| Только локализация | Найти все uses ключа и совпадения по всему набору English YML, а не только в одном файле | `file-formatting.md`, `focus-loc.md` или `event-loc.md` |
+| Flags, variables, arrays, scripted effects | Все места записи/чтения символа, history и вызываемые scripts | `state-flow.md` |
+
+### Короткий рабочий цикл
+
+1. Зафиксировать конкретную цель задачи и список ID, которые будут добавлены или изменены.
+2. Найти уже существующий сюжет/механику во всём KAZ-контенте: tree, events, ideas, decisions, scripted localisation, MIO и localisation. Не объявлять тему свободной только по отсутствию её в focus tree.
+3. До написания эффекта построить цепочку зависимостей: caller → event/decision → idea/state → дальнейший эффект → localisation. Отдельно пометить внешние IDs.
+4. Менять связанный набор файлов вместе; не переименовывать ID без обновления всех callers. Несколько файлов одной задачи объединять в один коммит.
+5. Перед коммитом проверить точные changed IDs, prerequisites/relative positions, focus log, localization keys/duplicates, option names/logs, idea lifecycle и MIO/equipment references. Запустить KAZ audit и unit tests; при изменении общих правил — полный 12-country workflow.
+6. Сохранить JSON/log отчёт и просмотреть новые findings. ERROR/WARN — сигналы для разбора, а не разрешение автоматически переписывать старый контент.
+
+### Наблюдения последнего статического среза (2026-11-25)
+
+Это входные данные для QA, не задачи на исправление в рамках скилла:
+- KAZ: 0 focus `log_mismatch` — существующий формат логов является положительным примером; сохранять его.
+- KAZ: 57 локально не найденных focus description keys, 1 title key и 13 повторяющихся localisation keys — перед добавлением локализации искать uses и определения по всему набору YML.
+- KAZ: 27 event options без `log` — включать проверку option fields в краткий event checklist.
+- KAZ: 243 `nonstandard_filter` WARN связаны с токеном `economy` в `search_filters`. Не повышать это до ERROR и не заменять массово на `FOCUS_FILTER_*`: сначала проверить, как custom filter определяется в целевой UI/base MD, которой нет в локальном срезе.
 
 ## 1. Структура дерева и формат
 
