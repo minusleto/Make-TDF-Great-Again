@@ -258,20 +258,11 @@ focus_tree = {
     def test_cli_returns_zero_for_clean_fixture(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            self.make_repo(root)
-            tree = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
-            text = tree.read_text(encoding="utf-8")
-            text = text.replace("focus = KAZ_missing", "focus = KAZ_hidden")
-            text = text.replace(" add_ideas = KAZ_missing_idea", "")
-            tree.write_text(text, encoding="utf-8")
-            loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
-            text = loc.read_text(encoding="utf-8")
-            text = text.replace(' KAZ_visible:0 "Duplicate Visible"\n', "")
-            text = text.replace("[KAZ_missing_script]", "[KAZ_defined_script]")
-            loc.write_text(text, encoding="utf-8")
+            self.make_clean_cli_fixture(root)
             result = subprocess.run(
                 [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ"],
-                universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+                universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, check=False,
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
