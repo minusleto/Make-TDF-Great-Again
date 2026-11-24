@@ -601,10 +601,23 @@ def build_idea_lifecycle_audit(repo, countries, loc_index, content_indexes, even
     history_files = sorted({
         path for directory in history_dirs for path in iter_files(directory, ".txt")
     })
+    # Match state-flow discovery for extensionless scripted files. The broad
+    # .txt scan above already covers normal script files; only add unseen paths.
     existing_source_paths = {path for path, _ in sources}
+    for directory in (
+        common_dir / "scripted_effects",
+        common_dir / "scripted_triggers",
+        common_dir / "on_actions",
+    ):
+        for path in _state_flow_script_files(directory):
+            if path not in existing_source_paths:
+                sources.append((path, parse_hoi(read(path))))
+                existing_source_paths.add(path)
+
     for path in history_files:
         if path not in existing_source_paths:
             sources.append((path, parse_hoi(read(path))))
+            existing_source_paths.add(path)
 
     references = []
     granted_ids = set()

@@ -1028,6 +1028,32 @@ defined_text = {
                                 for item in report["missing_local_idea_references"]))
 
 
+    def test_idea_lifecycle_indexes_extensionless_scripted_effect_grants(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            scripts = root / "mdredux" / "common" / "scripted_effects"
+            scripts.mkdir(parents=True)
+            script_path = scripts / "00_extensionless_idea_grants"
+            script_path.write_text(
+                "KAZ_grant_valid_idea = { add_ideas = KAZ_valid_idea }",
+                encoding="utf-8",
+            )
+            countries, loc_index = audit.discover(root)
+            _, _, _, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_idea_lifecycle_audit(root, countries, loc_index, content, event_parsed)
+            self.assertTrue(any(
+                item["idea"] == "KAZ_valid_idea" and item["usage"] == "add"
+                and item["path"] == str(script_path)
+                for item in report["idea_references"]
+            ))
+            self.assertFalse(any(
+                item["idea"] == "KAZ_valid_idea"
+                for item in report["not_locally_granted_candidates"]
+            ))
+
+
     def test_state_flow_indexes_flags_variables_arrays_scripts_and_history(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
