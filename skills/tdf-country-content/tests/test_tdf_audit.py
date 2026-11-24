@@ -137,24 +137,20 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
             self.assertNotIn("PER", countries)
             self.assertNotIn("CHI", countries)
 
-    def test_discover_includes_root_level_eng_tree_and_britain_events(self):
+    def test_discover_includes_eng_tree_from_standard_folder(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             self.make_repo(root)
-            common = root / "mdredux" / "common"
-            (common / "United Kingdom_Focus_Tree.txt").write_text("""
+            tree = root / "mdredux" / "common" / "national_focus" / "United Kingdom_Focus_Tree.txt"
+            tree.write_text("""
 focus_tree = {
   country = { original_tag = ENG }
   focus = { id = ENG_test completion_reward = { log = "Focus ENG_test" } }
 }
 """, encoding="utf-8")
-            (root / "mdredux" / "events" / "Britain.txt").write_text(
-                "add_namespace = britain_test\\ncountry_event = { id = britain_test.1 }\\n",
-                encoding="utf-8",
-            )
             countries, _ = audit.discover(root)
             self.assertIn("ENG", countries)
-            self.assertEqual(countries["ENG"]["events"].name, "Britain.txt")
+            self.assertEqual(countries["ENG"]["tree"], tree)
 
     def test_localisation_duplicates_are_found_across_files(self):
         with tempfile.TemporaryDirectory() as temp:

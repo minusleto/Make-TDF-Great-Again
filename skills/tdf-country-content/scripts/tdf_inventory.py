@@ -55,9 +55,7 @@ def collect_inventory(repository: Path) -> Dict[str, Any]:
     mod = repository / "mdredux"
     common = mod / "common"
 
-    # ENG's tree is intentionally outside common/national_focus/.
-    focus_paths = sorted(set((common / "national_focus").rglob("*_Focus_Tree.txt")) |
-                         set(common.glob("*_Focus_Tree.txt")))
+    focus_paths = sorted((common / "national_focus").rglob("*_Focus_Tree.txt"))
     idea_paths = files_with_suffix(common / "ideas")
     event_paths = files_with_suffix(mod / "events")
     decision_paths = files_with_suffix(common / "decisions")
@@ -128,7 +126,7 @@ def collect_inventory(repository: Path) -> Dict[str, Any]:
         "scope": "mdredux repository slice; base Millennium Dawn files are not included",
         "method": {
             "parser": "skills/tdf-country-content/scripts/tdf_audit.py::parse_hoi",
-            "focus_trees": "all *_Focus_Tree.txt files directly under mdredux/common and recursively under mdredux/common/national_focus",
+            "focus_trees": "all *_Focus_Tree.txt files recursively under mdredux/common/national_focus",
             "ideas": "direct country and hidden_ideas child blocks inside every ideas block",
             "events": "top-level country_event, news_event and add_namespace declarations in mdredux/events/*.txt",
             "decisions": "top-level decision-category blocks and their direct child decision blocks",

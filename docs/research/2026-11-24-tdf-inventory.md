@@ -35,7 +35,7 @@
 | SOV | `mdredux/common/national_focus/Russia_Focus_Tree.txt` | 658 |
 | SLO | `mdredux/common/national_focus/Slovakia_Focus_Tree.txt` | 180 |
 | SYR | `mdredux/common/national_focus/Syria_Focus_Tree.txt` | 413 |
-| ENG | `mdredux/common/United Kingdom_Focus_Tree.txt` | 862 |
+| ENG | `mdredux/common/national_focus/United Kingdom_Focus_Tree.txt` | 862 |
 
 ## Метод подсчёта
 
@@ -47,7 +47,7 @@ python3 -I skills/tdf-country-content/scripts/tdf_inventory.py . --json inventor
 ```
 
 Правила подсчёта:
-- Focus trees: все файлы `*_Focus_Tree.txt` в `mdredux/common/` и рекурсивно в `mdredux/common/national_focus/`; число всех блоков `focus`.
+- Focus trees: все файлы `*_Focus_Tree.txt` рекурсивно в `mdredux/common/national_focus/`; число всех блоков `focus`.
 - Ideas: непосредственные дочерние блоки `country` и `hidden_ideas` внутри найденных блоков `ideas`. Счёт не является числом уникальных ID по всему базовому моду.
 - Events: верхнеуровневые блоки `country_event` и `news_event`, а также объявления `add_namespace` во всех `mdredux/events/*.txt`.
 - Decisions: блоки верхнего уровня считаются категориями; их непосредственные дочерние блоки — решения. Вложенные категории и внешние динамические решения не разворачиваются.
@@ -59,7 +59,7 @@ python3 -I skills/tdf-country-content/scripts/tdf_inventory.py . --json inventor
 
 ## Ограничения и известные расхождения
 
-- Британское дерево хранится вне `common/national_focus/`. Старый `tdf_audit.py` его пропускал; исправление поиска обоих расположений включено в этап 0.
+- Все деревья стран лежат в `mdredux/common/national_focus/`. Британское дерево было случайно загружено в `mdredux/common/` и перемещено в стандартный каталог отдельным исправляющим коммитом; специальных правил для ENG в skill, аудиторе и инвентаризаторе нет.
 - Старый отчёт `2026-10-tdf-trees-audit.md` и таблицы в references — исторический срез 30 октября по более узкой выборке и прежней методике. Не сравнивать его суммы напрямую с этой инвентаризацией.
 - Число блоков не равно числу активных, достижимых или видимых в игре элементов. В выборку входят отключённые ветки, общие и вспомогательные definitions.
 - Решения считаются по непосредственной структуре файла; MIO учитывает generic templates. Эти правила нужно сохранять при сравнении следующих снимков.

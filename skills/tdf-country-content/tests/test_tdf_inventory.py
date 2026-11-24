@@ -27,7 +27,7 @@ class InventoryTests(unittest.TestCase):
             "focus = { id = KAZ_one } focus = { id = KAZ_two } }",
             encoding="utf-8",
         )
-        (common / "United Kingdom_Focus_Tree.txt").write_text(
+        (common / "national_focus" / "United Kingdom_Focus_Tree.txt").write_text(
             "focus_tree = { country = { original_tag = ENG } focus = { id = ENG_one } }",
             encoding="utf-8",
         )
