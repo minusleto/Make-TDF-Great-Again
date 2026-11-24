@@ -7810,7 +7810,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Turan Pact
 	focus = {
 		id = KAZ_pact_turana
@@ -7943,7 +7942,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Our Turkish Brother?
 	focus = {
 		id = KAZ_our_turkish_brouther
@@ -8149,7 +8147,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#The Persian Question
 	focus = {
 		id = KAZ_question_persia
@@ -8207,7 +8204,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	#Claims on Our Russian Territories
 	focus = {
 		id = KAZ_russian_territory
@@ -8320,7 +8316,6 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
 	#Claims on Our Chinese Territories
 	focus = {
 		id = KAZ_chi_territory
@@ -8452,7 +8447,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	#Great Turkestan
 	focus = {
 		id = KAZ_great_turkestan
