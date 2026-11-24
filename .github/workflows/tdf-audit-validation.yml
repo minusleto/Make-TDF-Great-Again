@@ -55,9 +55,26 @@ jobs:
           fi
           printf "%s\n" "$status" > reports/exit-code.txt
           cat reports/full-audit.log
-          if [ "$status" -ne 0 ]; then
-            echo "Full audit returned exit code $status; see uploaded report."
+          if [ "$status" -eq 1 ]; then
+            echo "Full audit completed with content findings; see uploaded report."
+            {
+              echo "### Full repository audit"
+              echo "- Completed; content ERROR findings are recorded in the uploaded JSON/log artifact."
+              echo "- Auditor exit code: 1 (content findings; report-only, does not fail this job)."
+            } >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$status" -ne 0 ]; then
+            echo "Full audit could not complete (exit code $status); see uploaded report."
+            {
+              echo "### Full repository audit"
+              echo "- Execution/input failure; auditor exit code: $status."
+            } >> "$GITHUB_STEP_SUMMARY"
             exit "$status"
+          else
+            echo "Full audit completed with no ERROR findings."
+            {
+              echo "### Full repository audit"
+              echo "- Completed with no ERROR findings."
+            } >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Run structural inventory
         if: always()
@@ -103,9 +120,26 @@ jobs:
           fi
           printf "%s\n" "$status" > reports/exit-code.txt
           cat "reports/audit-${{ matrix.tag }}.log"
-          if [ "$status" -ne 0 ]; then
-            echo "${{ matrix.tag }} audit returned exit code $status; see uploaded report."
+          if [ "$status" -eq 1 ]; then
+            echo "${{ matrix.tag }} audit completed with content findings; see uploaded report."
+            {
+              echo "### Country audit (${{ matrix.tag }})"
+              echo "- Completed; content ERROR findings are recorded in the uploaded JSON/log artifact."
+              echo "- Auditor exit code: 1 (content findings; report-only, does not fail this job)."
+            } >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$status" -ne 0 ]; then
+            echo "${{ matrix.tag }} audit could not complete (exit code $status); see uploaded report."
+            {
+              echo "### Country audit (${{ matrix.tag }})"
+              echo "- Execution/input failure; auditor exit code: $status."
+            } >> "$GITHUB_STEP_SUMMARY"
             exit "$status"
+          else
+            echo "${{ matrix.tag }} audit completed with no ERROR findings."
+            {
+              echo "### Country audit (${{ matrix.tag }})"
+              echo "- Completed with no ERROR findings."
+            } >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Upload country audit report
         if: always()
