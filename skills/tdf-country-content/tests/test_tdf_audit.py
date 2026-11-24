@@ -946,6 +946,76 @@ ideas = {
                                 and item["id"] == "KAZ_one_sided_flag"
                                 for item in report["idea_on_add_without_matching_on_remove"]))
 
+    def test_state_flow_links_decisions_and_events_by_exact_positive_flag_and_idea_ids(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+
+            common = root / "mdredux" / "common"
+            decisions = common / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""
+KAZ_test_category = {
+  KAZ_decision_writer = {
+    complete_effect = {
+      set_global_flag = KAZ_decision_gate
+      add_ideas = KAZ_decision_idea
+    }
+  }
+  KAZ_decision_reader = {
+    visible = { has_global_flag = KAZ_decision_gate }
+    available = { has_idea = KAZ_decision_idea }
+  }
+}
+""", encoding="utf-8")
+
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            with events.open("a", encoding="utf-8") as handle:
+                handle.write("""
+country_event = {
+  id = kaz_test.flag_writer
+  option = {
+    name = kaz_test.flag_writer.a
+    set_country_flag = KAZ_event_gate
+    add_timed_idea = { idea = KAZ_event_idea days = 30 }
+  }
+}
+country_event = {
+  id = kaz_test.flag_reader
+  trigger = {
+    has_country_flag = KAZ_event_gate
+    has_idea = KAZ_event_idea
+  }
+}
+country_event = {
+  id = kaz_test.negative_reader
+  trigger = { NOT = { has_country_flag = KAZ_event_gate } }
+}
+""")
+
+            countries, _ = audit.discover(root)
+            _, _, _, event_parsed = audit.build_global_indexes(countries)
+            report = audit.build_state_flow_audit(root, countries, event_parsed)
+            links = report["decision_event_state_links"]
+            link_keys = {
+                (item["family"], item["id"], item["writer"]["object_id"], item["reader"]["object_id"])
+                for item in links
+            }
+
+            self.assertIn(("flag", "KAZ_decision_gate", "KAZ_decision_writer", "KAZ_decision_reader"),
+                          link_keys)
+            self.assertIn(("idea", "KAZ_decision_idea", "KAZ_decision_writer", "KAZ_decision_reader"),
+                          link_keys)
+            self.assertIn(("flag", "KAZ_event_gate", "kaz_test.flag_writer", "kaz_test.flag_reader"),
+                          link_keys)
+            self.assertIn(("idea", "KAZ_event_idea", "kaz_test.flag_writer", "kaz_test.flag_reader"),
+                          link_keys)
+            self.assertFalse(any(item["reader"]["object_id"] == "kaz_test.negative_reader"
+                                 for item in links))
+            self.assertTrue(all(item["scope_match"] is True for item in links if item["family"] == "flag"))
+            self.assertEqual(report["counts"]["decision_event_state_links"], len(links))
+
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

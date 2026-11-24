@@ -1183,6 +1183,12 @@ STATE_FLOW_FLAG_SCOPE = {
     "set_timed_country_flag": "country_timed", "set_timed_global_flag": "global_timed",
     "set_timed_state_flag": "state_timed", "set_timed_province_flag": "province_timed",
 }
+STATE_FLOW_FLAG_READ_SCOPE = {
+    "has_country_flag": "country", "has_global_flag": "global",
+    "has_state_flag": "state", "has_province_flag": "province",
+}
+STATE_FLOW_IDEA_READ_KEYS = frozenset({"has_idea", "has_ideas"})
+STATE_FLOW_IDEA_WRITE_KEYS = frozenset({"add_ideas", "add_idea", "add_timed_idea"})
 STATE_FLOW_VARIABLE_META_KEYS = frozenset({
     "var", "variable", "value", "value_add", "days", "operation", "type",
     "round", "abs", "clamp", "min", "max",
@@ -1989,6 +1995,77 @@ def _state_flow_effect_values(entry: Entry) -> List[str]:
     return values
 
 
+def _state_flow_entries_with_polarity(block: Block, negated: bool = False):
+    """Walk entries while marking conditions nested under NOT/NOR as negative."""
+    for item in block.items:
+        if not isinstance(item, Entry):
+            continue
+        yield item, negated
+        if isinstance(item.value, Block):
+            child_negated = negated or item.key.value.upper() in ("NOT", "NOR")
+            yield from _state_flow_entries_with_polarity(item.value, child_negated)
+
+
+def _state_flow_idea_values(entry: Entry) -> List[str]:
+    """Read static idea IDs from scalar, block and list-style idea commands."""
+    if isinstance(entry.value, Token):
+        return [entry.value.value]
+    if not isinstance(entry.value, Block):
+        return []
+    values = [
+        scalar(child) for child in entry.value.entries
+        if child.key.value in ("idea", "add_idea", "has_idea") and scalar(child)
+    ]
+    if not values:
+        values = [item.value for item in entry.value.items if isinstance(item, Token)]
+    return list(dict.fromkeys(values))
+
+
+def _state_flow_positive_state_reads(block: Block):
+    for entry, negated in _state_flow_entries_with_polarity(block):
+        if negated:
+            continue
+        command = entry.key.value
+        if command in STATE_FLOW_FLAG_READ_KEYS:
+            symbol = _state_flow_named_value(entry, ("flag", "name", "id"))
+            if symbol:
+                yield {
+                    "family": "flag", "id": symbol, "command": command,
+                    "scope": STATE_FLOW_FLAG_READ_SCOPE[command], "line": entry.line,
+                }
+        elif command in STATE_FLOW_IDEA_READ_KEYS:
+            for symbol in _state_flow_idea_values(entry):
+                yield {
+                    "family": "idea", "id": symbol, "command": command,
+                    "scope": None, "line": entry.line,
+                }
+
+
+def _state_flow_positive_state_writes(block: Block):
+    for entry, _ in _state_flow_entries_with_polarity(block):
+        command = entry.key.value
+        if command in STATE_FLOW_FLAG_WRITE_KEYS and command.startswith("set_"):
+            symbol = _state_flow_named_value(entry, ("flag", "name", "id"))
+            if symbol:
+                yield {
+                    "family": "flag", "id": symbol, "command": command,
+                    "scope": STATE_FLOW_FLAG_SCOPE.get(command), "line": entry.line,
+                }
+        elif command in STATE_FLOW_IDEA_WRITE_KEYS:
+            for symbol in _state_flow_idea_values(entry):
+                yield {
+                    "family": "idea", "id": symbol, "command": command,
+                    "scope": None, "line": entry.line,
+                }
+
+
+def _state_flow_flag_scope_matches(write_scope: Optional[str], read_scope: Optional[str]) -> Optional[bool]:
+    if not write_scope or not read_scope:
+        return None
+    normalized_write = write_scope.replace("_timed", "")
+    return normalized_write == read_scope
+
+
 def build_state_flow_audit(repo, countries, event_parsed=None):
     """Build a conservative cross-file map of flags, variables, arrays and script hooks."""
     mod = Path(repo) / "mdredux"
@@ -2364,6 +2441,161 @@ def build_state_flow_audit(repo, countries, event_parsed=None):
                                     "status": "manual_review_one_sided_state_change",
                                 })
 
+    # Link direct flag/idea writes in decision and event effects to positive gates
+    # in other objects. This graph is diagnostic evidence, not runtime proof.
+    state_writers = defaultdict(list)
+    state_readers = defaultdict(list)
+
+    def register_state_refs(bucket, extractor, block, metadata, object_key):
+        for item in extractor(block):
+            local_tag = _state_flow_symbol_tag(item["id"], country_tags)
+            if not local_tag:
+                continue
+            bucket[(item["family"], item["id"])].append({
+                **item, **metadata, "object_key": object_key, "local_tag": local_tag,
+            })
+
+    for path, parsed in parsed_sources.items():
+        meta = source_meta[path]
+        rel = meta["display_path"]
+        if meta["kind"] == "decision":
+            for category_entry in parsed.root.entries:
+                if not isinstance(category_entry, Entry) or not isinstance(category_entry.value, Block):
+                    continue
+                category_id = category_entry.key.value
+                category_block = category_entry.value
+                for gate in ("potential", "allowed", "visible"):
+                    for gate_entry in direct_entries(category_block, gate):
+                        if isinstance(gate_entry.value, Block):
+                            key = "decision_category|{}|{}|{}".format(rel, category_id, gate)
+                            register_state_refs(
+                                state_readers, _state_flow_positive_state_reads, gate_entry.value,
+                                {"object_kind": "decision_category", "object_id": category_id,
+                                 "category": category_id, "gate": gate, "path": rel,
+                                 "owner_tag": meta["owner_tag"]},
+                                key,
+                            )
+                for decision_entry in category_block.entries:
+                    if (not isinstance(decision_entry, Entry)
+                            or not isinstance(decision_entry.value, Block)
+                            or decision_entry.key.value in DECISION_CATEGORY_FIELDS):
+                        continue
+                    decision_id = decision_entry.key.value
+                    decision_block = decision_entry.value
+                    for gate in ("visible", "available", "allowed", "activation"):
+                        for gate_entry in direct_entries(decision_block, gate):
+                            if isinstance(gate_entry.value, Block):
+                                key = "decision|{}|{}|{}|{}".format(rel, category_id, decision_id, gate)
+                                register_state_refs(
+                                    state_readers, _state_flow_positive_state_reads, gate_entry.value,
+                                    {"object_kind": "decision", "object_id": decision_id,
+                                     "category": category_id, "gate": gate, "path": rel,
+                                     "owner_tag": meta["owner_tag"]},
+                                    key,
+                                )
+                    for effect in ("complete_effect", "remove_effect", "timeout_effect", "cancel_effect"):
+                        for effect_entry in direct_entries(decision_block, effect):
+                            if isinstance(effect_entry.value, Block):
+                                key = "decision|{}|{}|{}|{}".format(rel, category_id, decision_id, effect)
+                                register_state_refs(
+                                    state_writers, _state_flow_positive_state_writes, effect_entry.value,
+                                    {"object_kind": "decision", "object_id": decision_id,
+                                     "category": category_id, "effect": effect, "path": rel,
+                                     "owner_tag": meta["owner_tag"]},
+                                    key,
+                                )
+        elif meta["kind"] == "event":
+            for event_kind in ("country_event", "news_event"):
+                for event_entry in direct_entries(parsed.root, event_kind):
+                    if not isinstance(event_entry.value, Block):
+                        continue
+                    event_block = event_entry.value
+                    event_id = get_scalar(event_block, "id")
+                    if not event_id:
+                        continue
+                    for gate_entry in direct_entries(event_block, "trigger"):
+                        if isinstance(gate_entry.value, Block):
+                            key = "event|{}|{}|trigger".format(rel, event_id)
+                            register_state_refs(
+                                state_readers, _state_flow_positive_state_reads, gate_entry.value,
+                                {"object_kind": "event", "object_id": event_id,
+                                 "gate": "trigger", "path": rel,
+                                 "owner_tag": meta["owner_tag"], "event_kind": event_kind},
+                                key,
+                            )
+                    for immediate_entry in direct_entries(event_block, "immediate"):
+                        if isinstance(immediate_entry.value, Block):
+                            key = "event|{}|{}|immediate".format(rel, event_id)
+                            register_state_refs(
+                                state_writers, _state_flow_positive_state_writes, immediate_entry.value,
+                                {"object_kind": "event", "object_id": event_id,
+                                 "effect": "immediate", "path": rel,
+                                 "owner_tag": meta["owner_tag"], "event_kind": event_kind},
+                                key,
+                            )
+                    for option_entry in direct_entries(event_block, "option"):
+                        if not isinstance(option_entry.value, Block):
+                            continue
+                        option_name = get_scalar(option_entry.value, "name") or "(unnamed option)"
+                        for gate_entry in direct_entries(option_entry.value, "trigger"):
+                            if isinstance(gate_entry.value, Block):
+                                key = "event_option|{}|{}|{}|trigger".format(rel, event_id, option_name)
+                                register_state_refs(
+                                    state_readers, _state_flow_positive_state_reads, gate_entry.value,
+                                    {"object_kind": "event_option", "object_id": event_id,
+                                     "option": option_name, "gate": "trigger", "path": rel,
+                                     "owner_tag": meta["owner_tag"], "event_kind": event_kind},
+                                    key,
+                                )
+                        key = "event_option|{}|{}|{}|effect".format(rel, event_id, option_name)
+                        register_state_refs(
+                            state_writers, _state_flow_positive_state_writes, option_entry.value,
+                            {"object_kind": "event_option", "object_id": event_id,
+                             "option": option_name, "effect": "option", "path": rel,
+                             "owner_tag": meta["owner_tag"], "event_kind": event_kind},
+                            key,
+                        )
+
+    decision_event_state_links = []
+    for (family, symbol), writers in sorted(state_writers.items()):
+        readers = state_readers.get((family, symbol), [])
+        if not readers:
+            continue
+        for writer in writers:
+            for reader in readers:
+                same_event = (
+                    writer["object_kind"] in ("event", "event_option")
+                    and reader["object_kind"] in ("event", "event_option")
+                    and writer["object_id"] == reader["object_id"]
+                )
+                if writer["object_key"] == reader["object_key"] or same_event:
+                    continue
+                scope_match = (
+                    _state_flow_flag_scope_matches(writer.get("scope"), reader.get("scope"))
+                    if family == "flag" else None
+                )
+                decision_event_state_links.append({
+                    "family": family, "id": symbol, "local_tag": writer["local_tag"],
+                    "relationship": "{}_to_{}".format(
+                        writer["object_kind"].replace("_option", ""),
+                        reader["object_kind"].replace("_option", ""),
+                    ),
+                    "status": (
+                        "same_id_scope_mismatch_candidate"
+                        if scope_match is False else "same_id_cross_object_candidate"
+                    ),
+                    "scope_match": scope_match,
+                    "writer": {key: value for key, value in writer.items()
+                               if key not in ("object_key", "family", "id", "scope", "local_tag")},
+                    "reader": {key: value for key, value in reader.items()
+                               if key not in ("object_key", "family", "id", "scope", "local_tag")},
+                })
+    decision_event_state_links.sort(
+        key=lambda item: (item["local_tag"], item["family"], item["id"],
+                          item["writer"]["path"], item["writer"]["line"],
+                          item["reader"]["path"], item["reader"]["line"])
+    )
+
     on_action_hooks = []
     for path in script_files["on_actions"]:
         parsed = parsed_sources[path]
@@ -2445,6 +2677,7 @@ def build_state_flow_audit(repo, countries, event_parsed=None):
             "on_action_files": len(script_files["on_actions"]), "on_action_hooks": len(on_action_hooks),
             "flag_symbols": len(flag_symbols), "variable_symbols": len(variable_symbols),
             "array_symbols": len(array_symbols),
+            "decision_event_state_links": len(decision_event_state_links),
         },
         "parse_errors": parse_errors, "script_parse_errors": script_parse_errors,
         "duplicate_scripted_effect_definitions": duplicate_effects,
@@ -2460,6 +2693,7 @@ def build_state_flow_audit(repo, countries, event_parsed=None):
         "potentially_unread_local_variables": potentially_unread_variables,
         "local_variables_read_without_writer": variables_read_without_local_writer,
         "array_symbols": array_symbols,
+        "decision_event_state_links": decision_event_state_links,
         "potentially_unread_local_arrays": potentially_unread_arrays,
         "local_arrays_read_without_writer": arrays_read_without_local_writer,
         "idea_on_add_without_matching_on_remove": idea_on_add_without_matching_on_remove,
@@ -2774,6 +3008,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             state_flow_report["counts"]["scripted_trigger_definitions"], state_flow_report["counts"]["scripted_trigger_calls"],
             state_flow_report["counts"]["on_action_hooks"], state_flow_report["counts"]["flag_symbols"],
             state_flow_report["counts"]["variable_symbols"], state_flow_report["counts"]["array_symbols"]))
+        print("  decision/event state links: {}".format(state_flow_report["counts"]["decision_event_state_links"]))
         for key in ("parse_errors", "script_parse_errors", "duplicate_scripted_effect_definitions",
                     "duplicate_scripted_trigger_definitions", "scripted_effects_without_local_call",
                     "scripted_triggers_without_local_call", "unresolved_scripted_call_candidates",

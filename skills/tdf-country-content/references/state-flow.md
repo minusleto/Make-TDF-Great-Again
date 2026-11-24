@@ -42,7 +42,7 @@ on_add / on_remove просматриваются на записи flags, varia
 
 ## Scope и ограничения
 
-В JSON сохраняются количества и частоты ROOT, FROM, PREV, THIS. Само наличие scope marker не доказывает, что команда выполняется в правильном scope. Auditor не разрешает target-scope chains, не симулирует runtime, не может доказать вызов из отсутствующего base MD и не проверяет семантическую связь «decision/event открылся флагом, а затем прочитал тот же ID».
+В JSON сохраняются количества и частоты ROOT, FROM, PREV, THIS. Само наличие scope marker не доказывает, что команда выполняется в правильном scope. Auditor не разрешает target-scope chains, не симулирует runtime, не может доказать вызов из отсутствующего base MD и строит candidate links для прямых записей и положительных gates decision/event, но не доказывает причинно-следственную связь и корректность scope.
 
 Все массивы вида potentially_*, *_without_writer, *_without_local_call, unresolved_* и idea_on_add_without_matching_on_remove читать как WARN / review candidates, а не автоматические ошибки.
 
@@ -55,3 +55,17 @@ python3 -I -m unittest discover -s skills/tdf-country-content/tests -v
 \`\`\`
 
 Полная карта связей сохраняется в JSON-ключе _state_flow.
+
+## Прямые связи decision/event → flag/idea
+
+В JSON дополнительно строится `decision_event_state_links`: прямые записи country/global/state/province flags и выдачи ideas из `complete_effect`, `remove_effect`, `timeout_effect`, `cancel_effect`, `immediate` и option effects сопоставляются с положительными условиями в других объектах.
+
+Проверяются gates:
+- у decision: `visible`, `available`, `allowed`, `activation`;
+- у decision category: `potential`, `allowed`, `visible`;
+- у event: `trigger`;
+- у option события: `trigger`, отдельно от event trigger.
+
+Flag links сопоставляют точный ID и отдельно отмечают совместимость setter/getter scope (country/global/state/province). Timed flag setters сравниваются с соответствующим обычным getter scope. Idea links связывают `add_ideas`, `add_idea` и `add_timed_idea` с `has_idea` / `has_ideas`. Проверки внутри `NOT` и `NOR` не трактуются как положительное условие разблокировки. Совпадения внутри того же event ID исключаются, чтобы не считать внутренний цикл межобъектной связью.
+
+Это evidence-кандидаты, а не доказательство корректной цепочки: статический анализ не подтверждает порядок выполнения, совпадение фактического country scope/получателя, отсутствие снятия флага/духа между объектами или влияние scripted effects, которых нет в прямом блоке. Он также не разрешает динамические ID и scope chains, а базовый MD в checkout отсутствует. Поэтому результаты не повышают уровень ERROR и требуют ручной проверки.
