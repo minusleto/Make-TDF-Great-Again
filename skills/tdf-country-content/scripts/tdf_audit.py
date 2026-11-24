@@ -988,8 +988,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                 missing_option_names.append({
                     "event_id": definition["id"], "path": definition["path"], "line": option_entry.line,
                 })
-                continue
-            if key not in loc_index:
+            elif key not in loc_index:
                 item = {"key": key, "event_id": definition["id"],
                         "path": definition["path"], "line": option_entry.line}
                 (missing_option_loc if is_local_event_key(key, definition["id"], tag) else external_option_loc).append(item)
@@ -1004,6 +1003,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                         generic_option_labels.append(label_info)
                     elif len(label) > 35:
                         long_option_labels.append(label_info)
+            # Check log independently: a missing name must not hide a missing log.
             if get_scalar(option, "log") is None:
                 option_loc_lines.append({
                     "key": key or "?", "event_id": definition["id"],

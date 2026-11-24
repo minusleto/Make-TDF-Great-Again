@@ -115,8 +115,6 @@ focus_tree = {
  KAZ_hidden_desc:0 "A sufficiently long description for testing. "
  KAZ_visible:0 "Visible"
  KAZ_visible_desc:0 "A sufficiently long description for testing. "
- kaz_test.1.t:0 "A test event"
- kaz_test.1.d:0 "A test event description."
 ''', encoding="utf-8")
         (loc / "zz_extra_l_english.yml").write_text('''l_english:
  KAZ_visible:0 "Duplicate Visible"
@@ -130,12 +128,7 @@ focus_tree = {
 ''', encoding="utf-8")
         (events / "Kazakhstan.txt").write_text('''
 add_namespace = kaz_test
-country_event = {
-  id = kaz_test.1
-  title = kaz_test.1.t
-  desc = kaz_test.1.d
-  option = { name = KAZ_visible log = "selected" }
-}
+country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected" } }
 ''', encoding="utf-8")
         (ideas / "Kazakhstan_ideas.txt").write_text(
             'ideas = { country = { KAZ_valid_idea = { allowed = { always = yes } } } }\n', encoding="utf-8")
@@ -154,6 +147,18 @@ country_event = {
         text = text.replace(' KAZ_visible:0 "Duplicate Visible"' + chr(10), "")
         text = text.replace("[KAZ_missing_script]", "[KAZ_defined_script]")
         loc.write_text(text, encoding="utf-8")
+        main_loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+        main_text = main_loc.read_text(encoding="utf-8")
+        main_text += ' kaz_test.1.t:0 "A test event."\\n kaz_test.1.d:0 "The test event description is sufficiently long."\\n'
+        main_loc.write_text(main_text, encoding="utf-8")
+        events = root / "mdredux" / "events" / "Kazakhstan.txt"
+        event_text = events.read_text(encoding="utf-8")
+        event_text = event_text.replace(
+            "country_event = { id = kaz_test.1 " ,
+            "country_event = { id = kaz_test.1 title = kaz_test.1.t desc = kaz_test.1.d ",
+            1,
+        )
+        events.write_text(event_text, encoding="utf-8")
 
     def audit_fixture(self, root):
         countries, loc_index = audit.discover(root)
