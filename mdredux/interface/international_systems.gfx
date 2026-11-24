@@ -19,4 +19,5 @@ spriteTypes = {
 		texturefile = "gfx/interface/scripted_gui/International_systems/eu.dds"
 		legacy_lazy_load = no
 	}
+
 }

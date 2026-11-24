@@ -24,10 +24,12 @@ guiTypes = {
 		orientation = center
 		origo = center
 		moveable = yes
+
 		background = {
 			name = "Background"
 			spriteType = GFX_IS2_main_background
 		}
+
 		instantTextBoxType = {
 			name = "header_text_title"
 			position = { x = 150 y = 30 }
@@ -36,6 +38,7 @@ guiTypes = {
 			maxWidth = 350
 			format = center
 		}
+
 		containerWindowType = {
 			name = "international_organizations_gridbox_container"
 			position = { x=-30 y=75 }
@@ -44,10 +47,12 @@ guiTypes = {
 			verticalScrollbar = "right_vertical_slider"
 			smooth_scrolling = yes
 			margin = { top = 5 bottom = 5 }
+
 			background = {
 				name = "Background"
 				spriteType ="GFX_tiled_window_transparent"
 			}
+
 			gridboxtype = {
 				name = "international_organizations_gridbox"
 				position = { x=50 y=0 }
@@ -58,6 +63,7 @@ guiTypes = {
 				add_horizontal = yes
 			}
 		}
+		
 		buttonType = {
 			name = "International_systems_list_close_button"
 			position = { x = -50 y = 16 }
@@ -75,6 +81,7 @@ guiTypes = {
 		position = { x = 0 y = 0 }
 		size = { width=60 height= 60 }
 		clipping = no
+
 		buttonType = {
 			name = "international_orgs_list_button"
 			quadTextureSprite = "GFX_IS2_empty"
