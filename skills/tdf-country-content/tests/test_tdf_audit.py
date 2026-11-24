@@ -153,13 +153,16 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
         main_loc.write_text(main_text, encoding="utf-8")
         events = root / "mdredux" / "events" / "Kazakhstan.txt"
         events.write_text(
-            "add_namespace = kaz_test\\n"
-            "country_event = {\\n"
-            "  id = kaz_test.1\\n"
-            "  title = kaz_test.1.t\\n"
-            "  desc = kaz_test.1.d\\n"
-            '  option = { name = KAZ_visible log = "selected" }\\n'
-            "}\\n",
+            chr(10).join([
+                "add_namespace = kaz_test",
+                "country_event = {",
+                "  id = kaz_test.1",
+                "  title = kaz_test.1.t",
+                "  desc = kaz_test.1.d",
+                '  option = { name = KAZ_visible log = "selected" }',
+                "}",
+                "",
+            ]),
             encoding="utf-8",
         )
 
