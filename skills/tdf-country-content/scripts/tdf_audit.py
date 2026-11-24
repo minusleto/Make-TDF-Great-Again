@@ -235,7 +235,6 @@ class HOIParser:
                 continue
             if token.kind == "LBRACE":
                 self.open_braces += 1
-                self.issues.append(ParseIssue(token.line, token.column, "блок без имени"))
                 self.consume()
                 child = self.parse_items(expect_close=True, opening_line=token.line)
                 block.items.append(Entry(Token("ATOM", "<anonymous>", token.line, token.column, token.offset), child))

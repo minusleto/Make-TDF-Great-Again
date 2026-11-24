@@ -27,6 +27,25 @@ block = { x = yes }
         self.assertIn("{ }", value)
         self.assertIn('"quoted"', value)
 
+    def test_anonymous_blocks_are_valid_list_items_and_nested_entries_are_walked(self):
+        parsed = audit.parse_hoi("""
+milestones = {
+    { effect = { set_variable = fighters_milestone_var } }
+    { effect = { set_variable = bombers_milestone_var } }
+}
+""")
+        self.assertEqual(parsed.issues, [])
+        self.assertEqual(parsed.brace_balance, 0)
+        milestones = audit.get_block(parsed.root, "milestones")
+        self.assertEqual(
+            [audit.get_scalar(effect, "set_variable") for effect in audit.find_named_blocks(milestones, "effect")],
+            [None, None],
+        )
+        self.assertEqual(
+            sum(1 for entry in audit.walk_entries(milestones) if entry.key.value == "set_variable"),
+            2,
+        )
+
     def test_nested_blocks_and_bare_list_items(self):
         parsed = audit.parse_hoi('''
 search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
