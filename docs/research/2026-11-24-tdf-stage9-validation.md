@@ -1,6 +1,6 @@
 ---
 status: executed-static-validation
-updated: 2026-11-24
+updated: 2026-11-25
 scope: Unit tests, complete static auditor, all available country-specific auditor runs, and limited false-positive triage for TDF/MDC.
 limits: Static validation only. The full HOI4 runtime, installed base-MD/DLC/mod load order, and in-game UI were not run.
 ---
@@ -116,3 +116,58 @@ After the run, the unresolved GEO event `georg_monarchist.14` was added as an ex
 - All ERROR candidates still need triage; unresolved items must either be fixed in a separately authorised country-content task, explained with evidence, or retained as documented exceptions.
 - The false-positive matrix is not fully complete. In particular, shared MIO, external event chains, hidden ideas, tooltip rendering, legacy IDs and disabled branches still need runtime/target-stack verification.
 - Issue #18 remains open. No other issues or PRs were created.
+
+## Follow-up validation and auditor hardening — 2026-11-25
+
+
+Latest validation: [GitHub Actions run 45476073618](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45476073618), HEAD `ba6d38a88cb5c29fb774713927a55f5738536cbb`.
+
+### Execution
+
+- **Auditor/inventory unit tests: PASS — 47 tests.**
+- **Full repository auditor: executed, exit code 1.** The report contains content ERROR candidates; this is the expected nonzero result, not an infrastructure or parser-launch failure.
+- **Country matrix: 12/12 executed** (ARM, BLR, ENG, GEO, HUN, ISR, KAZ, POL, POR, SLO, SOV, SYR). Every country job uploaded its JSON/log artifact and returned exit code 1 because that country slice contains ERROR findings.
+- **Structural inventory: PASS.** `tdf_inventory.py` ran even after the full auditor returned 1; `inventory.json` and `inventory.log` are included in the `tdf-full-audit` artifact.
+- No country/gameplay files were modified.
+
+### Structural inventory snapshot
+
+| Item | Files / definitions |
+|---|---:|
+| Focus trees / focuses | 12 / 5,422 |
+| Idea files / ideas | 15 / 2,601 (1,806 visible; 795 hidden) |
+| Event files / events | 10 / 2,764 (2,606 country; 158 news) |
+| Decision files / decisions | 6 / 279 (25 categories) |
+| Scripted-localisation files / `defined_text` | 10 / 602 |
+| MIO organization files / definitions | 57 / 401 |
+| Technology files | 28 |
+| Equipment files | 36 |
+
+The inventory parser reported zero parse issues in the inventory's focus, idea, event, decision, scripted-localisation and MIO domains. This is a scoped inventory result, not proof that the entire repository parses or that the content works in-game.
+
+### Auditor changes validated
+
+- Global event checks now affect the auditor's exit code: missing event `title`, missing `desc`, missing option `name`, and missing option `log` are no longer only printed diagnostics. The option `log` check runs independently even when `name` is absent.
+- The full report currently records 8 events without `title`, 8 without `desc`, 0 options without `name`, and 38 options without `log`. It also records 39 missing event title/description localisation keys and 35 missing option localisation keys.
+- Added `--require-external-registry`; CI runs the auditor with this flag so a missing registry is a clear input error (exit code 2). Regression tests cover absent and valid registries.
+- Idea-lifecycle discovery now includes extensionless files under `scripted_effects`, `scripted_triggers` and `on_actions`, avoiding false `not_locally_granted` candidates when an idea is granted from an extensionless scripted effect.
+- The CI workflow now runs the structural inventory even when the full audit has content errors, and stores its output in the same artifact.
+- The commands in the module docstring, `SKILL.md` and `AGENTS.md` now document strict registry validation.
+
+### Remaining findings and limits
+
+- The full report has one structural parse error at `mdredux/common/doctrines/subdoctrines/sea/navy_submarine_doctrines.txt:297` (`long_range_submarines` is not closed before EOF). It appears in both idea-source and state-flow diagnostics but is the same physical defect. The gameplay file remains untouched.
+- Event audit: 10 unresolved local-reference candidates, 590 `is_triggered_only` reachability candidates, 8 duplicate event-localisation definitions, plus external references that cannot be proven absent without the full upstream stack.
+- Dependency registry: 18 entries; 1,019 findings, of which 11 are registered and 1,008 remain unregistered candidates. Their status distribution is 6 confirmed, 2 assumption and 1,011 unknown. Most unknown references require comparison against the pinned complete base MD, vanilla and DLC; they are not automatically upgraded to ERROR.
+- Other candidate groups remain for manual review: 5 missing local MIO references, 51 missing local MIO name localisations, 6 MIO-name collisions, 274 unknown equipment-type references, and 18 unknown technology references. These may resolve in the full installed mod stack.
+- Static validation only: HOI4 was not launched; runtime scopes, UI/tooltips, DLC load order and the complete base MD were not available.
+
+### Code changes
+
+- `2261bb0` — make global event field errors actionable; add strict external-registry mode; require the registry in CI; add regression tests.
+- `4ecf907` — check option logs even if the option name is missing.
+- `0ef7ed8` — include extensionless scripted grants in idea lifecycle auditing.
+- `2cd1376` — document strict validation in skill entrypoints.
+- `ba6d38a` — execute and archive structural inventory in the validation workflow.
+
+**Stage 9 remains open.** Execution and regression-test criteria are now met, but the content ERROR/WARN triage and false-positive/runtime matrix are not complete. Do not close Issue #18 or change the country gameplay content under this skill-only scope.
