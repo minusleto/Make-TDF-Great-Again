@@ -111,6 +111,19 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
         (scripted_loc / "99_KAZ_scripted_localisation.txt").write_text(
             'defined_text = { name = KAZ_defined_script text = { trigger = { has_idea = KAZ_valid_idea } localization_key = KAZ_loc1 } }\n', encoding="utf-8")
 
+    def make_clean_cli_fixture(self, root: Path):
+        self.make_repo(root)
+        tree = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
+        text = tree.read_text(encoding="utf-8")
+        text = text.replace("focus = KAZ_missing", "focus = KAZ_hidden")
+        text = text.replace(" add_ideas = KAZ_missing_idea", "")
+        tree.write_text(text, encoding="utf-8")
+        loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
+        text = loc.read_text(encoding="utf-8")
+        text = text.replace(' KAZ_visible:0 "Duplicate Visible"\\n', "")
+        text = text.replace("[KAZ_missing_script]", "[KAZ_defined_script]")
+        loc.write_text(text, encoding="utf-8")
+
     def audit_fixture(self, root):
         countries, loc_index = audit.discover(root)
         all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries)
@@ -219,6 +232,123 @@ focus_tree = {
                 universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_parse_error_aggregation_covers_every_subsystem(self):
+        for field in audit.PARSE_ERROR_FIELDS:
+            with self.subTest(field=field):
+                self.assertTrue(audit.reports_have_parse_errors({field: ["broken input"]}))
+        self.assertFalse(audit.reports_have_parse_errors({"parse_errors": []}))
+
+    def test_event_reachability_includes_history_and_extensionless_scripts(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = { id = kaz_test.10 title = kaz_test.10.t desc = kaz_test.10.d is_triggered_only = yes }
+country_event = { id = kaz_test.11 title = kaz_test.11.t desc = kaz_test.11.d is_triggered_only = yes }
+country_event = { id = kaz_test.12 title = kaz_test.12.t desc = kaz_test.12.d is_triggered_only = yes }
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.10.t:0 "Scheduled from history"
+ kaz_test.10.d:0 "History event."
+ kaz_test.11.t:0 "Scheduled from script"
+ kaz_test.11.d:0 "Script event."
+ kaz_test.12.t:0 "Scheduled from on action"
+ kaz_test.12.d:0 "On-action event."
+""", encoding="utf-8")
+
+            history = root / "mdredux" / "common" / "history" / "countries"
+            history.mkdir(parents=True)
+            (history / "KAZ - Kazakhstan.txt").write_text("""
+2000.1.1 = {
+    country_event = { id = kaz_test.10 days = 1 }
+}
+""", encoding="utf-8")
+
+            scripted = root / "mdredux" / "common" / "scripted_effects"
+            scripted.mkdir(parents=True)
+            (scripted / "00_extensionless_effect").write_text(
+                "KAZ_schedule_event = { country_event = kaz_test.11 }", encoding="utf-8")
+            on_actions = root / "mdredux" / "common" / "on_actions"
+            on_actions.mkdir(parents=True)
+            (on_actions / "00_extensionless_on_action").write_text(
+                "on_monthly = { effect = { country_event = kaz_test.12 } }", encoding="utf-8")
+
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_event_audit(root, countries, loc_index, parsed)
+            orphan_ids = {item["id"] for item in report["unreachable_triggered_events"]}
+            self.assertNotIn("kaz_test.10", orphan_ids)
+            self.assertNotIn("kaz_test.11", orphan_ids)
+            self.assertNotIn("kaz_test.12", orphan_ids)
+            self.assertTrue(any(
+                item["target"] == "kaz_test.11"
+                and Path(item["source"]).name == "00_extensionless_effect"
+                for item in report["scripted_effect_references"]
+            ))
+
+    def test_cli_returns_nonzero_for_new_subsystem_parse_errors(self):
+        cases = [
+            ("mdredux/common/military_industrial_organization/organizations/KAZ_bad.txt",
+             "KAZ_bad_mio = {", "industry mio_parse_errors: 1"),
+            ("mdredux/common/units/equipment/KAZ_bad.txt",
+             "equipments = {", "industry equipment_parse_errors: 1"),
+            ("mdredux/common/units/equipment/modules/KAZ_bad.txt",
+             "equipment_modules = {", "industry module_parse_errors: 1"),
+            ("mdredux/common/technologies/KAZ_bad.txt",
+             "technologies = {", "industry technology_parse_errors: 1"),
+            ("mdredux/common/scripted_effects/00_extensionless_bad",
+             "KAZ_bad_effect = {", "state_flow script_parse_errors: 1"),
+            ("mdredux/common/scripted_triggers/00_extensionless_bad",
+             "KAZ_bad_trigger = {", "state_flow script_parse_errors: 1"),
+        ]
+        for relative_path, contents, expected_output in cases:
+            with self.subTest(path=relative_path):
+                with tempfile.TemporaryDirectory() as temp:
+                    root = Path(temp)
+                    self.make_clean_cli_fixture(root)
+                    bad_file = root / relative_path
+                    bad_file.parent.mkdir(parents=True, exist_ok=True)
+                    bad_file.write_text(contents, encoding="utf-8")
+                    result = subprocess.run(
+                        [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ"],
+                        universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE, check=False,
+                    )
+                    self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                    self.assertIn(expected_output, result.stdout)
+
+    def test_cli_rejects_invalid_external_dependency_registry_json(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_clean_cli_fixture(root)
+            registry = root / "docs" / "research" / "external-dependencies.json"
+            registry.parent.mkdir(parents=True)
+            registry.write_text("{ invalid json", encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ"],
+                universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, check=False,
+            )
+            self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+            self.assertIn("ОШИБКА", result.stderr)
+
+    def test_cli_returns_nonzero_for_invalid_external_dependency_registry_schema(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_clean_cli_fixture(root)
+            registry = root / "docs" / "research" / "external-dependencies.json"
+            registry.parent.mkdir(parents=True)
+            registry.write_text('{"schema_version": 999, "dependencies": []}', encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, "-I", str(SCRIPT), str(root), "--tags", "KAZ"],
+                universal_newlines=True, encoding="utf-8", stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, check=False,
+            )
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
 
     def test_cli_rejects_unknown_tag(self):
         with tempfile.TemporaryDirectory() as temp:

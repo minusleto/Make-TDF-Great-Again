@@ -1071,9 +1071,25 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
 
     for folder, source_kind in (("scripted_effects", "scripted_effect"), ("on_actions", "on_action")):
         source_dir = mod / "common" / folder
-        for path in iter_files(source_dir, ".txt"):
-            parsed = parse_hoi(read(path))
+        # Match state-flow inventory: HOI4 script files may be extensionless.
+        for path in _state_flow_script_files(source_dir):
+            parsed = event_parsed.get(path)
+            if parsed is None:
+                parsed = parse_hoi(read(path))
+                for issue in parsed.issues:
+                    parse_errors.append("{}:{}".format(path, issue))
             add_references(parsed.root, source_kind, path, path.stem)
+
+    # Country history can schedule events at start dates; treat these as graph roots.
+    history_dirs = (mod / "history" / "countries", mod / "common" / "history" / "countries")
+    history_files = sorted({
+        path for directory in history_dirs for path in iter_files(directory, ".txt")
+    })
+    for path in history_files:
+        parsed = parse_hoi(read(path))
+        for issue in parsed.issues:
+            parse_errors.append("{}:{}".format(path, issue))
+        add_references(parsed.root, "history", path, path.stem)
 
     for definition in definitions:
         add_references(definition["block"], "event", definition["path"], definition["id"])
@@ -1258,6 +1274,18 @@ def numeric_value(value: Optional[str]) -> Optional[float]:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+PARSE_ERROR_FIELDS = (
+    "parse_errors", "source_parse_errors", "mio_parse_errors",
+    "equipment_parse_errors", "module_parse_errors", "technology_parse_errors",
+    "script_parse_errors",
+)
+
+
+def reports_have_parse_errors(*reports) -> bool:
+    """Return True if any report contains a parser failure from any audit subsystem."""
+    return any(bool(report.get(field)) for report in reports for field in PARSE_ERROR_FIELDS)
 
 
 def has_obvious_manual_cost_debit(effect_blocks: Sequence[Optional[Block]]) -> bool:
@@ -3362,15 +3390,27 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 json.dump(report_data, handle, ensure_ascii=False, indent=2)
                 handle.write("\n")
 
+        content_index_script_errors = [
+            error
+            for errors in content_indexes.get("script_parse_errors", {}).values()
+            for error in errors
+        ]
+        registry_errors = (
+            external_dependency_report.get("registry_available", False)
+            and bool(external_dependency_report.get("registry_validation_issues"))
+        )
         has_errors = any(result.get(key) for result in results.values() for key in ERRORS)
-        has_errors = has_errors or bool(idea_report["parse_errors"])
-        has_errors = has_errors or bool(event_report["parse_errors"] or event_report["missing_event_ids"]
+        has_errors = has_errors or reports_have_parse_errors(
+            idea_report, event_report, decision_report, industry_report, state_flow_report,
+            {"script_parse_errors": content_index_script_errors},
+        ) or registry_errors
+        has_errors = has_errors or bool(event_report["missing_event_ids"]
                                          or event_report["duplicate_event_ids"] or event_report["unresolved_references"]
                                          or event_report["missing_localisation"] or event_report["missing_option_localisation"])
         same_file_category_duplicates = any(
             item["scope"] == "same_file" for item in decision_report["duplicate_category_ids"]
         )
-        has_errors = has_errors or bool(decision_report["parse_errors"] or same_file_category_duplicates
+        has_errors = has_errors or bool(same_file_category_duplicates
                                          or decision_report["duplicate_decision_ids"]
                                          or decision_report["missing_category_localisation"]
                                          or decision_report["missing_decision_localisation"]
@@ -3382,8 +3422,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     except AuditInputError as exc:
         print("ОШИБКА: {}".format(exc), file=sys.stderr)
         return 2
-    except OSError as exc:
-        print("ОШИБКА ввода-вывода: {}".format(exc), file=sys.stderr)
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        print("ОШИБКА чтения входных данных / JSON: {}".format(exc), file=sys.stderr)
         return 2
 
 
