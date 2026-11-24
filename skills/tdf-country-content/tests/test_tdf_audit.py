@@ -456,6 +456,38 @@ country_event = {
             self.assertEqual(list(audit.iter_event_calls(
                 audit.parse_hoi("effect_tooltip = { country_event = kaz_test.4 }").root)), [])
 
+
+    def test_global_event_audit_checks_ideas_scripted_loc_and_generic_options(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  option = { name = kaz_test.1.a add_ideas = KAZ_missing_idea }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.1.t:0 "A title [KAZ_missing_script]"
+ kaz_test.1.d:0 "A description."
+ kaz_test.1.a:0 "Good"
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_event_audit(root, countries, loc_index, parsed, content)
+            self.assertTrue(any(item["idea"] == "KAZ_missing_idea"
+                                for item in report["missing_event_idea_candidates"]))
+            self.assertTrue(any(item["scripted_localisation"] == "KAZ_missing_script"
+                                for item in report["missing_event_scripted_localisation"]))
+            self.assertTrue(any(item["label"] == "Good"
+                                for item in report["generic_option_labels"]))
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

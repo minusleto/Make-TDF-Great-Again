@@ -568,7 +568,7 @@ def is_local_event_key(key: str, event_id: str, tag: Optional[str] = None) -> bo
     return bool(tag and key.startswith(tag + "_"))
 
 
-def build_event_audit(repo, countries, loc_index, event_parsed):
+def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=None):
     """Build project-wide event, localisation, reference and chain diagnostics."""
     mod = Path(repo) / "mdredux"
     file_tags = {
@@ -655,6 +655,17 @@ def build_event_audit(repo, countries, loc_index, event_parsed):
     missing_loc, external_loc = [], []
     missing_option_loc, external_option_loc = [], []
     duplicate_loc_definitions = []
+    generic_option_labels, long_option_labels = [], []
+    option_loc_lines = []
+    missing_event_idea_candidates = []
+    missing_event_scripted_loc = []
+    idea_index = (content_indexes or {}).get("idea_ids", {})
+    scripted_definitions = (content_indexes or {}).get("scripted_defs", {})
+    scripted_names = {
+        tag: {item["name"] for item in items}
+        for tag, items in scripted_definitions.items()
+    }
+    scripted_ref_re = re.compile(r"\\[([A-Z]{3}_[A-Za-z0-9_]+)\\]")
     for definition in definitions:
         tag = file_tags.get(definition["path"])
         for field in ("title", "desc"):
@@ -688,6 +699,55 @@ def build_event_audit(repo, countries, loc_index, event_parsed):
                 item = {"key": key, "event_id": definition["id"],
                         "path": definition["path"], "line": option_entry.line}
                 (missing_option_loc if is_local_event_key(key, definition["id"], tag) else external_option_loc).append(item)
+            else:
+                label = get_loc_value(loc_index, key)
+                if label:
+                    label_info = {
+                        "key": key, "label": label, "event_id": definition["id"],
+                        "path": definition["path"], "line": option_entry.line,
+                    }
+                    if label.strip().rstrip(".!?").lower() in GENERIC_LABELS:
+                        generic_option_labels.append(label_info)
+                    elif len(label) > 35:
+                        long_option_labels.append(label_info)
+            if get_scalar(option, "log") is None:
+                option_loc_lines.append({
+                    "key": key or "?", "event_id": definition["id"],
+                    "path": definition["path"], "line": option_entry.line,
+                })
+
+    # Event-local idea references are compared against this repository slice.
+    # Missing IDs are candidates: cross-country and base-MD ideas may be external.
+    for definition in definitions:
+        source_tag = file_tags.get(definition["path"])
+        for idea_id in idea_candidates(definition["block"]):
+            match = re.match(r"^([A-Z]{3})_[A-Za-z0-9_]+$", idea_id)
+            if not match:
+                continue
+            tag = match.group(1)
+            if tag in countries and idea_id not in idea_index.get(tag, set()):
+                missing_event_idea_candidates.append({
+                    "event_id": definition["id"], "idea": idea_id, "tag": tag,
+                    "classification": "local_candidate" if source_tag == tag else "external_or_cross_country_candidate",
+                    "path": definition["path"], "line": definition["line"],
+                })
+
+        localisation_keys = [definition["title"], definition["desc"]]
+        for option_entry in direct_entries(definition["block"], "option"):
+            if isinstance(option_entry.value, Block):
+                option_name = get_scalar(option_entry.value, "name")
+                if option_name:
+                    localisation_keys.append(option_name)
+        for loc_key in filter(None, localisation_keys):
+            for occurrence in loc_index.get(loc_key, []):
+                for name in scripted_ref_re.findall(occurrence.value):
+                    tag = name[:3]
+                    if tag in countries and name not in scripted_names.get(tag, set()):
+                        missing_event_scripted_loc.append({
+                            "event_id": definition["id"], "localisation_key": loc_key,
+                            "scripted_localisation": name, "path": occurrence.path,
+                            "line": occurrence.line,
+                        })
 
     reused_event_loc = []
     for (field, key), occurrences in sorted(reused_loc.items()):
@@ -782,6 +842,10 @@ def build_event_audit(repo, countries, loc_index, event_parsed):
         "missing_localisation": missing_loc, "external_localisation": external_loc,
         "duplicate_localisation_definitions": duplicate_loc_definitions,
         "missing_option_localisation": missing_option_loc, "external_option_localisation": external_option_loc,
+        "generic_option_labels": generic_option_labels, "long_option_labels": long_option_labels,
+        "options_without_log": option_loc_lines,
+        "missing_event_idea_candidates": missing_event_idea_candidates,
+        "missing_event_scripted_localisation": missing_event_scripted_loc,
         "reused_title_desc_keys": reused_event_loc, "unresolved_references": unresolved_references,
         "external_references": external_references, "scripted_effect_references": scripted_effect_references,
         "unreachable_triggered_events": orphan_triggered,
@@ -1010,7 +1074,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         countries, loc_index = discover(args.repo)
         all_focus, defined_events, defined_namespaces, event_parsed = build_global_indexes(countries, args.repo)
         content_indexes = build_content_indexes(args.repo, countries, loc_index)
-        event_report = build_event_audit(args.repo, countries, loc_index, event_parsed)
+        event_report = build_event_audit(args.repo, countries, loc_index, event_parsed, content_indexes)
         wanted = [part.strip().upper() for part in args.tags.split(",") if part.strip()] if args.tags else sorted(countries)
         unknown = sorted(set(wanted) - set(countries))
         if unknown:
@@ -1041,8 +1105,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         for key in ("parse_errors", "missing_event_ids", "missing_title_fields", "missing_desc_fields",
                     "missing_option_names", "duplicate_event_ids", "duplicate_namespaces",
                     "missing_localisation", "external_localisation", "duplicate_localisation_definitions",
-                    "missing_option_localisation", "external_option_localisation", "reused_title_desc_keys",
-                    "unresolved_references", "external_references", "unreachable_triggered_events",
+                    "missing_option_localisation", "external_option_localisation", "generic_option_labels",
+                    "long_option_labels", "options_without_log", "missing_event_idea_candidates",
+                    "missing_event_scripted_localisation", "reused_title_desc_keys",
+                    "unresolved_references", "external_references", "scripted_effect_references",
+                    "unreachable_triggered_events",
                     "events_without_picture"):
             print("  {}: {}".format(key, len(event_report[key])))
 
