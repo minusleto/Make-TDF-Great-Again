@@ -11,7 +11,7 @@ limits: Static validation only. The full HOI4 runtime, installed base-MD/DLC/mod
 
 - Repository: `minusleto/Make-TDF-Great-Again`, branch `main`.
 - Final validated revision: [`e5da487f452452eb465ea8e88f0316e656c8c72b`](https://github.com/minusleto/Make-TDF-Great-Again/commit/e5da487f452452eb465ea8e88f0316e656c8c72b).
-- GitHub Actions: [run 45470365586](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45470365586).
+- GitHub Actions: first run [45470365586](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45470365586); registry revalidation run [45471844803](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45471844803).
 - The workflow stores the full JSON/log and one JSON/log artifact per country for 14 days.
 - Python version: 3.12.
 
