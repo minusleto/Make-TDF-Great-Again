@@ -149,7 +149,7 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
         loc.write_text(text, encoding="utf-8")
         main_loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
         main_text = main_loc.read_text(encoding="utf-8")
-        main_text += '\n kaz_test.1.t:0 "A test event."\n kaz_test.1.d:0 "The test event description is sufficiently long."\n'
+        main_text += chr(10) + ' kaz_test.1.t:0 "A test event."' + chr(10) + ' kaz_test.1.d:0 "The test event description is sufficiently long."' + chr(10)
         main_loc.write_text(main_text, encoding="utf-8")
         events = root / "mdredux" / "events" / "Kazakhstan.txt"
         event_text = events.read_text(encoding="utf-8")
