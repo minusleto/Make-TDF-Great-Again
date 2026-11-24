@@ -1,6 +1,6 @@
 # Инструкции для агентов
 
-Репозиторий: срез мода TDF / MDC (Hearts of Iron IV, Millennium Dawn) в `mdredux/`, wiki по коду в `wiki/`, исследования в `docs/research/`. Базового мода здесь нет: ссылки на его события, идеи и эффекты не проверить, не считать их ошибками.
+Репозиторий: срез мода TDF / MDC (Hearts of Iron IV, Millennium Dawn) в `mdredux/`, wiki по коду в `wiki/`, исследования в `docs/research/`. Полного base MD, vanilla и DLC в checkout нет. External IDs сверять с `docs/research/external-dependencies.md` и `docs/research/external-dependencies.json`; статусы и источники сохранять явно. Upstream baseline 2026-11-24 (Millennium Dawn main @ `04b2ba126fc1057bf2ab4bac0407b3235983994c`, descriptor 2.0.0 / HOI4 1.19.*) — справочный snapshot, не утверждение о совместимости с целевой TDF-сборкой. ID, отсутствующий в checkout, не считать ошибкой без проверки intended MD / HOI4 / DLC source.
 
 Перед работой с контентом страны прочитать `skills/README.md` и `skills/tdf-country-content/SKILL.md`. Профильные справочники открывать по маршрутизации из README. `design-guide.md` нужен для проектирования или содержательного ревью целой ветки и выбора механики; для точечной правки одного фокуса, события или ключа локализации его не открывать автоматически.
 
@@ -10,5 +10,5 @@
 - Не назначать одну страну универсальным эталоном. Для фокусов, событий и опций выбирать подходящие примеры из разных стран и переносить только те приёмы, которые работают в конкретном контексте. Подписи вроде `Nice/Good/Excellent` оценивать по смыслу события, а не запрещать автоматически.
 - Картинка события желательна, но не обязательна: не ставить неподходящий GFX ради заполнения поля. Плейсхолдер — только с `#TODO`.
 - Описанное в тексте должно соответствовать реальной награде; `log` должен соответствовать ID. В новых и редактируемых блоках соблюдать табы и соглашения проекта, но не форматировать массово нетронутый legacy-контент. Для yml сохранять UTF-8 BOM и исходные окончания строк.
-- Аудит — статическая проверка, не тест игры. Из корня репозитория запускать `python3 -I skills/tdf-country-content/scripts/tdf_audit.py .` и `python3 -I skills/tdf-country-content/scripts/tdf_inventory.py .`; отдельно фиксировать непроверенные зависимости базового мода.
+- Аудит — статическая проверка, не тест игры. Из корня репозитория запускать `python3 -I skills/tdf-country-content/scripts/tdf_audit.py .` и `python3 -I skills/tdf-country-content/scripts/tdf_inventory.py .`; external references, source permalinks и verification statuses вести в `docs/research/external-dependencies.json` и пояснять в соседнем `.md`.
 - Изменения заливать прямо в `main` (решение команды); перед коммитом сверить актуальный HEAD и не перезаписывать чужие коммиты.

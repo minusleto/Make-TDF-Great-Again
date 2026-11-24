@@ -13,5 +13,7 @@ Consolidated reviews and fact-checking notes for TDF / MDC.
 
 These documents are research and recommendations, not game-script patches. Findings marked as localization candidates require checking shared focuses and text overrides before edits.
 
+- [External dependency registry](external-dependencies.md) — machine-readable IDs, source/status evidence and dated official Millennium Dawn baseline; auditor output: `_external_dependencies`.
+
 ## Skills
 - [`skills/tdf-country-content`](../../skills/tdf-country-content/SKILL.md) — how to write focuses, national spirits, events and localisation for TDF, plus `scripts/tdf_audit.py` and `scripts/tdf_inventory.py`.

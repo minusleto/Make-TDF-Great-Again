@@ -7,7 +7,7 @@ description: 'Project-specific guide for designing, editing and reviewing countr
 
 Содержательные наблюдения и измерения ниже опираются на историческую выборку от 2026-10-30 из 10 деревьев (POR, SOV, SYR, ARM, ISR, POL, KAZ, BLR, HUN, SLO) и решения команды. Это рекомендации, а не спецификация; выборка не является текущей инвентаризацией репозитория. Актуальная структура и число блоков зафиксированы в `docs/research/2026-11-24-tdf-inventory.md`. Если файлы, wiki или игра противоречат этому скилу - верить им и сказать об этом. Числа с пометкой "ориентир" не измерены, а предложены.
 
-В репозитории лежит только срез мода (`mdredux/`). Базового мода нет: GENERIC-идеи, общие scripted effects и события чужих namespace (`CSTO.1`, `union_state.22`) проверить нельзя. Такие ссылки называть "вне репозитория", а не "багом".
+В репозитории лежит только срез мода (`mdredux/`), без полного базового MD, vanilla и DLC. Внешние IDs сверяй с `docs/research/external-dependencies.md` и `docs/research/external-dependencies.json`; auditor публикует пересечение в `_external_dependencies`. Baseline Millennium Dawn от 2026-11-24 (commit `04b2ba126fc1057bf2ab4bac0407b3235983994c`, mod version 2.0.0, HOI4 1.19.*) — справочный снимок, не обещание совместимости с целевой сборкой. `confirmed` означает найденное определение в этом snapshot, `assumption` — найденное upstream-использование без независимой проверки definition, `unknown` — непроверенный ID. Не объявляй отсутствующий в срезе ID багом без проверки целевой версии base MD / HOI4 / DLC.
 
 ## MIO и техника
 
@@ -103,6 +103,8 @@ description: 'Project-specific guide for designing, editing and reviewing countr
 ## 5. Проверка
 
 Для межфайлового жизненного цикла flags, variables, arrays, scripted effects/triggers, on_actions и country history используй references/state-flow.md. Общий auditor строит глобальную карту в JSON-разделе _state_flow; unmatched/missing-local результаты — кандидаты для ручной проверки, а не доказанные ошибки без полной базы MD.
+
+Для external events/ideas/scripted effects/localisation/MIO/technology/equipment используй `docs/research/external-dependencies.md`. Auditor сопоставляет такие кандидаты с реестром в JSON-разделе `_external_dependencies`; unknown и unregistered IDs остаются кандидатами, не ERROR.
 
 
 Для решений читай `references/decision-design.md`. Общий auditor проверяет категории, ID, локализацию и локальные ссылки на решения, фокусы, идеи и события.

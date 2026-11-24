@@ -1732,6 +1732,36 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
     for path, parsed in (event_parsed or {}).items():
         sources.append((Path(path), parsed))
 
+    # Missing local technology IDs may be supplied by vanilla, base MD or DLC.
+    # Keep them as explicit review candidates; never promote them to ERROR.
+    unknown_technology_references = []
+    seen_technology_refs = set()
+    for path, parsed in sources:
+        for entry in walk_entries(parsed.root):
+            if entry.key.value != "has_tech":
+                continue
+            technology = scalar(entry)
+            if technology is None and isinstance(entry.value, Block):
+                technology = (
+                    get_scalar(entry.value, "technology")
+                    or get_scalar(entry.value, "tech")
+                    or get_scalar(entry.value, "id")
+                )
+                if technology is None:
+                    tokens = [item.value for item in entry.value.items if isinstance(item, Token)]
+                    technology = tokens[0] if tokens else None
+            if not technology or technology in technology_ids:
+                continue
+            marker = (technology, str(path), entry.line)
+            if marker in seen_technology_refs:
+                continue
+            seen_technology_refs.add(marker)
+            unknown_technology_references.append({
+                "technology": technology, "command": "has_tech",
+                "path": str(path), "line": entry.line,
+                "classification": "not_defined_in_local_technology_slice",
+            })
+
     mio_references, variant_definitions, stockpile_grants = [], [], []
     unknown_equipment_type_references, unknown_module_references = [], []
     invalid_stockpile_amounts = []
@@ -1850,6 +1880,7 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
         "duplicate_equipment_ids": duplicate_equipment_ids,
         "unknown_equipment_type_references": unknown_equipment_type_references,
         "unknown_module_references": unknown_module_references,
+        "unknown_technology_references": unknown_technology_references,
         "invalid_stockpile_amounts": invalid_stockpile_amounts,
         "local_equipment_localisation_candidates": local_equipment_localisation_candidates,
         "mio_definitions": mio_definitions,
@@ -1858,6 +1889,261 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
     }
 
 
+
+
+EXTERNAL_DEPENDENCY_STATUSES = frozenset({"confirmed", "assumption", "unknown"})
+EXTERNAL_DEPENDENCY_DEFAULT_SOURCES = {
+    "event": "Millennium Dawn base events, another installed mod, or unresolved namespace",
+    "idea": "Millennium Dawn base ideas, HOI4, DLC, or another installed module",
+    "scripted_effect": "Millennium Dawn base scripted effects or another installed module",
+    "scripted_trigger": "Millennium Dawn base scripted triggers or another installed module",
+    "scripted_effect_or_trigger": "Millennium Dawn base scripted effects/triggers or another installed module",
+    "localisation": "Millennium Dawn shared English localisation or another installed module",
+    "scripted_localisation": "Millennium Dawn scripted localisation or another installed module",
+    "mio": "Millennium Dawn / HOI4 DLC MIO definitions or another installed module",
+    "equipment": "Millennium Dawn / HOI4 base-game or DLC equipment definitions",
+    "equipment_module": "Millennium Dawn / HOI4 base-game or DLC equipment-module definitions",
+    "technology": "Millennium Dawn / HOI4 base-game or DLC technology definitions",
+    "decision": "Millennium Dawn base decisions or another installed module",
+    "focus": "Millennium Dawn base focus trees or another installed module",
+    "other": "Unknown external module; verify against the pinned baseline and active mod stack",
+}
+
+
+def build_external_dependency_audit(repo, event_report, decision_report, idea_report,
+                                    industry_report, state_flow_report):
+    """Match unresolved references against the dated external dependency registry.
+
+    This report is diagnostic, not an allowlist: an unregistered reference remains
+    visible with status=unknown, and no registry result is promoted to ERROR.
+    """
+    registry_path = Path(repo) / "docs" / "research" / "external-dependencies.json"
+    relative_registry_path = "docs/research/external-dependencies.json"
+    if not registry_path.is_file():
+        return {
+            "registry_available": False, "registry_path": relative_registry_path,
+            "registry_validation_issues": ["external dependency registry is missing"],
+            "baseline": {}, "findings": [], "unregistered_candidates": [],
+            "counts": {"registry_entries": 0, "findings": 0, "unregistered": 0},
+        }
+
+    try:
+        registry = json.loads(read(registry_path))
+    except (ValueError, TypeError) as exc:
+        raise AuditInputError("{}: некорректный JSON реестра внешних зависимостей: {}".format(
+            registry_path, exc
+        )) from exc
+    if not isinstance(registry, dict):
+        raise AuditInputError("{}: корень реестра должен быть JSON object".format(registry_path))
+
+    validation_issues = []
+    if registry.get("schema_version") != 1:
+        validation_issues.append("unsupported schema_version: {!r}".format(registry.get("schema_version")))
+    entries = registry.get("dependencies")
+    if not isinstance(entries, list):
+        raise AuditInputError("{}: поле dependencies должно быть массивом".format(registry_path))
+
+    registry_index = {}
+    valid_entries = []
+    for index, dependency in enumerate(entries):
+        if not isinstance(dependency, dict):
+            validation_issues.append("dependencies[{}] is not an object".format(index))
+            continue
+        dep_type, dep_id, status = (
+            dependency.get("type"), dependency.get("id"), dependency.get("status")
+        )
+        if not isinstance(dep_type, str) or not dep_type.strip() or not isinstance(dep_id, str) or not dep_id.strip():
+            validation_issues.append("dependencies[{}] needs non-empty type and id".format(index))
+            continue
+        if status not in EXTERNAL_DEPENDENCY_STATUSES:
+            validation_issues.append("dependencies[{}] has unsupported status {!r}".format(index, status))
+            continue
+        if not isinstance(dependency.get("checked_at"), str) or not dependency.get("checked_at"):
+            validation_issues.append("dependencies[{}] needs checked_at".format(index))
+        if not isinstance(dependency.get("expected_source"), str) or not dependency.get("expected_source"):
+            validation_issues.append("dependencies[{}] needs expected_source".format(index))
+        key = (dep_type, dep_id)
+        if key in registry_index:
+            validation_issues.append("duplicate registry entry: {} {}".format(dep_type, dep_id))
+            continue
+        registry_index[key] = dependency
+        valid_entries.append(dependency)
+
+    grouped = {}
+
+    def add_reference(dep_type, identifier, reference):
+        if not isinstance(identifier, str) or not identifier.strip():
+            return
+        identifier = identifier.strip()
+        key = (dep_type, identifier)
+        dependency = registry_index.get(key)
+        item = grouped.get(key)
+        if item is None:
+            item = {
+                "type": dep_type, "id": identifier,
+                "status": dependency.get("status") if dependency else "unknown",
+                "registry_status": "registered" if dependency else "unregistered",
+                "expected_source": (
+                    dependency.get("expected_source") if dependency
+                    else EXTERNAL_DEPENDENCY_DEFAULT_SOURCES.get(
+                        dep_type, EXTERNAL_DEPENDENCY_DEFAULT_SOURCES["other"]
+                    )
+                ),
+                "checked_at": dependency.get("checked_at") if dependency else None,
+                "verification": dependency.get("verification", []) if dependency else [],
+                "notes": dependency.get("notes") if dependency else (
+                    "No exact registry record. Treat as unknown until checked against the "
+                    "pinned base-MD snapshot and intended game/mod stack."
+                ),
+                "references": [],
+            }
+            grouped[key] = item
+        normalized = {
+            field: value for field, value in reference.items()
+            if value is not None and value != ""
+        }
+        if normalized not in item["references"]:
+            item["references"].append(normalized)
+
+    # External event calls and their external localisation keys.
+    for reference in event_report.get("external_references", []):
+        add_reference("event", reference.get("target"), {
+            "path": reference.get("source"), "line": reference.get("line"),
+            "source_kind": reference.get("source_kind"), "caller": reference.get("caller"),
+            "classification": "namespace_not_defined_in_local_checkout",
+        })
+    for list_key in ("external_localisation", "external_option_localisation"):
+        for reference in event_report.get(list_key, []):
+            add_reference("localisation", reference.get("key"), {
+                "path": reference.get("path"), "line": reference.get("line"),
+                "source_kind": "event_localisation", "caller": reference.get("event_id"),
+                "field": reference.get("field"),
+            })
+    for reference in event_report.get("missing_event_idea_candidates", []):
+        if reference.get("classification") == "external_or_cross_country_candidate":
+            add_reference("idea", reference.get("idea"), {
+                "path": reference.get("path"), "line": reference.get("line"),
+                "source_kind": "event", "caller": reference.get("event_id"),
+                "classification": reference.get("classification"),
+            })
+
+    # External references made by decisions.
+    for reference in decision_report.get("external_tooltip_localisation", []):
+        add_reference("localisation", reference.get("key"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": "decision_localisation", "caller": reference.get("decision"),
+        })
+    for list_key, dep_type in (
+        ("external_event_references", "event"),
+        ("external_focus_references", "focus"),
+        ("external_decision_references", "decision"),
+    ):
+        for reference in decision_report.get(list_key, []):
+            add_reference(dep_type, reference.get("target"), {
+                "path": reference.get("path"), "line": reference.get("line"),
+                "source_kind": "decision", "caller": reference.get("decision"),
+                "field": reference.get("field"),
+            })
+
+    # External / shared ideas, including IDs without a three-letter country prefix.
+    for reference in idea_report.get("external_idea_references", []):
+        add_reference("idea", reference.get("idea"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": "idea_reference", "usage": reference.get("usage"),
+        })
+    for reference in idea_report.get("unresolved_unprefixed_idea_references", []):
+        add_reference("idea", reference.get("idea"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": "idea_reference", "usage": reference.get("usage"),
+            "classification": "unprefixed_or_shared_idea_candidate",
+        })
+
+    # MIO, equipment, equipment modules and technology references.
+    for list_key in ("external_mio_references", "missing_local_mio_references"):
+        for reference in industry_report.get(list_key, []):
+            add_reference("mio", reference.get("mio"), {
+                "path": reference.get("path"), "line": reference.get("line"),
+                "source_kind": "mio_reference", "usage": reference.get("usage"),
+                "classification": (
+                    "external_tag_candidate" if list_key == "external_mio_references"
+                    else "local_tag_missing_in_checkout_or_base_dependency"
+                ),
+            })
+    for reference in industry_report.get("external_mio_name_localisation_candidates", []):
+        add_reference("localisation", reference.get("name_key"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": "mio_name", "caller": reference.get("mio"),
+        })
+    for reference in industry_report.get("unknown_equipment_type_references", []):
+        add_reference("equipment", reference.get("type"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": reference.get("action"), "caller": reference.get("variant"),
+            "classification": "not_defined_in_local_equipment_slice",
+        })
+    for reference in industry_report.get("unknown_module_references", []):
+        add_reference("equipment_module", reference.get("module"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": "create_equipment_variant", "caller": reference.get("variant"),
+            "classification": "not_defined_in_local_module_slice",
+        })
+    for reference in industry_report.get("unknown_technology_references", []):
+        add_reference("technology", reference.get("technology"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": reference.get("command"),
+            "classification": reference.get("classification"),
+        })
+
+    # Unresolved scripted calls remain candidates; the missing definition may be in base MD.
+    for reference in state_flow_report.get("unresolved_scripted_call_candidates", []):
+        add_reference("scripted_effect_or_trigger", reference.get("candidate"), {
+            "path": reference.get("path"), "line": reference.get("line"),
+            "source_kind": "scripted_call", "owner_tag": reference.get("owner_tag"),
+            "classification": reference.get("classification"),
+        })
+
+    # Include explicit TDF usage entries even when the shared definition resolves locally.
+    for dependency in valid_entries:
+        for reference in dependency.get("where_used", []):
+            if reference.get("repository") == "TDF":
+                add_reference(dependency["type"], dependency["id"], {
+                    **reference, "source_kind": "registry_usage",
+                })
+
+    # Expand only declared transitive dependencies (e.g. a scripted effect invoked by a
+    # base event), and only if the parent is referenced by this checkout.
+    used_keys = set(grouped)
+    for dependency in valid_entries:
+        for parent in dependency.get("related_to", []):
+            if (parent.get("type"), parent.get("id")) in used_keys:
+                add_reference(dependency["type"], dependency["id"], {
+                    "source_kind": "transitive_dependency", "related_to": parent,
+                })
+
+    findings = sorted(grouped.values(), key=lambda item: (item["type"], item["id"].casefold()))
+    for item in findings:
+        item["references"].sort(key=lambda reference: (
+            reference.get("path", ""), reference.get("line", 0),
+            reference.get("source_kind", ""), reference.get("caller", "")
+        ))
+    unregistered = [item for item in findings if item["registry_status"] == "unregistered"]
+    status_counts = Counter(item["status"] for item in findings)
+    type_counts = Counter(item["type"] for item in findings)
+    return {
+        "registry_available": True, "registry_path": relative_registry_path,
+        "schema_version": registry.get("schema_version"),
+        "last_reviewed": registry.get("last_reviewed"),
+        "baseline": registry.get("baseline", {}),
+        "registry_validation_issues": validation_issues,
+        "registry_entries": valid_entries, "findings": findings,
+        "unregistered_candidates": unregistered,
+        "counts": {
+            "registry_entries": len(valid_entries), "findings": len(findings),
+            "registered_findings": len(findings) - len(unregistered),
+            "unregistered": len(unregistered),
+            "by_status": dict(sorted(status_counts.items())),
+            "by_type": dict(sorted(type_counts.items())),
+        },
+    }
 
 
 def _state_flow_source_kind(path: Path, mod: Path) -> str:
@@ -2175,7 +2461,7 @@ def build_state_flow_audit(repo, countries, event_parsed=None):
             if (key not in effect_ids and key not in trigger_ids
                     and isinstance(entry.value, Token)
                     and entry.value.value.lower() in ("yes", "no")):
-                match = re.match(r"^([A-Z]{3})_[A-Za-z0-9_]+$", key)
+                match = re.match(r"^([A-Z]{3,5})_[A-Za-z0-9_]+$", key)
                 if match:
                     tag = match.group(1)
                     unresolved_script_calls.append({
@@ -2942,6 +3228,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                                                defined_namespaces, event_parsed, content_indexes)
         industry_report = build_industry_audit(args.repo, countries, loc_index, all_focus, event_parsed)
         state_flow_report = build_state_flow_audit(args.repo, countries, event_parsed)
+        external_dependency_report = build_external_dependency_audit(
+            args.repo, event_report, decision_report, idea_report, industry_report, state_flow_report
+        )
         wanted = [part.strip().upper() for part in args.tags.split(",") if part.strip()] if args.tags else sorted(countries)
         unknown = sorted(set(wanted) - set(countries))
         if unknown:
@@ -2999,9 +3288,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "external_mio_name_localisation_candidates", "mio_name_matches_other_mio",
                     "local_mio_visibility_focus_candidates", "duplicate_equipment_ids",
                     "unknown_equipment_type_references", "unknown_module_references",
+                    "unknown_technology_references",
                     "invalid_stockpile_amounts", "local_equipment_localisation_candidates"):
             print("  industry {}: {}".format(key, len(industry_report[key])))
 
+        print("\nВнешние зависимости: {} кандидатов; зарегистрировано {}, без записи в реестре {}; baseline {} @ {}.".format(
+            external_dependency_report["counts"]["findings"],
+            external_dependency_report["counts"]["registered_findings"],
+            external_dependency_report["counts"]["unregistered"],
+            external_dependency_report.get("baseline", {}).get("repository", "unknown"),
+            external_dependency_report.get("baseline", {}).get("commit", "unknown")))
         print("\nАудит межфайлового состояния: {} файлов; {} history; {} scripted effects / {} calls; {} scripted triggers / {} calls; {} on_actions; {} flags, {} variables, {} arrays.".format(
             state_flow_report["counts"]["source_files"], state_flow_report["counts"]["history_files"],
             state_flow_report["counts"]["scripted_effect_definitions"], state_flow_report["counts"]["scripted_effect_calls"],
@@ -3061,6 +3357,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             report_data["_industry"] = industry_report
             report_data["_ideas"] = idea_report
             report_data["_state_flow"] = state_flow_report
+            report_data["_external_dependencies"] = external_dependency_report
             with open(args.json, "w", encoding="utf-8", newline="\n") as handle:
                 json.dump(report_data, handle, ensure_ascii=False, indent=2)
                 handle.write("\n")

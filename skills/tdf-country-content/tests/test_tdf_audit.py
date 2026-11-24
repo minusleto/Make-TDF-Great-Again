@@ -1016,6 +1016,127 @@ country_event = {
             self.assertEqual(report["counts"]["decision_event_state_links"], len(links))
 
 
+    def test_industry_audit_lists_unresolved_has_tech_references_without_error(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            tech_dir = root / "mdredux" / "common" / "technologies"
+            tech_dir.mkdir(parents=True)
+            (tech_dir / "fixture.txt").write_text("""
+technologies = {
+    KAZ_known_technology = { research_cost = 1 }
+}
+""", encoding="utf-8")
+            decisions = root / "mdredux" / "common" / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""
+KAZ_test_category = {
+    KAZ_test_decision = {
+        visible = { has_tech = KAZ_external_technology }
+    }
+}
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            all_focus, _, _, event_parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_industry_audit(root, countries, loc_index, all_focus, event_parsed)
+            self.assertTrue(any(
+                item["technology"] == "KAZ_external_technology"
+                and item["classification"] == "not_defined_in_local_technology_slice"
+                for item in report["unknown_technology_references"]
+            ))
+            self.assertFalse(any(
+                item["technology"] == "KAZ_known_technology"
+                for item in report["unknown_technology_references"]
+            ))
+
+
+    def test_external_dependency_registry_preserves_confirmed_assumption_and_unknown(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            registry_dir = root / "docs" / "research"
+            registry_dir.mkdir(parents=True)
+            registry = {
+                "schema_version": 1,
+                "last_reviewed": "2026-11-24",
+                "baseline": {"repository": "MillenniumDawn/Millennium-Dawn", "commit": "abc123"},
+                "dependencies": [
+                    {
+                        "type": "event", "id": "CSTO.1", "status": "confirmed",
+                        "expected_source": "Millennium Dawn base events",
+                        "checked_at": "2026-11-24", "verification": [],
+                        "notes": "Verified in pinned upstream snapshot."
+                    },
+                    {
+                        "type": "equipment", "id": "CV_MR_Fighter2", "status": "assumption",
+                        "expected_source": "Millennium Dawn / HOI4 equipment",
+                        "checked_at": "2026-11-24", "verification": [],
+                        "notes": "Upstream usage seen; definition not independently verified."
+                    }
+                ]
+            }
+            (registry_dir / "external-dependencies.json").write_text(
+                __import__("json").dumps(registry, ensure_ascii=False), encoding="utf-8"
+            )
+            event_report = {
+                "external_references": [
+                    {"target": "CSTO.1", "source": "mdredux/common/national_focus/Poland_Focus_Tree.txt",
+                     "line": 10, "source_kind": "focus", "caller": "POL_test"},
+                    {"target": "NOT_IN_REGISTRY.9", "source": "mdredux/events/Georgia.txt",
+                     "line": 20, "source_kind": "event", "caller": "geo_test"}
+                ],
+                "external_localisation": [
+                    {"key": "CSTO.1.t", "path": "mdredux/events/Georgia.txt",
+                     "line": 21, "event_id": "geo_test", "field": "title"}
+                ],
+                "external_option_localisation": [],
+                "missing_event_idea_candidates": []
+            }
+            decision_report = {
+                "external_tooltip_localisation": [], "external_event_references": [],
+                "external_focus_references": [], "external_decision_references": []
+            }
+            idea_report = {
+                "external_idea_references": [
+                    {"idea": "CSTO_member", "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+                     "line": 30, "usage": "condition"}
+                ],
+                "unresolved_unprefixed_idea_references": []
+            }
+            industry_report = {
+                "external_mio_references": [], "missing_local_mio_references": [],
+                "external_mio_name_localisation_candidates": [],
+                "unknown_equipment_type_references": [
+                    {"type": "CV_MR_Fighter2", "path": "mdredux/events/Georgia.txt",
+                     "line": 40, "action": "add_equipment_to_stockpile"}
+                ],
+                "unknown_module_references": [],
+                "unknown_technology_references": [
+                    {"technology": "KAZ_unknown_tech", "path": "mdredux/common/decisions/Kazakhstan.txt",
+                     "line": 50, "command": "has_tech"}
+                ]
+            }
+            state_flow_report = {
+                "unresolved_scripted_call_candidates": [
+                    {"candidate": "CSTO_join", "path": "mdredux/events/Georgia.txt", "line": 60,
+                     "classification": "external_or_unknown_dependency"}
+                ]
+            }
+            report = audit.build_external_dependency_audit(
+                root, event_report, decision_report, idea_report, industry_report, state_flow_report
+            )
+            by_key = {(item["type"], item["id"]): item for item in report["findings"]}
+            self.assertEqual(by_key[("event", "CSTO.1")]["status"], "confirmed")
+            self.assertEqual(by_key[("event", "CSTO.1")]["registry_status"], "registered")
+            self.assertEqual(by_key[("event", "NOT_IN_REGISTRY.9")]["status"], "unknown")
+            self.assertEqual(by_key[("event", "NOT_IN_REGISTRY.9")]["registry_status"], "unregistered")
+            self.assertEqual(by_key[("equipment", "CV_MR_Fighter2")]["status"], "assumption")
+            self.assertEqual(by_key[("idea", "CSTO_member")]["status"], "unknown")
+            self.assertEqual(by_key[("technology", "KAZ_unknown_tech")]["status"], "unknown")
+            self.assertEqual(by_key[("scripted_effect_or_trigger", "CSTO_join")]["status"], "unknown")
+            self.assertEqual(report["counts"]["unregistered"], 5)
+            self.assertTrue(report["registry_available"])
+
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

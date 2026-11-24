@@ -1,0 +1,555 @@
+{
+  "schema_version": 1,
+  "last_reviewed": "2026-11-24",
+  "baseline": {
+    "name": "Millennium Dawn",
+    "repository": "https://github.com/MillenniumDawn/Millennium-Dawn",
+    "branch": "main",
+    "commit": "04b2ba126fc1057bf2ab4bac0407b3235983994c",
+    "commit_date_utc": "2026-11-24T15:41:46Z",
+    "mod_descriptor": "Millennium_Dawn.mod",
+    "mod_version": "2.0.0",
+    "supported_hoi4_version": "1.19.*",
+    "compatibility_claim": false,
+    "note": "Pinned upstream source snapshot for research only. TDF does not pin this as its supported base-MD revision; confirmed means present at this SHA, not guaranteed runtime compatibility."
+  },
+  "status_definitions": {
+    "confirmed": "Exact definition or English localisation key found in the pinned upstream source, or exact local shared definition for a cross-country example.",
+    "assumption": "Evidence of upstream usage exists, but the defining block was not independently verified.",
+    "unknown": "Not verified. Do not treat the ID as existing or absent until its intended source and mod stack are checked."
+  },
+  "dependencies": [
+    {
+      "type": "event",
+      "id": "CSTO.1",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base events",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Poland_Focus_Tree.txt",
+          "line": 10965,
+          "usage": "SOV-scoped country_event call"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Georgia_Focus_Tree.txt",
+          "line": 1317,
+          "usage": "SOV-scoped country_event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/CSTO_system.txt",
+          "line": 3,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/CSTO_system.txt#L3"
+        },
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_CSTO_events_l_english.yml",
+          "line": 2,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L2"
+        }
+      ],
+      "notes": "Exact event definition and English title/description/options were found in the pinned upstream snapshot.",
+      "namespace": "CSTO"
+    },
+    {
+      "type": "localisation",
+      "id": "CSTO.1.t",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base English localisation",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/CSTO_system.txt",
+          "line": 4,
+          "usage": "event title key"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_CSTO_events_l_english.yml",
+          "line": 2,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L2"
+        }
+      ],
+      "notes": "Dependency of CSTO.1.",
+      "namespace": "CSTO"
+    },
+    {
+      "type": "localisation",
+      "id": "CSTO.1.d",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base English localisation",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/CSTO_system.txt",
+          "line": 5,
+          "usage": "event description key"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_CSTO_events_l_english.yml",
+          "line": 3,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L3"
+        }
+      ],
+      "notes": "Dependency of CSTO.1.",
+      "namespace": "CSTO"
+    },
+    {
+      "type": "localisation",
+      "id": "CSTO.1.a",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base English localisation",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/CSTO_system.txt",
+          "line": 10,
+          "usage": "option name"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_CSTO_events_l_english.yml",
+          "line": 4,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L4"
+        }
+      ],
+      "notes": "Dependency of CSTO.1.",
+      "namespace": "CSTO"
+    },
+    {
+      "type": "localisation",
+      "id": "CSTO.1.b",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base English localisation",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/CSTO_system.txt",
+          "line": 27,
+          "usage": "option name"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_CSTO_events_l_english.yml",
+          "line": 5,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L5"
+        }
+      ],
+      "notes": "Dependency of CSTO.1.",
+      "namespace": "CSTO"
+    },
+    {
+      "type": "event",
+      "id": "union_state.22",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base events",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+          "line": 6306,
+          "usage": "ARM country_event call"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+          "line": 6315,
+          "usage": "BLR country_event call"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+          "line": 6324,
+          "usage": "SER country_event call"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+          "line": 6333,
+          "usage": "UKR country_event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Union State.txt",
+          "line": 617,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Union%20State.txt#L617"
+        },
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_focus_USR_l_english.yml",
+          "line": 209,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L209"
+        }
+      ],
+      "notes": "Exact definition and English localisation were found in the pinned upstream snapshot.",
+      "namespace": "union_state"
+    },
+    {
+      "type": "localisation",
+      "id": "union_state.22.t",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base English localisation",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/Union State.txt",
+          "line": 618,
+          "usage": "event title key"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_focus_USR_l_english.yml",
+          "line": 209,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L209"
+        }
+      ],
+      "notes": "Dependency of union_state.22.",
+      "namespace": "union_state"
+    },
+    {
+      "type": "localisation",
+      "id": "union_state.22.d",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base English localisation",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/Union State.txt",
+          "line": 619,
+          "usage": "event description key"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_focus_USR_l_english.yml",
+          "line": 210,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L210"
+        }
+      ],
+      "notes": "Dependency of union_state.22.",
+      "namespace": "union_state"
+    },
+    {
+      "type": "localisation",
+      "id": "union_state.22.a",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base English localisation",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/Union State.txt",
+          "line": 624,
+          "usage": "event option name"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/MD_focus_USR_l_english.yml",
+          "line": 211,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L211"
+        }
+      ],
+      "notes": "Dependency of union_state.22.",
+      "namespace": "union_state"
+    },
+    {
+      "type": "idea",
+      "id": "CSTO_member",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base shared faction ideas",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt",
+          "line": 10804,
+          "usage": "negative has_idea condition"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+          "line": 1126,
+          "usage": "has_idea condition"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+          "line": 3909,
+          "usage": "has_idea condition"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "idea definition",
+          "path": "common/ideas/Factions.txt",
+          "line": 67,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/ideas/Factions.txt#L67"
+        },
+        {
+          "kind": "granting scripted effect",
+          "path": "common/scripted_effects/00_faction_scripted_effects.txt",
+          "line": 55,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_faction_scripted_effects.txt#L55"
+        }
+      ],
+      "notes": "Shared, unprefixed base-MD faction idea; not a missing local country idea.",
+      "namespace": "CSTO"
+    },
+    {
+      "type": "scripted_effect",
+      "id": "CSTO_join",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base scripted effects",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "Millennium Dawn base",
+          "path": "events/CSTO_system.txt",
+          "line": 68,
+          "usage": "later CSTO chain invokes CSTO_join"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "scripted effect definition",
+          "path": "common/scripted_effects/00_faction_scripted_effects.txt",
+          "line": 55,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_faction_scripted_effects.txt#L55"
+        }
+      ],
+      "notes": "Transitive dependency of the CSTO event chain; included only when CSTO.1 is referenced.",
+      "namespace": "CSTO",
+      "related_to": [
+        {
+          "type": "event",
+          "id": "CSTO.1"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "id": "russia_governorate.19",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base Russia events",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 5018,
+          "usage": "commented-out reference only; not an active call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Russia.txt",
+          "line": 2736,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L2736"
+        }
+      ],
+      "notes": "Exists in pinned upstream snapshot, but TDF occurrence is commented out and is not an active dependency.",
+      "namespace": "russia_governorate"
+    },
+    {
+      "type": "mio",
+      "id": "USA_lockheed_martin_aircraft_manufacturer",
+      "status": "confirmed",
+      "expected_source": "Shared TDF MIO definition (also in base MD)",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Poland_Focus_Tree.txt",
+          "line": 6408,
+          "usage": "foreign MIO design_team reference"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt",
+          "line": 21425,
+          "usage": "foreign MIO design_team reference"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/military_industrial_organization/organizations/MD_USA_organizations.txt",
+          "line": 43,
+          "usage": "local shared MIO definition"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "TDF local definition",
+          "path": "mdredux/common/military_industrial_organization/organizations/MD_USA_organizations.txt",
+          "line": 43,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/common/military_industrial_organization/organizations/MD_USA_organizations.txt#L43"
+        },
+        {
+          "kind": "upstream base definition",
+          "path": "common/ideas/zz_defence_companies.txt",
+          "line": 5080,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/ideas/zz_defence_companies.txt#L5080"
+        }
+      ],
+      "notes": "Positive cross-country example. Not missing in this checkout because its shared TDF definition is present.",
+      "namespace": "USA"
+    },
+    {
+      "type": "mio",
+      "id": "GEO_stc_delta_materiel_manufacturer",
+      "status": "unknown",
+      "expected_source": "Unknown; possible base-MD or omitted local MIO definition",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Georgia_Focus_Tree.txt",
+          "line": 10586,
+          "usage": "MIO effect reference"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Georgia_Focus_Tree.txt",
+          "line": 10619,
+          "usage": "MIO effect reference"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Georgia_Focus_Tree.txt",
+          "line": 10654,
+          "usage": "MIO effect reference"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Georgia.txt",
+          "line": 2289,
+          "usage": "unlock MIO tooltip"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Georgia.txt",
+          "line": 2290,
+          "usage": "MIO effect reference"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "local MIO directory inventory",
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/tree/main/mdredux/common/military_industrial_organization/organizations"
+        },
+        {
+          "kind": "upstream exact-code search",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/search?q=GEO_stc_delta_materiel_manufacturer&type=code"
+        }
+      ],
+      "notes": "Not found in 57 local TDF MIO files or exact upstream code search. Search absence does not prove non-existence; keep unknown.",
+      "namespace": "GEO"
+    },
+    {
+      "type": "equipment",
+      "id": "CV_MR_Fighter2",
+      "status": "assumption",
+      "expected_source": "Millennium Dawn / HOI4 equipment definitions",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Georgia.txt",
+          "line": 652,
+          "usage": "add_equipment_to_stockpile type reference"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "upstream use in Georgia event",
+          "path": "events/Georgia.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Georgia.txt"
+        },
+        {
+          "kind": "upstream country stockpile use",
+          "path": "history/units/USA_2000_nonbba.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/history/units/USA_2000_nonbba.txt"
+        }
+      ],
+      "notes": "Upstream usages found, but defining equipment block was not independently checked."
+    },
+    {
+      "type": "equipment",
+      "id": "transport_plane3",
+      "status": "assumption",
+      "expected_source": "Millennium Dawn / HOI4 base-game equipment definitions",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Georgia.txt",
+          "line": 657,
+          "usage": "add_equipment_to_stockpile type reference"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "upstream country stockpile use",
+          "path": "history/units/CAN_2000_nonbba.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/history/units/CAN_2000_nonbba.txt"
+        },
+        {
+          "kind": "upstream country stockpile use",
+          "path": "history/units/ENG_2000_nonbba.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/history/units/ENG_2000_nonbba.txt"
+        }
+      ],
+      "notes": "Widely used upstream as an equipment type; definition not independently verified."
+    },
+    {
+      "type": "technology",
+      "id": "tech_combat_radar",
+      "status": "unknown",
+      "expected_source": "Unknown; could be a legacy technology ID or typo",
+      "checked_at": "2026-11-24",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt",
+          "line": 3605,
+          "usage": "has_tech = tech_combat_radar"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "upstream exact-code search",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/search?q=tech_combat_radar&type=code"
+        }
+      ],
+      "notes": "Upstream search exposed suffixed tech_combat_radar_1 etc., but did not establish the bare ID; verify it against the target MD version."
+    }
+  ]
+}
