@@ -1952,7 +1952,10 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
             "registry_available": False, "registry_path": relative_registry_path,
             "registry_validation_issues": ["external dependency registry is missing"],
             "baseline": {}, "findings": [], "unregistered_candidates": [],
-            "counts": {"registry_entries": 0, "findings": 0, "unregistered": 0},
+            "counts": {
+                "registry_entries": 0, "findings": 0, "registered_findings": 0,
+                "unregistered": 0, "by_status": {}, "by_type": {},
+            },
         }
 
     try:
