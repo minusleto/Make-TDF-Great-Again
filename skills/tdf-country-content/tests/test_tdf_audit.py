@@ -120,7 +120,7 @@ country_event = { id = kaz_test.1 option = { name = KAZ_visible log = "selected"
         tree.write_text(text, encoding="utf-8")
         loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
         text = loc.read_text(encoding="utf-8")
-        text = text.replace(' KAZ_visible:0 "Duplicate Visible"\\n', "")
+        text = text.replace(' KAZ_visible:0 "Duplicate Visible"' + chr(10), "")
         text = text.replace("[KAZ_missing_script]", "[KAZ_defined_script]")
         loc.write_text(text, encoding="utf-8")
 
