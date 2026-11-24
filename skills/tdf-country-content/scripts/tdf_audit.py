@@ -665,7 +665,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
         tag: {item["name"] for item in items}
         for tag, items in scripted_definitions.items()
     }
-    scripted_ref_re = re.compile(r"\\[([A-Z]{3}_[A-Za-z0-9_]+)\\]")
+    scripted_ref_re = re.compile(r"\[([A-Z]{3}_[A-Za-z0-9_]+)\]")
     for definition in definitions:
         tag = file_tags.get(definition["path"])
         for field in ("title", "desc"):
