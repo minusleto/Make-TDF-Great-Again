@@ -2,7 +2,7 @@
 """Статический аудит контента стран TDF/MDC по правилам tdf-country-content.
 
 Запуск из корня репозитория:
-    python3 -I skills/tdf-country-content/scripts/tdf_audit.py .
+    python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --require-external-registry
     python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --tags POR,KAZ
     python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --details KAZ
     python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --json audit.json

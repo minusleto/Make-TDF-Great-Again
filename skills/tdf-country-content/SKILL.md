@@ -30,7 +30,7 @@ description: 'Project-specific required workflow for designing, editing and revi
 
 ```bash
 python3 -I skills/tdf-country-content/scripts/tdf_inventory.py .
-python3 -I skills/tdf-country-content/scripts/tdf_audit.py .
+python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --require-external-registry
 python3 -I -m unittest discover -s skills/tdf-country-content/tests -v
 ```
 
