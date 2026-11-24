@@ -265,6 +265,128 @@ focus_tree = {
             self.assertIn("GENERIC_accept", result["event_option_label_external"])
             self.assertNotIn("GENERIC_accept", result["event_option_label_missing"])
 
+
+    def test_event_calls_support_scalar_and_block_syntax(self):
+        parsed = audit.parse_hoi("""
+country_event = kaz_test.1
+news_event = { id = kaz_test.2 days = 1 }
+""")
+        calls = list(audit.iter_event_calls(parsed.root))
+        self.assertEqual([(kind, event_id) for kind, event_id, _ in calls],
+                         [("country_event", "kaz_test.1"), ("news_event", "kaz_test.2")])
+
+    def test_event_audit_checks_duplicate_ids_namespaces_reused_keys_and_graph(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  is_triggered_only = yes
+  option = {
+    name = kaz_test.1.a
+    country_event = kaz_test.2
+  }
+}
+country_event = {
+  id = kaz_test.2
+  title = kaz_test.1.t
+  desc = kaz_test.2.d
+  is_triggered_only = yes
+  option = { name = kaz_test.2.a }
+}
+country_event = {
+  id = kaz_test.2
+  title = kaz_test.2.t
+  desc = kaz_test.2.d
+  is_triggered_only = yes
+}
+country_event = {
+  id = kaz_test.3
+  title = kaz_test.3.t
+  desc = kaz_test.3.d
+  is_triggered_only = yes
+  trigger = { tag = KAZ FROM = { tag = CHI } }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.1.t:0 "Same title"
+ kaz_test.1.d:0 "Description one."
+ kaz_test.1.a:0 "Continue"
+ kaz_test.2.d:0 "Description two."
+ kaz_test.2.a:0 "Finish"
+ kaz_test.2.t:0 "Other title"
+ kaz_test.3.t:0 "Third title"
+ kaz_test.3.d:0 "Third description"
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_event_audit(root, countries, loc_index, parsed)
+            self.assertEqual(len(report["duplicate_namespaces"]), 1)
+            self.assertEqual(len(report["duplicate_event_ids"]), 1)
+            self.assertTrue(any(item["key"] == "kaz_test.1.t"
+                                for item in report["reused_title_desc_keys"]))
+            self.assertTrue(any(item["id"] == "kaz_test.3"
+                                for item in report["unreachable_triggered_events"]))
+            self.assertEqual(report["counts"]["country_event"], 4)
+            self.assertEqual(report["counts"]["news_event"], 0)
+
+    def test_event_reference_audit_scans_decisions_and_marks_missing_vs_external(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            decisions = root / "mdredux" / "common" / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""
+KAZ_category = {
+  KAZ_test_decision = {
+    complete_effect = {
+      country_event = { id = kaz_test.404 }
+      news_event = base_md_event.1
+    }
+  }
+}
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_event_audit(root, countries, loc_index, parsed)
+            self.assertTrue(any(item["target"] == "kaz_test.404"
+                                for item in report["unresolved_references"]))
+            self.assertTrue(any(item["target"] == "base_md_event.1"
+                                for item in report["external_references"]))
+            self.assertTrue(any(item["source_kind"] == "decision"
+                                for item in report["unresolved_references"]))
+
+    def test_event_keys_and_option_keys_use_event_namespace_for_locality(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  is_triggered_only = yes
+  option = { name = kaz_test.1.a }
+}
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            result = audit.audit_country("KAZ", countries["KAZ"], loc_index, all_focus,
+                                         set(countries), defined_events, namespaces, event_parsed, content)
+            self.assertIn(("kaz_test.1", "kaz_test.1.t"), result["event_title_key_missing"])
+            self.assertIn(("kaz_test.1", "kaz_test.1.d"), result["event_desc_key_missing"])
+            self.assertIn("kaz_test.1.a", result["event_option_label_missing"])
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

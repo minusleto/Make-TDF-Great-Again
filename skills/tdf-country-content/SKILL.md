@@ -98,6 +98,8 @@ description: 'Project-specific guide for designing, editing and reviewing countr
 
 ## 5. Проверка
 
+Для событий запускай общий auditor с полным checkout. Он проверяет title/desc/option keys, повторы локализации, дубли ID и namespace, ссылки из focus/decisions/events, а также цепочки в обеих синтаксических формах вызова. External namespace и потенциально осиротевшие triggered-only events остаются диагностическими WARN-кандидатами, пока не проверен полный базовый MD.
+
 ```
 python3 -I skills/tdf-country-content/scripts/tdf_audit.py .                # таблица по странам
 python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --details KAZ  # списки id по проверкам
