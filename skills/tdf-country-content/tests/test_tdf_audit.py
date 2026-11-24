@@ -570,6 +570,138 @@ KAZ_category = {
             self.assertFalse(report["invalid_numeric_fields"])
             self.assertFalse(report["custom_cost_without_debit"])
 
+
+    def test_industry_audit_indexes_global_mio_equipment_and_variant_references(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+
+            mio_dir = root / "mdredux" / "common" / "military_industrial_organization" / "organizations"
+            mio_dir.mkdir(parents=True)
+            (mio_dir / "MIO.txt").write_text("""\
+KAZ_local_mio = {
+  allowed = { original_tag = KAZ }
+  visible = { has_completed_focus = KAZ_visible }
+  name = KAZ_local_mio_name
+  include = generic_tank_equipment_organization
+}
+USA_foreign_mio = {
+  allowed = { original_tag = USA }
+  name = USA_foreign_mio_name
+}
+KAZ_wrong_company_mio = {
+  allowed = { original_tag = KAZ }
+  name = KAZ_name_target
+}
+KAZ_name_target = {
+  allowed = { original_tag = KAZ }
+  name = KAZ_name_target_name
+}
+KAZ_missing_loc_mio = {
+  allowed = { original_tag = KAZ }
+  name = KAZ_missing_localisation
+}
+""", encoding="utf-8")
+
+            equipment_dir = root / "mdredux" / "common" / "units" / "equipment"
+            equipment_dir.mkdir(parents=True)
+            (equipment_dir / "test_equipment.txt").write_text("""\
+equipments = {
+  KAZ_test_equipment = {
+    year = 2020
+    is_buildable = yes
+  }
+}
+""", encoding="utf-8")
+            modules_dir = equipment_dir / "modules"
+            modules_dir.mkdir()
+            (modules_dir / "test_modules.txt").write_text("""\
+equipment_modules = {
+  test_module = {
+    category = test_category
+  }
+}
+""", encoding="utf-8")
+            technology_dir = root / "mdredux" / "common" / "technologies"
+            technology_dir.mkdir(parents=True)
+            (technology_dir / "test_tech.txt").write_text("""\
+technologies = {
+  KAZ_test_equipment_tech = {
+    research_cost = 1
+  }
+}
+""", encoding="utf-8")
+
+            focus_path = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
+            source = focus_path.read_text(encoding="utf-8")
+            source = source.rsplit("}", 1)[0] + """
+  focus = {
+    id = KAZ_mio_equipment_test
+    completion_reward = {
+      mio:KAZ_local_mio = { add_mio_funds = 100 }
+      unlock_military_industrial_organization_tooltip = mio:USA_foreign_mio
+      mio:KAZ_missing_mio = { add_mio_funds = 50 }
+      mio:USA_external_mio = { add_mio_funds = 50 }
+      create_equipment_variant = {
+        name = "KAZ Test Variant"
+        type = KAZ_test_equipment
+        design_team = mio:USA_foreign_mio
+        allow_without_tech = yes
+        modules = { main_armament_slot = test_module }
+      }
+      create_equipment_variant = {
+        name = "Missing Variant"
+        type = KAZ_missing_equipment
+      }
+      add_equipment_to_stockpile = {
+        type = KAZ_test_equipment
+        amount = 5
+        producer = KAZ
+        variant_name = "KAZ Test Variant"
+      }
+    }
+  }
+}
+"""
+            focus_path.write_text(source, encoding="utf-8")
+
+            loc_path = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
+            loc_text = loc_path.read_text(encoding="utf-8") + """
+ KAZ_local_mio_name:0 "Local MIO"
+ USA_foreign_mio_name:0 "Foreign MIO"
+ KAZ_name_target:0 "Company name"
+ KAZ_name_target_name:0 "Target MIO"
+ KAZ_test_equipment:0 "KAZ test equipment"
+"""
+            loc_path.write_text(loc_text, encoding="utf-8")
+
+            countries, loc_index = audit.discover(root)
+            all_focus, _, _, event_parsed = audit.build_global_indexes(countries)
+            report = audit.build_industry_audit(root, countries, loc_index, all_focus, event_parsed)
+
+            self.assertEqual(report["counts"]["mio_files"], 1)
+            self.assertEqual(report["counts"]["mio_definitions"], 5)
+            self.assertIn("USA_foreign_mio", {item["id"] for item in report["mio_definitions"]})
+            self.assertTrue(any(item["mio"] == "KAZ_missing_mio"
+                                for item in report["missing_local_mio_references"]))
+            self.assertTrue(any(item["mio"] == "USA_external_mio"
+                                for item in report["external_mio_references"]))
+            self.assertFalse(any(item["mio"] == "USA_foreign_mio"
+                                 for item in report["missing_local_mio_references"]))
+            self.assertTrue(any(item["mio"] == "KAZ_wrong_company_mio"
+                                and item["other_mio_definition"] == "KAZ_name_target"
+                                for item in report["mio_name_matches_other_mio"]))
+            self.assertTrue(any(item["name_key"] == "KAZ_missing_localisation"
+                                for item in report["missing_local_mio_name_localisation"]))
+            self.assertTrue(any(item["type"] == "KAZ_missing_equipment"
+                                for item in report["unknown_equipment_type_references"]))
+            self.assertFalse(any(item["type"] == "KAZ_test_equipment"
+                                 for item in report["unknown_equipment_type_references"]))
+            self.assertFalse(report["unknown_module_references"])
+            self.assertEqual(report["counts"]["technology_ids"], 1)
+            self.assertTrue(any(item["amount"] == "5" and item["producer"] == "KAZ"
+                                for item in report["stockpile_grants"]))
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

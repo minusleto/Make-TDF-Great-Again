@@ -52,3 +52,4 @@ python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --details KAZ
 - `../docs/research/` — проектные аудиты и фактчеки; текущая структурная инвентаризация на 2026-11-24: `2026-11-24-tdf-inventory.md`; аудит деревьев 2026-10 — исторический срез.
 
 - `../md-hoi4-country-content.skill` — старый упакованный пакет, не синхронизируется с живыми файлами в `skills/`.
+- `skills/tdf-country-content/references/mio-and-equipment.md` — MIO, equipment, variants, research technology and military industry QA.
