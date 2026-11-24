@@ -14,6 +14,7 @@
 | Код фокусов, prerequisite, `available`, `bypass`, структура дерева | `tdf-country-content/references/focus-design.md` |
 | Описания и локализация фокусов | `tdf-country-content/references/focus-loc.md` |
 | Решения: категории, стоимость, повторяемость, AI, география и связи | `tdf-country-content/references/decision-design.md` |
+| Межфайловые связи: flags, variables, arrays, scripted effects/triggers, on_actions и history | `tdf-country-content/references/state-flow.md` |
 | События, цепочки и локализация событий | `tdf-country-content/references/event-loc.md` |
 | Обычные национальные духи | `tdf-country-content/references/national-spirits.md` |
 | Составной дух-хаб с несколькими скрытыми идеями-компонентами и общим tooltip | Дополнительно `hoi4-nested-national-spirits/SKILL.md` |

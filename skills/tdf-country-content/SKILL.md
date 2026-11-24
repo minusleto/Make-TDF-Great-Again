@@ -102,6 +102,9 @@ description: 'Project-specific guide for designing, editing and reviewing countr
 
 ## 5. Проверка
 
+Для межфайлового жизненного цикла flags, variables, arrays, scripted effects/triggers, on_actions и country history используй references/state-flow.md. Общий auditor строит глобальную карту в JSON-разделе _state_flow; unmatched/missing-local результаты — кандидаты для ручной проверки, а не доказанные ошибки без полной базы MD.
+
+
 Для решений читай `references/decision-design.md`. Общий auditor проверяет категории, ID, локализацию и локальные ссылки на решения, фокусы, идеи и события.
 
 Для событий запускай общий auditor с полным checkout. Он проверяет title/desc/option keys, повторы локализации, дубли ID и namespace, ссылки из focus/decisions/events, а также цепочки в обеих синтаксических формах вызова. External namespace и потенциально осиротевшие triggered-only events остаются диагностическими WARN-кандидатами, пока не проверен полный базовый MD.

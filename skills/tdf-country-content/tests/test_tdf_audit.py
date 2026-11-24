@@ -813,6 +813,139 @@ defined_text = {
             self.assertTrue(any(item["idea"] == "KAZ_missing_idea"
                                 for item in report["missing_local_idea_references"]))
 
+
+    def test_state_flow_indexes_flags_variables_arrays_scripts_and_history(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+
+            common = root / "mdredux" / "common"
+            effects = common / "scripted_effects"
+            effects.mkdir(parents=True)
+            (effects / "KAZ_scripted_effects.txt").write_text("""
+KAZ_apply_state = {
+  set_country_flag = KAZ_state_flag
+  set_variable = { var = KAZ_counter value = 1 }
+  add_to_array = { KAZ_registry = KAZ }
+}
+""", encoding="utf-8")
+            # Script files without a .txt extension are also valid inputs for the index.
+            (effects / "00_shared_effects").write_text("""
+KAZ_extensionless_effect = { set_country_flag = KAZ_extensionless_flag }
+""", encoding="utf-8")
+
+            triggers = common / "scripted_triggers"
+            triggers.mkdir(parents=True)
+            (triggers / "KAZ_scripted_triggers.txt").write_text("""
+KAZ_state_ready = {
+  has_country_flag = KAZ_state_flag
+  check_variable = { var = KAZ_counter value > 0 }
+}
+""", encoding="utf-8")
+
+            on_actions = common / "on_actions"
+            on_actions.mkdir(parents=True)
+            (on_actions / "00_on_actions.txt").write_text("""
+on_actions = {
+  on_startup = {
+    effect = { KAZ_apply_state = yes }
+  }
+}
+""", encoding="utf-8")
+
+            history = common / "history" / "countries"
+            history.mkdir(parents=True)
+            (history / "KAZ - Kazakhstan.txt").write_text("""
+2000.1.1 = {
+  add_ideas = { KAZ_startup_idea }
+  set_country_flag = KAZ_history_flag
+  set_variable = { KAZ_history_counter = 5 }
+  add_to_array = { KAZ_history_array = KAZ }
+  country_event = { id = kaz_test.1 days = 80 }
+}
+""", encoding="utf-8")
+
+            ideas = common / "ideas" / "Kazakhstan_ideas.txt"
+            ideas.write_text("""
+ideas = {
+  country = {
+    KAZ_balanced_state_idea = {
+      on_add = { add_to_array = { KAZ_registry_idea = KAZ } }
+      on_remove = { remove_from_array = { KAZ_registry_idea = KAZ } }
+    }
+    KAZ_one_sided_state_idea = {
+      on_add = { set_country_flag = KAZ_one_sided_flag }
+    }
+  }
+}
+""", encoding="utf-8")
+
+            tree = root / "mdredux" / "common" / "national_focus" / "Kazakhstan_Focus_Tree.txt"
+            source = tree.read_text(encoding="utf-8")
+            source = source.rsplit("}", 1)[0] + """
+  focus = {
+    id = KAZ_state_flow_test
+    available = {
+      has_country_flag = KAZ_state_flag
+      check_variable = { var = KAZ_counter value > 0 }
+      any_of_scopes = { array = KAZ_registry always = yes }
+      KAZ_state_ready = yes
+      USA_base_trigger = yes
+    }
+    completion_reward = {
+      KAZ_apply_state = yes
+      KAZ_extensionless_effect = yes
+      KAZ_missing_scripted_call = yes
+    }
+  }
+}
+"""
+            tree.write_text(source, encoding="utf-8")
+
+            countries, _ = audit.discover(root)
+            _, _, _, event_parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_state_flow_audit(root, countries, event_parsed)
+
+            self.assertEqual(report["counts"]["history_files"], 1)
+            self.assertEqual(report["history_tags"], ["KAZ"])
+            self.assertTrue(report["on_action_inventory_available"])
+            self.assertTrue(report["scripted_trigger_inventory_available"])
+            self.assertTrue(any(item["id"] == "on_startup" for item in report["on_action_hooks"]))
+            self.assertTrue(any(item["idea"] == "KAZ_startup_idea"
+                                for item in report["history_summaries"][0]["startup_idea_grants"]))
+            self.assertTrue(any(item["variable"] == "KAZ_history_counter"
+                                for item in report["history_summaries"][0]["startup_variable_initialisations"]))
+
+            flag = next(item for item in report["flag_symbols"] if item["id"] == "KAZ_state_flag")
+            self.assertGreaterEqual(flag["write_count"], 1)
+            self.assertGreaterEqual(flag["read_count"], 1)
+
+            variable = next(item for item in report["variable_symbols"] if item["id"] == "KAZ_counter")
+            self.assertGreaterEqual(variable["write_count"], 1)
+            self.assertGreaterEqual(variable["read_count"], 1)
+
+            array = next(item for item in report["array_symbols"] if item["id"] == "KAZ_registry")
+            self.assertGreaterEqual(array["write_count"], 1)
+            self.assertGreaterEqual(array["read_count"], 1)
+
+            self.assertTrue(any(item["scripted_effect"] == "KAZ_apply_state"
+                                for item in report["scripted_effect_calls"]))
+            self.assertTrue(any(item["scripted_effect"] == "KAZ_extensionless_effect"
+                                for item in report["scripted_effect_calls"]))
+            self.assertTrue(any(item["scripted_trigger"] == "KAZ_state_ready"
+                                for item in report["scripted_trigger_calls"]))
+            self.assertTrue(any(item["candidate"] == "KAZ_missing_scripted_call"
+                                and item["classification"] == "local_definition_not_found_candidate"
+                                for item in report["unresolved_scripted_call_candidates"]))
+            self.assertTrue(any(item["candidate"] == "USA_base_trigger"
+                                and item["classification"] == "external_or_unknown_dependency"
+                                for item in report["unresolved_scripted_call_candidates"]))
+            self.assertFalse(any(item["idea"] == "KAZ_balanced_state_idea"
+                                 for item in report["idea_on_add_without_matching_on_remove"]))
+            self.assertTrue(any(item["idea"] == "KAZ_one_sided_state_idea"
+                                and item["id"] == "KAZ_one_sided_flag"
+                                for item in report["idea_on_add_without_matching_on_remove"]))
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"
