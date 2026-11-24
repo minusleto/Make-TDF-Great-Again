@@ -545,13 +545,19 @@ EVENT_CALL_KEYS = frozenset(("country_event", "news_event"))
 
 
 def iter_event_calls(block: Block):
-    """Yield static event calls in both scalar and block syntax."""
-    for entry in walk_entries(block):
-        if entry.key.value not in EVENT_CALL_KEYS:
-            continue
-        event_id = entry.value.value if isinstance(entry.value, Token) else get_scalar(entry.value, "id")
-        if event_id:
-            yield entry.key.value, event_id, entry.line
+    """Yield real event calls in both scalar and block syntax; skip display-only tooltips."""
+    def visit(current: Block):
+        for item in current.items:
+            if not isinstance(item, Entry):
+                continue
+            if item.key.value in EVENT_CALL_KEYS:
+                event_id = item.value.value if isinstance(item.value, Token) else get_scalar(item.value, "id")
+                if event_id:
+                    yield item.key.value, event_id, item.line
+            if isinstance(item.value, Block) and item.key.value != "effect_tooltip":
+                yield from visit(item.value)
+
+    yield from visit(block)
 
 
 def is_local_event_key(key: str, event_id: str, tag: Optional[str] = None) -> bool:
@@ -722,11 +728,18 @@ def build_event_audit(repo, countries, loc_index, event_parsed):
     unresolved_references, external_references = [], []
     event_edges = defaultdict(set)
     root_events = set()
+    scripted_effect_references = []
+    scripted_effect_targets = set()
     for reference in references:
         target = reference["target"]
         if target in defined_ids:
             if reference["source_kind"] == "event":
                 event_edges[reference["caller"]].add(target)
+            elif reference["source_kind"] == "scripted_effect":
+                # A definition can contain a call without ever being invoked itself.
+                # Keep the reference visible but do not treat it as proof of reachability.
+                scripted_effect_references.append(dict(reference))
+                scripted_effect_targets.add(target)
             else:
                 root_events.add(target)
             continue
@@ -744,7 +757,8 @@ def build_event_audit(repo, countries, loc_index, event_parsed):
 
     orphan_triggered = []
     for definition in definitions:
-        if definition["is_triggered_only"] and definition["id"] not in reachable:
+        if (definition["is_triggered_only"] and definition["id"] not in reachable
+                and definition["id"] not in scripted_effect_targets):
             orphan_triggered.append({
                 "id": definition["id"], "kind": definition["kind"], "path": definition["path"],
                 "line": definition["line"], "has_trigger": definition["has_trigger"],
@@ -769,7 +783,8 @@ def build_event_audit(repo, countries, loc_index, event_parsed):
         "duplicate_localisation_definitions": duplicate_loc_definitions,
         "missing_option_localisation": missing_option_loc, "external_option_localisation": external_option_loc,
         "reused_title_desc_keys": reused_event_loc, "unresolved_references": unresolved_references,
-        "external_references": external_references, "unreachable_triggered_events": orphan_triggered,
+        "external_references": external_references, "scripted_effect_references": scripted_effect_references,
+        "unreachable_triggered_events": orphan_triggered,
         "events_without_picture": missing_picture, "metadata": metadata,
     }
 

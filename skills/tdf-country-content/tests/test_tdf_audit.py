@@ -387,6 +387,75 @@ country_event = {
             self.assertIn(("kaz_test.1", "kaz_test.1.d"), result["event_desc_key_missing"])
             self.assertIn("kaz_test.1.a", result["event_option_label_missing"])
 
+
+    def test_effect_tooltips_are_not_calls_and_scripted_effects_are_uncertain_roots(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  option = { name = kaz_test.1.a effect_tooltip = { country_event = kaz_test.4 } }
+}
+country_event = {
+  id = kaz_test.2
+  title = kaz_test.2.t
+  desc = kaz_test.2.d
+  is_triggered_only = yes
+}
+country_event = {
+  id = kaz_test.3
+  title = kaz_test.3.t
+  desc = kaz_test.3.d
+  is_triggered_only = yes
+}
+country_event = {
+  id = kaz_test.4
+  title = kaz_test.4.t
+  desc = kaz_test.4.d
+  is_triggered_only = yes
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.1.t:0 "One"
+ kaz_test.1.d:0 "One description."
+ kaz_test.1.a:0 "Continue"
+ kaz_test.2.t:0 "Two"
+ kaz_test.2.d:0 "Two description."
+ kaz_test.3.t:0 "Three"
+ kaz_test.3.d:0 "Three description."
+ kaz_test.4.t:0 "Four"
+ kaz_test.4.d:0 "Four description."
+""", encoding="utf-8")
+            on_actions = root / "mdredux" / "common" / "on_actions"
+            on_actions.mkdir(parents=True)
+            (on_actions / "00_on_actions.txt").write_text(
+                "on_monthly = { effect = { country_event = { id = kaz_test.2 } } }",
+                encoding="utf-8")
+            scripted = root / "mdredux" / "common" / "scripted_effects"
+            scripted.mkdir(parents=True)
+            (scripted / "KAZ_effects.txt").write_text(
+                "KAZ_test_effect = { country_event = kaz_test.3 }",
+                encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_event_audit(root, countries, loc_index, parsed)
+            self.assertFalse(any(item["id"] == "kaz_test.2"
+                                 for item in report["unreachable_triggered_events"]))
+            self.assertFalse(any(item["id"] == "kaz_test.3"
+                                 for item in report["unreachable_triggered_events"]))
+            self.assertTrue(any(item["target"] == "kaz_test.3"
+                                for item in report["scripted_effect_references"]))
+            self.assertTrue(any(item["id"] == "kaz_test.4"
+                                for item in report["unreachable_triggered_events"]))
+            self.assertEqual(list(audit.iter_event_calls(
+                audit.parse_hoi("effect_tooltip = { country_event = kaz_test.4 }").root)), [])
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"
