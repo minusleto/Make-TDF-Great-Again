@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Reproducible structural inventory for the TDF/MDC repository slice.
+"""Reproducible structural inventory for the TDF/MDC source files in this checkout.
 
 Run from the repository root:
     python3 -I skills/tdf-country-content/scripts/tdf_inventory.py .
     python3 -I skills/tdf-country-content/scripts/tdf_inventory.py . --json inventory.json
 
-Counts are syntactic block/file counts from the current checkout. They do not
-validate the base Millennium Dawn mod or prove that content works in-game.
+Counts are syntactic block/file counts from this checkout. They do not prove
+that the complete target installation loads these files or that content works in-game.
 """
 from __future__ import annotations
 
@@ -123,7 +123,7 @@ def collect_inventory(repository: Path) -> Dict[str, Any]:
         mio_parse_issues += len(parsed.issues)
 
     return {
-        "scope": "mdredux repository slice; base Millennium Dawn files are not included",
+        "scope": "TDF/MDC source files present in this checkout; not a complete target-installation or runtime inventory",
         "method": {
             "parser": "skills/tdf-country-content/scripts/tdf_audit.py::parse_hoi",
             "focus_trees": "all *_Focus_Tree.txt files recursively under mdredux/common/national_focus",

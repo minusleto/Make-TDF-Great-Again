@@ -2308,10 +2308,11 @@ EXTERNAL_DEPENDENCY_DEFAULT_SOURCES = {
 
 def build_external_dependency_audit(repo, event_report, decision_report, idea_report,
                                     industry_report, state_flow_report):
-    """Match unresolved references against the dated external dependency registry.
+    """Match unresolved references against the TDF dependency registry.
 
-    This report is diagnostic, not an allowlist: an unregistered reference remains
-    visible with status=unknown, and no registry result is promoted to ERROR.
+    This report is diagnostic, not an allowlist. A confirmation is trusted only
+    when its provenance is an approved TDF-local or user-provided source file.
+    Unregistered or invalidly confirmed references remain visible as unknown.
     """
     registry_path = Path(repo) / "docs" / "research" / "external-dependencies.json"
     relative_registry_path = "docs/research/external-dependencies.json"
@@ -2357,22 +2358,35 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
         if status not in EXTERNAL_DEPENDENCY_STATUSES:
             validation_issues.append("dependencies[{}] has unsupported status {!r}".format(index, status))
             continue
+        dependency = dict(dependency)
         if status == "confirmed":
             origin = dependency.get("verification_origin")
             verification = dependency.get("verification")
-            exact_file_evidence = (
-                isinstance(verification, list)
-                and any(
-                    isinstance(item, dict)
-                    and isinstance(item.get("path"), str)
-                    and bool(item.get("path").strip())
-                    for item in verification
-                )
-            )
+            exact_file_evidence = False
+            if isinstance(verification, list):
+                for evidence in verification:
+                    if not isinstance(evidence, dict):
+                        continue
+                    path = evidence.get("path")
+                    if not isinstance(path, str) or not path.strip():
+                        continue
+                    normalized_path = path.strip().replace("\\", "/")
+                    if origin == "tdf_local" and not normalized_path.startswith("mdredux/"):
+                        continue
+                    exact_file_evidence = True
+                    break
             if origin not in ("tdf_local", "user_provided") or not exact_file_evidence:
                 validation_issues.append(
-                    "dependencies[{}] is confirmed without approved provenance and an exact file path".format(index)
+                    "dependencies[{}] is confirmed without approved provenance and an exact source-file path".format(index)
                 )
+                dependency["status"] = "unknown"
+                dependency.pop("verification_origin", None)
+                dependency["verification"] = []
+                dependency["notes"] = (
+                    "Previous confirmation rejected: no approved TDF-local or user-provided "
+                    "source file was recorded. Keep unknown until the exact definition is checked."
+                )
+                status = "unknown"
         if not isinstance(dependency.get("checked_at"), str) or not dependency.get("checked_at"):
             validation_issues.append("dependencies[{}] needs checked_at".format(index))
         if not isinstance(dependency.get("expected_source"), str) or not dependency.get("expected_source"):
@@ -2572,12 +2586,35 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
     }
 
 
+def has_approved_confirmation(item):
+    """Return True only for an exact confirmation with approved source provenance."""
+    if not isinstance(item, dict) or item.get("status") != "confirmed":
+        return False
+    origin = item.get("verification_origin")
+    if origin not in ("tdf_local", "user_provided"):
+        return False
+    verification = item.get("verification")
+    if not isinstance(verification, list):
+        return False
+    for evidence in verification:
+        if not isinstance(evidence, dict):
+            continue
+        path = evidence.get("path")
+        if not isinstance(path, str) or not path.strip():
+            continue
+        normalized_path = path.strip().replace("\\", "/")
+        if origin == "tdf_local" and not normalized_path.startswith("mdredux/"):
+            continue
+        return True
+    return False
+
+
 def classify_confirmed_external_event_references(event_report, external_dependency_report):
     """Move only exact event IDs confirmed by an approved TDF source out of local missing-ID errors."""
     confirmed_event_ids = {
         item.get("id")
         for item in external_dependency_report.get("findings", [])
-        if item.get("type") == "event" and item.get("status") == "confirmed"
+        if item.get("type") == "event" and has_approved_confirmation(item)
     }
     confirmed, unresolved = [], []
     for reference in event_report.get("unresolved_references", []):
@@ -2601,7 +2638,7 @@ def classify_confirmed_external_focus_localisation(results, external_dependency_
         item.get("id")
         for item in external_dependency_report.get("findings", [])
         if item.get("type") == "localisation"
-        and item.get("status") == "confirmed"
+        and has_approved_confirmation(item)
         and any(
             reference.get("repository") == "TDF"
             and "/common/national_focus/" in (reference.get("path") or "").replace("\\", "/")
@@ -3502,7 +3539,7 @@ def build_state_flow_audit(repo, countries, event_parsed=None):
         "scope_usage_counts": dict(sorted(scope_usage_counts.items())),
         "scope_analysis_limit": (
             "Static indexing does not resolve ROOT/FROM/PREV/THIS or prove that a scripted effect "
-            "is called by the base mod. Treat unreferenced definitions and unmatched lifecycle "
+            "is called by another target TDF file. Treat unreferenced definitions and unmatched lifecycle "
             "mutations as review candidates, not automatic errors."
         ),
     }

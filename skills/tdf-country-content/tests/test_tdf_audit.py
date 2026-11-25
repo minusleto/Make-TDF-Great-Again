@@ -2003,6 +2003,99 @@ KAZ_test_category = {
             self.assertNotIn("confirmed_external_references", audit.ERRORS)
 
 
+    def test_confirmed_dependency_without_approved_source_is_demoted_and_not_filtered(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            registry_dir = root / "docs" / "research"
+            registry_dir.mkdir(parents=True)
+            registry = {
+                "schema_version": 1,
+                "dependencies": [
+                    {
+                        "type": "event",
+                        "id": "bad_source.1",
+                        "status": "confirmed",
+                        "verification_origin": "tdf_local",
+                        "checked_at": "2026-11-26",
+                        "verification": [
+                            {"kind": "definition", "path": "events/bad_source.txt"}
+                        ],
+                        "expected_source": "TDF source",
+                        "notes": "Invalid provenance fixture"
+                    }
+                ]
+            }
+            (registry_dir / "external-dependencies.json").write_text(
+                __import__("json").dumps(registry), encoding="utf-8"
+            )
+            event_report = {
+                "external_references": [],
+                "unresolved_references": [
+                    {
+                        "kind": "country_event",
+                        "target": "bad_source.1",
+                        "source": "mdredux/events/Georgia.txt",
+                        "line": 10
+                    }
+                ],
+                "external_localisation": [],
+                "external_option_localisation": [],
+                "missing_event_idea_candidates": []
+            }
+            decision_report = {
+                "external_tooltip_localisation": [],
+                "external_event_references": [],
+                "external_focus_references": [],
+                "external_decision_references": []
+            }
+            idea_report = {
+                "external_idea_references": [],
+                "unresolved_unprefixed_idea_references": []
+            }
+            industry_report = {
+                "external_mio_references": [],
+                "missing_local_mio_references": [],
+                "external_mio_name_localisation_candidates": [],
+                "unknown_equipment_type_references": [],
+                "unknown_module_references": [],
+                "unknown_technology_references": []
+            }
+            state_flow_report = {"unresolved_scripted_call_candidates": []}
+
+            report = audit.build_external_dependency_audit(
+                root, event_report, decision_report, idea_report, industry_report, state_flow_report
+            )
+            finding = next(
+                item for item in report["findings"]
+                if item["type"] == "event" and item["id"] == "bad_source.1"
+            )
+            self.assertEqual(finding["status"], "unknown")
+            self.assertTrue(any("approved provenance" in issue for issue in report["registry_validation_issues"]))
+
+            audit.classify_confirmed_external_event_references(event_report, report)
+            self.assertEqual(event_report["confirmed_external_references"], [])
+            self.assertEqual(
+                [item["target"] for item in event_report["unresolved_references"]],
+                ["bad_source.1"]
+            )
+
+    def test_confirmation_classifier_requires_approved_provenance(self):
+        bad = {
+            "type": "localisation",
+            "id": "KAZ_bad_title",
+            "status": "confirmed",
+            "verification_origin": "tdf_local",
+            "verification": [{"path": "external/common/national_focus/Kazakhstan.yml"}],
+            "references": [
+                {"repository": "TDF", "path": "mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt"}
+            ]
+        }
+        deps = {"findings": [bad]}
+        results = {"KAZ": {"title_missing": ["KAZ_bad_title"], "desc_missing": []}}
+        audit.classify_confirmed_external_focus_localisation(results, deps)
+        self.assertEqual(results["KAZ"]["title_missing"], ["KAZ_bad_title"])
+        self.assertEqual(results["KAZ"]["confirmed_external_localisation"], [])
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"
