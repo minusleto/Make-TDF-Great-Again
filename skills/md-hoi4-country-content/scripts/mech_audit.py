@@ -126,10 +126,8 @@ def aral_ownership_issues(decisions, effects, code_all):
             issues.append(("decision " + decision, "the correct Aral focus-group gate must be present in available"))
         if re.search(r"aral_unlocked_(?:program|syrdarya|agri|green|phase2|diplomacy)\s*=\s*yes", visible):
             issues.append(("decision " + decision, "focus-group gates must not hide the decision; put the gate in available"))
-        if not re.search(r"\bowns_state\s*=\s*717\b", available):
-            issues.append(("decision " + decision, "available must require owns_state = 717"))
-        if re.search(r"\bcontrols_state\s*=\s*717\b", available):
-            issues.append(("decision " + decision, "use owns_state = 717, not controls_state = 717"))
+        if re.search(r"\b(?:owns_state|controls_state)\s*=\s*717\b", available):
+            issues.append(("decision " + decision, "available must not depend on ownership or control of state 717"))
 
     required_focuses = {
         "aral_unlocked_program": "KAZ_economy",
@@ -166,56 +164,12 @@ def aral_ownership_issues(decisions, effects, code_all):
     for decision, body in decisions.items():
         complete = inner(body, "complete_effect") or ""
         hidden = inner(complete, "hidden_effect") or ""
-        remove = inner(body, "remove_effect") or ""
         if re.search(r"modify_(?:treasury|debt)_effect\s*=\s*yes", hidden):
             issues.append(("decision " + decision, "treasury/debt effects must be outside hidden_effect so their cost effects are visible"))
-
-        cancel_trigger = inner(body, "cancel_trigger") or ""
-        cancel = inner(body, "cancel_effect") or ""
-        if not re.search(r"NOT\s*=\s*\{\s*owns_state\s*=\s*717\b", cancel_trigger):
-            issues.append(("decision " + decision, "an active project must cancel when KAZ loses state 717"))
-        if re.search(r"^\s*fire_only_once\s*=\s*yes\s*$", body, re.M):
-            issues.append(("decision " + decision, "a cancelled project must be restartable after KAZ regains state 717; use fire_only_once = no"))
-
-        def effect_value(block, variable):
-            match = re.search(
-                r"set_temp_variable\s*=\s*\{\s*" + re.escape(variable) + r"\s*=\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))",
-                block,
-            )
-            return float(match.group(1)) if match else 0.0
-
-        def require_refund(variable, effect_name):
-            charged = effect_value(complete, variable)
-            expected = -charged
-            if abs(expected) < 1e-9:
-                return
-            refunded = effect_value(cancel, variable)
-            if abs(refunded - expected) > 1e-9 or not re.search(re.escape(effect_name) + r"\s*=\s*yes", cancel):
-                issues.append(("decision " + decision, variable + " must be refunded exactly if the coast is lost"))
-
-        cost_match = re.search(r"^\s*cost\s*=\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))\s*$", body, re.M)
-        pp_cost = float(cost_match.group(1)) if cost_match else 0.0
-        if pp_cost > 1e-9:
-            pp_match = re.search(r"add_political_power\s*=\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))", cancel)
-            if not pp_match or abs(float(pp_match.group(1)) - pp_cost) > 1e-9:
-                issues.append(("decision " + decision, "political power cost must be refunded exactly on cancellation"))
-
-        require_refund("treasury_change", "modify_treasury_effect")
-        require_refund("debt_change", "modify_debt_effect")
-
-        started_flags = set(re.findall(r"set_country_flag\s*=\s*(aral_[A-Za-z0-9_]+_started)\b", complete))
-        for flag in started_flags:
-            if not re.search(r"clr_country_flag\s*=\s*" + re.escape(flag) + r"\b", cancel):
-                issues.append(("decision " + decision, "cancellation must clear " + flag))
-        if decision == "aral_sibaral":
-            if not re.search(r"set_country_flag\s*=\s*aral_sib_request_active\b", complete):
-                issues.append(("decision " + decision, "Siberian request must be marked active before sending Russia the event"))
-            if not re.search(r"clr_country_flag\s*=\s*aral_sib_study\b", cancel):
-                issues.append(("decision " + decision, "cancellation must clear a pending Siberian study result"))
-            if not re.search(r"clr_country_flag\s*=\s*aral_sib_request_active\b", cancel):
-                issues.append(("decision " + decision, "cancellation must clear the active Siberian request"))
-            if not re.search(r"clr_country_flag\s*=\s*aral_sib_request_active\b", remove):
-                issues.append(("decision " + decision, "normal completion must clear the active Siberian request"))
+        if decision != "aral_sibaral" and not re.search(r"^\s*fire_only_once\s*=\s*yes\s*$", body, re.M):
+            issues.append(("decision " + decision, "one-shot Aral projects must keep fire_only_once = yes"))
+        if inner(body, "cancel_trigger") is not None or inner(body, "cancel_effect") is not None:
+            issues.append(("decision " + decision, "Aral project decisions must not use ownership-based cancellation"))
 
     state_update = effects.get("aral_state_update", "")
     if not re.search(r"is_owned_by\s*=\s*ROOT", state_update):

@@ -132,16 +132,13 @@ custom_cost_text = aral_test_cost
         loc["ru"]["aral_test_cost_blocked"] = "§R0,1 млрд $§!"
         self.assertEqual(audit.custom_cost_blocked_key_issues(decisions, loc, ["en", "ru"]), [])
 
-    def test_valid_aral_ownership_contract_has_no_findings(self):
+    def test_valid_aral_decision_and_update_ownership_contract_has_no_findings(self):
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = {
   custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
-  custom_trigger_tooltip = { tooltip = aral_coast_tt owns_state = 717 }
 }
-cancel_trigger = { NOT = { owns_state = 717 } }
-cancel_effect = {}
 """
         }
         effects = {
@@ -160,29 +157,13 @@ on_monthly = {
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
-    def test_active_aral_decisions_cancel_and_refund_on_coast_loss(self):
+    def test_aral_projects_are_owner_independent_and_not_cancelled_on_coast_loss(self):
         decisions = {
             "aral_ifas": """
-available = { aral_unlocked_program = yes owns_state = 717 }
-cost = 25
+available = { aral_unlocked_program = yes }
+fire_only_once = yes
 days_remove = 120
-fire_only_once = no
-complete_effect = {
-  set_temp_variable = { treasury_change = -0.05 }
-  modify_treasury_effect = yes
-  set_temp_variable = { debt_change = 0.1 }
-  modify_debt_effect = yes
-  hidden_effect = { set_country_flag = aral_ifas_started }
-}
-cancel_trigger = { NOT = { owns_state = 717 } }
-cancel_effect = {
-  add_political_power = 25
-  set_temp_variable = { treasury_change = 0.05 }
-  modify_treasury_effect = yes
-  set_temp_variable = { debt_change = -0.1 }
-  modify_debt_effect = yes
-  clr_country_flag = aral_ifas_started
-}
+complete_effect = { set_temp_variable = { treasury_change = -0.05 } modify_treasury_effect = yes }
 """
         }
         effects = {
@@ -197,19 +178,26 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
-        broken = decisions["aral_ifas"].replace("treasury_change = 0.05", "treasury_change = 0.04")
-        issues = audit.aral_ownership_issues({"aral_ifas": broken}, effects, code)
-        self.assertTrue(any("treasury_change must be refunded exactly" in issue[1] for issue in issues))
+        gated = decisions["aral_ifas"].replace(
+            "available = { aral_unlocked_program = yes }",
+            "available = { aral_unlocked_program = yes }",
+        )
+        issues = audit.aral_ownership_issues({"aral_ifas": gated}, effects, code)
+        self.assertTrue(any("must not depend on ownership" in issue[1] for issue in issues))
 
-        broken = decisions["aral_ifas"].replace("clr_country_flag = aral_ifas_started", "")
-        issues = audit.aral_ownership_issues({"aral_ifas": broken}, effects, code)
-        self.assertTrue(any("cancellation must clear aral_ifas_started" in issue[1] for issue in issues))
+        cancellable = decisions["aral_ifas"] + "\ncancel_trigger = { NOT = { owns_state = 717 } }\ncancel_effect = {}\n"
+        issues = audit.aral_ownership_issues({"aral_ifas": cancellable}, effects, code)
+        self.assertTrue(any("must not use ownership-based cancellation" in issue[1] for issue in issues))
+
+        repeatable = decisions["aral_ifas"].replace("fire_only_once = yes", "fire_only_once = no")
+        issues = audit.aral_ownership_issues({"aral_ifas": repeatable}, effects, code)
+        self.assertTrue(any("fire_only_once = yes" in issue[1] for issue in issues))
 
     def test_treasury_and_debt_effects_must_not_be_hidden(self):
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
-available = { aral_unlocked_program = yes owns_state = 717 }
+available = { aral_unlocked_program = yes }
 complete_effect = {
   hidden_effect = {
     modify_treasury_effect = yes
@@ -236,9 +224,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
-available = { aral_unlocked_program = yes owns_state = 717 }
-cancel_trigger = { NOT = { owns_state = 717 } }
-cancel_effect = {}
+available = { aral_unlocked_program = yes }
 """
         }
         effects = {
@@ -262,9 +248,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
     def test_monthly_tick_effect_itself_requires_ownership(self):
         decisions = {
             "aral_ifas": """
-available = { aral_unlocked_program = yes owns_state = 717 }
-cancel_trigger = { NOT = { owns_state = 717 } }
-cancel_effect = {}
+available = { aral_unlocked_program = yes }
 """
         }
         effects = {
