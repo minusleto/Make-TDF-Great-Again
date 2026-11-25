@@ -900,6 +900,21 @@ def is_local_event_key(key: str, event_id: str, tag: Optional[str] = None) -> bo
     return bool(tag and key.startswith(tag + "_"))
 
 
+def event_localisation_keys(event_block, field):
+    """Collect scalar or conditional text = localisation keys for event title/desc."""
+    keys = []
+    for entry in direct_entries(event_block, field):
+        value = scalar(entry)
+        if value:
+            keys.append(value)
+        elif isinstance(entry.value, Block):
+            for text_entry in nested_entries(entry.value, "text"):
+                text_value = scalar(text_entry)
+                if text_value:
+                    keys.append(text_value)
+    return list(dict.fromkeys(keys))
+
+
 def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=None, idea_report=None):
     """Build project-wide event, localisation, reference and chain diagnostics."""
     mod = Path(repo) / "mdredux"
@@ -942,13 +957,17 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                 }) if trigger else []
                 title = get_scalar(body, "title")
                 desc = get_scalar(body, "desc")
-                if not title:
+                title_keys = event_localisation_keys(body, "title")
+                desc_keys = event_localisation_keys(body, "desc")
+                hidden = (get_scalar(body, "hidden") or "").lower() in ("yes", "true", "1")
+                if not title_keys and not hidden:
                     missing_title_fields.append({"id": event_id, "kind": kind, "path": str(path), "line": id_entry.line})
-                if not desc:
+                if not desc_keys and not hidden:
                     missing_desc_fields.append({"id": event_id, "kind": kind, "path": str(path), "line": id_entry.line})
                 definitions.append({
                     "id": event_id, "kind": kind, "path": str(path), "line": id_entry.line,
                     "block": body, "title": title, "desc": desc,
+                    "title_keys": title_keys, "desc_keys": desc_keys, "hidden": hidden,
                     "picture": get_scalar(body, "picture"),
                     "is_triggered_only": (get_scalar(body, "is_triggered_only") or "").lower() in ("yes", "true", "1"),
                     "fire_only_once": (get_scalar(body, "fire_only_once") or "").lower() in ("yes", "true", "1"),
@@ -1002,21 +1021,22 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
     for definition in definitions:
         tag = file_tags.get(definition["path"])
         for field in ("title", "desc"):
-            key = definition[field]
-            if not key:
-                continue
-            reused_loc[(field, key)].append({
-                "event_id": definition["id"], "path": definition["path"], "line": definition["line"],
-            })
-            if key not in loc_index:
-                item = {"field": field, "key": key, "event_id": definition["id"],
-                        "path": definition["path"], "line": definition["line"]}
-                (missing_loc if is_local_event_key(key, definition["id"], tag) else external_loc).append(item)
-            elif len(loc_index[key]) > 1:
-                duplicate_loc_definitions.append({
-                    "field": field, "key": key,
-                    "definitions": [{"path": loc.path, "line": loc.line} for loc in loc_index[key]],
+            keys = definition.get(field + "_keys", [])
+            if not keys and definition.get(field):
+                keys = [definition[field]]
+            for key in keys:
+                reused_loc[(field, key)].append({
+                    "event_id": definition["id"], "path": definition["path"], "line": definition["line"],
                 })
+                if key not in loc_index:
+                    item = {"field": field, "key": key, "event_id": definition["id"],
+                            "path": definition["path"], "line": definition["line"]}
+                    (missing_loc if is_local_event_key(key, definition["id"], tag) else external_loc).append(item)
+                elif len(loc_index[key]) > 1:
+                    duplicate_loc_definitions.append({
+                        "field": field, "key": key,
+                        "definitions": [{"path": loc.path, "line": loc.line} for loc in loc_index[key]],
+                    })
 
         for option_entry in direct_entries(definition["block"], "option"):
             if not isinstance(option_entry.value, Block):
@@ -1082,7 +1102,9 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                     "path": definition["path"], "line": definition["line"],
                 })
 
-        localisation_keys = [definition["title"], definition["desc"]]
+        localisation_keys = list(definition.get("title_keys", [])) + list(definition.get("desc_keys", []))
+        if not localisation_keys:
+            localisation_keys = [definition["title"], definition["desc"]]
         for option_entry in direct_entries(definition["block"], "option"):
             if isinstance(option_entry.value, Block):
                 option_name = get_scalar(option_entry.value, "name")

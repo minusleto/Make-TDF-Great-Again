@@ -95,6 +95,10 @@ limits: "Historical statistics are from the 2026-10-30 sample; repeated or gener
 
 Аудитор рассматривает country_event и news_event раздельно. Число опций само по себе не является оценкой качества: одновариантное уведомление может быть уместным, а многовариантное событие не становится хорошим только из-за количества выборов.
 
+### Условные title/desc и hidden events
+
+Для `title = { ... text = KEY }` и `desc = { ... text = KEY }` проверяются все вложенные `text` localisation keys; такие условные блоки являются валидными полями и не должны получать `missing_title_fields` / `missing_desc_fields`. Событие с `hidden = yes` также не обязано иметь UI title/desc. Отсутствие title/desc остаётся ERROR для обычного видимого события.
+
 ### Проверки локализации
 
 Точный ключ из pinned base MD может служить внешним fallback для event title/desc/option только при `status = confirmed` в реестре и TDF `where_used` внутри `mdredux/events/`. Auditor переносит такие ключи из `missing_localisation` / `missing_option_localisation` в `confirmed_external_localisation`; ключи со статусами `unknown`, `assumption`, незарегистрированные ключи и подтверждения из других типов файлов остаются unresolved. Это подтверждает существование английского ключа, но не фактический load order или соответствие текста текущему событию.

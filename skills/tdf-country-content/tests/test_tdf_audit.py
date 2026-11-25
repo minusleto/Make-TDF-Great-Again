@@ -600,6 +600,70 @@ news_event = { id = kaz_test.2 days = 1 }
         self.assertEqual([(kind, event_id) for kind, event_id, _ in calls],
                          [("country_event", "kaz_test.1"), ("news_event", "kaz_test.2")])
 
+    def test_event_audit_accepts_conditional_title_desc_and_hidden_events(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text(""" 
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.conditional
+  title = {
+    trigger = { tag = KAZ }
+    text = kaz_test.conditional.t1
+  }
+  title = {
+    trigger = { NOT = { tag = KAZ } }
+    text = kaz_test.conditional.t2
+  }
+  desc = {
+    trigger = { tag = KAZ }
+    text = kaz_test.conditional.d1
+  }
+  option = { name = kaz_test.conditional.a log = "selected" }
+}
+country_event = {
+  id = kaz_test.hidden
+  hidden = yes
+  is_triggered_only = yes
+  option = { name = kaz_test.hidden.a log = "hidden event" }
+}
+country_event = {
+  id = kaz_test.missing
+  option = { name = kaz_test.missing.a log = "still missing title and desc" }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.conditional.t1:0 "Conditional title one"
+ kaz_test.conditional.t2:0 "Conditional title two"
+ kaz_test.conditional.d1:0 "Conditional description."
+ kaz_test.conditional.a:0 "Continue"
+ kaz_test.hidden.a:0 "Hidden"
+ kaz_test.missing.a:0 "Acknowledge"
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_event_audit(root, countries, loc_index, parsed)
+
+            self.assertFalse(any(item["id"] == "kaz_test.conditional"
+                                 for item in report["missing_title_fields"]))
+            self.assertFalse(any(item["id"] == "kaz_test.conditional"
+                                 for item in report["missing_desc_fields"]))
+            self.assertFalse(any(item["id"] == "kaz_test.hidden"
+                                 for item in report["missing_title_fields"]))
+            self.assertFalse(any(item["id"] == "kaz_test.hidden"
+                                 for item in report["missing_desc_fields"]))
+            self.assertTrue(any(item["id"] == "kaz_test.missing"
+                                for item in report["missing_title_fields"]))
+            self.assertTrue(any(item["id"] == "kaz_test.missing"
+                                for item in report["missing_desc_fields"]))
+            conditional = next(item for item in report["metadata"] if item["id"] == "kaz_test.conditional")
+            self.assertEqual(conditional["title_keys"], ["kaz_test.conditional.t1", "kaz_test.conditional.t2"])
+            self.assertEqual(conditional["desc_keys"], ["kaz_test.conditional.d1"])
+            self.assertTrue(next(item for item in report["metadata"] if item["id"] == "kaz_test.hidden")["hidden"])
+
     def test_event_audit_checks_duplicate_ids_namespaces_reused_keys_and_graph(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
