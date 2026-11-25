@@ -1303,6 +1303,216 @@
         }
       ],
       "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "SOV_pmc_wagner_africe_goes",
+      "status": "unknown",
+      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/decisions/Russia.txt",
+          "line": 1807,
+          "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "local TDF English localisation inventory checked; no exact key found",
+          "path": "mdredux/localisation/english/"
+        },
+        {
+          "kind": "pinned upstream decisions localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream decision flags localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_flags_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
+          "path": "localisation/english/MD_focus_SOV_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream event localisation checked; no exact key found",
+          "path": "localisation/english/events_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
+        }
+      ],
+      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+    },
+    {
+      "type": "localisation",
+      "id": "SOV_pmc_wagner_africe_goes_home",
+      "status": "unknown",
+      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/decisions/Russia.txt",
+          "line": 1864,
+          "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "local TDF English localisation inventory checked; no exact key found",
+          "path": "mdredux/localisation/english/"
+        },
+        {
+          "kind": "pinned upstream decisions localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream decision flags localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_flags_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
+          "path": "localisation/english/MD_focus_SOV_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream event localisation checked; no exact key found",
+          "path": "localisation/english/events_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
+        }
+      ],
+      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+    },
+    {
+      "type": "localisation",
+      "id": "SOV_pmc_wagner_africe_perevorot_pipa",
+      "status": "unknown",
+      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/decisions/Russia.txt",
+          "line": 1912,
+          "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "local TDF English localisation inventory checked; no exact key found",
+          "path": "mdredux/localisation/english/"
+        },
+        {
+          "kind": "pinned upstream decisions localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream decision flags localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_flags_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
+          "path": "localisation/english/MD_focus_SOV_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream event localisation checked; no exact key found",
+          "path": "localisation/english/events_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
+        }
+      ],
+      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+    },
+    {
+      "type": "localisation",
+      "id": "SOV_pmc_wagner_africe_perevorot_car",
+      "status": "unknown",
+      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/decisions/Russia.txt",
+          "line": 1998,
+          "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "local TDF English localisation inventory checked; no exact key found",
+          "path": "mdredux/localisation/english/"
+        },
+        {
+          "kind": "pinned upstream decisions localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream decision flags localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_flags_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
+          "path": "localisation/english/MD_focus_SOV_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream event localisation checked; no exact key found",
+          "path": "localisation/english/events_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
+        }
+      ],
+      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+    },
+    {
+      "type": "localisation",
+      "id": "SOV_pmc_gazprom_goes",
+      "status": "unknown",
+      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/decisions/Russia.txt",
+          "line": 2085,
+          "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "local TDF English localisation inventory checked; no exact key found",
+          "path": "mdredux/localisation/english/"
+        },
+        {
+          "kind": "pinned upstream decisions localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream decision flags localisation checked; no exact key found",
+          "path": "localisation/english/MD_decisions_flags_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
+          "path": "localisation/english/MD_focus_SOV_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
+        },
+        {
+          "kind": "pinned upstream event localisation checked; no exact key found",
+          "path": "localisation/english/events_l_english.yml",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
+        }
+      ],
+      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
     }
   ]
 }
