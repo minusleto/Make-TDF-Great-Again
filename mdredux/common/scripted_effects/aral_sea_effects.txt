@@ -1,10 +1,19 @@
-# Aral Sea mechanic. Every variable starts at 0 (= the sea as it is at the start date), so nothing needs to be set up:
-# the first update_aral_sea (called from the KAZ history file) adds the modifiers, and every monthly tick re-checks them.
+# Aral Sea mechanic. Persistent country variables are initialized idempotently before any arithmetic reads them.
+# on_startup runs for a new game after country selection; guards also repair older saves on the next update.
 #
 #   aral_sea_restoration  -30..100   decimetres above the natural level of the Small Aral (0 = 40 m, 20 = 42 m, 40 = 44 m, 60 = 46 m); never above aral_cap
 #   aral_pending                     water earned by finished projects that has not arrived yet (15% of it arrives per month)
 #   aral_relief                      fallout eased by forests and fisheries (does not add water)
 #   aral_deficit = 100 - 1.25 x restoration - relief   -> strength of every penalty
+
+# Create only missing variables: loading a save must preserve the current sea, accumulated water and completed relief.
+aral_initialize_variables = {
+	if = { limit = { NOT = { has_variable = aral_sea_restoration } } set_variable = { aral_sea_restoration = 0 } }
+	if = { limit = { NOT = { has_variable = aral_pending } } set_variable = { aral_pending = 0 } }
+	if = { limit = { NOT = { has_variable = aral_relief } } set_variable = { aral_relief = 0 } }
+	if = { limit = { NOT = { has_variable = aral_year_clock } } set_variable = { aral_year_clock = 0 } }
+	if = { limit = { NOT = { has_variable = aral_gui_dirty } } set_variable = { aral_gui_dirty = 0 } }
+}
 
 # One state; the weight aral_w is 1 for Kyzylorda, 0.5 for its neighbours, 0.25 for the far west.
 aral_state_update = {
@@ -46,6 +55,7 @@ aral_finish = {
 }
 
 update_aral_sea = {
+	aral_initialize_variables = yes
 	# Recalculate the system only while Kazakhstan owns the Aral coast (state 717).
 	# State modifiers are intentionally NOT removed when ownership changes: they stay on their states.
 	if = {
@@ -157,6 +167,7 @@ aral_dike_lost = {
 
 # Called by on_monthly for KAZ.
 aral_monthly_tick = {
+	aral_initialize_variables = yes
 	if = {
 		limit = { owns_state = 717 }
 		aral_calc_drift = yes

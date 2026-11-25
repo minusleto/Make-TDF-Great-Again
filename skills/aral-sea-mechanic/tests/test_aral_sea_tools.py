@@ -121,6 +121,26 @@ option = {
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):
+    def test_missing_aral_country_variables_are_initialized_without_resetting_saves(self):
+        required = ("aral_sea_restoration", "aral_pending", "aral_relief", "aral_year_clock", "aral_gui_dirty")
+        initializer = "\\n".join(
+            "if = { limit = { NOT = { has_variable = %s } } set_variable = { %s = 0 } }" % (name, name)
+            for name in required
+        )
+        effects = {
+            "aral_initialize_variables": initializer,
+            "update_aral_sea": "aral_initialize_variables = yes if = { limit = { owns_state = 717 } clamp_variable = { var = aral_sea_restoration min = -30 max = aral_cap } }",
+            "aral_monthly_tick": "aral_initialize_variables = yes if = { limit = { owns_state = 717 } add_to_variable = { aral_year_clock = 1 } }",
+        }
+        self.assertEqual(audit.aral_initialization_issues(effects), [])
+
+        broken = dict(effects)
+        broken["update_aral_sea"] = "if = { limit = { owns_state = 717 } clamp_variable = { var = aral_sea_restoration min = -30 max = aral_cap } }"
+        broken["aral_initialize_variables"] = initializer.replace("aral_sea_restoration = 0", "aral_pending = 0", 1)
+        findings = audit.aral_initialization_issues(broken)
+        self.assertTrue(any("aral_sea_restoration" in message for _, message in findings))
+        self.assertTrue(any(area == "scripted effect update_aral_sea" for area, _ in findings))
+
     def test_custom_cost_suffixes_are_implicitly_referenced(self):
         decisions = {
             "aral_test": """

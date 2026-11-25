@@ -107,6 +107,26 @@ def implied_custom_cost_localisation_keys(decisions):
     return implied
 
 
+def aral_initialization_issues(effects):
+    """Require save-safe initialization of every persistent variable read before its first write."""
+    issues = []
+    required = ("aral_sea_restoration", "aral_pending", "aral_relief", "aral_year_clock", "aral_gui_dirty")
+    initializer = effects.get("aral_initialize_variables", "")
+    for variable in required:
+        guarded = re.search(
+            r"NOT\s*=\s*\{\s*has_variable\s*=\s*" + re.escape(variable) +
+            r"\s*\}\s*\}\s*set_variable\s*=\s*\{\s*" + re.escape(variable) + r"\s*=\s*0\s*\}",
+            initializer,
+        )
+        if not guarded:
+            issues.append(("scripted effect aral_initialize_variables", "must initialize missing country variable %s without resetting existing saves" % variable))
+    for effect_name in ("update_aral_sea", "aral_monthly_tick"):
+        body = effects.get(effect_name, "")
+        if not re.match(r"\s*aral_initialize_variables\s*=\s*yes\b", body):
+            issues.append(("scripted effect " + effect_name, "must call aral_initialize_variables before reading or updating Aral state"))
+    return issues
+
+
 def aral_ownership_issues(decisions, effects, code_all):
     """Enforce the Aral coast ownership gates and persistent state modifier contract."""
     issues = []
@@ -360,6 +380,8 @@ def main():
         add("ERROR", area, msg)
     if P == "aral":
         for area, msg in aral_ownership_issues(decisions, effects, code_all):
+            add("ERROR", area, msg)
+        for area, msg in aral_initialization_issues(effects):
             add("ERROR", area, msg)
 
     # ---------- D. flags ----------
