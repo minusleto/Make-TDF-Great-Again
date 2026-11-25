@@ -246,3 +246,24 @@ These confirm that the exact English keys exist in pinned MD. They do not confir
 - В полном checkout: 6 decision files / 25 categories / 279 decisions; `decision_gate_conflicts = 0`, `condition_review_candidates = 25`. Ноль конфликтов означает, что эвристика не нашла совпадающих обязательных предикатов с противоположной полярностью в текущих решениях; это не доказывает общую логическую выполнимость условий.
 - MIO/equipment inventory: 57 files / 401 organizations, 414 equipment IDs, 719 modules, 993 technologies, 381 variants, 431 stockpile grants. Ideas: 15 files / 2,601 definitions / 9,054 references. External registry: 1,036 findings, 44 matched/registered, 992 not registered; missing entries remain candidates, not automatic errors.
 - Full auditor still reports the existing one parser error in `navy_submarine_doctrines.txt:297` and other content candidates documented in this report. No country/gameplay files were modified; no in-game runtime was launched.
+
+
+**Актуализация Stage 9 — 25.11.2026, commit [71b274e](https://github.com/minusleto/Make-TDF-Great-Again/commit/71b274ee0688d7a5bb3c8a38f6beb660a743b898), workflow [45603368266](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45603368266):**
+
+- CI полностью завершён: **14/14 jobs success**, unit suite **58/58 OK**. Полный auditor сохранил отчёт с report-only exit code `1` из-за content findings; это не сбой тестов или workflow.
+- Новый idea-lifecycle index: **659** stage-name relationships, **588** найденных transitions внутри `swap_ideas`, **23** прямые выдачи stage-idea без найденного `swap_ideas` add-transition. Последние — WARN/review candidates, не доказанные ошибки.
+- Повторный полный inventory не изменил общий масштаб: 5,422 focus; 2,783 event definitions; 279 decisions; 401 MIO definitions; 2,601 idea definitions / 9,054 idea references; 246 межфайловых source files; 99 state handoffs.
+
+#### Triage matrix for the current checkout
+
+| Класс | Результат текущего статического среза | Как классифицировать |
+|---|---|---|
+| Парсер | Один незакрытый block в common/doctrines/subdoctrines/sea/navy_submarine_doctrines.txt:297; один и тот же физический дефект появляется в двух подсистемах | Подтверждённая структурная ошибка checkout; не исправлять в общем skills issue, зафиксировать владельцу игрового файла |
+| Локальные межфайловые ссылки | Один GEO вызов georg_monarchist.14 не разрешается при локально объявленном namespace; один duplicate scripted-effect ID KAZ_upgrade_drone_program; один SOV swap_same_idea no-op candidate | Сильные локальные кандидаты для отдельного content review; не делать игровых правок в этом issue |
+| Локализация событий/решений/идей | 37 missing event localisation entries, 32 missing option localisation entries, 5 decision localisation entries, 135 missing idea-name localisation candidates; часть ключей уже подтверждается в pinned MD | Проверять по registry и целевому load order; отсутствие в локальном checkout не равняется runtime missing |
+| Внешние идеи/скрипты/техника | 1,070 local-slice idea refs без локального definition, 492 scripted-call candidates, 274 unknown equipment-type refs, 18 unknown technology refs; 5 missing local MIO refs (GEO STC family) | В основном dependency candidates: сверять полный MD/vanilla/DLC и внешние определения, не повышать автоматически до ERROR |
+| Финансовые decision patterns | 5 custom-cost pair issues, 3 custom-cost conflicts, 23 custom-cost-without-debit candidates, 25 constant-false condition candidates; direct visible/available opposite-atom conflicts = 0 | Требует просмотра конкретных effect/tooltip patterns; отсутствие debit не обязательно ошибка, если цена берётся другим движковым/внешним путём |
+| Идеи и state lifecycle | 15 one-sided on_add state-change candidates, 28 local flag reads without local writer, 8 variable reads without local writer; 5 countries без локального history | Проверять scripted/external effects, shared history и intended lifecycle; это не доказательство отсутствующей инициализации |
+| Стиль и визуал | Длинные/короткие focus descriptions и option labels, generic option labels, 150 events без picture, duplicate localization keys | Рекомендательные или review findings; нельзя массово переписывать контент по порогу |
+
+**Граница аудита:** текущая задача Issue #18 — улучшить общие инструкции и надёжность классификации. Указанные country/content кандидаты не являются разрешением редактировать игровые файлы. Полный error/warn triage по каждому элементу остаётся открытым; неизвестные внешние зависимости и runtime-поведение не объявляются ошибками без соответствующего полного стека и проверки в игре.
