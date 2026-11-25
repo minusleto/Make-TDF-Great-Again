@@ -28,6 +28,17 @@ JSON-ключ `_external_dependencies` сопоставляет unresolved candi
 
 Shared TDF definitions тоже могут быть приведены как положительные примеры. Например, `USA_lockheed_martin_aircraft_manufacturer` используется Польшей и Великобританией, но его MIO definition присутствует в TDF checkout — это не missing external MIO.
 
+## Verified base-MD scripted effects
+
+The pinned upstream baseline also defines the two financial effects used by the Aral Sea mechanic:
+
+| Effect | Definition in pinned baseline | Contract |
+|---|---|---|
+| `modify_treasury_effect` | [`common/scripted_effects/00_budget_effects.txt:1643`](https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_budget_effects.txt#L1643) | Adds `treasury_change` to `treasury`; the charge is skipped only when `MD_skip_treasury_cost` is set. |
+| `modify_debt_effect` | [`common/scripted_effects/00_budget_effects.txt:1656`](https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_budget_effects.txt#L1656) | Adds `debt_change` to `debt`, clamps the result to a minimum of zero and refreshes the money UI. |
+
+Both exact definitions are registered as `type = scripted_effect`, `status = confirmed` in `external-dependencies.json`. This confirms their presence and parameter contract in the pinned upstream snapshot, not runtime behavior in every target MD version or load order.
+
 ## Поддержка реестра
 
 Для event title/desc/option keys действует аналогичный exact-match fallback: ключ снимается с `missing_localisation` или `missing_option_localisation` только если реестр содержит `type = localisation`, `status = confirmed` и TDF `where_used` указывает на `mdredux/events/`. Подтверждённая focus localisation не может фильтровать event key, и наоборот. Наличие upstream ключа не подтверждает runtime загрузку или смысловую пригодность строки.
