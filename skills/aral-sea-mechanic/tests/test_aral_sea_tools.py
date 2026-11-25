@@ -32,6 +32,18 @@ aral_unlocked_diplomacy = { has_completed_focus = KAZ_foreign_policy }
 
 
 
+class AralSimulatorTests(unittest.TestCase):
+    def test_parser_does_not_require_kazakhstan_history_file(self):
+        constants, decisions = simulator.parse(str(ROOT / "mdredux"))
+        self.assertEqual(constants["treasury0"], 0.245)
+        self.assertIn("ifas", decisions)
+
+    def test_custom_starting_treasury_is_respected(self):
+        constants, decisions = simulator.parse(str(ROOT / "mdredux"), treasury0=0.5)
+        self.assertEqual(constants["treasury0"], 0.5)
+        self.assertTrue(decisions)
+
+
 class CostLocalisationGeneratorTests(unittest.TestCase):
     def setUp(self):
         self.decisions = """

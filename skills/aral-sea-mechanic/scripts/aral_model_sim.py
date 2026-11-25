@@ -5,7 +5,7 @@ Everything is parsed from the mod files, nothing is typed in:
   common/scripted_effects/aral_sea_effects.txt   level formula, drift, fill, yearly hydrology, dike risk
   common/decisions/aral_sea_decisions.txt        length, price, debt, water, relief, requirements, gates
   events/aral_sea_events.txt                     dry-year loss, dike rebuild, price of the choices
-  common/history/countries/KAZ - Kazakhstan.txt start treasury
+  --treasury                  starting treasury (default: KAZ 2000 baseline, 0.245 bn)
 Treasury income and political power per month are NOT in the repo (they come from the base mod), so
 they are parameters. The player follows a fixed greedy policy (cheapest unlocked project first).
 
@@ -48,11 +48,10 @@ def fl(x):
     return float(x)
 
 
-def parse(root):
+def parse(root, treasury0=0.245):
     eff = nc(rd(os.path.join(root, "common/scripted_effects/aral_sea_effects.txt")))
     dec = nc(rd(os.path.join(root, "common/decisions/aral_sea_decisions.txt")))
     evt = nc(rd(os.path.join(root, "events/aral_sea_events.txt")))
-    hist = rd(os.path.join(root, "common/history/countries/KAZ - Kazakhstan.txt"))
     upd, drift, tick = sect(eff, "update_aral_sea"), sect(eff, "aral_calc_drift"), sect(eff, "aral_monthly_tick")
     C = {}
     m = re.search(r"var = aral_sea_restoration min = (-?[\d.]+) max = (\S+)", upd)
@@ -99,8 +98,7 @@ def parse(root):
         drf = re.search(r"aral_sib_%s_done NOT = \{ has_country_flag = aral_sib_cut \} \} add_to_variable = \{ aral_drift = (-?[\d.]+)" % v, drift)
         S[v] = {"fee": abs(fl(re.search(r"aral_sib_fee = (-?[\d.]+)", sect(dec, "aral_sib_" + v)).group(1))), "p_lev": int(blk.group(1)) / 100.0, "dry": fl(dry.group(1)), "drift": fl(drf.group(1))}
     C["sib"] = S
-    t = re.search(r"var = treasury value = ([\d.]+)", hist)
-    C["treasury0"] = fl(t.group(1)) if t else 0.0
+    C["treasury0"] = float(treasury0)
     C["dyn_names"] = None
     D = {}
     cat = re.search(r"\n(\w+)\s*=\s*\{", "\n" + dec).group(1)
@@ -300,6 +298,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("root", nargs="?", default="mdredux")
     ap.add_argument("--income", type=float, help="treasury income per month, bn (not in the repo)")
+    ap.add_argument("--treasury", type=float, default=0.245, help="starting treasury in bn (default: KAZ 2000 baseline)")
     ap.add_argument("--pp", type=float, default=45.0, help="political power per month")
     ap.add_argument("--route", choices=["phase2", "dam2"], default="phase2")
     ap.add_argument("--dike", choices=["yes", "no"], default="no")
@@ -310,7 +309,7 @@ def main():
     ap.add_argument("--once", action="store_true", help="print one run with its project log")
     ap.add_argument("--sib", choices=["no", "canal", "pipe"], default="no", help="follow the Siberian water chain with this technology")
     a = ap.parse_args()
-    C, D = parse(a.root)
+    C, D = parse(a.root, a.treasury)
     start = datetime.date.fromisoformat(a.start)
     print("# Constants parsed from the code")
     print("level = %.0f + %.2f x restoration; %.1f m (restoration %.0f) .. %.1f m (%.0f)" % (C["level_0"], C["level_k"], level(C, C["r_min"]), C["r_min"], level(C, C["r_max"]), C["r_max"]))

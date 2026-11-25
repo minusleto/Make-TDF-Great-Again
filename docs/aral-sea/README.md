@@ -74,8 +74,9 @@ python3 -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral
 python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux
 python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux --income 0.03 --route dam2 --dike yes --once --seed 5
 ```
-The simulator parses the code, so its report never drifts from the mod. Treasury income and political power per month
-live in the base mod and are parameters.
+The simulator parses mechanic formulas, project timings and costs from the code. Starting treasury defaults to the KAZ
+2000 baseline of 0.245 bn and can be overridden with `--treasury`; monthly treasury income and political power
+remain external parameters from the base mod.
 
 ## In-game check
 The full list with expected numbers is in issue #12.
