@@ -81,6 +81,51 @@ def inner(t, name):
     return t[m.end():e] if e > 0 else None
 
 
+def custom_cost_blocked_key_issues(decisions, loc, langs):
+    """Every custom_cost_text needs a language-specific _blocked key."""
+    issues = []
+    for decision, body in decisions.items():
+        match = re.search(r"custom_cost_text\s*=\s*(\S+)", body)
+        if not match:
+            continue
+        blocked = match.group(1) + "_blocked"
+        for lang in langs:
+            if blocked not in loc.get(lang, {}):
+                issues.append(("decision " + decision, "blocked custom-cost key %s is missing (%s)" % (blocked, lang)))
+    return issues
+
+
+def aral_ownership_issues(decisions, effects, code_all):
+    """Enforce the Aral coast ownership gates and persistent state modifier contract."""
+    issues = []
+    for decision, body in decisions.items():
+        available = inner(body, "available") or ""
+        if not re.search(r"\bowns_state\s*=\s*717\b", available):
+            issues.append(("decision " + decision, "available must require owns_state = 717"))
+        if re.search(r"\bcontrols_state\s*=\s*717\b", available):
+            issues.append(("decision " + decision, "use owns_state = 717, not controls_state = 717"))
+
+    monthly = inner(code_all, "on_monthly")
+    if monthly is None or not re.search(r"original_tag\s*=\s*KAZ", monthly) or not re.search(r"owns_state\s*=\s*717", monthly):
+        issues.append(("on_actions", "on_monthly must call the Aral tick only for KAZ while it owns state 717"))
+
+    startup = inner(code_all, "on_startup")
+    kaz_startup = inner(startup, "KAZ") if startup is not None else None
+    if kaz_startup is None or not re.search(r"owns_state\s*=\s*717", kaz_startup) or not re.search(r"update_aral_sea\s*=\s*yes", kaz_startup):
+        issues.append(("on_actions", "on_startup must scope into KAZ and initialize Aral only while it owns state 717"))
+
+    update = effects.get("update_aral_sea", "")
+    if not re.search(r"if\s*=\s*\{\s*limit\s*=\s*\{\s*owns_state\s*=\s*717\b", update):
+        issues.append(("scripted_effect update_aral_sea", "recalculation must be gated by owns_state = 717"))
+
+    state_update = effects.get("aral_state_update", "")
+    if not re.search(r"is_owned_by\s*=\s*ROOT", state_update):
+        issues.append(("scripted_effect aral_state_update", "state modifier values must recalculate only while the state is owned by ROOT"))
+    if re.search(r"remove_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_state_modifier\b", code_all):
+        issues.append(("state modifier", "aral_state_modifier must remain on the state when ownership changes; do not remove it"))
+    return issues
+
+
 def num(s):
     try:
         return float(s)
@@ -255,6 +300,12 @@ def main():
         for g in re.findall(r"\b(" + P + r"_unlocked_\w+)\s*=\s*yes", b):
             if g not in triggers:
                 add("ERROR", area, "scripted trigger %s is not defined" % g)
+
+    for area, msg in custom_cost_blocked_key_issues(decisions, loc, langs):
+        add("ERROR", area, msg)
+    if P == "aral":
+        for area, msg in aral_ownership_issues(decisions, effects, code_all):
+            add("ERROR", area, msg)
 
     # ---------- D. flags ----------
     set_f = collections.Counter(re.findall(r"set_country_flag\s*=\s*(?:\{\s*flag\s*=\s*)?(\w+)", code_all))
@@ -440,10 +491,11 @@ def main():
 
 
 RULES = """ERROR  yml without BOM / bare LF / brace mismatch / duplicate loc key / EN-RU key parity
-ERROR  decision: loc key missing, cost charged but not shown in label, treasury gate below price,
+ERROR  decision: loc key missing, blocked custom-cost localisation missing, cost charged but not shown in label, treasury gate below price,
        tooltip number differs from the code, undefined scripted trigger
 ERROR  flag checked but never set; variable read but never written; effect called but undefined
 ERROR  event: missing title/desc/option keys; scripted GUI element missing in .gui; sprite/texture missing
+ERROR  Aral: decisions, monthly tick and recalculation are gated by KAZ ownership of state 717; state modifier is persistent
 WARN   spaces, no ai_will_do, no decision log line, spirit with more than 6 modifiers, price not in label/tooltip, variable written but never read,
        event length/label rules, banned phrases, years in text, unknown modifier names, unused effects
 INFO   hardcoded capitals, flags set but unused, external identifiers, unreferenced loc keys"""

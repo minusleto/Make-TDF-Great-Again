@@ -7,14 +7,14 @@ description: 'Use when developing, reviewing, simulating, documenting or debuggi
 
 ## When to use this skill
 
-Use this specialist skill for work on the Kazakhstan Aral Sea mechanic and its toolchain. It supplements the general MD/HOI4 skill; it does not replace it for unrelated countries or systems.
+Use this specialist skill for work on the Kazakhstan Aral Sea mechanic and its toolchain. In this TDF repository it supplements `tdf-country-content/SKILL.md`; do not load the generic `md-hoi4-country-content` skill alongside the TDF skill.
 
 Before changing anything, read:
 
 1. `docs/aral-sea/README.md` — current design, variables, projects, file map and simulation commands.
 2. GitHub issue #12 — design rationale, decisions already made and outstanding in-game checks.
 3. The exact code being changed. The live code is the source of truth when it differs from an older note or issue description.
-4. `skills/md-hoi4-country-content/SKILL.md` and only the relevant references when the task touches general decision, event, localisation or scripting conventions.
+4. `skills/tdf-country-content/SKILL.md` and the relevant TDF references (especially the KAZ maintenance notes). Use repository code and verified engine behaviour as the final authority.
 
 Do not load every wiki page or every skill reference by default. Search for a specific unresolved mechanic or engine behaviour.
 
@@ -53,7 +53,7 @@ When changing a variable, threshold or formula, search every writer and reader: 
 | GUI | `mdredux/common/scripted_guis/aral_sea_category_gui.txt`, `mdredux/interface/aral_sea.gui`, `mdredux/interface/aral_sea.gfx`, `mdredux/gfx/interface/aral_sea/` |
 | Localisation | `mdredux/localisation/english/aral_sea_l_english.yml`, `mdredux/localisation/russian/aral_sea_l_russian.yml` |
 | Optional content | `optional/aral_sea/` |
-| Documentation and tools | `docs/aral-sea/README.md`, `skills/md-hoi4-country-content/scripts/mech_audit.py`, `skills/md-hoi4-country-content/scripts/aral_model_sim.py` |
+| Documentation and tools | `docs/aral-sea/README.md`, `skills/aral-sea-mechanic/scripts/generate_cost_localisation.py`, `skills/md-hoi4-country-content/scripts/mech_audit.py`, `skills/md-hoi4-country-content/scripts/aral_model_sim.py` |
 
 Use the current tree to confirm exact paths before editing; do not copy this table blindly if the layout changes.
 
@@ -82,9 +82,12 @@ Important distinctions:
 
 ### Localisation contract for custom costs
 
-Do not infer the required localisation suffixes from a key name. Establish the contract from a verified working decision, current authoritative documentation or a controlled in-game test.
+The HOI4 custom-cost localisation contract is:
+- The base key from `custom_cost_text` is used while `custom_cost_trigger` is fulfilled.
+- The `_blocked` variant is used when that trigger is not fulfilled; it is required in both EN and RU.
+- The `_tooltip` variant is optional and replaces the lower hover-tooltip text. Aral decisions provide it so the hover text can explain treasury, debt and PP components.
 
-In particular, verify which keys the engine expects for the normal state, the unaffordable/blocked state and the hover tooltip. Suffixes such as `_blocked` or `_tooltip` must not be added to an audit as mandatory merely because they look plausible. Conversely, once confirmed as required, generate and validate them consistently.
+Do not mark the optional `_tooltip` key as an engine error when it is absent elsewhere. For this Aral mechanic, validate every required `_blocked` key and keep the generated optional tooltip in both languages.
 
 For every custom cost:
 
