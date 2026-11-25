@@ -2,7 +2,7 @@
 status: project-reference
 updated: 2026-11-24
 scope: "Static QA and design review for MIO organisations, equipment, modules, technologies, variants and stockpile grants."
-limits: "Local repository slice lacks full base MD, vanilla and DLC; unknown IDs and unlock behaviour require external or in-game verification."
+limits: "Only definitions present in TDF source files or in target files supplied by the user are confirmed; absence from this checkout remains unknown until the matching source file is checked."
 ---
 
 # MIO, equipment and military industry
@@ -20,7 +20,7 @@ limits: "Local repository slice lacks full base MD, vanilla and DLC; unknown IDs
 - Локализация: все `mdredux/localisation/english/*.yml`, а не один заранее выбранный файл.
 - Использования: все focus trees, decisions, events, scripted effects и остальные доступные `mdredux/common/**/*.txt`.
 
-В текущем срезе на 2026-11-24 каталог организаций содержит 57 файлов; английская локализация — 18 YML. Базового Millennium Dawn и полного vanilla/DLC-контента в репозитории нет. Поэтому неизвестный ID не всегда означает ошибку: разделяй локального кандидата и внешнюю зависимость.
+В текущем срезе на 2026-11-24 каталог организаций содержит 57 файлов; английская локализация — 18 YML. Сверяй MIO, equipment, modules и technology по доступным исходникам TDF. Если нужного определения в них нет, не угадывай его источник и не подменяй другим модом: попроси пользователя прислать файл целевой сборки.
 
 ## 2. Как устроена MIO
 

@@ -1,30 +1,18 @@
 {
   "schema_version": 1,
-  "last_reviewed": "2026-11-25",
-  "baseline": {
-    "name": "Millennium Dawn",
-    "repository": "https://github.com/MillenniumDawn/Millennium-Dawn",
-    "branch": "main",
-    "commit": "04b2ba126fc1057bf2ab4bac0407b3235983994c",
-    "commit_date_utc": "2026-11-24T15:41:46Z",
-    "mod_descriptor": "Millennium_Dawn.mod",
-    "mod_version": "2.0.0",
-    "supported_hoi4_version": "1.19.*",
-    "compatibility_claim": false,
-    "note": "Pinned upstream source snapshot for research only. TDF does not pin this as its supported base-MD revision; confirmed means present at this SHA, not guaranteed runtime compatibility."
-  },
+  "last_reviewed": "2026-11-26",
   "status_definitions": {
-    "confirmed": "Exact definition or English localisation key found in the pinned upstream source, or exact local shared definition for a cross-country example.",
-    "assumption": "Evidence of upstream usage exists, but the defining block was not independently verified.",
-    "unknown": "Not verified. Do not treat the ID as existing or absent until its intended source and mod stack are checked."
+    "confirmed": "Exact definition/key found in the TDF repository or in a target TDF source file explicitly supplied by the user; verification_origin and an exact file path are required.",
+    "assumption": "Indirect evidence exists, but the exact definition is not verified; this status never suppresses an audit finding.",
+    "unknown": "Not verified in an approved TDF source. Do not infer existence or absence from another mod or from a name/search match."
   },
   "dependencies": [
     {
       "type": "event",
       "id": "CSTO.1",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base events",
-      "checked_at": "2026-11-24",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -39,129 +27,60 @@
           "usage": "SOV-scoped country_event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/CSTO_system.txt",
-          "line": 3,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/CSTO_system.txt#L3"
-        },
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_CSTO_events_l_english.yml",
-          "line": 2,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L2"
-        }
-      ],
-      "notes": "Exact event definition and English title/description/options were found in the pinned upstream snapshot.",
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "CSTO"
     },
     {
       "type": "localisation",
       "id": "CSTO.1.t",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base English localisation",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/CSTO_system.txt",
-          "line": 4,
-          "usage": "event title key"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_CSTO_events_l_english.yml",
-          "line": 2,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L2"
-        }
-      ],
-      "notes": "Dependency of CSTO.1.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "CSTO"
     },
     {
       "type": "localisation",
       "id": "CSTO.1.d",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base English localisation",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/CSTO_system.txt",
-          "line": 5,
-          "usage": "event description key"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_CSTO_events_l_english.yml",
-          "line": 3,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L3"
-        }
-      ],
-      "notes": "Dependency of CSTO.1.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "CSTO"
     },
     {
       "type": "localisation",
       "id": "CSTO.1.a",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base English localisation",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/CSTO_system.txt",
-          "line": 10,
-          "usage": "option name"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_CSTO_events_l_english.yml",
-          "line": 4,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L4"
-        }
-      ],
-      "notes": "Dependency of CSTO.1.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "CSTO"
     },
     {
       "type": "localisation",
       "id": "CSTO.1.b",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base English localisation",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/CSTO_system.txt",
-          "line": 27,
-          "usage": "option name"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_CSTO_events_l_english.yml",
-          "line": 5,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_CSTO_events_l_english.yml#L5"
-        }
-      ],
-      "notes": "Dependency of CSTO.1.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "CSTO"
     },
     {
       "type": "event",
       "id": "union_state.22",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base events",
-      "checked_at": "2026-11-24",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -188,104 +107,49 @@
           "usage": "UKR country_event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Union State.txt",
-          "line": 617,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Union%20State.txt#L617"
-        },
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_focus_USR_l_english.yml",
-          "line": 209,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L209"
-        }
-      ],
-      "notes": "Exact definition and English localisation were found in the pinned upstream snapshot.",
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "union_state"
     },
     {
       "type": "localisation",
       "id": "union_state.22.t",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base English localisation",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/Union State.txt",
-          "line": 618,
-          "usage": "event title key"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_focus_USR_l_english.yml",
-          "line": 209,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L209"
-        }
-      ],
-      "notes": "Dependency of union_state.22.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "union_state"
     },
     {
       "type": "localisation",
       "id": "union_state.22.d",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base English localisation",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/Union State.txt",
-          "line": 619,
-          "usage": "event description key"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_focus_USR_l_english.yml",
-          "line": 210,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L210"
-        }
-      ],
-      "notes": "Dependency of union_state.22.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "union_state"
     },
     {
       "type": "localisation",
       "id": "union_state.22.a",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base English localisation",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/Union State.txt",
-          "line": 624,
-          "usage": "event option name"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/MD_focus_USR_l_english.yml",
-          "line": 211,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_USR_l_english.yml#L211"
-        }
-      ],
-      "notes": "Dependency of union_state.22.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "union_state"
     },
     {
       "type": "idea",
       "id": "CSTO_member",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base shared faction ideas",
-      "checked_at": "2026-11-24",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -306,46 +170,19 @@
           "usage": "has_idea condition"
         }
       ],
-      "verification": [
-        {
-          "kind": "idea definition",
-          "path": "common/ideas/Factions.txt",
-          "line": 67,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/ideas/Factions.txt#L67"
-        },
-        {
-          "kind": "granting scripted effect",
-          "path": "common/scripted_effects/00_faction_scripted_effects.txt",
-          "line": 55,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_faction_scripted_effects.txt#L55"
-        }
-      ],
-      "notes": "Shared, unprefixed base-MD faction idea; not a missing local country idea.",
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "CSTO"
     },
     {
       "type": "scripted_effect",
       "id": "CSTO_join",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base scripted effects",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "Millennium Dawn base",
-          "path": "events/CSTO_system.txt",
-          "line": 68,
-          "usage": "later CSTO chain invokes CSTO_join"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "scripted effect definition",
-          "path": "common/scripted_effects/00_faction_scripted_effects.txt",
-          "line": 55,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_faction_scripted_effects.txt#L55"
-        }
-      ],
-      "notes": "Transitive dependency of the CSTO event chain; included only when CSTO.1 is referenced.",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
+      "where_used": [],
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "CSTO",
       "related_to": [
         {
@@ -355,36 +192,11 @@
       ]
     },
     {
-      "type": "event",
-      "id": "russia_governorate.19",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base Russia events",
-      "checked_at": "2026-11-24",
-      "where_used": [
-        {
-          "repository": "TDF",
-          "path": "mdredux/events/Russia.txt",
-          "line": 5018,
-          "usage": "commented-out reference only; not an active call"
-        }
-      ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Russia.txt",
-          "line": 2736,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L2736"
-        }
-      ],
-      "notes": "Exists in pinned upstream snapshot, but TDF occurrence is commented out and is not an active dependency.",
-      "namespace": "russia_governorate"
-    },
-    {
       "type": "mio",
       "id": "USA_lockheed_martin_aircraft_manufacturer",
       "status": "confirmed",
-      "expected_source": "Shared TDF MIO definition (also in base MD)",
-      "checked_at": "2026-11-24",
+      "expected_source": "Точное определение находится в исходниках TDF в этом репозитории.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -411,23 +223,18 @@
           "path": "mdredux/common/military_industrial_organization/organizations/MD_USA_organizations.txt",
           "line": 43,
           "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/common/military_industrial_organization/organizations/MD_USA_organizations.txt#L43"
-        },
-        {
-          "kind": "upstream base definition",
-          "path": "common/ideas/zz_defence_companies.txt",
-          "line": 5080,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/ideas/zz_defence_companies.txt#L5080"
         }
       ],
-      "notes": "Positive cross-country example. Not missing in this checkout because its shared TDF definition is present.",
-      "namespace": "USA"
+      "notes": "Точное определение проверено непосредственно в локальном исходнике TDF. Это подтверждение относится только к указанному определению и пути.",
+      "namespace": "USA",
+      "verification_origin": "tdf_local"
     },
     {
       "type": "mio",
       "id": "GEO_stc_delta_materiel_manufacturer",
       "status": "unknown",
-      "expected_source": "Unknown; possible base-MD or omitted local MIO definition",
-      "checked_at": "2026-11-24",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -460,25 +267,16 @@
           "usage": "MIO effect reference"
         }
       ],
-      "verification": [
-        {
-          "kind": "local MIO directory inventory",
-          "url": "https://github.com/minusleto/Make-TDF-Great-Again/tree/main/mdredux/common/military_industrial_organization/organizations"
-        },
-        {
-          "kind": "upstream exact-code search",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/search?q=GEO_stc_delta_materiel_manufacturer&type=code"
-        }
-      ],
-      "notes": "Not found in 57 local TDF MIO files or exact upstream code search. Search absence does not prove non-existence; keep unknown.",
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "GEO"
     },
     {
       "type": "equipment",
       "id": "CV_MR_Fighter2",
-      "status": "assumption",
-      "expected_source": "Millennium Dawn / HOI4 equipment definitions",
-      "checked_at": "2026-11-24",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -487,26 +285,15 @@
           "usage": "add_equipment_to_stockpile type reference"
         }
       ],
-      "verification": [
-        {
-          "kind": "upstream use in Georgia event",
-          "path": "events/Georgia.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Georgia.txt"
-        },
-        {
-          "kind": "upstream country stockpile use",
-          "path": "history/units/USA_2000_nonbba.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/history/units/USA_2000_nonbba.txt"
-        }
-      ],
-      "notes": "Upstream usages found, but defining equipment block was not independently checked."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "equipment",
       "id": "transport_plane3",
-      "status": "assumption",
-      "expected_source": "Millennium Dawn / HOI4 base-game equipment definitions",
-      "checked_at": "2026-11-24",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -515,26 +302,15 @@
           "usage": "add_equipment_to_stockpile type reference"
         }
       ],
-      "verification": [
-        {
-          "kind": "upstream country stockpile use",
-          "path": "history/units/CAN_2000_nonbba.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/history/units/CAN_2000_nonbba.txt"
-        },
-        {
-          "kind": "upstream country stockpile use",
-          "path": "history/units/ENG_2000_nonbba.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/history/units/ENG_2000_nonbba.txt"
-        }
-      ],
-      "notes": "Widely used upstream as an equipment type; definition not independently verified."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "technology",
       "id": "tech_combat_radar",
       "status": "unknown",
-      "expected_source": "Unknown; could be a legacy technology ID or typo",
-      "checked_at": "2026-11-24",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -543,21 +319,16 @@
           "usage": "has_tech = tech_combat_radar"
         }
       ],
-      "verification": [
-        {
-          "kind": "upstream exact-code search",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/search?q=tech_combat_radar&type=code"
-        }
-      ],
-      "notes": "Upstream search exposed suffixed tech_combat_radar_1 etc., but did not establish the bare ID; verify it against the target MD version."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "georg_monarchist.14",
       "namespace": "georg_monarchist",
       "status": "unknown",
-      "expected_source": "Unknown; not found in TDF local Georgia events or pinned Millennium Dawn Georgia events",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -566,32 +337,15 @@
           "usage": "country_event call from GEO_crucial_marriage"
         }
       ],
-      "verification": [
-        {
-          "kind": "TDF caller",
-          "path": "mdredux/common/national_focus/Georgia_Focus_Tree.txt",
-          "line": 7901,
-          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/common/national_focus/Georgia_Focus_Tree.txt#L7901"
-        },
-        {
-          "kind": "TDF local event source checked; no matching definition",
-          "path": "mdredux/events/Georgia.txt",
-          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/events/Georgia.txt"
-        },
-        {
-          "kind": "pinned upstream Georgia event source checked; no matching definition",
-          "path": "events/Georgia.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Georgia.txt"
-        }
-      ],
-      "notes": "The TDF focus call remains unresolved locally. Rechecked the pinned MD Georgia event file and current-main code search on 2026-11-25; no exact active definition was found. Keep unknown because another enabled package or a different target MD revision may supply it."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "mdc4.16",
       "status": "confirmed",
-      "expected_source": "TDF bundled generic diplomatic event layer (`mdredux/events/00_Generic_dip_events.txt`)",
-      "checked_at": "2026-11-25",
+      "expected_source": "Точное определение находится в исходниках TDF в этом репозитории.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -626,15 +380,16 @@
           "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/ca350bd59a41635c19c30a97e9b644a65a7b0684/mdredux/localisation/english/MDC_generic_dip_events_l_english.yml#L88"
         }
       ],
-      "notes": "The exact event definition and English title/description/option keys are present in the TDF checkout. All 51 active KAZ calls resolve locally and are issued inside FROM recipient scopes: 15 from kaz_army, 16 from kaz_cas and 20 from kaz_foreign. This replaces the former unknown classification for this repository snapshot; retain it as a bundled local shared dependency, not an unresolved external call.",
-      "namespace": "mdc4"
+      "notes": "Точное определение проверено непосредственно в локальном исходнике TDF. Это подтверждение относится только к указанному определению и пути.",
+      "namespace": "mdc4",
+      "verification_origin": "tdf_local"
     },
     {
       "type": "event",
       "id": "mdc4.13",
       "status": "confirmed",
-      "expected_source": "TDF bundled generic diplomatic event layer (`mdredux/events/00_Generic_dip_events.txt`)",
-      "checked_at": "2026-11-25",
+      "expected_source": "Точное определение находится в исходниках TDF в этом репозитории.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -657,15 +412,16 @@
           "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/ca350bd59a41635c19c30a97e9b644a65a7b0684/mdredux/localisation/english/MDC_generic_dip_events_l_english.yml#L74"
         }
       ],
-      "notes": "The exact event definition and English title/description/option keys are now present in the TDF checkout. This resolves the former unknown candidate for this repository snapshot; retain the entry as a bundled local shared dependency, not an unresolved external call.",
-      "namespace": "mdc4"
+      "notes": "Точное определение проверено непосредственно в локальном исходнике TDF. Это подтверждение относится только к указанному определению и пути.",
+      "namespace": "mdc4",
+      "verification_origin": "tdf_local"
     },
     {
       "type": "event",
       "id": "hungary_economy.4",
       "status": "unknown",
-      "expected_source": "Unknown Hungary economy event package; not located in official Millennium Dawn current-main code search",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -675,15 +431,15 @@
         }
       ],
       "verification": [],
-      "notes": "Single reference from the IMF subsidy economy focus. This call is outside the currently active branch scope. Additional search performed on 2026-11-25 against official Millennium Dawn current main (HEAD 8ba03bedb15352d25b142ef2d4c945bbc50b4ca4): no exact code definition was returned. The identifier remains unknown, not disproven; check the user's actual enabled mod stack and load order.",
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "hungary_economy"
     },
     {
       "type": "event",
       "id": "diplomatic_response.1",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn base generic diplomatic response event",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -698,30 +454,17 @@
           "usage": "KAZ_alash.8 response call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Diplomatic_Response.txt",
-          "line": 6,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Diplomatic_Response.txt#L6"
-        },
-        {
-          "kind": "English localisation",
-          "path": "localisation/english/events_l_english.yml",
-          "line": 1624,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml#L1624"
-        }
-      ],
-      "notes": "Confirmed in the pinned official Millennium Dawn baseline: event definition and English title/description/option key. This shared event is a valid external dependency, not a local missing-event candidate.",
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем.",
       "namespace": "diplomatic_response"
     },
     {
       "type": "event",
       "id": "arm_foreign_legion.3",
       "namespace": "arm_foreign_legion",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base event definition in events/05_armenia.txt",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -730,23 +473,16 @@
           "usage": "arm_expansion.16 event call; recipient is the target country"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/05_armenia.txt",
-          "line": 12532,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/05_armenia.txt#L12532"
-        }
-      ],
-      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "arm_foreign_legion.6",
       "namespace": "arm_foreign_legion",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base event definition in events/05_armenia.txt",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -755,23 +491,16 @@
           "usage": "ARM_armenian_foreign_legion_moblize_idea on_remove lifecycle event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/05_armenia.txt",
-          "line": 12656,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/05_armenia.txt#L12656"
-        }
-      ],
-      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "sov_gru.1",
       "namespace": "sov_gru",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -780,23 +509,16 @@
           "usage": "arm_reaction.1 event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Russia.txt",
-          "line": 11066,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L11066"
-        }
-      ],
-      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "sov_gru.4",
       "namespace": "sov_gru",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -805,23 +527,16 @@
           "usage": "SOV_gru_foreign on_remove lifecycle event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Russia.txt",
-          "line": 11170,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L11170"
-        }
-      ],
-      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "sov_nationalists.51",
       "namespace": "sov_nationalists",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -830,23 +545,16 @@
           "usage": "SOV_idea_governorate on_remove lifecycle event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Russia.txt",
-          "line": 6015,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L6015"
-        }
-      ],
-      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "sov_nationalists.53",
       "namespace": "sov_nationalists",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -855,23 +563,16 @@
           "usage": "russia_governorate.1 event call; second call is at line 4965"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Russia.txt",
-          "line": 6037,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L6037"
-        }
-      ],
-      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "sov_final_strike.2",
       "namespace": "sov_final_strike",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -880,23 +581,16 @@
           "usage": "sov_final_strike.8 event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "event definition",
-          "path": "events/Russia.txt",
-          "line": 6522,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L6522"
-        }
-      ],
-      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "russia.3",
       "namespace": "russia",
       "status": "unknown",
-      "expected_source": "Millennium Dawn Russia events; exact definition not located in pinned 04b2ba1",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -905,22 +599,16 @@
           "usage": "russia.10 event call in accepted integration branch"
         }
       ],
-      "verification": [
-        {
-          "kind": "pinned baseline file checked; exact ID not found",
-          "path": "events/Russia.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt"
-        }
-      ],
-      "notes": "A later current-main changelog mentions adding russia.3, but an exact active definition was not independently located in the current-main Russia.txt during this review. Keep unknown until the intended target MD revision is checked."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "russia.4",
       "namespace": "russia",
       "status": "unknown",
-      "expected_source": "Millennium Dawn Russia events; exact definition not located in pinned 04b2ba1",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -935,22 +623,16 @@
           "usage": "russia.24 event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "pinned baseline file checked; exact ID not found",
-          "path": "events/Russia.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt"
-        }
-      ],
-      "notes": "A later current-main changelog mentions adding russia.4, but an exact active definition was not independently located in the current-main Russia.txt during this review. Keep unknown until the intended target MD revision is checked."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "event",
       "id": "syria_bashar.8",
       "namespace": "syria_bashar",
       "status": "unknown",
-      "expected_source": "Unknown Syria/Bashar event package or revision",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -959,21 +641,15 @@
           "usage": "syrian_democrats.7 event call"
         }
       ],
-      "verification": [
-        {
-          "kind": "pinned baseline Syria event file checked; exact ID not found",
-          "path": "events/Syria.txt",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Syria.txt"
-        }
-      ],
-      "notes": "No exact definition found in the pinned MD Syria event file or current-main code search. Keep unknown rather than asserting the ID is absent from all enabled packages."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "ENG_digital_government_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -982,22 +658,15 @@
           "usage": "ENG_digital_government focus requires ENG_digital_government_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_ENG_l_english.yml",
-          "line": 313,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L313"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "ENG_northern_powerhouse_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1006,22 +675,15 @@
           "usage": "ENG_northern_powerhouse focus requires ENG_northern_powerhouse_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_ENG_l_english.yml",
-          "line": 348,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L348"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "ENG_strategic_defence_review_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1030,22 +692,15 @@
           "usage": "ENG_strategic_defence_review focus requires ENG_strategic_defence_review_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_ENG_l_english.yml",
-          "line": 40,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L40"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "ENG_watchkeeper_wk450_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1054,22 +709,15 @@
           "usage": "ENG_watchkeeper_wk450 focus requires ENG_watchkeeper_wk450_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_ENG_l_english.yml",
-          "line": 178,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L178"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "ENG_operation_barras_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1078,22 +726,15 @@
           "usage": "ENG_operation_barras focus requires ENG_operation_barras_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_ENG_l_english.yml",
-          "line": 785,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L785"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "ARM_new_unif_proj_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ARM_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1102,22 +743,15 @@
           "usage": "ARM_new_unif_proj focus requires ARM_new_unif_proj_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_ARM_l_english.yml",
-          "line": 764,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ARM_l_english.yml#L764"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "BLR_Communism_start_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_BLR_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1126,22 +760,15 @@
           "usage": "BLR_Communism_start focus requires BLR_Communism_start_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_BLR_l_english.yml",
-          "line": 146,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_BLR_l_english.yml#L146"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "BLR_five_year_plan_desc",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_BLR_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1150,22 +777,15 @@
           "usage": "BLR_five_year_plan focus requires BLR_five_year_plan_desc; exact key is not in the local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream focus description key",
-          "path": "localisation/english/MD_focus_BLR_l_english.yml",
-          "line": 187,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_BLR_l_english.yml#L187"
-        }
-      ],
-      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "SOV_the_third_rome",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/replace/replaced_from_nsb_focus_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1174,22 +794,15 @@
           "usage": "SOV_the_third_rome focus title key; exact key is absent from local TDF English focus localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream English focus title key",
-          "path": "localisation/english/replace/replaced_from_nsb_focus_l_english.yml",
-          "line": 9,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/replace/replaced_from_nsb_focus_l_english.yml#L9"
-        }
-      ],
-      "notes": "Exact English title key verified in the pinned MD base replace localisation. This confirms key existence only, not whether the NSB replacement text is appropriate for TDF or whether the target mod stack loads this exact baseline."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "israel_economy.38.b",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_ISR_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1198,22 +811,15 @@
           "usage": "Event field references israel_economy.38.b; the exact key is absent from local TDF English event localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream English localisation key",
-          "path": "localisation/english/MD_focus_ISR_l_english.yml",
-          "line": 1279,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ISR_l_english.yml#L1279"
-        }
-      ],
-      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "israel_likud.26.a",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_ISR_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1222,22 +828,15 @@
           "usage": "Event field references israel_likud.26.a; the exact key is absent from local TDF English event localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream English localisation key",
-          "path": "localisation/english/MD_focus_ISR_l_english.yml",
-          "line": 4374,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ISR_l_english.yml#L4374"
-        }
-      ],
-      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "israel_news.8.o6",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_ISR_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1246,22 +845,15 @@
           "usage": "Event field references israel_news.8.o6; the exact key is absent from local TDF English event localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream English localisation key",
-          "path": "localisation/english/MD_focus_ISR_l_english.yml",
-          "line": 2035,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ISR_l_english.yml#L2035"
-        }
-      ],
-      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "sov_nationalists.20.d",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_SOV_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1270,22 +862,15 @@
           "usage": "Event field references sov_nationalists.20.d; the exact key is absent from local TDF English event localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream English localisation key",
-          "path": "localisation/english/MD_focus_SOV_l_english.yml",
-          "line": 1818,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml#L1818"
-        }
-      ],
-      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "sov_nationalists.21.d",
-      "status": "confirmed",
-      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_SOV_l_english.yml",
-      "checked_at": "2026-11-25",
+      "status": "unknown",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1294,22 +879,15 @@
           "usage": "Event field references sov_nationalists.21.d; the exact key is absent from local TDF English event localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "exact upstream English localisation key",
-          "path": "localisation/english/MD_focus_SOV_l_english.yml",
-          "line": 1821,
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml#L1821"
-        }
-      ],
-      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "SOV_pmc_wagner_africe_goes",
       "status": "unknown",
-      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1318,40 +896,15 @@
           "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "local TDF English localisation inventory checked; no exact key found",
-          "path": "mdredux/localisation/english/"
-        },
-        {
-          "kind": "pinned upstream decisions localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream decision flags localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_flags_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
-          "path": "localisation/english/MD_focus_SOV_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream event localisation checked; no exact key found",
-          "path": "localisation/english/events_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
-        }
-      ],
-      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "SOV_pmc_wagner_africe_goes_home",
       "status": "unknown",
-      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1360,40 +913,15 @@
           "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "local TDF English localisation inventory checked; no exact key found",
-          "path": "mdredux/localisation/english/"
-        },
-        {
-          "kind": "pinned upstream decisions localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream decision flags localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_flags_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
-          "path": "localisation/english/MD_focus_SOV_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream event localisation checked; no exact key found",
-          "path": "localisation/english/events_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
-        }
-      ],
-      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "SOV_pmc_wagner_africe_perevorot_pipa",
       "status": "unknown",
-      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1402,40 +930,15 @@
           "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "local TDF English localisation inventory checked; no exact key found",
-          "path": "mdredux/localisation/english/"
-        },
-        {
-          "kind": "pinned upstream decisions localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream decision flags localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_flags_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
-          "path": "localisation/english/MD_focus_SOV_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream event localisation checked; no exact key found",
-          "path": "localisation/english/events_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
-        }
-      ],
-      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "SOV_pmc_wagner_africe_perevorot_car",
       "status": "unknown",
-      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1444,40 +947,15 @@
           "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "local TDF English localisation inventory checked; no exact key found",
-          "path": "mdredux/localisation/english/"
-        },
-        {
-          "kind": "pinned upstream decisions localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream decision flags localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_flags_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
-          "path": "localisation/english/MD_focus_SOV_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream event localisation checked; no exact key found",
-          "path": "localisation/english/events_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
-        }
-      ],
-      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     },
     {
       "type": "localisation",
       "id": "SOV_pmc_gazprom_goes",
       "status": "unknown",
-      "expected_source": "Unknown; possible omitted/legacy base Millennium Dawn decision localisation or third-party compatibility layer",
-      "checked_at": "2026-11-25",
+      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
+      "checked_at": "2026-11-26",
       "where_used": [
         {
           "repository": "TDF",
@@ -1486,33 +964,14 @@
           "usage": "SOV decision title key; exact key is absent from the local TDF English localisation"
         }
       ],
-      "verification": [
-        {
-          "kind": "local TDF English localisation inventory checked; no exact key found",
-          "path": "mdredux/localisation/english/"
-        },
-        {
-          "kind": "pinned upstream decisions localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream decision flags localisation checked; no exact key found",
-          "path": "localisation/english/MD_decisions_flags_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_decisions_flags_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream SOV focus localisation checked; no exact key found",
-          "path": "localisation/english/MD_focus_SOV_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml"
-        },
-        {
-          "kind": "pinned upstream event localisation checked; no exact key found",
-          "path": "localisation/english/events_l_english.yml",
-          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml"
-        }
-      ],
-      "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+      "verification": [],
+      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
     }
-  ]
+  ],
+  "project_scope": {
+    "repository": "minusleto/Make-TDF-Great-Again",
+    "branch": "main",
+    "reviewed_commit": "209269ed2e4b75807ad87efef13c2fef2ca723c6",
+    "policy": "TDF is a standalone mod. Only exact definitions in TDF source files or user-provided target files may be marked confirmed."
+  }
 }

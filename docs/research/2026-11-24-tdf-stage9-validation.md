@@ -2,10 +2,13 @@
 status: executed-static-validation
 updated: 2026-11-25
 scope: Unit tests, complete static auditor, all available country-specific auditor runs, and limited false-positive triage for TDF/MDC.
-limits: Static validation only. The full HOI4 runtime, installed base-MD/DLC/mod load order, and in-game UI were not run.
+limits: Historical static validation only. Full HOI4 runtime and in-game UI were not run. External-source confirmations from the original report are withdrawn by the 2026-11-26 correction below.
 ---
 
 # Stage 9 — executed validation (2026-11-24)
+
+> **Source-policy correction — 2026-11-26.** This report originally used a source outside the TDF project to classify external IDs and localisation. That source is not approved for TDF. All claims, counts, fallbacks and `confirmed` statuses that depended on it are withdrawn. Only exact definitions present in the TDF repository itself remain confirmed. Other IDs are `unknown` until checked in TDF source files or target files supplied by the user. For documented modifiers, effects and triggers, consult the MDC wiki; if the needed entry is absent, request the exact source file. Do not use historical external-source findings below as proof.
+
 
 ## Run and revision
 
@@ -76,7 +79,7 @@ These counts are aggregated from the 12 country JSON reports. They identify audi
 
 The 735 missing local focus description keys are concentrated in ENG (670) and KAZ (57); ARM, BLR, HUN, POL, SOV and SYR account for the remaining eight. Three focus title keys are missing locally: `ENG_affordable_housing`, `KAZ_wto`, `SOV_the_third_rome`. The SOV missing description example is `SOV_jirik_lustration_desc`.
 
-One ENG example, `ENG_britain_road_socialism_desc`, is absent from the pinned upstream [`MD_focus_ENG_l_english.yml`](https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml) at baseline SHA `04b2ba1`. This confirms that this particular key is not supplied by that pinned upstream file. The other missing keys still require source/override verification before any content patch.
+One ENG example, `ENG_britain_road_socialism_desc`, was not found in the local TDF English localisation files checked. No external-source fallback is accepted for this key. Keep it unresolved until the exact target TDF localisation file is checked.
 
 The 48 duplicate focus localisation keys were compared across all 18 local English YML files:
 
@@ -86,14 +89,14 @@ The 48 duplicate focus localisation keys were compared across all 18 local Engli
 
 ### Event and decision localisation
 
-The 14 missing event title keys, 20 missing event descriptions and 33 missing option-name keys include candidates already recorded during Stage 1. Some may exist in the installed base MD/shared packages; verify against the target mod stack before editing local keys.
+The 14 missing event title keys, 20 missing event descriptions and 33 missing option-name keys include candidates already recorded during Stage 1. These remain unresolved until the corresponding TDF localisation files are available and checked. Do not assume that another mod or package supplies them.
 
 The event audit also found ten unresolved event-call candidates. One high-priority case is:
 
 - Caller: `GEO_crucial_marriage`
 - TDF focus path/line: `mdredux/common/national_focus/Georgia_Focus_Tree.txt:7901`
 - Target: `georg_monarchist.14`
-- No matching definition was found in TDF `mdredux/events/Georgia.txt` or pinned upstream `events/Georgia.txt` at SHA `04b2ba1`.
+- No matching definition was found in the available TDF file `mdredux/events/Georgia.txt`; keep the call unknown until the relevant TDF source file is supplied and checked.
 
 The target is recorded as `unknown`, not confirmed present or globally absent. Five SOV decision title keys are missing from the local English YML; their IDs and lines are in Issue #18.
 
@@ -101,18 +104,18 @@ The target is recorded as `unknown`, not confirmed present or globally absent. F
 
 - `GEO_stc_delta_materiel_manufacturer` has five call sites (three focus references and two Georgia event references) but no definition in the 57 local MIO organization files. Its existence in another installed mod remains unknown.
 - Six MIO names match the ID of another MIO; ENG QinetiQ → BAE is one example. These are copy/paste candidates, not patches.
-- Unknown equipment, module and technology IDs remain review candidates because the checkout does not contain the complete base MD, vanilla and DLC definitions.
+- Unknown equipment, module and technology IDs remain review candidates. Do not infer their source from another mod; ask for the relevant target TDF file when the definition is not present here.
 
 ## External dependency registry
 
 At execution time, the registry had 17 entries (13 confirmed, 2 assumption, 2 unknown). The auditor emitted 1,017 dependency findings, of which 10 matched registry entries and 1,007 were unregistered/unknown candidates. Unregistered references did not become ERROR solely because they were absent from this checkout.
 
-After the run, the unresolved GEO event `georg_monarchist.14` was added as an explicit `unknown` registry record, with the TDF call site and both local/upstream source checks. This post-run registry addition does not alter the recorded run output; the next workflow execution will validate the updated 18-entry registry.
+After the run, the unresolved GEO event `georg_monarchist.14` was recorded as `unknown`. The prior external-source comparison is withdrawn; the local TDF call site is retained, and the exact defining file must be supplied before the ID can be confirmed.
 
 ## Limitations and remaining work
 
 - This was static validation. HOI4 was not launched, tooltips/UI were not inspected, and runtime load order was not tested.
-- The TDF checkout does not contain the complete base Millennium Dawn, vanilla and DLC. External IDs and localisation may resolve in a user's installed mod stack.
+- This report covers only the TDF files available at the reviewed revision. Missing IDs and localisation remain unknown until the relevant TDF target files are checked; no other mod is an approved fallback source.
 - All ERROR candidates still need triage; unresolved items must either be fixed in a separately authorised country-content task, explained with evidence, or retained as documented exceptions.
 - The false-positive matrix is not fully complete. In particular, shared MIO, external event chains, hidden ideas, tooltip rendering, legacy IDs and disabled branches still need runtime/target-stack verification.
 - Issue #18 remains open. No other issues or PRs were created.
@@ -157,10 +160,10 @@ The inventory parser reported zero parse issues in the inventory's focus, idea, 
 ### Remaining findings and limits
 
 - The full report has one structural parse error at `mdredux/common/doctrines/subdoctrines/sea/navy_submarine_doctrines.txt:297` (`long_range_submarines` is not closed before EOF). It appears in both idea-source and state-flow diagnostics but is the same physical defect. The gameplay file remains untouched.
-- Event audit: 10 unresolved local-reference candidates, 590 `is_triggered_only` reachability candidates, 8 duplicate event-localisation definitions, plus external references that cannot be proven absent without the full upstream stack.
-- Dependency registry: 18 entries; 1,019 findings, of which 11 are registered and 1,008 remain unregistered candidates. Their status distribution is 6 confirmed, 2 assumption and 1,011 unknown. Most unknown references require comparison against the pinned complete base MD, vanilla and DLC; they are not automatically upgraded to ERROR.
+- Event audit: 10 unresolved local-reference candidates, 590 `is_triggered_only` reachability candidates, 8 duplicate event-localisation definitions, plus unresolved references whose definitions were not present in the TDF files checked.
+- The registry counts in this historical run were produced under the withdrawn external-source policy and must not be reused as current validation statistics. Under the corrected policy, only exact TDF-local definitions or user-provided target files may be confirmed; all other entries remain unknown until their source is checked.
 - Other candidate groups remain for manual review: 5 missing local MIO references, 51 missing local MIO name localisations, 6 MIO-name collisions, 274 unknown equipment-type references, and 18 unknown technology references. These may resolve in the full installed mod stack.
-- Static validation only: HOI4 was not launched; runtime scopes, UI/tooltips, DLC load order and the complete base MD were not available.
+- Static validation only: HOI4 was not launched; runtime scopes and UI/tooltips were not checked. Missing TDF source files were not inferred from other mods.
 
 ### Code changes
 
@@ -187,9 +190,9 @@ Latest fully validated auditor snapshot: [GitHub Actions run 45590206276](https:
 ### Confirmed false-positive classes fixed in the auditor
 
 - Duplicate focus-localisation keys are divided by value: identical duplicate values are WARN; differing values remain ERROR. Identical duplicate `defined_text` definitions are also separated from conflicting definitions.
-- Exact event IDs with `status = confirmed` in the dependency registry are classified as `confirmed_external_references`, even where TDF declares the namespace but the exact event definition is supplied by pinned base MD. Only exact confirmed IDs are filtered; `unknown`, `assumption` and unregistered IDs remain unresolved.
+- Exact event IDs with `status = confirmed` are classified as `confirmed_external_references` only when the registry has an approved TDF-local or user-provided source path. `unknown`, `assumption`, invalid-provenance and unregistered IDs remain unresolved.
 - Conditional event `title = { ... text = KEY }` and `desc = { ... text = KEY }` blocks are now indexed and all nested text keys are checked. Events with `hidden = yes` are not required to carry UI title/description. Normal visible events without title/description remain errors.
-- Exact confirmed upstream localisation keys are distinguished from genuinely unverified keys. Fallback filtering is source-typed: focus keys resolve focus `title_missing/desc_missing` only when their TDF usage is under `common/national_focus/`; event keys resolve event missing-localisation findings only when their TDF usage is under `events/`. Cross-type matches, `unknown`, `assumption` and unregistered keys do not suppress findings.
+- Exact localisation keys confirmed in approved TDF-local or user-provided files are distinguished from unresolved keys. Fallback filtering is source-typed: focus keys resolve focus `title_missing/desc_missing` only when their TDF usage is under `common/national_focus/`; event keys resolve event missing-localisation findings only when their TDF usage is under `events/`. Cross-type matches, `unknown`, `assumption` and unregistered keys do not suppress findings.
 
 ### Current full-report snapshot (run 45590206276)
 
@@ -212,11 +215,11 @@ Latest fully validated auditor snapshot: [GitHub Actions run 45590206276](https:
 
 The full report was produced before the final five SOV decision-title candidates were added to the registry as `unknown`. At the time of that run, the registry had 46 entries (37 confirmed, 2 assumption, 7 unknown) and the report contained 1,031 dependency findings (39 registered and 992 unregistered candidates). The registry now has **51 entries** (37 confirmed, 2 assumption, 12 unknown); a subsequent workflow run is required to refresh the report's registry finding counts. Entry counts and finding counts are different measures.
 
-### Confirmed base-MD event references
+### Event references previously marked as externally confirmed (withdrawn)
 
-Seven external event definitions were verified at pinned MD commit `04b2ba126fc1057bf2ab4bac0407b3235983994c`: `arm_foreign_legion.3`, `arm_foreign_legion.6`, `sov_gru.1`, `sov_gru.4`, `sov_nationalists.51`, `sov_nationalists.53` and `sov_final_strike.2`. Combined with the two local `mdc4.13/.16` generic event definitions, the report resolves these exact IDs without treating the local namespace as proof that every ID must be defined locally.
+Seven event IDs were previously marked confirmed using a source that is not approved for TDF: `arm_foreign_legion.3`, `arm_foreign_legion.6`, `sov_gru.1`, `sov_gru.4`, `sov_nationalists.51`, `sov_nationalists.53` and `sov_final_strike.2`. Those confirmations are withdrawn; keep the IDs unknown until their TDF definitions are checked. The two local `mdc4.13/.16` definitions remain confirmed because they are present in TDF.
 
-Five calls remain unresolved: `georg_monarchist.14`, `russia.3`, two uses of `russia.4`, and `syria_bashar.8`. They remain unknown; absence from the pinned files checked is not proof that no other enabled package/version supplies them.
+Five calls remain unresolved: `georg_monarchist.14`, `russia.3`, two uses of `russia.4`, and `syria_bashar.8`. They remain unknown; no conclusion about their existence should be drawn until the matching TDF source is checked.
 
 ### Exact confirmed localisation fallbacks
 
@@ -224,13 +227,13 @@ The dependency registry records 14 exact confirmed fallback keys that explain fi
 - Focus localisation: eight descriptions (ENG ×5, ARM ×1, BLR ×2) and SOV title `SOV_the_third_rome`.
 - Event localisation: three ISR keys (`israel_economy.38.b`, `israel_likud.26.a`, `israel_news.8.o6`) and two SOV descriptions (`sov_nationalists.20.d/.21.d`).
 
-These confirm that the exact English keys exist in pinned MD. They do not confirm that upstream wording is suitable for TDF or that the user's target mod stack loads that precise baseline.
+These 14 localisation keys were previously labelled confirmed using a source that is not approved for TDF. All 14 fallback classifications are withdrawn. Keep the keys unresolved until the exact TDF localisation definitions are checked.
 
 ### Remaining content candidates
 
 - One parser error remains at `mdredux/common/doctrines/subdoctrines/sea/navy_submarine_doctrines.txt:297`: `long_range_submarines = {` is not closed before EOF. It is one physical defect reported by more than one subsystem. It was not edited.
-- Two focus title candidates remain: `ENG_affordable_housing` and `KAZ_wto`. The SOV `SOV_the_third_rome` title is now a confirmed upstream fallback. The large remaining desc count is concentrated in older or out-of-scope focus content (notably ENG 665 and KAZ 57); these findings are not automatically classified as defects.
-- Five SOV decision titles remain absent from local English YML and were not found in the pinned MD decision, decision-flags, SOV-focus or event localisation files checked: `SOV_pmc_wagner_africe_goes` (Russia.txt:1807), `SOV_pmc_wagner_africe_goes_home` (:1864), `SOV_pmc_wagner_africe_perevorot_pipa` (:1912), `SOV_pmc_wagner_africe_perevorot_car` (:1998), `SOV_pmc_gazprom_goes` (:2085). They are registered as `unknown`, not globally missing.
+- Focus title candidates include `ENG_affordable_housing`, `KAZ_wto` and `SOV_the_third_rome`; none receives an external fallback confirmation under the corrected policy. The large remaining description count is concentrated in older or out-of-scope focus content (notably ENG and KAZ); these findings still need source-aware triage.
+- Five SOV decision titles remain absent from the local English YML files checked: `SOV_pmc_wagner_africe_goes` (Russia.txt:1807), `SOV_pmc_wagner_africe_goes_home` (:1864), `SOV_pmc_wagner_africe_perevorot_pipa` (:1912), `SOV_pmc_wagner_africe_perevorot_car` (:1998), `SOV_pmc_gazprom_goes` (:2085). They remain `unknown` until the intended TDF localisation source is checked.
 - KAZ active Army/CAS scope still has five options without log: `kaz_army.7.a`, `kaz_army.7.b`, `kaz_army.8.a`, `kaz_cas.32.a` and `kaz_cas.33.a`. The other 22 KAZ options without log belong to legacy/out-of-scope event series. KAZ has one separate option-log mismatch in `KAZ_alash.2`; its 57 focus-description candidates belong to older economy / OTAN / Nazarbayev / Tokayev families, not active Army, Diplomacy or CAS.
 - Other local-slice candidates include five `GEO_stc_delta_materiel_manufacturer` references, the `KAZ_strategic_partnership_china_loc` scripted-localisation candidate, 274 unknown equipment-type references and 18 unknown technology references. These cannot be conclusively classified without the complete target MD/vanilla/DLC stack.
 
@@ -260,7 +263,7 @@ These confirm that the exact English keys exist in pinned MD. They do not confir
 |---|---|---|
 | Парсер | Один незакрытый block в common/doctrines/subdoctrines/sea/navy_submarine_doctrines.txt:297; один и тот же физический дефект появляется в двух подсистемах | Подтверждённая структурная ошибка checkout; не исправлять в общем skills issue, зафиксировать владельцу игрового файла |
 | Локальные межфайловые ссылки | Один GEO вызов georg_monarchist.14 не разрешается при локально объявленном namespace; один duplicate scripted-effect ID KAZ_upgrade_drone_program; один SOV swap_same_idea no-op candidate | Сильные локальные кандидаты для отдельного content review; не делать игровых правок в этом issue |
-| Локализация событий/решений/идей | 37 missing event localisation entries, 32 missing option localisation entries, 5 decision localisation entries, 135 missing idea-name localisation candidates; часть ключей уже подтверждается в pinned MD | Проверять по registry и целевому load order; отсутствие в локальном checkout не равняется runtime missing |
+| Локализация событий/решений/идей | 37 missing event localisation entries, 32 missing option localisation entries, 5 decision localisation entries, 135 missing idea-name localisation candidates; все ранее заявленные внешние подтверждения отозваны | Проверять по registry и целевому load order; отсутствие в локальном checkout не равняется runtime missing |
 | Внешние идеи/скрипты/техника | 1,070 local-slice idea refs без локального definition, 492 scripted-call candidates, 274 unknown equipment-type refs, 18 unknown technology refs; 5 missing local MIO refs (GEO STC family) | В основном dependency candidates: сверять полный MD/vanilla/DLC и внешние определения, не повышать автоматически до ERROR |
 | Финансовые decision patterns | 5 custom-cost pair candidates, 1 конфликт с явно отображаемой второй ценой, 18 custom-cost-without-debit кандидатов, 1 threshold-only gate; 6 обычных constant-false condition candidates и 19 mission-gate candidates; direct visible/available opposite-atom conflicts = 0 | Проверять реальные price/debit пары и условия запуска миссий; gate-only, non-clickable missions и отсутствие очевидного debit не считать автоматически ошибками |
 | Идеи и state lifecycle | 15 one-sided on_add state-change candidates, 28 local flag reads without local writer, 8 variable reads without local writer; 5 countries без локального history | Проверять scripted/external effects, shared history и intended lifecycle; это не доказательство отсутствующей инициализации |

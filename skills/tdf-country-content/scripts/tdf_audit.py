@@ -1144,7 +1144,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                     })
 
     # Event-local idea references are compared against this repository slice.
-    # Missing IDs are candidates: cross-country and base-MD ideas may be external.
+    # Missing IDs remain candidates until the exact TDF source is checked.
     for definition in definitions:
         source_tag = file_tags.get(definition["path"])
         for idea_id in idea_candidates(definition["block"]):
@@ -1956,8 +1956,8 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
 def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parsed=None):
     """Index local MIO/equipment/technology definitions and audit script references.
 
-    Missing references are classified as local candidates or external dependencies;
-    the base Millennium Dawn / vanilla game files are not part of this checkout.
+    Missing references are classified as local candidates or unresolved dependencies.
+    Do not infer their source from another mod; require a TDF or user-provided target file.
     """
     mod = Path(repo) / "mdredux"
     country_tags = set(countries)
@@ -2125,8 +2125,8 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
     for path, parsed in (event_parsed or {}).items():
         sources.append((Path(path), parsed))
 
-    # Missing local technology IDs may be supplied by vanilla, base MD or DLC.
-    # Keep them as explicit review candidates; never promote them to ERROR.
+    # A missing local technology ID has no assumed source. Keep it as a review candidate
+    # until the relevant TDF or user-provided target file is available.
     unknown_technology_references = []
     seen_technology_refs = set()
     for path, parsed in sources:
@@ -2293,21 +2293,16 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
 
 
 EXTERNAL_DEPENDENCY_STATUSES = frozenset({"confirmed", "assumption", "unknown"})
+EXTERNAL_DEPENDENCY_DEFAULT_SOURCE = (
+    "Not verified in the available TDF source files; request the relevant target file from the user."
+)
 EXTERNAL_DEPENDENCY_DEFAULT_SOURCES = {
-    "event": "Millennium Dawn base events, another installed mod, or unresolved namespace",
-    "idea": "Millennium Dawn base ideas, HOI4, DLC, or another installed module",
-    "scripted_effect": "Millennium Dawn base scripted effects or another installed module",
-    "scripted_trigger": "Millennium Dawn base scripted triggers or another installed module",
-    "scripted_effect_or_trigger": "Millennium Dawn base scripted effects/triggers or another installed module",
-    "localisation": "Millennium Dawn shared English localisation or another installed module",
-    "scripted_localisation": "Millennium Dawn scripted localisation or another installed module",
-    "mio": "Millennium Dawn / HOI4 DLC MIO definitions or another installed module",
-    "equipment": "Millennium Dawn / HOI4 base-game or DLC equipment definitions",
-    "equipment_module": "Millennium Dawn / HOI4 base-game or DLC equipment-module definitions",
-    "technology": "Millennium Dawn / HOI4 base-game or DLC technology definitions",
-    "decision": "Millennium Dawn base decisions or another installed module",
-    "focus": "Millennium Dawn base focus trees or another installed module",
-    "other": "Unknown external module; verify against the pinned baseline and active mod stack",
+    key: EXTERNAL_DEPENDENCY_DEFAULT_SOURCE
+    for key in (
+        "event", "idea", "scripted_effect", "scripted_trigger",
+        "scripted_effect_or_trigger", "localisation", "scripted_localisation",
+        "mio", "equipment", "equipment_module", "technology", "decision", "focus", "other",
+    )
 }
 
 
@@ -2324,7 +2319,7 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
         return {
             "registry_available": False, "registry_path": relative_registry_path,
             "registry_validation_issues": ["external dependency registry is missing"],
-            "baseline": {}, "findings": [], "unregistered_candidates": [],
+            "project_scope": {}, "findings": [], "unregistered_candidates": [],
             "counts": {
                 "registry_entries": 0, "findings": 0, "registered_findings": 0,
                 "unregistered": 0, "by_status": {}, "by_type": {},
@@ -2362,6 +2357,22 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
         if status not in EXTERNAL_DEPENDENCY_STATUSES:
             validation_issues.append("dependencies[{}] has unsupported status {!r}".format(index, status))
             continue
+        if status == "confirmed":
+            origin = dependency.get("verification_origin")
+            verification = dependency.get("verification")
+            exact_file_evidence = (
+                isinstance(verification, list)
+                and any(
+                    isinstance(item, dict)
+                    and isinstance(item.get("path"), str)
+                    and bool(item.get("path").strip())
+                    for item in verification
+                )
+            )
+            if origin not in ("tdf_local", "user_provided") or not exact_file_evidence:
+                validation_issues.append(
+                    "dependencies[{}] is confirmed without approved provenance and an exact file path".format(index)
+                )
         if not isinstance(dependency.get("checked_at"), str) or not dependency.get("checked_at"):
             validation_issues.append("dependencies[{}] needs checked_at".format(index))
         if not isinstance(dependency.get("expected_source"), str) or not dependency.get("expected_source"):
@@ -2396,8 +2407,8 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
                 "checked_at": dependency.get("checked_at") if dependency else None,
                 "verification": dependency.get("verification", []) if dependency else [],
                 "notes": dependency.get("notes") if dependency else (
-                    "No exact registry record. Treat as unknown until checked against the "
-                    "pinned base-MD snapshot and intended game/mod stack."
+                    "No exact registry record. Treat as unknown until the matching TDF "
+                    "or user-provided target source file is checked."
                 ),
                 "references": [],
             }
@@ -2416,9 +2427,8 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
             "source_kind": reference.get("source_kind"), "caller": reference.get("caller"),
             "classification": "namespace_not_defined_in_local_checkout",
         })
-    # A namespace can be declared locally while a specific event ID is supplied by base MD.
-    # Keep these exact IDs in the registry instead of treating the local namespace as proof
-    # that every event in it must be defined in the TDF checkout.
+    # A local namespace declaration does not prove every referenced ID is defined in the
+    # available TDF files. Keep each exact unresolved ID unknown until its source is checked.
     for reference in event_report.get("unresolved_references", []):
         if reference.get("kind") not in ("country_event", "news_event"):
             continue
@@ -2509,7 +2519,7 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
             "classification": reference.get("classification"),
         })
 
-    # Unresolved scripted calls remain candidates; the missing definition may be in base MD.
+    # Unresolved scripted calls remain candidates until the matching TDF source is checked.
     for reference in state_flow_report.get("unresolved_scripted_call_candidates", []):
         add_reference("scripted_effect_or_trigger", reference.get("candidate"), {
             "path": reference.get("path"), "line": reference.get("line"),
@@ -2548,7 +2558,7 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
         "registry_available": True, "registry_path": relative_registry_path,
         "schema_version": registry.get("schema_version"),
         "last_reviewed": registry.get("last_reviewed"),
-        "baseline": registry.get("baseline", {}),
+        "project_scope": registry.get("project_scope", {}),
         "registry_validation_issues": validation_issues,
         "registry_entries": valid_entries, "findings": findings,
         "unregistered_candidates": unregistered,
@@ -2563,7 +2573,7 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
 
 
 def classify_confirmed_external_event_references(event_report, external_dependency_report):
-    """Move only exact, registry-confirmed base event IDs out of local missing-ID errors."""
+    """Move only exact event IDs confirmed by an approved TDF source out of local missing-ID errors."""
     confirmed_event_ids = {
         item.get("id")
         for item in external_dependency_report.get("findings", [])
@@ -2586,7 +2596,7 @@ def classify_confirmed_external_event_references(event_report, external_dependen
 
 
 def classify_confirmed_external_focus_localisation(results, external_dependency_report):
-    """Move only exact, registry-confirmed base focus localisation keys out of local missing-key errors."""
+    """Move only exact focus localisation keys confirmed by an approved TDF source out of local missing-key errors."""
     confirmed_keys = {
         item.get("id")
         for item in external_dependency_report.get("findings", [])
@@ -2616,7 +2626,7 @@ def classify_confirmed_external_focus_localisation(results, external_dependency_
 
 
 def classify_confirmed_external_event_localisation(event_report, external_dependency_report):
-    """Move only exact, registry-confirmed base event localisation keys out of local missing-key errors."""
+    """Move only exact event localisation keys confirmed by an approved TDF source out of local missing-key errors."""
     confirmed_keys = {
         item.get("id")
         for item in external_dependency_report.get("findings", [])
@@ -4103,7 +4113,7 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
                 "reason": (
                     "A local definition and focus availability gate exist, but no grant was found "
                     "in a prerequisite ancestor or in an event called by such an ancestor. "
-                    "Check alternate paths, history, decisions, on_actions, scripted effects and base MD."
+                    "Check alternate paths, history, decisions, on_actions and scripted effects; otherwise request the relevant source file."
                 ),
             })
 
@@ -4231,7 +4241,7 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
         "scope": "local_static_cross_reference",
         "limits": (
             "Edges record explicit local references. Focus prerequisite ancestry is a conservative union "
-            "of referenced focus IDs; dynamic scopes, external base-MD writers, indirect scripted calls, "
+            "of referenced focus IDs; dynamic scopes, user-provided external writers, indirect scripted calls, "
             "AI/runtime timing and option probabilities are not simulated. Review candidates never affect exit code."
         ),
         "counts": {

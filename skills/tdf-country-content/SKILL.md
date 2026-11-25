@@ -1,6 +1,6 @@
 ---
 name: tdf-country-content
-description: 'Project-specific required workflow for designing, editing and reviewing country content in Make-TDF-Great-Again (TDF/MDC). Use for any country-content task in this repository. Detailed domain rules live in references; for other HOI4/MD projects use md-hoi4-country-content.'
+description: 'Required project-specific workflow for designing, editing and reviewing TDF/MDC country content in this repository. TDF is a standalone mod; do not import rules or mechanics from other mods.'
 ---
 
 # TDF country content
@@ -24,7 +24,7 @@ description: 'Project-specific required workflow for designing, editing and revi
 
 ## Границы знания и статический аудит
 
-В checkout нет полного базового Millennium Dawn, vanilla и DLC. Внешние ID сверять с `docs/research/external-dependencies.md` и машинным реестром `docs/research/external-dependencies.json`. Отсутствие ID в локальном срезе само по себе не доказывает ошибку.
+Доступные исходники TDF — единственная стандартная база проверки. Не считать, что отсутствующий ID автоматически принадлежит другому моду или существует где-то снаружи. Для модификаторов, эффектов и триггеров сначала проверять вики MDC; если определения там нет, просить пользователя прислать нужный файл целевой сборки. Внешние зависимости фиксировать в `docs/research/external-dependencies.md` и `docs/research/external-dependencies.json` со статусом `unknown`, пока точное определение не подтверждено в TDF или в файле, предоставленном пользователем.
 
 Из корня репозитория:
 

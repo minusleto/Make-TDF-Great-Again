@@ -2,10 +2,13 @@
 status: partial-static-review
 updated: 2026-11-24
 scope: Static cross-file review of the TDF main snapshot; no game files changed.
-limits: No local checkout, no base Millennium Dawn repository, no HOI4 runtime, and no executed unit tests or full auditor run.
+limits: Historical static review only; no HOI4 runtime, unit tests or full auditor run were performed. External-source confirmations in the original review are withdrawn by the 2026-11-26 correction below.
 ---
 
 # Stage 9 — static integration review
+
+> **Source-policy correction — 2026-11-26.** This historical review used a non-TDF upstream source for some dependency conclusions. That source is not approved for TDF. The CSTO and other external confirmations in this report are withdrawn. Exact TDF-local definitions remain confirmed only where the defining block exists in the repository; all other references are unknown until the target TDF source file is checked or supplied by the user.
+
 
 ## Result
 
@@ -30,7 +33,7 @@ Industry/equipment checks:
 
 - Eight ENG MIO definitions are present in `MD_ENG_organizations.txt`; all eight `include` targets resolve to templates in `MD_generic_organization.txt`.
 - The ENG country history uses `medium_tank_chassis_0/1/2` and `util_vehicle_equipment`; those archetypes are present in `MD_tank_chassis.txt` and `MD_utility_vehicle.txt`.
-- The ENG focus-localisation file contains the focus IDs found in this tree except one local-slice candidate: `ENG_affordable_housing`. That ID is present in the focus tree (`United Kingdom_Focus_Tree.txt:7935`) but was not found in any of the 18 local English YML files. `ENG_affordable_housing_programme` is a different focus ID and is not a substitute. The base MD/shared localisation is not in this repository, so this remains a candidate rather than a proven global missing key.
+- The ENG focus-localisation file contains the focus IDs found in this tree except one local-slice candidate: `ENG_affordable_housing`. That ID is present in the focus tree (`United Kingdom_Focus_Tree.txt:7935`) but was not found in any of the 18 local English YML files. `ENG_affordable_housing_programme` is a different focus ID and is not a substitute. No approved TDF source file containing this key was present in the files checked, so it remains unresolved until the exact target localisation file is checked.
 - `MD_ENG_organizations.txt:8-12` has a probable copy/paste mismatch: `ENG_qinetiq_materiel_manufacturer` uses `name = ENG_bae_land_systems_materiel_manufacturer`, the same name key as the preceding BAE MIO despite its QinetiQ icon and distinct MIO ID. Record for country-content review; not changed here.
 
 ## More complex country — ISR
@@ -43,12 +46,12 @@ The Israel tree has 667 focus blocks and 296 focus-to-event call sites (176 uniq
 - `generic.5`
 - `TUR_flavor_event.8`
 
-These are unresolved against the TDF slice, not proven missing from the base MD. The local Israeli ideas file contains 357 idea definitions. All 13 distinct idea IDs used as gates in the Israel decision file are defined locally. Seven Israeli MIO definitions were found, and every generic `include` target resolves in the shared generic MIO file.
+These are unresolved against the TDF files checked; do not infer an external source or global absence. The local Israeli ideas file contains 357 idea definitions. All 13 distinct idea IDs used as gates in the Israel decision file are defined locally. Seven Israeli MIO definitions were found, and every generic `include` target resolves in the shared generic MIO file.
 
 ## Missing local event/decision files — SLO and HUN
 
-- Slovakia has a local focus tree (180 focus blocks), but no Slovakia event file and no Slovakia decision file in the current TDF directories. The focus tree references `slo_army.*`, `slo_foreign.*`, `slo_mechair.*` and `CSTO.1`. The registry confirms `CSTO.1` against a pinned Millennium Dawn source. The `slo_*` namespaces remain unverified because the base MD content is not present.
-- Hungary has a local focus tree and `common/decisions/hungary.txt`, but no local Hungary event file. Its many `hungary_*` event references therefore cannot be classified as local missing events from this slice alone. The registry's `CSTO.1` record is confirmed; other Hungary references remain external/unknown candidates until checked against the matching base MD version.
+- Slovakia has a local focus tree (180 focus blocks), but no Slovakia event file and no Slovakia decision file in the current TDF directories. The focus tree references `slo_army.*`, `slo_foreign.*`, `slo_mechair.*` and `CSTO.1`. `CSTO.1` was previously confirmed using a source that is not approved for TDF; that confirmation is withdrawn. The `CSTO.1` and `slo_*` references remain unknown until their TDF definitions are checked.
+- Hungary has a local focus tree and `common/decisions/hungary.txt`, but no local Hungary event file. Its many `hungary_*` event references therefore cannot be classified as local missing events from this slice alone. The registry's `CSTO.1` confirmation is withdrawn; Hungary references remain unknown until the relevant TDF source files are checked.
 
 Absence from this repository slice is not sufficient evidence for an ERROR. Keep these references separate from broken IDs in a complete checkout.
 

@@ -1,47 +1,49 @@
-# External dependency registry
+# Реестр внешних и пока неразрешённых зависимостей TDF
 
-Единый реестр внешних зависимостей TDF/MDC. Машиночитаемый источник истины — `external-dependencies.json`; auditor читает его и публикует найденные ссылки в JSON-разделе `_external_dependencies`.
+Машиночитаемый источник записей — `external-dependencies.json`; аудитор сопоставляет с ним неразрешённые вызовы и ссылки.
 
-## Датированный upstream baseline
+## Политика источников
 
-На **2026-11-24** проверен официальный репозиторий [MillenniumDawn/Millennium-Dawn](https://github.com/MillenniumDawn/Millennium-Dawn), branch `main`, commit [`04b2ba126fc1`](https://github.com/MillenniumDawn/Millennium-Dawn/commit/04b2ba126fc1057bf2ab4bac0407b3235983994c). Descriptor `Millennium_Dawn.mod` в этом snapshot указывает mod version **2.0.0** и `supported_version = "1.19.*"`; commit date — `2026-11-24T15:41:46Z`.
+TDF / MDC — самостоятельный мод. Исходники, репозитории, вики и правила других модов не являются источниками подтверждения для TDF. Не использовать их для объявления существующими событий, идей, эффектов, триггеров, MIO, техники, технологий или локализации.
 
-Это справочный снимок, а не обещание совместимости TDF с этой версией Millennium Dawn. При реальной проверке ориентируйся на установленный base MD, версию HOI4, DLC и порядок загрузки модов.
+Допустимые основания для статуса `confirmed`:
+
+- точное определение найдено в исходниках TDF в этом репозитории (`verification_origin = "tdf_local"`);
+- точное определение найдено в файле целевой сборки TDF, который предоставил пользователь (`verification_origin = "user_provided"`).
+
+В обоих случаях запись должна содержать точный путь к проверенному файлу и место определения. Само использование ID, похожее имя, поиск по другому моду, общий HOI4-шаблон или отсутствие результата поиска не подтверждают существование определения.
+
+Для модификаторов, эффектов и триггеров сначала используй вики MDC: https://github.com/minusleto/MDC. Вики — справочник по документированным механикам MDC, а не универсальный реестр событий, MIO, equipment или технологий. Если нужного определения или требуемого поведения там нет, попроси пользователя прислать соответствующий файл. Не заменяй недостающие данные сведениями из другого мода.
 
 ## Статусы
 
-- `confirmed` — точное определение или English localisation key найден в указанном upstream commit либо точное shared definition включено в сам TDF checkout. Для event ID это подтверждает только существование определения; наличие его локализационных ключей и runtime-цепочку фиксируй отдельно.
-- `assumption` — найдено использование в upstream, но определяющий блок не проверен независимо.
-- `unknown` — не подтверждено. Не объявлять ID существующим или отсутствующим.
+- `confirmed` — точное определение или ключ локализации найден в файле TDF или целевой файл был предоставлен пользователем; обязательны `verification_origin` и точный путь в `verification`.
+- `assumption` — есть косвенный признак, но точное определение не проверено. Такой статус никогда не снимает локальную находку аудита.
+- `unknown` — точное определение не подтверждено в разрешённом источнике. Это статус по умолчанию для отсутствующего файла или неразрешённого ID.
 
-## Что собирает auditor
+Записи со статусом `unknown` не являются доказательством ошибки или существования зависимости. Они сохраняют call site и указывают, какой исходный файл нужно запросить для проверки.
 
-JSON-ключ `_external_dependencies` сопоставляет unresolved candidates из:
-- external event namespaces / event calls;
-- external event и decision localisation;
-- external ideas, включая unprefixed shared IDs;
-- scripted effect / trigger candidates;
-- MIO references и MIO name localisation;
-- equipment types, modules и `has_tech` technology IDs.
+## Что собирает аудитор
 
-Для каждого совпадения выводятся тип, ID, статус, источник, проверка, notes и конкретные места использования. Точные ID, которых нет в JSON-реестре, получают `status = unknown` и `registry_status = unregistered`. Реестр не является allowlist: он не скрывает ссылки и не меняет ERROR/WARN.
+Реестр сопоставляет неразрешённые ссылки на:
 
-Shared TDF definitions тоже могут быть приведены как положительные примеры. Например, `USA_lockheed_martin_aircraft_manufacturer` используется Польшей и Великобританией, но его MIO definition присутствует в TDF checkout — это не missing external MIO.
+- события и event namespaces;
+- локализацию событий, решений и фокусов;
+- идеи и scripted localisation;
+- scripted effects и scripted triggers;
+- MIO;
+- equipment, equipment modules и technology IDs.
 
-## Поддержка реестра
+Незарегистрированные ссылки остаются `unknown` и отображаются как unregistered candidates. Реестр не является allowlist: он не скрывает ссылки сам по себе. Только exact-match запись со статусом `confirmed`, прошедшая проверку происхождения, может разрешить соответствующую локальную находку.
 
-Для event title/desc/option keys действует аналогичный exact-match fallback: ключ снимается с `missing_localisation` или `missing_option_localisation` только если реестр содержит `type = localisation`, `status = confirmed` и TDF `where_used` указывает на `mdredux/events/`. Подтверждённая focus localisation не может фильтровать event key, и наоборот. Наличие upstream ключа не подтверждает runtime загрузку или смысловую пригодность строки.
+## Ведение реестра
 
-Подтверждённые focus title/desc keys учитываются по тому же точному правилу, но только когда `where_used` указывает на TDF `common/national_focus/`. Совпадение с event/MIO localisation или ключ со статусом `unknown`/`assumption` не снимает `title_missing` или `desc_missing`. Это подтверждает наличие ключа в базовом MD, а не пригодность текста или фактическую загрузку baseline.
-
-Реестр также учитывает event ID, на которые ссылается локально объявленный namespace, но точное определение которых находится в pinned base MD. Только точное совпадение `type = event` + `status = confirmed` переводит такой вызов из `unresolved_references` в `confirmed_external_references`; `unknown`, `assumption` и незарегистрированные ID остаются unresolved. Подтверждение определения не подтверждает title/desc/option localisation, scope, получателя или runtime-достижимость.
-
-1. Для `confirmed` открывай defining file, а не просто usage, и сохраняй permalink с commit SHA и строкой. Если определение уже bundled в TDF, фиксируй его как локальную shared dependency.
-2. Для `assumption` сохраняй место использования и прямо отмечай, что definition не проверена.
-3. Для `unknown` перечисляй call sites и ожидаемый источник как гипотезу.
-4. При обновлении MD повторно сверяй descriptor, commit SHA, дату и меняющиеся IDs.
-5. Не повышай unregistered / missing-local candidates до ERROR только из-за отсутствующего файла в checkout.
+1. Сначала искать точное определение в доступных исходниках TDF.
+2. Для модификаторов, эффектов и триггеров проверять справочник MDC.
+3. Если источник отсутствует, запросить у пользователя именно тот файл целевой сборки, в котором ожидается определение.
+4. После проверки записать тип, ID, статус, дату, точный путь, строку и происхождение источника.
+5. При смене целевой версии или набора файлов повторно сверить зависимость; старое подтверждение не переносить автоматически.
 
 ## Ограничения
 
-TDF checkout не содержит полный base MD, vanilla и DLC. Поиск на GitHub и локальный статический индекс не доказывают runtime-существование ID во всех версиях. Auditor не разрешает все динамические scopes, непрямые scripted calls и mod load order; unknown остаётся неизвестным до проверки целевой сборки и error log.
+Статический аудит не запускает HOI4 и не доказывает runtime-доступность, scope, load order или корректность tooltip. Отсутствие определения в доступных файлах — неизвестность, а не разрешение подставить источник из другого мода.

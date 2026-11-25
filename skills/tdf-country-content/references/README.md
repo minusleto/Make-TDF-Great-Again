@@ -42,13 +42,13 @@ limits: This is a routing and authority index, not a replacement for domain refe
 | Decision categories и decisions | [decision-design.md](decision-design.md) | [REQUIRED] Семантика полей/локальных связей; баланс и optional fields требуют контекста |
 | Ideas / national spirits и lifecycle | [national-spirits.md](national-spirits.md) | Проектный reference; численные сравнения — исторические наблюдения |
 | Составные hidden-idea hubs | [Nested national spirits skill](../../hoi4-nested-national-spirits/SKILL.md) | Специализированный pattern; не загружать для обычного духа |
-| MIO, equipment, modules, technologies и variants | [mio-and-equipment.md](mio-and-equipment.md) | Статический QA; missing base-MD definitions не объявлять доказанной ошибкой |
+| MIO, equipment, modules, technologies и variants | [mio-and-equipment.md](mio-and-equipment.md) | Статический QA; missing definitions остаются unknown до проверки точного TDF-файла |
 | Межфайловые flags, variables, arrays, scripts, history и связность focus/event/idea/MIO-цепочек | [state-flow.md](state-flow.md) | Статический typed evidence graph _state_flow + _branch_connectivity; candidates не доказывают runtime-reachability |
 | Балансные предупреждения и общий checklist | [balance-and-pitfalls.md](balance-and-pitfalls.md) | [RECOMMENDED] Никаких универсальных числовых лимитов |
 | Файловая структура страны и общие системы | [country-structure.md](country-structure.md) | Частично исторический обзор; подробные измерения — срез 2026-10-30 |
 | Дополнительные соглашения Казахстана | [kazakhstan-maintenance.md](kazakhstan-maintenance.md) | Country-specific; не переносить на остальные страны |
 | Текущие темы и примеры одной страны | [Country style cards](countries/README.md) | Контекстные, неполные references; загружать только карточку нужного тега |
-| Внешние IDs и baseline Millennium Dawn | [External dependency registry](../../../docs/research/external-dependencies.md) + [JSON](../../../docs/research/external-dependencies.json) | Датированный upstream snapshot; не гарантия совместимости целевой сборки |
+| Неразрешённые внешние ID и зависимости TDF | [Реестр зависимостей](../../../docs/research/external-dependencies.md) + [JSON](../../../docs/research/external-dependencies.json) | `confirmed` допускается только по точному TDF-файлу или файлу целевой сборки, предоставленному пользователем |
 | Воспроизводимый подсчёт файлов и блоков | [tdf_inventory.py](../scripts/tdf_inventory.py) + [inventory report](../../../docs/research/2026-11-24-tdf-inventory.md) | Скрипт — способ пересчёта; Markdown report — снимок на 2026-11-24 |
 
 ## Аудитор: границы ERROR / WARN / INFO

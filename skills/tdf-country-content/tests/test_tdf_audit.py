@@ -1748,19 +1748,21 @@ KAZ_test_category = {
             registry = {
                 "schema_version": 1,
                 "last_reviewed": "2026-11-24",
-                "baseline": {"repository": "MillenniumDawn/Millennium-Dawn", "commit": "abc123"},
+                "project_scope": {"repository": "TDF/MDC", "source_policy": "TDF local or user-provided files only"},
                 "dependencies": [
                     {
                         "type": "event", "id": "CSTO.1", "status": "confirmed",
-                        "expected_source": "Millennium Dawn base events",
-                        "checked_at": "2026-11-24", "verification": [],
-                        "notes": "Verified in pinned upstream snapshot."
+                        "verification_origin": "tdf_local",
+                        "expected_source": "TDF local event definition",
+                        "checked_at": "2026-11-24",
+                        "verification": [{"kind": "TDF event definition", "path": "mdredux/events/CSTO.txt"}],
+                        "notes": "Exact definition verified in a TDF source file."
                     },
                     {
                         "type": "equipment", "id": "CV_MR_Fighter2", "status": "assumption",
-                        "expected_source": "Millennium Dawn / HOI4 equipment",
+                        "expected_source": "Unverified TDF equipment reference",
                         "checked_at": "2026-11-24", "verification": [],
-                        "notes": "Upstream usage seen; definition not independently verified."
+                        "notes": "Usage only; exact definition not verified in a TDF or user-provided file."
                     }
                 ]
             }
@@ -1925,29 +1927,27 @@ KAZ_test_category = {
             registry = {
                 "schema_version": 1,
                 "last_reviewed": "2026-11-25",
-                "baseline": {
-                    "repository": "MillenniumDawn/Millennium-Dawn",
-                    "commit": "04b2ba126fc1057bf2ab4bac0407b3235983994c"
-                },
+                "project_scope": {"repository": "TDF/MDC", "source_policy": "TDF local or user-provided files only"},
                 "dependencies": [
                     {
                         "type": "event", "id": "arm_foreign_legion.3", "status": "confirmed",
-                        "expected_source": "Millennium Dawn pinned base event definition",
+                        "verification_origin": "user_provided",
+                        "expected_source": "User-provided TDF event definition",
                         "checked_at": "2026-11-25",
-                        "verification": [{"kind": "event definition", "path": "events/05_armenia.txt", "line": 12532}],
-                        "notes": "Exact event definition verified in the pinned base snapshot."
+                        "verification": [{"kind": "event definition", "path": "user-provided/events/Armenia.txt", "line": 12}],
+                        "notes": "Exact event definition verified in a target file supplied by the user."
                     },
                     {
                         "type": "event", "id": "russia.3", "status": "unknown",
-                        "expected_source": "Millennium Dawn Russia events",
+                        "expected_source": "Unverified TDF event reference",
                         "checked_at": "2026-11-25", "verification": [],
-                        "notes": "Not verified in the pinned baseline."
+                        "notes": "Exact definition has not been checked in an approved TDF source."
                     },
                     {
                         "type": "event", "id": "syria_bashar.8", "status": "assumption",
-                        "expected_source": "Millennium Dawn Syria events",
+                        "expected_source": "Unverified TDF event reference",
                         "checked_at": "2026-11-25", "verification": [],
-                        "notes": "Usage only; definition not verified."
+                        "notes": "Usage only; definition not verified in a TDF or user-provided file."
                     }
                 ]
             }
