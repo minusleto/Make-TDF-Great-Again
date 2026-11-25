@@ -1488,6 +1488,51 @@ KAZ_test_category = {
             self.assertTrue(report["registry_available"])
 
 
+    def test_confirmed_external_event_localisation_resolves_only_exact_event_keys(self):
+        event_report = {
+            "missing_localisation": [
+                {"field": "desc", "key": "sov_nationalists.20.d", "event_id": "sov_nationalists.20",
+                 "path": "mdredux/events/Russia.txt", "line": 10}
+            ],
+            "missing_option_localisation": [
+                {"key": "israel_economy.38.b", "event_id": "israel_economy.38",
+                 "path": "mdredux/events/Israel.txt", "line": 20},
+                {"key": "israel_missing.1.a", "event_id": "israel_missing.1",
+                 "path": "mdredux/events/Israel.txt", "line": 30}
+            ]
+        }
+        dependency_report = {
+            "findings": [
+                {
+                    "type": "localisation", "id": "sov_nationalists.20.d", "status": "confirmed",
+                    "references": [{"repository": "TDF", "path": "mdredux/events/Russia.txt"}]
+                },
+                {
+                    "type": "localisation", "id": "israel_economy.38.b", "status": "confirmed",
+                    "references": [{"repository": "TDF", "path": "mdredux/events/Israel.txt"}]
+                },
+                {
+                    "type": "localisation", "id": "israel_missing.1.a", "status": "unknown",
+                    "references": [{"repository": "TDF", "path": "mdredux/events/Israel.txt"}]
+                },
+                {
+                    "type": "localisation", "id": "focus_only_desc", "status": "confirmed",
+                    "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt"}]
+                }
+            ]
+        }
+        audit.classify_confirmed_external_event_localisation(event_report, dependency_report)
+        self.assertEqual(event_report["missing_localisation"], [])
+        self.assertEqual(
+            [item["key"] for item in event_report["missing_option_localisation"]],
+            ["israel_missing.1.a"]
+        )
+        self.assertEqual(
+            [item["key"] for item in event_report["confirmed_external_localisation"]],
+            ["sov_nationalists.20.d", "israel_economy.38.b"]
+        )
+        self.assertNotIn("confirmed_external_localisation", audit.ERRORS)
+
     def test_confirmed_external_focus_localisation_resolves_only_exact_focus_keys(self):
         results = {
             "ENG": {

@@ -97,6 +97,9 @@ limits: "Historical statistics are from the 2026-10-30 sample; repeated or gener
 
 ### Проверки локализации
 
+Точный ключ из pinned base MD может служить внешним fallback для event title/desc/option только при `status = confirmed` в реестре и TDF `where_used` внутри `mdredux/events/`. Auditor переносит такие ключи из `missing_localisation` / `missing_option_localisation` в `confirmed_external_localisation`; ключи со статусами `unknown`, `assumption`, незарегистрированные ключи и подтверждения из других типов файлов остаются unresolved. Это подтверждает существование английского ключа, но не фактический load order или соответствие текста текущему событию.
+
+
 - Для каждого явно заданного title и desc проверяется наличие ключа в доступных английских .yml внутри текущего checkout.
 - Для option = { name = ... } проверяется ключ name. Проверка generic/длинных подписей выполняется по всем event-файлам, независимо от совпадения имени event-файла с focus tree.
 - Если log заканчивается на стандартный диагностический формат `<option-key> executed`, аудитор сверяет ключ с `option.name`. Несовпадение — только WARN-кандидат с путями/строками; произвольные log-тексты не разбираются и exit code не меняется.

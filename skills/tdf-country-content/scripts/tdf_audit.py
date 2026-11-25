@@ -2333,6 +2333,34 @@ def classify_confirmed_external_focus_localisation(results, external_dependency_
 
 
 
+def classify_confirmed_external_event_localisation(event_report, external_dependency_report):
+    """Move only exact, registry-confirmed base event localisation keys out of local missing-key errors."""
+    confirmed_keys = {
+        item.get("id")
+        for item in external_dependency_report.get("findings", [])
+        if item.get("type") == "localisation"
+        and item.get("status") == "confirmed"
+        and any(
+            reference.get("repository") == "TDF"
+            and "/events/" in (reference.get("path") or "").replace("\\", "/")
+            for reference in item.get("references", [])
+        )
+    }
+    resolved = []
+    for field in ("missing_localisation", "missing_option_localisation"):
+        for item in list(event_report.get(field, [])):
+            key = item.get("key")
+            if key in confirmed_keys:
+                event_report[field].remove(item)
+                resolved.append({
+                    **item,
+                    "resolution": "confirmed_external_event_localisation",
+                })
+    event_report["confirmed_external_localisation"] = resolved
+    return event_report
+
+
+
 def _state_flow_source_kind(path: Path, mod: Path) -> str:
     try:
         parts = path.relative_to(mod).parts
@@ -4004,6 +4032,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             args.repo, event_report, decision_report, idea_report, industry_report, state_flow_report
         )
         classify_confirmed_external_event_references(event_report, external_dependency_report)
+        classify_confirmed_external_event_localisation(event_report, external_dependency_report)
         if args.require_external_registry and not external_dependency_report.get("registry_available"):
             raise AuditInputError(
                 "обязательный реестр внешних зависимостей не найден: {}".format(

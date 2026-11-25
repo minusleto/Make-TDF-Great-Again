@@ -1183,6 +1183,126 @@
         }
       ],
       "notes": "Exact English title key verified in the pinned MD base replace localisation. This confirms key existence only, not whether the NSB replacement text is appropriate for TDF or whether the target mod stack loads this exact baseline."
+    },
+    {
+      "type": "localisation",
+      "id": "israel_economy.38.b",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_ISR_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Israel.txt",
+          "line": 3440,
+          "usage": "Event field references israel_economy.38.b; the exact key is absent from local TDF English event localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream English localisation key",
+          "path": "localisation/english/MD_focus_ISR_l_english.yml",
+          "line": 1279,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ISR_l_english.yml#L1279"
+        }
+      ],
+      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "israel_likud.26.a",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_ISR_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Israel.txt",
+          "line": 22507,
+          "usage": "Event field references israel_likud.26.a; the exact key is absent from local TDF English event localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream English localisation key",
+          "path": "localisation/english/MD_focus_ISR_l_english.yml",
+          "line": 4374,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ISR_l_english.yml#L4374"
+        }
+      ],
+      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "israel_news.8.o6",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_ISR_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Israel.txt",
+          "line": 21336,
+          "usage": "Event field references israel_news.8.o6; the exact key is absent from local TDF English event localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream English localisation key",
+          "path": "localisation/english/MD_focus_ISR_l_english.yml",
+          "line": 2035,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ISR_l_english.yml#L2035"
+        }
+      ],
+      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "sov_nationalists.20.d",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_SOV_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 7460,
+          "usage": "Event field references sov_nationalists.20.d; the exact key is absent from local TDF English event localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream English localisation key",
+          "path": "localisation/english/MD_focus_SOV_l_english.yml",
+          "line": 1818,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml#L1818"
+        }
+      ],
+      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "sov_nationalists.21.d",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned English localisation in localisation/english/MD_focus_SOV_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 7483,
+          "usage": "Event field references sov_nationalists.21.d; the exact key is absent from local TDF English event localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream English localisation key",
+          "path": "localisation/english/MD_focus_SOV_l_english.yml",
+          "line": 1821,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_SOV_l_english.yml#L1821"
+        }
+      ],
+      "notes": "The exact English key is present in the pinned MD baseline. This confirms availability of the key only; the upstream wording's suitability for this TDF event and actual target load order remain separate checks."
     }
   ]
 }
