@@ -1488,6 +1488,51 @@ KAZ_test_category = {
             self.assertTrue(report["registry_available"])
 
 
+    def test_confirmed_external_focus_localisation_resolves_only_exact_focus_keys(self):
+        results = {
+            "ENG": {
+                "title_missing": ["ENG_title_from_base", "ENG_title_unknown"],
+                "desc_missing": ["ENG_desc_from_base", "ENG_desc_assumption"],
+            },
+            "GEO": {
+                "title_missing": [],
+                "desc_missing": ["GEO_desc_from_event_only"],
+            },
+        }
+        dependency_report = {
+            "findings": [
+                {
+                    "type": "localisation", "id": "ENG_title_from_base", "status": "confirmed",
+                    "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt"}]
+                },
+                {
+                    "type": "localisation", "id": "ENG_desc_from_base_desc", "status": "confirmed",
+                    "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt"}]
+                },
+                {
+                    "type": "localisation", "id": "ENG_title_unknown", "status": "unknown",
+                    "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt"}]
+                },
+                {
+                    "type": "localisation", "id": "ENG_desc_assumption_desc", "status": "assumption",
+                    "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt"}]
+                },
+                {
+                    "type": "localisation", "id": "GEO_desc_from_event_only_desc", "status": "confirmed",
+                    "references": [{"repository": "TDF", "path": "mdredux/events/Georgia.txt"}]
+                }
+            ]
+        }
+        audit.classify_confirmed_external_focus_localisation(results, dependency_report)
+        self.assertEqual(results["ENG"]["title_missing"], ["ENG_title_unknown"])
+        self.assertEqual(results["ENG"]["desc_missing"], ["ENG_desc_assumption"])
+        self.assertEqual(results["GEO"]["desc_missing"], ["GEO_desc_from_event_only"])
+        self.assertEqual(
+            [item["key"] for item in results["ENG"]["confirmed_external_localisation"]],
+            ["ENG_title_from_base", "ENG_desc_from_base_desc"]
+        )
+        self.assertNotIn("confirmed_external_localisation", audit.ERRORS)
+
     def test_confirmed_external_events_resolve_only_exact_local_namespace_gaps(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

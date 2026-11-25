@@ -967,6 +967,198 @@
         }
       ],
       "notes": "No exact definition found in the pinned MD Syria event file or current-main code search. Keep unknown rather than asserting the ID is absent from all enabled packages."
+    },
+    {
+      "type": "localisation",
+      "id": "ENG_digital_government_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt",
+          "line": 7833,
+          "usage": "ENG_digital_government focus requires ENG_digital_government_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_ENG_l_english.yml",
+          "line": 313,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L313"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "ENG_northern_powerhouse_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt",
+          "line": 12978,
+          "usage": "ENG_northern_powerhouse focus requires ENG_northern_powerhouse_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_ENG_l_english.yml",
+          "line": 348,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L348"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "ENG_strategic_defence_review_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt",
+          "line": 20001,
+          "usage": "ENG_strategic_defence_review focus requires ENG_strategic_defence_review_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_ENG_l_english.yml",
+          "line": 40,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L40"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "ENG_watchkeeper_wk450_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt",
+          "line": 21812,
+          "usage": "ENG_watchkeeper_wk450 focus requires ENG_watchkeeper_wk450_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_ENG_l_english.yml",
+          "line": 178,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L178"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "ENG_operation_barras_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ENG_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt",
+          "line": 25598,
+          "usage": "ENG_operation_barras focus requires ENG_operation_barras_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_ENG_l_english.yml",
+          "line": 785,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ENG_l_english.yml#L785"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "ARM_new_unif_proj_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_ARM_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Armenia_Focus_Tree.txt",
+          "line": 9346,
+          "usage": "ARM_new_unif_proj focus requires ARM_new_unif_proj_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_ARM_l_english.yml",
+          "line": 764,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_ARM_l_english.yml#L764"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "BLR_Communism_start_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_BLR_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Belarus_Focus_Tree.txt",
+          "line": 6971,
+          "usage": "BLR_Communism_start focus requires BLR_Communism_start_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_BLR_l_english.yml",
+          "line": 146,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_BLR_l_english.yml#L146"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "BLR_five_year_plan_desc",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/MD_focus_BLR_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Belarus_Focus_Tree.txt",
+          "line": 7180,
+          "usage": "BLR_five_year_plan focus requires BLR_five_year_plan_desc; exact key is not in the local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream focus description key",
+          "path": "localisation/english/MD_focus_BLR_l_english.yml",
+          "line": 187,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/MD_focus_BLR_l_english.yml#L187"
+        }
+      ],
+      "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
     }
   ]
 }

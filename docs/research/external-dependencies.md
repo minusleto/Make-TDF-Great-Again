@@ -30,6 +30,8 @@ Shared TDF definitions тоже могут быть приведены как п
 
 ## Поддержка реестра
 
+Подтверждённые focus title/desc keys учитываются по тому же точному правилу, но только когда `where_used` указывает на TDF `common/national_focus/`. Совпадение с event/MIO localisation или ключ со статусом `unknown`/`assumption` не снимает `title_missing` или `desc_missing`. Это подтверждает наличие ключа в базовом MD, а не пригодность текста или фактическую загрузку baseline.
+
 Реестр также учитывает event ID, на которые ссылается локально объявленный namespace, но точное определение которых находится в pinned base MD. Только точное совпадение `type = event` + `status = confirmed` переводит такой вызов из `unresolved_references` в `confirmed_external_references`; `unknown`, `assumption` и незарегистрированные ID остаются unresolved. Подтверждение определения не подтверждает title/desc/option localisation, scope, получателя или runtime-достижимость.
 
 1. Для `confirmed` открывай defining file, а не просто usage, и сохраняй permalink с commit SHA и строкой. Если определение уже bundled в TDF, фиксируй его как локальную shared dependency.

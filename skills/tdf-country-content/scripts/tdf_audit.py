@@ -2303,6 +2303,36 @@ def classify_confirmed_external_event_references(event_report, external_dependen
     return event_report
 
 
+def classify_confirmed_external_focus_localisation(results, external_dependency_report):
+    """Move only exact, registry-confirmed base focus localisation keys out of local missing-key errors."""
+    confirmed_keys = {
+        item.get("id")
+        for item in external_dependency_report.get("findings", [])
+        if item.get("type") == "localisation"
+        and item.get("status") == "confirmed"
+        and any(
+            reference.get("repository") == "TDF"
+            and "/common/national_focus/" in (reference.get("path") or "").replace("\\", "/")
+            for reference in item.get("references", [])
+        )
+    }
+    for tag, result in results.items():
+        resolved = []
+        for field, suffix in (("title_missing", ""), ("desc_missing", "_desc")):
+            for focus_id in list(result.get(field, [])):
+                key = focus_id + suffix
+                if key in confirmed_keys:
+                    result[field].remove(focus_id)
+                    resolved.append({
+                        "tag": tag, "focus_id": focus_id, "key": key,
+                        "field": "title" if field == "title_missing" else "desc",
+                        "resolution": "confirmed_external_focus_localisation",
+                    })
+        result["confirmed_external_localisation"] = resolved
+    return results
+
+
+
 def _state_flow_source_kind(path: Path, mod: Path) -> str:
     try:
         parts = path.relative_to(mod).parts
@@ -3991,6 +4021,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                                defined_namespaces, event_parsed, content_indexes)
             for tag in wanted
         }
+        classify_confirmed_external_focus_localisation(results, external_dependency_report)
         branch_connectivity_report = build_branch_connectivity_audit(
             countries, event_report, idea_report, industry_report, state_flow_report,
             event_parsed, content_indexes, loc_index, tags=wanted,
