@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_reviewed": "2026-11-24",
+  "last_reviewed": "2026-11-25",
   "baseline": {
     "name": "Millennium Dawn",
     "repository": "https://github.com/MillenniumDawn/Millennium-Dawn",
@@ -585,6 +585,109 @@
         }
       ],
       "notes": "The focus calls this ID, but no definition was found in the TDF Georgia event file or the pinned Millennium Dawn 04b2ba1 Georgia event file. Keep status unknown because another installed module or a different base-MD revision may still supply it; the available evidence makes it a high-priority missing-event candidate."
+    },
+    {
+      "type": "event",
+      "id": "mdc4.16",
+      "status": "unknown",
+      "expected_source": "Unknown external package / compatibility layer; not located in official Millennium Dawn current-main code search",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Kazakhstan.txt",
+          "line": 51,
+          "usage": "kaz_cas.1 decline response; representative CAS call"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Kazakhstan.txt",
+          "line": 3212,
+          "usage": "kaz_army.1 decline response; representative Army call"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Kazakhstan.txt",
+          "line": 7456,
+          "usage": "kaz_foreign.85 decline response; representative Diplomacy/foreign-cooperation call"
+        }
+      ],
+      "verification": [],
+      "notes": "51 local calls in the current KAZ branch set: 15 from kaz_army events, 16 from kaz_cas events and 20 from kaz_foreign events. Additional search performed on 2026-11-25 against official Millennium Dawn current main (HEAD 8ba03bedb15352d25b142ef2d4c945bbc50b4ca4): no exact code definition was returned. The identifier remains unknown, not disproven; check the user's actual enabled mod stack and load order.",
+      "namespace": "mdc4"
+    },
+    {
+      "type": "event",
+      "id": "mdc4.13",
+      "status": "unknown",
+      "expected_source": "Unknown external package / compatibility layer; not located in official Millennium Dawn current-main code search",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt",
+          "line": 12938,
+          "usage": "KAZ_rapprochement_nato focus completion reward; Diplomacy"
+        }
+      ],
+      "verification": [],
+      "notes": "Additional search performed on 2026-11-25 against official Millennium Dawn current main (HEAD 8ba03bedb15352d25b142ef2d4c945bbc50b4ca4): no exact code definition was returned. The identifier remains unknown, not disproven; check the user's actual enabled mod stack and load order.",
+      "namespace": "mdc4"
+    },
+    {
+      "type": "event",
+      "id": "hungary_economy.4",
+      "status": "unknown",
+      "expected_source": "Unknown Hungary economy event package; not located in official Millennium Dawn current-main code search",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Kazakhstan_Focus_Tree.txt",
+          "line": 1503,
+          "usage": "KAZ_subsidies_from_IMF focus completion reward; out of current Army/Diplomacy/CAS scope"
+        }
+      ],
+      "verification": [],
+      "notes": "Single reference from the IMF subsidy economy focus. This call is outside the currently active branch scope. Additional search performed on 2026-11-25 against official Millennium Dawn current main (HEAD 8ba03bedb15352d25b142ef2d4c945bbc50b4ca4): no exact code definition was returned. The identifier remains unknown, not disproven; check the user's actual enabled mod stack and load order.",
+      "namespace": "hungary_economy"
+    },
+    {
+      "type": "event",
+      "id": "diplomatic_response.1",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn base generic diplomatic response event",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Kazakhstan.txt",
+          "line": 4372,
+          "usage": "KAZ_alash.5 response call"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Kazakhstan.txt",
+          "line": 4501,
+          "usage": "KAZ_alash.8 response call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Diplomatic_Response.txt",
+          "line": 6,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Diplomatic_Response.txt#L6"
+        },
+        {
+          "kind": "English localisation",
+          "path": "localisation/english/events_l_english.yml",
+          "line": 1624,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/events_l_english.yml#L1624"
+        }
+      ],
+      "notes": "Confirmed in the pinned official Millennium Dawn baseline: event definition and English title/description/option key. This shared event is a valid external dependency, not a local missing-event candidate.",
+      "namespace": "diplomatic_response"
     }
   ]
 }
