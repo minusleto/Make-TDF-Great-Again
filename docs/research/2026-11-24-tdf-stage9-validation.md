@@ -287,3 +287,14 @@ Auditor output now exposes `category_metadata` and `category_has_allowed` alongs
 - Прямые противоположные атомарные предикаты между visible и available: 0.
 
 Страновые игровые файлы не изменялись. Содержательная проверка конкретных оставшихся кандидатов, технологических unlocks и runtime на полной сборке остаётся открытой.
+
+
+### Equipment technology unlock index — 25.11.2026
+
+Коммит [80f6624](https://github.com/minusleto/Make-TDF-Great-Again/commit/80f6624ed765eba4bcce136532ba6c1f182def28), workflow [45616388016](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45616388016): аудитор читает прямые unlock-поля `enable_equipments` и `enable_equipment_modules` в локальных technology definitions и связывает найденные технологии с `create_equipment_variant.type` и каждым module slot.
+
+- В локальных technology files найдено **1,181** direct equipment/module unlock references.
+- Из **381** equipment variants у **323** есть хотя бы один локальный unlock для типа техники; у **58** локального type unlock в текущем TDF slice не найдено.
+- **7** вариантов содержат `allow_without_tech = yes`; все 7 имеют локально найденную технологию для своего type.
+- Это не доказывает полную доступность варианта: индекс не разворачивает всю цепочку prerequisites/AND/XOR, внешние MD/vanilla/DLC definitions, dynamic triggers и реальные правила версии движка. Отсутствие локального mapping остаётся dependency/runtime candidate, а не ERROR.
+- Unit suite прошёл **61/61**; полный audit job успешен. Остальные 12 country jobs workflow на момент записи ещё выполняются. Страновые файлы не менялись.
