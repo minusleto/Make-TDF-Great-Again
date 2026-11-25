@@ -86,7 +86,7 @@
  ARAL_STATUS_RECOVERY:0 "§GВосстановление§!"
  ARAL_STATUS_CRITICAL:0 "§RСокращается§!"
  ARAL_GUI_LEVEL:0 "Уровень воды: §Y[?aral_sea_level|1] м§!"
- ARAL_GUI_PERCENT:0 "Выше естественного уровня: §Y+[?aral_gain|1] м§!"
+ ARAL_GUI_PERCENT:0 "Выше нормы: §Y+[?aral_gain|1] м§!"
  ARAL_GUI_STATUS:0 "Статус моря: [ROOT.GetAralStatus]"
  ARAL_GUI_ZERO:0 "40 м"
  ARAL_GUI_FULL:0 "50 м"

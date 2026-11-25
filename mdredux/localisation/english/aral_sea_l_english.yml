@@ -86,7 +86,7 @@
  ARAL_STATUS_RECOVERY:0 "§GRecovering§!"
  ARAL_STATUS_CRITICAL:0 "§RShrinking§!"
  ARAL_GUI_LEVEL:0 "Water level: §Y[?aral_sea_level|1] m§!"
- ARAL_GUI_PERCENT:0 "Above the natural level: §Y+[?aral_gain|1] m§!"
+ ARAL_GUI_PERCENT:0 "Above baseline: §Y+[?aral_gain|1] m§!"
  ARAL_GUI_STATUS:0 "Sea status: [ROOT.GetAralStatus]"
  ARAL_GUI_ZERO:0 "40 m"
  ARAL_GUI_FULL:0 "50 m"

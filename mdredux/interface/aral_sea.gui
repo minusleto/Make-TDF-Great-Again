@@ -772,7 +772,7 @@ guiTypes = {
 			position = { x = -202 y = 303 }
 			maxWidth = 60
 			maxHeight = 18
-			font = "hoi_14mbs"
+			font = "hoi_18mbs"
 			text = "ARAL_GUI_MIN"
 			format = left
 		}
@@ -782,7 +782,7 @@ guiTypes = {
 			position = { x = -138 y = 303 }
 			maxWidth = 60
 			maxHeight = 18
-			font = "hoi_14mbs"
+			font = "hoi_18mbs"
 			text = "ARAL_GUI_ZERO"
 			format = centre
 		}
@@ -792,7 +792,7 @@ guiTypes = {
 			position = { x = 142 y = 303 }
 			maxWidth = 60
 			maxHeight = 18
-			font = "hoi_14mbs"
+			font = "hoi_18mbs"
 			text = "ARAL_GUI_FULL"
 			format = right
 		}
