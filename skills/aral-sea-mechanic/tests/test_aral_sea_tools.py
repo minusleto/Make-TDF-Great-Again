@@ -56,6 +56,32 @@ class AralSimulatorTests(unittest.TestCase):
         self.assertEqual(constants["treasury0"], 0.5)
         self.assertTrue(decisions)
 
+    def test_parser_reads_state_scoped_penalties_and_regional_event_chain(self):
+        constants, _ = simulator.parse(str(ROOT / "mdredux"))
+        self.assertEqual(constants["state_weights"], [
+            (717, 1.0), (1224, 0.5), (1231, 0.5),
+            (1226, 0.5), (1230, 0.25), (718, 0.25),
+        ])
+        self.assertEqual(constants["state_mods"], {
+            "aral_s_prod": -0.001,
+            "aral_s_slots": -0.0006,
+            "aral_s_recruit": -0.001,
+        })
+        self.assertAlmostEqual(constants["regional_warning_threshold"], 69.99)
+        self.assertEqual(constants["regional_warning_delay"], 14)
+        self.assertEqual(constants["regional_neglect_days"], 730)
+        self.assertEqual(constants["regional_followup_days"], 540)
+        self.assertAlmostEqual(constants["regional_monitor_cost"], 0.05)
+        self.assertEqual(constants["regional_monitor_pp"], 25)
+        self.assertAlmostEqual(constants["regional_response_cost"], 0.10)
+        self.assertEqual(constants["regional_response_pp"], 50)
+        self.assertEqual(constants["regional_spirits"]["neglect"], {
+            "stability_factor": -0.02, "political_power_factor": -0.03,
+        })
+        self.assertEqual(constants["regional_spirits"]["crisis"], {
+            "stability_factor": -0.04, "political_power_factor": -0.05,
+        })
+
 
     def test_script_readers_close_files(self):
         with tempfile.TemporaryDirectory() as temp:

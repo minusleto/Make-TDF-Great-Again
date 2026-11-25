@@ -53,7 +53,9 @@ def parse(root, treasury0=0.245):
     eff = nc(rd(os.path.join(root, "common/scripted_effects/aral_sea_effects.txt")))
     dec = nc(rd(os.path.join(root, "common/decisions/aral_sea_decisions.txt")))
     evt = nc(rd(os.path.join(root, "events/aral_sea_events.txt")))
+    dyn = nc(rd(os.path.join(root, "common/dynamic_modifiers/aral_sea_modifiers.txt")))
     upd, drift, tick = sect(eff, "update_aral_sea"), sect(eff, "aral_calc_drift"), sect(eff, "aral_monthly_tick")
+    state_upd, states = sect(eff, "aral_state_update"), sect(eff, "aral_update_states")
     C = {}
     m = re.search(r"var = aral_sea_restoration min = (-?[\d.]+) max = (\S+)", upd)
     C["r_min"] = fl(m.group(1))
@@ -65,7 +67,27 @@ def parse(root, treasury0=0.245):
     C["deficit_base"] = fl(re.search(r"aral_deficit = ([\d.]+) \}", upd).group(1))
     C["level_k"] = fl(re.search(r"multiply_variable = \{ aral_sea_level = ([\d.]+)", upd).group(1))
     C["level_0"] = fl(re.search(r"add_to_variable = \{ aral_sea_level = ([\d.]+)", upd).group(1))
-    C["mods"] = {k: fl(v) for k, v in re.findall(r"multiply_variable = \{ (aral_mod_\w+) = (-?[\d.]+) \}", upd)}
+    C["state_mods"] = {k: fl(v) for k, v in re.findall(r"multiply_variable = \{ (aral_s_(?:prod|slots|recruit)) = (-?[\d.]+) \}", state_upd)}
+    C["state_weights"] = [(int(state), fl(weight)) for state, weight in re.findall(r"(?m)^\s*(\d+)\s*=\s*\{\s*set_variable\s*=\s*\{\s*aral_w\s*=\s*([\d.]+)", states)]
+    C["regional_warning_threshold"] = fl(re.search(r"aral_deficit > ([\d.]+)", tick).group(1))
+    C["regional_warning_delay"] = int(re.search(r"id = aral_sea\.10 days = (\d+)", tick).group(1))
+    C["regional_neglect_days"] = int(re.search(r"aral_regional_neglect_modifier days = (\d+)", evt).group(1))
+    C["regional_followup_days"] = int(re.search(r"id = aral_sea\.11 days = (\d+)", evt).group(1))
+    e10pos = evt.index("id = aral_sea.10")
+    e11pos = evt.index("id = aral_sea.11")
+    e10, e11 = evt[e10pos:e11pos], evt[e11pos:]
+    C["regional_monitor_cost"] = abs(fl(re.search(r"treasury_change = (-?[\d.]+)", e10).group(1)))
+    C["regional_monitor_pp"] = int(re.search(r"add_political_power = -(\d+)", e10).group(1))
+    C["regional_response_cost"] = abs(fl(re.search(r"treasury_change = (-?[\d.]+)", e11).group(1)))
+    C["regional_response_pp"] = int(re.search(r"add_political_power = -(\d+)", e11).group(1))
+    def spirit_value(body, key):
+        return fl(re.search(r"(?m)^\s*" + re.escape(key) + r"\s*=\s*(-?[\d.]+)", body).group(1))
+    neglect = sect(dyn, "aral_regional_neglect_modifier")
+    crisis = sect(dyn, "aral_regional_crisis_modifier")
+    C["regional_spirits"] = {
+        "neglect": {k: spirit_value(neglect, k) for k in ("stability_factor", "political_power_factor")},
+        "crisis": {k: spirit_value(crisis, k) for k in ("stability_factor", "political_power_factor")},
+    }
     C["drift0"] = fl(re.search(r"set_variable = \{ aral_drift = (-?[\d.]+) \}", drift).group(1))
     C["drift_adj"] = {f: fl(v) for f, v in re.findall(r"has_country_flag = aral_(\w+)_done \} add_to_variable = \{ aral_drift = (-?[\d.]+)", drift)}
     C["fill_rate"] = fl(re.search(r"multiply_variable = \{ aral_fill = ([\d.]+)", drift).group(1))
@@ -318,7 +340,21 @@ def main():
     print("fill %.0f%% of pending per month (min %.1f); yearly river: dry %.0f%%, wet %.0f%% (+%g); dike washed out %.0f%%/month (the sea falls back to the natural level)" % (C["fill_rate"] * 100, C["fill_min"], C["p_dry"] * 100, C["p_wet"] * 100, C["wet_pts"], C["p_dike"] * 100))
     print("crest cap: %s (restoration, 1 point = 1 dm); dry year costs %g %s or pay %.2f bn + %g PP; start treasury %.3f bn" % (
         ", ".join("%s %g" % (f, v) for f, v in [("open", C["cap0"])] + C["caps"]), C["dry_base"], C["dry_adj"], C["dry_buy"], C["dry_pp"], C["treasury0"]))
-    print("modifier coefficients per 1 deficit:", C["mods"])
+    print("local state-modifier coefficients per 1 deficit before state weight:", C["state_mods"])
+    print("\n# Local state penalties at selected deficits")
+    for deficit in (100, 60, 30, 20, 0):
+        print("deficit %3d:" % deficit)
+        for state, weight in C["state_weights"]:
+            vals = [C["state_mods"][key] * deficit * weight * 100 for key in ("aral_s_prod", "aral_s_slots", "aral_s_recruit")]
+            print("  state %4d (x%.2f): productivity %+.1f%%, building slots %+.1f%%, recruitable population %+.1f%%" % (state, weight, *vals))
+    n = C["regional_spirits"]["neglect"]
+    c = C["regional_spirits"]["crisis"]
+    print("\n# Regional coordination events (not nationwide ecological damage)")
+    print("warning: deficit > %.2f; annual check then event delay %d days" % (C["regional_warning_threshold"], C["regional_warning_delay"]))
+    print("monitoring: %.2f bn + %d PP; postponement: %d-day spirit (stability %+.1f%%, PP gain %+.1f%%); follow-up after %d days" % (
+        C["regional_monitor_cost"], C["regional_monitor_pp"], C["regional_neglect_days"], n["stability_factor"] * 100, n["political_power_factor"] * 100, C["regional_followup_days"]))
+    print("second response: %.2f bn + %d PP; continued inaction: permanent spirit (stability %+.1f%%, PP gain %+.1f%%)" % (
+        C["regional_response_cost"], C["regional_response_pp"], c["stability_factor"] * 100, c["political_power_factor"] * 100))
     print("\n# Projects (parsed)")
     print("%-11s %5s %4s %5s %5s %6s %6s  needs / gate / excl" % ("decision", "days", "PP", "tre", "debt", "water", "relief"))
     for n, d in D.items():
@@ -380,10 +416,6 @@ def main():
                 inc, tech, by(2015), by(2025), by(2035), dt(start, statistics.median(got)) if got else "never",
                 statistics.mean(x["sib"]["attempts"] for x in rs), statistics.mean(x["sib"]["raises"] for x in rs), statistics.mean(x["sib"]["cuts"] for x in rs),
                 statistics.mean(x["sib"]["fee"] for x in rs), statistics.mean(x["sib"]["spent"] for x in rs)))
-    print("\n# Penalty at selected deficits (country level)")
-    for deficit in (100, 60, 30, 20, 0):
-        print("deficit %3d: " % deficit + ", ".join("%s %+.1f%%" % (k.replace("aral_mod_", ""), c * deficit * 100) for k, c in C["mods"].items()))
-
 
 if __name__ == "__main__":
     main()
