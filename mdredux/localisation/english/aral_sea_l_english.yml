@@ -115,6 +115,7 @@
  ARAL_TREND_FLAT:0 "§Y0.000 m§!"
  aral_dry_tt:0 "Regulated flow: a dry year takes §G1 dm§! less water from the sea"
  ARAL_TICK_46:0 "§Y46 m§!: the second dam, the limit of the old plans. The sea of 1960 stood at 53 m, off this scale"
+ aral_req_coast_tt:0 "Kazakhstan must own the §YKyzylorda region§! (the Aral coast)"
  aral_req_level:0 "Water level is at least §Y41.5 m§!"
  ARAL_TICK_415:0 "§Y41.5 m§!: the Fisheries, Phase II and the Second Dam need the sea at least this high"
  aral_kokaral_crest_tt:0 "The dam crest sets the highest level of the sea: §Y42 m§!"

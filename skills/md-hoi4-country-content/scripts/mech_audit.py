@@ -126,8 +126,10 @@ def aral_ownership_issues(decisions, effects, code_all):
             issues.append(("decision " + decision, "the correct Aral focus-group gate must be present in available"))
         if re.search(r"aral_unlocked_(?:program|syrdarya|agri|green|phase2|diplomacy)\s*=\s*yes", visible):
             issues.append(("decision " + decision, "focus-group gates must not hide the decision; put the gate in available"))
-        if re.search(r"\b(?:owns_state|controls_state)\s*=\s*717\b", available):
-            issues.append(("decision " + decision, "available must not depend on ownership or control of state 717"))
+        if not re.search(r"\bowns_state\s*=\s*717\b", available):
+            issues.append(("decision " + decision, "available must require owns_state = 717"))
+        if re.search(r"\bcontrols_state\s*=\s*717\b", available):
+            issues.append(("decision " + decision, "use owns_state = 717, not controls_state = 717"))
 
     required_focuses = {
         "aral_unlocked_program": "KAZ_economy",

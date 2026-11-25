@@ -138,6 +138,7 @@ custom_cost_text = aral_test_cost
 visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = {
   custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
+  custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 }
 fire_only_once = yes
 """
@@ -158,10 +159,10 @@ on_monthly = {
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
-    def test_aral_projects_are_owner_independent_and_not_cancelled_on_coast_loss(self):
+    def test_aral_projects_require_coast_for_start_but_are_not_cancelled_mid_timer(self):
         decisions = {
             "aral_ifas": """
-available = { aral_unlocked_program = yes }
+available = { aral_unlocked_program = yes owns_state = 717 }
 fire_only_once = yes
 days_remove = 120
 complete_effect = { set_temp_variable = { treasury_change = -0.05 } modify_treasury_effect = yes }
@@ -179,12 +180,12 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
-        gated = decisions["aral_ifas"].replace(
-            "available = { aral_unlocked_program = yes }",
+        missing_coast = decisions["aral_ifas"].replace(
             "available = { aral_unlocked_program = yes owns_state = 717 }",
+            "available = { aral_unlocked_program = yes }",
         )
-        issues = audit.aral_ownership_issues({"aral_ifas": gated}, effects, code)
-        self.assertTrue(any("must not depend on ownership" in issue[1] for issue in issues))
+        issues = audit.aral_ownership_issues({"aral_ifas": missing_coast}, effects, code)
+        self.assertTrue(any("available must require owns_state = 717" in issue[1] for issue in issues))
 
         cancellable = decisions["aral_ifas"] + "\ncancel_trigger = { NOT = { owns_state = 717 } }\ncancel_effect = {}\n"
         issues = audit.aral_ownership_issues({"aral_ifas": cancellable}, effects, code)
@@ -198,7 +199,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
-available = { aral_unlocked_program = yes }
+available = { aral_unlocked_program = yes owns_state = 717 }
 complete_effect = {
   hidden_effect = {
     modify_treasury_effect = yes
@@ -225,7 +226,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
-available = { aral_unlocked_program = yes }
+available = { aral_unlocked_program = yes owns_state = 717 }
 fire_only_once = yes
 """
         }
@@ -250,7 +251,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
     def test_monthly_tick_effect_itself_requires_ownership(self):
         decisions = {
             "aral_ifas": """
-available = { aral_unlocked_program = yes }
+available = { aral_unlocked_program = yes owns_state = 717 }
 fire_only_once = yes
 """
         }
