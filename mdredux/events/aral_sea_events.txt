@@ -162,6 +162,9 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = aral_sea.9.a
+		trigger = {
+			check_variable = { aral_sib_fee > -0.10001 }
+		}
 		ai_chance = { base = 3 }
 		custom_effect_tooltip = aral_sea.9.a_tt
 		multiply_variable = { aral_sib_fee = 1.5 }

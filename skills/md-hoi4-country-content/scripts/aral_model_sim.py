@@ -91,6 +91,8 @@ def parse(root):
          "dead_days": int(re.search(r"aral_sib_dead days = (\d+)", e8).group(1)),
          "mult": fl(re.search(r"multiply_variable = \{ aral_sib_fee = ([\d.]+) \}", e9).group(1)),
          "cut_days": int(re.search(r"aral_sib_cut days = (\d+)", e9).group(1))}
+    S["fee_current_limit"] = parse_siberian_fee_current_limit(e9)
+    S["fee_cap"] = S["fee_current_limit"] * S["mult"]
     for v in ("canal", "pipe"):
         blk = re.search(r"has_country_flag = aral_sib_%s_done NOT = \{ has_country_flag = aral_sib_cut \} \}\s*set_temp_variable = \{ treasury_change = aral_sib_fee \}[\s\S]*?(\d+) = \{ country_event = \{ id = aral_sea\.9" % v, tick)
         dry = re.search(r"aral_sib_%s_done NOT = \{ has_country_flag = aral_sib_cut \} \} subtract_from_variable = \{ aral_dry_loss = (\d+)" % v, upd)
@@ -237,7 +239,7 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
             if on:
                 tre -= fee_now; spent_t += fee_now; sibs["spent"] += fee_now
                 if rng.random() < S[sib]["p_lev"]:  # Russia reopens the price: the player accepts while the fee stays under 0.15 bn a year
-                    if fee_now * S["mult"] <= 0.15:
+                    if fee_now > -S["fee_current_limit"]:
                         fee_now *= S["mult"]; sibs["raises"] += 1
                     else:
                         cut_until = day + S["cut_days"]; sibs["cuts"] += 1
@@ -278,6 +280,20 @@ def dt(start, m):
 def pct(v, q):
     v = sorted(v)
     return v[min(len(v) - 1, int(q * len(v)))]
+
+
+def parse_siberian_fee_current_limit(event_text):
+    """Read the maximum current (negative) annual fee that allows a +50% price rise."""
+    match = re.search(
+        r"option\s*=\s*\{\s*name\s*=\s*aral_sea\.9\.a[\s\S]*?aral_sib_fee\s*>\s*(-?[\d.]+)",
+        event_text,
+    )
+    if not match:
+        raise ValueError("Siberian price-acceptance limit missing from aral_sea.9.a")
+    limit = abs(float(match.group(1)))
+    if limit <= 0:
+        raise ValueError("Siberian price-acceptance limit must be positive")
+    return limit
 
 
 def main():
@@ -352,6 +368,7 @@ def main():
     S = C["sib"]
     w = S["w"]; tot = sum(w.values())
     print("Russia studies the request: %d%% (never in war); verdict: feasible %d%%, more studies %d%% (+%d days), shelved %d%% (closed %d days)" % (S["accept"], 100 * w["6"] / tot, 100 * w["7"] / tot, S["stall_days"], 100 * w["8"] / tot, S["dead_days"]))
+    print("Price review: +50%% is accepted only while the next annual fee stays at or below %.3f bn; otherwise supply is cut for %d days" % (S["fee_cap"], S["cut_days"]))
     print("%-7s %-6s | %-22s | %-9s | %-9s | %s" % ("income", "tech", "online by 2015/2025/2035", "median", "requests", "fee rises / supplies cut / yearly fee at the end bn / Siberian spend bn"))
     for inc in ([a.income] if a.income is not None else [0.02, 0.05, 0.1]):
         for tech in ("canal", "pipe"):

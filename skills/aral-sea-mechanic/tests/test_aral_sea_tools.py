@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 GENERATOR_PATH = Path(__file__).resolve().parents[1] / "scripts" / "generate_cost_localisation.py"
 AUDIT_PATH = ROOT / "skills" / "md-hoi4-country-content" / "scripts" / "mech_audit.py"
+SIMULATOR_PATH = ROOT / "skills" / "md-hoi4-country-content" / "scripts" / "aral_model_sim.py"
 
 
 def load_module(name, path):
@@ -18,6 +19,7 @@ def load_module(name, path):
 
 generator = load_module("aral_cost_generator", GENERATOR_PATH)
 audit = load_module("aral_mech_audit", AUDIT_PATH)
+simulator = load_module("aral_sea_simulator", SIMULATOR_PATH)
 
 FOCUS_TRIGGER_SOURCE = """
 aral_unlocked_program = { has_completed_focus = KAZ_economy }
@@ -84,6 +86,26 @@ KAZ_aral_sea_category = {
         )
         with self.assertRaisesRegex(ValueError, "missing full cost tooltip"):
             generator.generate_entries(self.decisions, broken)
+
+
+class SiberianPriceReviewTests(unittest.TestCase):
+    def test_simulator_reads_the_same_acceptance_gate_as_the_game_event(self):
+        event = """
+option = {
+    name = aral_sea.9.a
+    trigger = {
+        check_variable = { aral_sib_fee > -0.10001 }
+    }
+    multiply_variable = { aral_sib_fee = 1.5 }
+}
+"""
+        current_fee_limit = simulator.parse_siberian_fee_current_limit(event)
+        self.assertAlmostEqual(current_fee_limit, 0.10001)
+        self.assertAlmostEqual(current_fee_limit * 1.5, 0.150015)
+
+    def test_missing_price_acceptance_gate_fails_clearly(self):
+        with self.assertRaisesRegex(ValueError, "price-acceptance limit missing"):
+            simulator.parse_siberian_fee_current_limit("option = { name = aral_sea.9.a }")
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):

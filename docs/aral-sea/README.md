@@ -57,7 +57,8 @@ never been approved or built. The mechanic therefore mostly fails, and success i
 4. **Effect:** the sea refills faster (+0.30 / +0.15 dm a month), a dry year costs 3 / 2 dm less, agriculture +8% / +4%.
    It never raises the crest: only the dams do that.
 5. **Dependence:** every year the fee is paid; a price review means +50% to the fee for good, or no supply for two years
-   (no benefits, no fee). Roughly one run in four gets the water within 35 years.
+   (no benefits, no fee). The +50% increase is accepted only while the new annual fee stays at or below **0.15 bn**;
+   if it would exceed the cap, Kazakhstan must refuse the price and wait two years without supply. Roughly one run in four gets the water within 35 years.
 
 ## Files
 `common/` decisions, scripted_effects, scripted_triggers, dynamic_modifiers, on_actions, scripted_guis, scripted_localisation;
