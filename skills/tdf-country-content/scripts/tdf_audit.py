@@ -2261,7 +2261,25 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
         ))
     unregistered = [item for item in findings if item["registry_status"] == "unregistered"]
     status_counts = Counter(item["status"] for item in findings)
-    type_counts = Counter(item["type"] for ite
+    type_counts = Counter(item["type"] for item in findings)
+    return {
+        "registry_available": True, "registry_path": relative_registry_path,
+        "schema_version": registry.get("schema_version"),
+        "last_reviewed": registry.get("last_reviewed"),
+        "baseline": registry.get("baseline", {}),
+        "registry_validation_issues": validation_issues,
+        "registry_entries": valid_entries, "findings": findings,
+        "unregistered_candidates": unregistered,
+        "counts": {
+            "registry_entries": len(valid_entries), "findings": len(findings),
+            "registered_findings": len(findings) - len(unregistered),
+            "unregistered": len(unregistered),
+            "by_status": dict(sorted(status_counts.items())),
+            "by_type": dict(sorted(type_counts.items())),
+        },
+    }
+
+
 def classify_confirmed_external_event_references(event_report, external_dependency_report):
     """Move only exact, registry-confirmed base event IDs out of local missing-ID errors."""
     confirmed_event_ids = {
@@ -2283,25 +2301,6 @@ def classify_confirmed_external_event_references(event_report, external_dependen
     event_report["confirmed_external_references"] = confirmed
     event_report["unresolved_references"] = unresolved
     return event_report
-
-
-m in findings)
-    return {
-        "registry_available": True, "registry_path": relative_registry_path,
-        "schema_version": registry.get("schema_version"),
-        "last_reviewed": registry.get("last_reviewed"),
-        "baseline": registry.get("baseline", {}),
-        "registry_validation_issues": validation_issues,
-        "registry_entries": valid_entries, "findings": findings,
-        "unregistered_candidates": unregistered,
-        "counts": {
-            "registry_entries": len(valid_entries), "findings": len(findings),
-            "registered_findings": len(findings) - len(unregistered),
-            "unregistered": len(unregistered),
-            "by_status": dict(sorted(status_counts.items())),
-            "by_type": dict(sorted(type_counts.items())),
-        },
-    }
 
 
 def _state_flow_source_kind(path: Path, mod: Path) -> str:
