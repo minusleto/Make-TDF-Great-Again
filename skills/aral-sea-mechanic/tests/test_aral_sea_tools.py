@@ -151,6 +151,20 @@ option = {
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):
+    def test_native_pp_cost_does_not_need_to_be_repeated_in_treasury_label(self):
+        body = """
+cost = 25
+custom_cost_text = aral_test_cash
+"""
+        localisations = {
+            "en": {"aral_test_cash": "$0.05 bn"},
+            "ru": {"aral_test_cash": "0,05 млрд $"},
+        }
+        self.assertEqual(
+            audit.aral_pp_cost_label_issues("aral_test", body, localisations, ("en", "ru")),
+            [],
+        )
+
     def test_pp_cost_uses_native_decision_cost_and_separates_treasury(self):
         decisions = {
             "aral_test": """
