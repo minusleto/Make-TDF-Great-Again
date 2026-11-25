@@ -722,4 +722,33 @@ KAZ_aral_sea_category = {
 		}
 		ai_will_do = { base = 5 }
 	}
+
+	#### regional_response   [unlocked by the regional crisis event]
+	aral_regional_response = {
+		icon = generic_political_discourse
+		visible = { has_country_flag = aral_regional_crisis }
+		available = {
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 0.15 } }
+		custom_cost_text = aral_regional_response_cost_label
+		cost = 60
+		days_remove = 365
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_regional_response"
+			custom_effect_tooltip = aral_regional_response_cost_tt
+			set_temp_variable = { treasury_change = -0.15 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision aral_regional_response done"
+			remove_dynamic_modifier = { modifier = aral_regional_crisis_modifier }
+			clr_country_flag = aral_regional_crisis
+			set_country_flag = aral_regional_monitoring_done
+			custom_effect_tooltip = aral_regional_response_done_tt
+		}
+		ai_will_do = { base = 0 }
+	}
+
 }

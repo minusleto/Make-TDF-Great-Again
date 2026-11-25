@@ -18,15 +18,14 @@ The following identifiers are documented in MDC. Check scope against the corresp
 
 | Modifier | Wiki reference |
 |---|---|
-| `agricolture_productivity_modifier`, `agriculture_tax_modifier`, `monthly_population`, `high_unemployment_threshold_modifier`, `base_unemployment_modifier` | [Economic modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/modifiers/economic.md) |
-| `migration_rate_value_factor` | [Migration modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/modifiers/migration.md) |
-| `state_productivity_growth_modifier`, `state_monthly_population`, `local_building_slots_factor`, `recruitable_population_factor` | [Regional modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/modifiers/regional.md) |
+| `stability_factor`, `political_power_factor` | [Political modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/en/code-resource/modifiers/political.md) |
+| `state_productivity_growth_modifier`, `local_building_slots_factor`, `recruitable_population_factor` | [Regional modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/modifiers/regional.md) |
 
-The MDC wiki documents both `monthly_population` and `state_monthly_population`, and documents both `base_unemployment_modifier` and `high_unemployment_threshold_modifier`. The audit must not reject either of the former identifiers as unsupported. Whether a modifier is appropriate for this mechanic is a separate design decision from whether the identifier is documented.
+The active mechanic no longer uses country-wide agricultural, population, unemployment or migration modifiers. Those ecological effects are state-scoped; the two event-only national spirits use only political stability and political-power modifiers. Whether a documented modifier is appropriate for this mechanic is a separate design decision from whether the identifier exists.
 
 ## Sprite dependencies still requiring target-file confirmation
 
-The two Aral dynamic modifiers use existing vanilla HOI4 sprites: `GFX_idea_generic_agrarian_society` for the country-wide impact and `GFX_idea_generic_agrarian_reform` for regional fallout. Both are defined in the base game's [`interface/ideas.gfx`](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/ideas.gfx#L2190-L2212) / [agrarian reform entry](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/ideas.gfx#L2906-L2912). The help icon now uses vanilla `GFX_help_button`, defined in [`interface/menubar.gfx`](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/menubar.gfx#L182-L184). No custom icon or texture is required for the Aral modifiers or help button. The `ARAL_HELP_TT` English and Russian tooltip texts are present in the Aral localisation files.
+The two event-only national spirits use existing vanilla HOI4 sprite `GFX_idea_generic_agrarian_society`; the local state fallout modifier uses `GFX_idea_generic_agrarian_reform`. Both are defined in the base game's [`interface/ideas.gfx`](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/ideas.gfx#L2190-L2212) / [agrarian reform entry](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/ideas.gfx#L2906-L2912). The help icon now uses vanilla `GFX_help_button`, defined in [`interface/menubar.gfx`](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/menubar.gfx#L182-L184). No custom icon or texture is required for the Aral modifiers or help button. The `ARAL_HELP_TT` English and Russian tooltip texts are present in the Aral localisation files.
 
 ## Verification rules
 

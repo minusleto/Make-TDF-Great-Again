@@ -17,14 +17,14 @@ and the older second-dam plan. Design notes and the reason for every choice are 
 - The river refills a sea that stands below its crest: +0.05 dm/month, +0.05 more for each of the Syr Darya channel, the
   Uzbekistan flow agreement and irrigation modernization; the Second Dam evaporates -0.10.
 - Finished projects put water into `aral_pending`; 15% of it (min 0.5) arrives every month.
-- `aral_relief` (forests, fisheries, IFAS) eases the fallout and adds no water. Penalties scale with
-  `aral_deficit = 100 - 1.25 x restoration - relief`.
+- `aral_relief` (forests, fisheries, IFAS) eases the fallout and adds no water. `aral_deficit = 100 - 1.25 x restoration - relief` scales the local state modifier only; there is no nationwide ecological productivity, population or migration penalty.
+- **Regional coordination.** Once per year, a deficit above 70 triggers a warning if no monitoring programme exists. Funding monitoring costs $0.05 bn + 25 PP and prevents escalation. Postponing adds a two-year temporary national spirit (stability −2%, political power gain −3%); after 540 days a second event offers a $0.10 bn + 50 PP response. Ignoring it replaces the temporary spirit with a permanent crisis spirit (stability −4%, political power gain −5%). The crisis can later be removed with `aral_regional_response` ($0.15 bn + 60 PP, 365 days). These national modifiers represent the political cost of delayed government coordination, not environmental damage across all Kazakhstan.
 - Once a year the Syr Darya is dry (20%), wet (15%, +2 dm) or normal. A dry year is an event: pay 0.03 bn + 15 PP for extra
   releases or lose 3 dm (2 with Aklak, 1 with Amanotkel, +2 after the Second Dam). The first spring brings salt storms
   unless the first forests stand.
 - The earth dike lifts the crest to 41 m but is washed out with 3% chance per month until the Kokaral dam stands;
   the sea then falls back to 40 m.
-- **Ownership of the coast.** All 17 Aral project decisions require Kazakhstan to own state 717 (Kyzylorda) in `available` via `owns_state = 717`. Losing the coast after a project has started does not cancel its `days_remove` timer: there is no ownership-based `cancel_trigger` / `cancel_effect`, so the normal `remove_effect` still runs. The monthly tick and `update_aral_sea` recalculation remain gated by KAZ ownership of 717. State dynamic modifiers are intentionally attached to their states and are **not removed** when ownership changes. Their last calculated values remain on the state while another country owns it; recalculation resumes when Kazakhstan owns the coast again. State construction effects remain limited to states currently owned by Kazakhstan.
+- **Ownership of the coast.** All 17 restoration/supply decisions and the conditional regional-recovery decision require Kazakhstan to own state 717 (Kyzylorda) in `available` via `owns_state = 717`. Losing the coast after a project has started does not cancel its `days_remove` timer: there is no ownership-based `cancel_trigger` / `cancel_effect`, so the normal `remove_effect` still runs. The monthly tick and `update_aral_sea` recalculation remain gated by KAZ ownership of 717. State dynamic modifiers are intentionally attached to their states and are **not removed** when ownership changes. Their last calculated values remain on the state while another country owns it; recalculation resumes when Kazakhstan owns the coast again. State construction effects remain limited to states currently owned by Kazakhstan.
 
 ## Focus gates
 The decision groups are tied to existing KAZ economic milestones. Decisions remain visible but grey until the relevant focus is complete; the available-state tooltip names the required focus:
@@ -62,7 +62,7 @@ never been approved or built. The mechanic therefore mostly fails, and success i
 
 ## Player interface
 
-The country and state modifiers reference `GFX_destroyed_dam`; the panel help marker references `GFX_help_button_custom`. Their definitions and texture paths are not included in this focused branch. Confirm them in the target TDF interface/GFX files before relying on them. No replacement texture is included. Hovering the question-mark icon opens a guide to the 40 m baseline, dam crest, gradual project inflow, hydrology and the ownership/focus gates.
+The two event-only national spirits use vanilla `GFX_idea_generic_agrarian_society`; the local state modifier uses vanilla `GFX_idea_generic_agrarian_reform`; the panel help marker uses vanilla `GFX_help_button`. No custom texture is required for these entries. Hovering the question-mark icon opens a guide to the 40 m baseline, dam crest, gradual project inflow, hydrology and the ownership/focus gates.
 
 The level readout states its deviation from the natural 40 m mark. The monthly line now explicitly distinguishes a rise, a decline and no change, in metres per month.
 

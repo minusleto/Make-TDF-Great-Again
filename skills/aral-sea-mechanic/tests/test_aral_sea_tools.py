@@ -224,28 +224,89 @@ complete_effect = {
 
     def test_documented_mdc_modifier_identifiers_are_not_rejected(self):
         dyn = {
-            "aral_sea_dynamic_modifier": (
-                "agricolture_productivity_modifier = aral_mod_agri\\n"
-                "agriculture_tax_modifier = aral_mod_agtax\\n"
-                "monthly_population = aral_mod_pop\\n"
-                "migration_rate_value_factor = aral_mod_migr\\n"
-                "high_unemployment_threshold_modifier = aral_mod_jobs\\n"
-                "base_unemployment_modifier = aral_mod_base"
+            "aral_regional_neglect_modifier": (
+                "stability_factor = -0.02\\n"
+                "political_power_factor = -0.03"
+            ),
+            "aral_regional_crisis_modifier": (
+                "stability_factor = -0.04\\n"
+                "political_power_factor = -0.05"
             ),
             "aral_state_modifier": (
                 "state_productivity_growth_modifier = aral_s_prod\\n"
                 "local_building_slots_factor = aral_s_slots\\n"
-                "recruitable_population_factor = aral_s_recruit\\n"
-                "state_monthly_population = aral_s_pop"
+                "recruitable_population_factor = aral_s_recruit"
             ),
         }
-        effects = {"update_aral_sea": "multiply_variable = { aral_mod_jobs = -0.0005 }"}
+        effects = {"update_aral_sea": "set_variable = { aral_deficit = aral_sea_restoration }"}
         self.assertEqual(audit.aral_modifier_issues(dyn, effects), [])
         broken = dict(dyn)
         broken["aral_state_modifier"] = broken["aral_state_modifier"].replace(
             "state_productivity_growth_modifier", "unsupported_state_modifier"
         )
         self.assertTrue(any("state_productivity_growth_modifier" in msg for _, msg in audit.aral_modifier_issues(broken, effects)))
+        broken = dict(dyn)
+        broken["aral_regional_crisis_modifier"] = "stability_factor = -0.04"
+        self.assertTrue(any("political_power_factor" in msg for _, msg in audit.aral_modifier_issues(broken, effects)))
+        broken = dict(dyn)
+        broken["aral_sea_dynamic_modifier"] = "monthly_population = -0.01"
+        self.assertTrue(any("country-wide Aral ecological modifier" in msg for _, msg in audit.aral_modifier_issues(broken, effects)))
+
+    def test_regional_crisis_audit_requires_warning_escalation_and_recovery(self):
+        tick = """
+if = {
+    limit = {
+        check_variable = { aral_deficit > 69.99 }
+        NOT = { has_country_flag = aral_regional_warning_sent }
+        NOT = { has_country_flag = aral_regional_monitoring_done }
+    }
+    set_country_flag = aral_regional_warning_sent
+    country_event = { id = aral_sea.10 days = 14 }
+}
+"""
+        events = {
+            "aral_sea.10": """
+option = { set_country_flag = aral_regional_monitoring_done }
+option = {
+    add_dynamic_modifier = { modifier = aral_regional_neglect_modifier days = 730 }
+    country_event = { id = aral_sea.11 days = 540 }
+}
+""",
+            "aral_sea.11": """
+trigger = { has_country_flag = aral_regional_neglect_started }
+option = { remove_dynamic_modifier = { modifier = aral_regional_neglect_modifier } }
+option = {
+    remove_dynamic_modifier = { modifier = aral_regional_neglect_modifier }
+    add_dynamic_modifier = { modifier = aral_regional_crisis_modifier }
+}
+""",
+        }
+        decisions = {
+            "aral_regional_response": """
+visible = { has_country_flag = aral_regional_crisis }
+available = { custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 } }
+cost = 60
+complete_effect = { set_temp_variable = { treasury_change = -0.15 } modify_treasury_effect = yes }
+remove_effect = {
+    remove_dynamic_modifier = { modifier = aral_regional_crisis_modifier }
+    clr_country_flag = aral_regional_crisis
+}
+"""
+        }
+        effects = {"aral_monthly_tick": tick}
+        self.assertEqual(audit.aral_regional_crisis_issues(events, decisions, effects), [])
+        events["aral_sea.10"] = events["aral_sea.10"].replace("days = 730", "days = 90")
+        self.assertTrue(audit.aral_regional_crisis_issues(events, decisions, effects))
+
+    def test_countrywide_aral_ecological_penalties_are_removed_from_gameplay_code(self):
+        effects = (ROOT / "mdredux" / "common" / "scripted_effects" / "aral_sea_effects.txt").read_text(encoding="utf-8")
+        modifiers = (ROOT / "mdredux" / "common" / "dynamic_modifiers" / "aral_sea_modifiers.txt").read_text(encoding="utf-8")
+        events = (ROOT / "mdredux" / "events" / "aral_sea_events.txt").read_text(encoding="utf-8")
+        self.assertNotIn("aral_sea_dynamic_modifier", effects + modifiers)
+        self.assertNotIn("aral_mod_", effects + modifiers)
+        self.assertIn("aral_regional_neglect_modifier", events)
+        self.assertIn("aral_regional_crisis_modifier", events)
+        self.assertIn("aral_regional_response", (ROOT / "mdredux" / "common" / "decisions" / "aral_sea_decisions.txt").read_text(encoding="utf-8"))
 
     def test_missing_aral_country_variables_are_initialized_without_resetting_saves(self):
         required = ("aral_sea_restoration", "aral_pending", "aral_relief", "aral_year_clock", "aral_gui_dirty")

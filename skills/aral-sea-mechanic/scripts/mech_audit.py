@@ -149,18 +149,66 @@ def aral_localisation_style_issues(text):
 
 
 def aral_modifier_issues(dyn, effects):
-    """Check the Aral design's required modifiers and crisis penalty direction."""
+    """Require regional ecological effects and event-only national political spirits."""
     issues = []
-    country = dyn.get("aral_sea_dynamic_modifier", "")
     state = dyn.get("aral_state_modifier", "")
-    if "high_unemployment_threshold_modifier" not in country:
-        issues.append(("dynamic modifier aral_sea_dynamic_modifier", "Aral's unemployment-threshold effect requires high_unemployment_threshold_modifier, documented in the MDC wiki"))
+    if "aral_sea_dynamic_modifier" in dyn:
+        issues.append(("dynamic modifiers", "remove the country-wide Aral ecological modifier; environmental fallout must remain state-scoped"))
+    update = effects.get("update_aral_sea", "")
+    if "aral_sea_dynamic_modifier" in update or re.search(r"\baral_mod_(?:agri|agtax|pop|migr|jobs)\b", update):
+        issues.append(("scripted effect update_aral_sea", "country-wide ecological penalty attachment/calculations must not be present"))
     for key in ("state_productivity_growth_modifier", "local_building_slots_factor", "recruitable_population_factor"):
         if key not in state:
             issues.append(("dynamic modifier aral_state_modifier", "required Aral state modifier %s is missing" % key))
-    update = effects.get("update_aral_sea", "")
-    if not re.search(r"multiply_variable\s*=\s*\{\s*aral_mod_jobs\s*=\s*-", update):
-        issues.append(("scripted effect update_aral_sea", "unemployment-threshold modifier must be negative during the Aral crisis"))
+    for spirit_name in ("aral_regional_neglect_modifier", "aral_regional_crisis_modifier"):
+        spirit = dyn.get(spirit_name, "")
+        for key in ("stability_factor", "political_power_factor"):
+            if key not in spirit:
+                issues.append(("dynamic modifier " + spirit_name, "event-driven political spirit must define " + key))
+    return issues
+
+
+def aral_regional_crisis_issues(events, decisions, effects):
+    """Check the warning, temporary neglect penalty, permanent crisis and recovery route."""
+    issues = []
+    tick = effects.get("aral_monthly_tick", "")
+    warning = events.get("aral_sea.10", "")
+    escalation = events.get("aral_sea.11", "")
+    recovery = decisions.get("aral_regional_response", "")
+    if not re.search(r"check_variable\s*=\s*\{\s*aral_deficit\s*>\s*69\.99\s*\}", tick):
+        issues.append(("scripted effect aral_monthly_tick", "annual regional warning must require aral_deficit > 69.99"))
+    for flag in ("aral_regional_warning_sent", "aral_regional_monitoring_done"):
+        if not re.search(r"NOT\s*=\s*\{\s*has_country_flag\s*=\s*" + flag + r"\s*\}", tick):
+            issues.append(("scripted effect aral_monthly_tick", "annual regional warning must be suppressed by " + flag))
+    if not re.search(r"country_event\s*=\s*\{\s*id\s*=\s*aral_sea\.10\s+days\s*=\s*14\s*\}", tick):
+        issues.append(("scripted effect aral_monthly_tick", "high regional deficit must fire warning event aral_sea.10"))
+    if not re.search(r"add_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_regional_neglect_modifier\s+days\s*=\s*730\s*\}", warning):
+        issues.append(("event aral_sea.10", "postponing the response must add the 730-day temporary neglect spirit"))
+    if not re.search(r"country_event\s*=\s*\{\s*id\s*=\s*aral_sea\.11\s+days\s*=\s*540\s*\}", warning):
+        issues.append(("event aral_sea.10", "postponing the response must schedule the follow-up event after 540 days"))
+    if not re.search(r"set_country_flag\s*=\s*aral_regional_monitoring_done", warning):
+        issues.append(("event aral_sea.10", "funding regional monitoring must mark the programme complete"))
+    followup_trigger = inner(escalation, "trigger") or ""
+    if not re.search(r"has_country_flag\s*=\s*aral_regional_neglect_started", followup_trigger):
+        issues.append(("event aral_sea.11", "follow-up event must require the pending neglect chain"))
+    if not re.search(r"remove_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_regional_neglect_modifier\s*\}", escalation):
+        issues.append(("event aral_sea.11", "follow-up must remove the temporary neglect spirit"))
+    if not re.search(r"add_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_regional_crisis_modifier\s*\}", escalation):
+        issues.append(("event aral_sea.11", "continued inaction must add the permanent regional crisis spirit"))
+    visible = inner(recovery, "visible") or ""
+    available = inner(recovery, "available") or ""
+    complete = inner(recovery, "complete_effect") or ""
+    remove = inner(recovery, "remove_effect") or ""
+    if not re.search(r"has_country_flag\s*=\s*aral_regional_crisis", visible):
+        issues.append(("decision aral_regional_response", "recovery decision must appear only during the permanent crisis"))
+    if not re.search(r"owns_state\s*=\s*717", available):
+        issues.append(("decision aral_regional_response", "recovery decision must require Kazakhstan to own state 717"))
+    if not re.search(r"treasury_change\s*=\s*-0\.15", complete) or "modify_treasury_effect" not in complete or not re.search(r"cost\s*=\s*60", recovery):
+        issues.append(("decision aral_regional_response", "recovery decision must charge 0.15 bn and 60 PP"))
+    if not re.search(r"remove_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_regional_crisis_modifier\s*\}", remove):
+        issues.append(("decision aral_regional_response", "completed recovery decision must remove the permanent crisis spirit"))
+    if not re.search(r"clr_country_flag\s*=\s*aral_regional_crisis", remove):
+        issues.append(("decision aral_regional_response", "completed recovery decision must clear the crisis flag"))
     return issues
 
 
@@ -458,6 +506,8 @@ def main():
         for area, msg in aral_initialization_issues(effects):
             add("ERROR", area, msg)
         for area, msg in aral_modifier_issues(dyn, effects):
+            add("ERROR", area, msg)
+        for area, msg in aral_regional_crisis_issues(events, decisions, effects):
             add("ERROR", area, msg)
         for area, msg in aral_decision_cost_issues(decisions):
             add("ERROR", area, msg)

@@ -177,3 +177,60 @@ country_event = {
 		hidden_effect = { update_aral_sea = yes }
 	}
 }
+
+# Regional spillover warning: local state damage is not a nationwide environmental modifier.
+country_event = {
+	id = aral_sea.10
+	title = aral_sea.10.t
+	desc = aral_sea.10.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = aral_sea.10.a
+		trigger = { check_variable = { treasury > 0.05 } has_political_power = 25 }
+		ai_chance = { base = 2 }
+		custom_effect_tooltip = aral_sea.10.a_tt
+		set_temp_variable = { treasury_change = -0.05 }
+		modify_treasury_effect = yes
+		add_political_power = -25
+		set_country_flag = aral_regional_monitoring_done
+	}
+	option = {
+		name = aral_sea.10.b
+		ai_chance = { base = 1 }
+		set_country_flag = aral_regional_neglect_started
+		add_dynamic_modifier = { modifier = aral_regional_neglect_modifier days = 730 }
+		country_event = { id = aral_sea.11 days = 540 }
+	}
+}
+
+# The temporary cost of postponement is followed by a second opportunity to respond.
+country_event = {
+	id = aral_sea.11
+	title = aral_sea.11.t
+	desc = aral_sea.11.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	trigger = { has_country_flag = aral_regional_neglect_started }
+	option = {
+		name = aral_sea.11.a
+		trigger = { check_variable = { treasury > 0.10 } has_political_power = 50 }
+		ai_chance = { base = 2 }
+		custom_effect_tooltip = aral_sea.11.a_tt
+		set_temp_variable = { treasury_change = -0.10 }
+		modify_treasury_effect = yes
+		add_political_power = -50
+		remove_dynamic_modifier = { modifier = aral_regional_neglect_modifier }
+		clr_country_flag = aral_regional_neglect_started
+		set_country_flag = aral_regional_monitoring_done
+	}
+	option = {
+		name = aral_sea.11.b
+		ai_chance = { base = 1 }
+		remove_dynamic_modifier = { modifier = aral_regional_neglect_modifier }
+		add_dynamic_modifier = { modifier = aral_regional_crisis_modifier }
+		clr_country_flag = aral_regional_neglect_started
+		set_country_flag = aral_regional_crisis
+	}
+}
+

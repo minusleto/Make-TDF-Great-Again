@@ -1,12 +1,14 @@
-# Values are VARIABLES set in update_aral_sea. Penalties shrink as the deficit falls.
-# Country-wide national spirit
-aral_sea_dynamic_modifier = {
+# Event-only national spirits: political costs of delayed regional coordination, not nationwide ecological damage.
+aral_regional_neglect_modifier = {
 	icon = GFX_idea_generic_agrarian_society
-	agricolture_productivity_modifier = aral_mod_agri          # agriculture
-	agriculture_tax_modifier = aral_mod_agtax                  # income from agriculture and fishing
-	monthly_population = aral_mod_pop                          # population growth
-	migration_rate_value_factor = aral_mod_migr                # migration
-	high_unemployment_threshold_modifier = aral_mod_jobs        # unemployment pressure
+	stability_factor = -0.02
+	political_power_factor = -0.03
+}
+
+aral_regional_crisis_modifier = {
+	icon = GFX_idea_generic_agrarian_society
+	stability_factor = -0.04
+	political_power_factor = -0.05
 }
 
 # State modifier, applied to Kyzylorda (full), Turkistan/Aktobe/Ulutau (x0.5), Mangystau/Atyrau (x0.25)
