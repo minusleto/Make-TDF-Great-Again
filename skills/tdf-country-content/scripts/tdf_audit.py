@@ -1578,7 +1578,10 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
                 decisions.append({
                     "id": decision_entry.key.value, "category": category_id,
                     "path": str(path), "line": decision_entry.line, "block": block,
-                    "owner_tag": owner_tag, "cost": get_scalar(block, "cost"),
+                    "owner_tag": owner_tag,
+                    "category_has_allowed": bool(direct_entries(category_block, "allowed")),
+                    "category_has_visible": bool(direct_entries(category_block, "visible")),
+                    "cost": get_scalar(block, "cost"),
                     "days_remove": get_scalar(block, "days_remove"),
                     "days_re_enable": get_scalar(block, "days_re_enable"),
                     "fire_only_once": (get_scalar(block, "fire_only_once") or "").lower() in ("yes", "true", "1"),
@@ -1852,6 +1855,15 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
     metadata = [{key: value for key, value in item.items() if key != "block"} for item in decisions]
     return {
         "counts": {"files": len(decision_files), "categories": len(categories), "decisions": len(decisions)},
+        "category_metadata": [{
+            "id": item["id"], "path": item["path"], "line": item["line"],
+            "owner_tag": item["owner_tag"], "has_allowed": item["has_allowed"],
+            "has_visible": item["has_visible"], "has_priority": item["has_priority"],
+            "decision_ids": [
+                decision["id"] for decision in decisions
+                if decision["category"] == item["id"] and decision["path"] == item["path"]
+            ],
+        } for item in categories],
         "parse_errors": parse_errors, "duplicate_category_ids": duplicate_categories,
         "duplicate_decision_ids": duplicate_decisions, "missing_category_localisation": missing_category_loc,
         "missing_decision_localisation": missing_decision_loc, "duplicate_localisation_definitions": duplicate_loc_keys,

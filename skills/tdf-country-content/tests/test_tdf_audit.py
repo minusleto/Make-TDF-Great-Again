@@ -862,6 +862,7 @@ country_event = {
             decisions.mkdir(parents=True)
             (decisions / "Kazakhstan.txt").write_text("""
 KAZ_test_category = {
+  allowed = { original_tag = KAZ }
   KAZ_test_decision = {
     cost = 10
     visible = { AND = { has_completed_focus = KAZ_visible NOT = { has_decision = KAZ_missing_decision } } }
@@ -912,6 +913,16 @@ KAZ_duplicate_category = {
             self.assertEqual(report["counts"], {"files": 1, "categories": 3, "decisions": 4})
             self.assertEqual(report["duplicate_category_ids"][0]["scope"], "same_file")
             self.assertEqual(len(report["duplicate_decision_ids"]), 1)
+            category_meta = next(item for item in report["category_metadata"]
+                                 if item["id"] == "KAZ_test_category")
+            self.assertTrue(category_meta["has_allowed"])
+            self.assertIn("KAZ_test_decision", category_meta["decision_ids"])
+            test_decision = next(item for item in report["metadata"] if item["id"] == "KAZ_test_decision")
+            self.assertTrue(test_decision["category_has_allowed"])
+            self.assertFalse(test_decision["has_allowed"])
+            repeat_decision = next(item for item in report["metadata"] if item["id"] == "KAZ_repeat_decision")
+            self.assertTrue(repeat_decision["category_has_allowed"])
+            self.assertTrue(repeat_decision["has_allowed"])
             self.assertTrue(any(item["target"] == "KAZ_missing_decision" for item in report["missing_decision_references"]))
             self.assertTrue(any(item["target"] == "BASE_MD_DECISION" for item in report["external_decision_references"]))
             self.assertTrue(any(item["target"] == "KAZ_missing_focus" for item in report["missing_focus_references"]))
