@@ -4,7 +4,7 @@ Consolidated reviews and fact-checking notes for TDF / MDC.
 
 ## Documents
 - [TDF Stage 9 static integration review (2026-11-24)](2026-11-24-tdf-stage9-static-integration.md) — initial selective cross-file review of ENG, ISR and countries without local event/decision files.
-- [TDF Stage 9 executed validation (2026-11-24)](2026-11-24-tdf-stage9-validation.md) — 43 unit tests passed twice; full and all 12 per-country audits executed twice; the 18-entry dependency registry was revalidated. Outstanding content ERROR candidates remain.
+- [TDF Stage 9 executed validation (2026-11-24, updated 2026-11-25)](2026-11-24-tdf-stage9-validation.md) — historical 43/47-test runs plus 2026-11-25 triage: 57 unit tests and 14/14 CI jobs passed; exact external event/localisation fallbacks and conditional/hidden event false positives were refined. Content ERROR/WARN and runtime validation remain open.
 - [TDF inventory (2026-11-24)](2026-11-24-tdf-inventory.md) — reproducible file and block counts from main, with scope, counting method and limitations.
 - [KAZ branch-connectivity triage (2026-11-25)](2026-11-25-kazakhstan-connectivity-review.md) — KAZ false-positive review: idea lifecycle event roots, remaining unresolved triggered-event candidates, external references and tooltip linkage.
 - [TDF trees audit vs skills (2026-10-30)](2026-10-tdf-trees-audit.md) — historical audit of the 10-tree sample available on 2026-10-30; its counts and findings are not the current repository baseline.
