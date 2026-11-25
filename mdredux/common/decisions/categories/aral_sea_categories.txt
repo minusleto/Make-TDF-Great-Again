@@ -1,0 +1,7 @@
+KAZ_aral_sea_category = {
+	icon = generic_construction
+	priority = 60
+	allowed = { original_tag = KAZ }
+	visible_when_empty = yes
+	scripted_gui = aral_sea_category_gui
+}
