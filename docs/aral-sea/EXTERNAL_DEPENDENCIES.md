@@ -1,45 +1,36 @@
-# Aral mechanic external dependencies
+# Aral mechanic: unresolved target-TDF dependencies
 
-This focused branch intentionally does not vendor the complete Millennium Dawn base mod. The Aral decisions call two financial effects that must be supplied by the target MD/TDF installation.
+TDF is a standalone mod. This file records what the focused Aral branch itself does not define; it does not assign missing identifiers to another mod.
 
-Verified against the pinned upstream source snapshot:
-- Repository: https://github.com/MillenniumDawn/Millennium-Dawn
-- Branch: `main`
-- Commit: `04b2ba126fc1057bf2ab4bac0407b3235983994c`
-- Snapshot reviewed: 2026-11-25
-- This is evidence that the definitions exist at that exact upstream revision, not a compatibility guarantee for every target installation.
+## Documented in the MDC wiki
 
-| Effect | Definition | Contract used by Aral |
+| Identifier | Wiki reference | What the wiki establishes |
 |---|---|---|
-| `modify_treasury_effect` | [`common/scripted_effects/00_budget_effects.txt`, line 1643](https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_budget_effects.txt#L1643) | Adds `treasury_change` to `treasury` and refreshes the money UI; the transaction is skipped only when `MD_skip_treasury_cost` is set. |
-| `modify_debt_effect` | [`common/scripted_effects/00_budget_effects.txt`, line 1656](https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_budget_effects.txt#L1656) | Adds `debt_change` to `debt`, clamps the result to at least zero and refreshes the money UI. |
+| `modify_treasury_effect` | [Economy effects](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/effects/economy.md) | Usage example with `treasury_change`; implementation side effects are not specified by the example |
+| `modify_debt_effect` | [Economy effects](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/effects/economy.md) | Usage example with `debt_change`; implementation side effects are not specified by the example |
+| `custom_cost_trigger`, `custom_cost_text` | [Culture and tourism](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/triggers/culture-tourism.md) | Affordability condition and display-label roles |
 
-Do not copy these upstream definitions into the Aral package. Confirm that the target base mod provides them and check any version-specific differences before integration.
+The MDC wiki searches checked on 2026-11-26 did not return entries for `ai_hint_pp_cost` or `has_political_power`; these helpers are not used by Aral decisions. Political power now uses native `cost = N`. This pattern is present in target-TDF decisions `SOV_nabi_techosphere_agremmeent` and `SOV_nabi_silkroad_agremmeent` in [Russia.txt at the reviewed TDF revision](https://github.com/minusleto/Make-TDF-Great-Again/blob/ff3e760dbde6e97cdeb16bc7c13b2ba3f94a49db/mdredux/common/decisions/Russia.txt), where native PP `cost` coexists with a treasury `custom_cost_trigger`. The treasury display/charge uses the [MDC custom-cost reference](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/triggers/culture-tourism.md) and the [TDF Georgia example](https://github.com/minusleto/Make-TDF-Great-Again/blob/ff3e760dbde6e97cdeb16bc7c13b2ba3f94a49db/mdredux/common/decisions/Georgia.txt). Treasury and debt remain charged in `complete_effect` when a project starts; project timers and all PP, treasury and debt amounts are unchanged.
 
-## Reused MD interface sprites
+## Modifier identifiers
 
-The Aral modifiers and help tooltip reuse sprites already supplied by the Millennium Dawn base mod. They are deliberately not copied into the Aral payload.
+The following identifiers are documented in MDC. Check scope against the corresponding page rather than relying on names alone:
 
-| Sprite | Definition | Use |
-|---|---|---|
-| GFX_destroyed_dam | interface/MD_dynamic_modifiers.gfx (upstream MD) | Existing icon in gfx/interface/dynamic_modifier/destroyed_dam.dds, used by the country and state Aral modifiers. |
-| GFX_help_button_custom | interface/MD_help_gui.gfx (upstream MD) | Existing help icon used by the Aral panel tooltip. |
+| Modifier | Wiki reference |
+|---|---|
+| `agricolture_productivity_modifier`, `agriculture_tax_modifier`, `monthly_population`, `high_unemployment_threshold_modifier`, `base_unemployment_modifier` | [Economic modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/modifiers/economic.md) |
+| `migration_rate_value_factor` | [Migration modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/modifiers/migration.md) |
+| `state_productivity_growth_modifier`, `state_monthly_population`, `local_building_slots_factor`, `recruitable_population_factor` | [Regional modifiers](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/modifiers/regional.md) |
 
-The Aral branch no longer includes a generated modifier icon texture. Confirm these sprite definitions exist in the target base MD version.
+The MDC wiki documents both `monthly_population` and `state_monthly_population`, and documents both `base_unemployment_modifier` and `high_unemployment_threshold_modifier`. The audit must not reject either of the former identifiers as unsupported. Whether a modifier is appropriate for this mechanic is a separate design decision from whether the identifier is documented.
 
-## Confirmed Aral modifier keys in the upstream MD base
+## Sprite dependencies still requiring target-file confirmation
 
-The following modifiers are used by Aral and were found in the pinned MD source snapshot `8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad` (branch `main`). These are base-mod dependencies: the focused Aral package does not vendor their definitions.
+The Aral GUI refers to `GFX_destroyed_dam` and `GFX_help_button_custom`. Their target-TDF definitions and texture paths are not included in this focused branch. Confirm them in the target TDF interface/GFX files supplied by the user before relying on them or replacing them.
 
-| Modifier | Scope / use | Upstream example |
-|---|---|---|
-| `agricolture_productivity_modifier` | Country agricultural productivity (the source spelling is intentionally retained) | [Gagauzia ideas](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/ideas/Gagauzia.txt) |
-| `agriculture_tax_modifier` | Country agricultural/fishing tax income | [Gagauzia ideas](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/ideas/Gagauzia.txt) |
-| `monthly_population` | Country population growth; not valid in state scope | [Greek dynamic modifiers](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/dynamic_modifiers/99_GRE_dynamic_modifiers.txt) |
-| `migration_rate_value_factor` | Country migration | [Greek dynamic modifiers](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/dynamic_modifiers/99_GRE_dynamic_modifiers.txt) |
-| `high_unemployment_threshold_modifier` | Country unemployment threshold; Aral applies a negative value so unemployment penalties start earlier | [Mercosur dynamic modifiers](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/dynamic_modifiers/05_MERCOSUR_dynamic_modifiers.txt), [Israeli ideas](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/ideas/Israeli.txt) |
-| `state_productivity_growth_modifier` | State productivity | [Brazil dynamic modifiers](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/dynamic_modifiers/99_BRA_dynamic_modifier.txt) |
-| `local_building_slots_factor` | State building slots | [Brazil dynamic modifiers](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/dynamic_modifiers/99_BRA_dynamic_modifier.txt) |
-| `recruitable_population_factor` | State recruitable population | [Rajasthan dynamic modifiers](https://github.com/MillenniumDawn/Millennium-Dawn/blob/8bf8cd0b026a13ae1ffaf84553448fa79a30d2ad/common/dynamic_modifiers/99_RAJ_dynamic_modifiers.txt) |
+## Verification rules
 
-Two previous identifiers were removed because they were not found in the target MD source: `base_unemployment_modifier` is replaced by `high_unemployment_threshold_modifier`; `state_monthly_population` is removed because HOI4's `monthly_population` does not work in state scope. The state still has three supported debuffs (productivity, building slots and recruitable population), while population growth remains a country-level modifier.
+- A wiki entry confirms that an identifier is documented; it does not prove implementation, runtime scope or side effects in the target build.
+- An identifier absent from this branch is unknown, not automatically invalid or supplied by another project.
+- If the MDC wiki does not document the required behaviour, ask for the exact target TDF source file.
+- Keep runtime, GUI and load-order claims unverified until tested against the target TDF installation.

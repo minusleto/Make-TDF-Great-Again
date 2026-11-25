@@ -1,5 +1,8 @@
 import importlib.util
 import sys
+import gc
+import tempfile
+import warnings
 import unittest
 from pathlib import Path
 
@@ -22,6 +25,17 @@ audit = load_module("aral_mech_audit", AUDIT_PATH)
 simulator = load_module("aral_sea_simulator", SIMULATOR_PATH)
 
 FOCUS_TRIGGER_SOURCE = """
+
+STATE_UPDATE_SOURCE = """
+if = {
+  limit = { is_owned_by = KAZ }
+  set_variable = { aral_s_prod = KAZ.aral_deficit }
+  set_variable = { aral_s_slots = KAZ.aral_deficit }
+  set_variable = { aral_s_recruit = KAZ.aral_deficit }
+  add_dynamic_modifier = { modifier = aral_state_modifier }
+  force_update_dynamic_modifier = yes
+}
+"""
 aral_unlocked_program = { has_completed_focus = KAZ_economy }
 aral_unlocked_syrdarya = { has_completed_focus = KAZ_fight_capacity_deficit }
 aral_unlocked_agri = { has_completed_focus = KAZ_ABP }
@@ -42,6 +56,21 @@ class AralSimulatorTests(unittest.TestCase):
         constants, decisions = simulator.parse(str(ROOT / "mdredux"), treasury0=0.5)
         self.assertEqual(constants["treasury0"], 0.5)
         self.assertTrue(decisions)
+
+
+    def test_script_readers_close_files(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp) / "reader.txt"
+            source.write_text("value = 1\\n", encoding="utf-8")
+            for reader in (simulator.rd, audit.rd):
+                with warnings.catch_warnings(record=True) as caught:
+                    warnings.simplefilter("always", ResourceWarning)
+                    self.assertTrue(reader(str(source)))
+                    gc.collect()
+                self.assertFalse(
+                    any(issubclass(item.category, ResourceWarning) for item in caught),
+                    "script reader left its file handle open"
+                )
 
 
 class CostLocalisationGeneratorTests(unittest.TestCase):
@@ -123,8 +152,21 @@ option = {
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):
-    def test_mixed_treasury_and_pp_cost_uses_current_md_pattern(self):
+    def test_pp_cost_uses_native_decision_cost_and_separates_treasury(self):
         decisions = {
+            "aral_test": """
+cost = 25
+custom_cost_trigger = { check_variable = { treasury > 0.05 } }
+custom_cost_text = aral_test_cost
+complete_effect = {
+  set_temp_variable = { treasury_change = -0.05 }
+  modify_treasury_effect = yes
+}
+"""
+        }
+        self.assertEqual(audit.aral_decision_cost_issues(decisions), [])
+
+        legacy = {
             "aral_test": """
 custom_cost_trigger = {
   check_variable = { treasury > 0.05 }
@@ -133,19 +175,14 @@ custom_cost_trigger = {
 custom_cost_text = aral_test_cost
 ai_hint_pp_cost = 25
 complete_effect = {
-  log = "Decision aral_test"
   add_political_power = -25
   set_temp_variable = { treasury_change = -0.05 }
   modify_treasury_effect = yes
 }
 """
         }
-        self.assertEqual(audit.aral_decision_cost_issues(decisions), [])
-
-        broken = {
-            "aral_test": decisions["aral_test"].replace("has_political_power > 24", "has_political_power > 20")
-        }
-        self.assertTrue(any("has_political_power > 24" in msg for _, msg in audit.aral_decision_cost_issues(broken)))
+        findings = audit.aral_decision_cost_issues(legacy)
+        self.assertTrue(any("native decision cost = N" in message for _, message in findings))
 
     def test_category_allowed_must_not_be_duplicated_in_each_aral_decision(self):
         decisions = {
@@ -159,15 +196,30 @@ complete_effect = {
         self.assertEqual(len(findings), 1)
         self.assertIn(":0", findings[0][1])
 
-    def test_aral_dynamic_modifiers_only_use_supported_scope_keys(self):
+    def test_documented_mdc_modifier_identifiers_are_not_rejected(self):
         dyn = {
-            "aral_sea_dynamic_modifier": "agricolture_productivity_modifier = aral_mod_agri\\nagriculture_tax_modifier = aral_mod_agtax\\nmonthly_population = aral_mod_pop\\nmigration_rate_value_factor = aral_mod_migr\\nhigh_unemployment_threshold_modifier = aral_mod_jobs",
-            "aral_state_modifier": "state_productivity_growth_modifier = aral_s_prod\\nlocal_building_slots_factor = aral_s_slots\\nrecruitable_population_factor = aral_s_recruit",
+            "aral_sea_dynamic_modifier": (
+                "agricolture_productivity_modifier = aral_mod_agri\\n"
+                "agriculture_tax_modifier = aral_mod_agtax\\n"
+                "monthly_population = aral_mod_pop\\n"
+                "migration_rate_value_factor = aral_mod_migr\\n"
+                "high_unemployment_threshold_modifier = aral_mod_jobs\\n"
+                "base_unemployment_modifier = aral_mod_base"
+            ),
+            "aral_state_modifier": (
+                "state_productivity_growth_modifier = aral_s_prod\\n"
+                "local_building_slots_factor = aral_s_slots\\n"
+                "recruitable_population_factor = aral_s_recruit\\n"
+                "state_monthly_population = aral_s_pop"
+            ),
         }
         effects = {"update_aral_sea": "multiply_variable = { aral_mod_jobs = -0.0005 }"}
         self.assertEqual(audit.aral_modifier_issues(dyn, effects), [])
-        dyn["aral_state_modifier"] += "\\nstate_monthly_population = aral_s_pop"
-        self.assertTrue(any("state_monthly_population" in msg for _, msg in audit.aral_modifier_issues(dyn, effects)))
+        broken = dict(dyn)
+        broken["aral_state_modifier"] = broken["aral_state_modifier"].replace(
+            "state_productivity_growth_modifier", "unsupported_state_modifier"
+        )
+        self.assertTrue(any("state_productivity_growth_modifier" in msg for _, msg in audit.aral_modifier_issues(broken, effects)))
 
     def test_missing_aral_country_variables_are_initialized_without_resetting_saves(self):
         required = ("aral_sea_restoration", "aral_pending", "aral_relief", "aral_year_clock", "aral_gui_dirty")
@@ -200,7 +252,7 @@ custom_cost_text = aral_test_cost
             {"aral_test_cost_blocked", "aral_test_cost_tooltip"},
         )
 
-    def test_missing_blocked_variant_is_error_but_optional_tooltip_is_not(self):
+    def test_missing_blocked_variant_is_detected_as_a_project_convention(self):
         decisions = {"aral_test": "custom_cost_text = aral_test_cost"}
         loc = {
             "en": {"aral_test_cost": "$0.1 bn"},
@@ -225,7 +277,7 @@ fire_only_once = yes
         }
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
-            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
@@ -239,6 +291,33 @@ on_monthly = {
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
+    def test_state_modifier_uses_kaz_scope_and_is_attached_after_state_variables(self):
+        decisions = {
+            "aral_ifas": """
+available = { aral_unlocked_program = yes owns_state = 717 }
+fire_only_once = yes
+"""
+        }
+        effects = {
+            "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
+            "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
+        }
+        code = """
+on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
+on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+"""
+        code += FOCUS_TRIGGER_SOURCE
+        self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
+
+        broken = STATE_UPDATE_SOURCE.replace("is_owned_by = KAZ", "is_owned_by = ROOT")
+        broken = broken.replace("KAZ.aral_deficit", "ROOT.aral_deficit")
+        broken = broken.replace("add_dynamic_modifier = { modifier = aral_state_modifier }", "")
+        findings = audit.aral_ownership_issues(
+            decisions, {**effects, "aral_state_update": broken}, code
+        )
+        self.assertGreaterEqual(len(findings), 5)
+
     def test_aral_projects_require_coast_for_start_but_are_not_cancelled_mid_timer(self):
         decisions = {
             "aral_ifas": """
@@ -250,7 +329,7 @@ complete_effect = { set_temp_variable = { treasury_change = -0.05 } modify_treas
         }
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
-            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
@@ -290,7 +369,7 @@ complete_effect = {
         }
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
-            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
@@ -312,7 +391,7 @@ fire_only_once = yes
         }
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
-            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
@@ -337,7 +416,7 @@ fire_only_once = yes
         }
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
-            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
             "aral_monthly_tick": "aral_calc_drift = yes",
         }
         code = """
@@ -360,7 +439,7 @@ available = {
         }
         effects = {
             "update_aral_sea": "if = { limit = { controls_state = 717 } update_aral = yes }",
-            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
             "aral_monthly_tick": "aral_calc_drift = yes",
         }
         code = """

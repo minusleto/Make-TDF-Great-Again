@@ -14,7 +14,7 @@ Before changing anything, read:
 1. `docs/aral-sea/README.md` — current design, variables, projects, file map and simulation commands.
 2. GitHub issue #12 — design rationale, decisions already made and outstanding in-game checks.
 3. The exact code being changed. The live code is the source of truth when it differs from an older note or issue description.
-4. `docs/aral-sea/EXTERNAL_DEPENDENCIES.md` for the base-MD effects that are intentionally outside this focused snapshot. Use repository code and verified engine behaviour as the final authority.
+4. `docs/aral-sea/EXTERNAL_DEPENDENCIES.md` for unresolved target-TDF dependencies. Check documented modifiers, effects and triggers in the MDC wiki first. If the wiki does not define the required identifier or behaviour, request the exact target TDF source file from the user. Never use another mod as the authority for TDF.
 
 Do not load every wiki page or every skill reference by default. Search for a specific unresolved mechanic or engine behaviour.
 
@@ -24,7 +24,7 @@ Do not load every wiki page or every skill reference by default. Search for a sp
 - Before editing, confirm the current branch, HEAD and worktree status. Do not assume a previous Claude session left the repository on the right branch.
 - Never move the branch ref backwards or overwrite concurrent commits. Create the commit from the freshly fetched HEAD and update the ref with an expected-SHA check.
 - Keep one commit per coherent task. A documentation/skill-only change must not include unrelated gameplay edits.
-- The repository is a partial MDC/HOI4 snapshot. The base mod and some engine-facing definitions are external. Mark such dependencies as unverified; do not report them as broken solely because they are absent from this checkout.
+- This branch is a focused snapshot, not the complete target TDF installation. An identifier missing from this branch is unknown, not automatically invalid or supplied by another mod. Check the MDC wiki; if the definition or behaviour is not documented, ask the user for the relevant target TDF file.
 
 ## Mechanic model and invariants
 
@@ -39,11 +39,11 @@ The design is a long-running restoration system, not a one-off national bonus. P
 - All 17 Aral project decisions require Kazakhstan to own state 717 (Kyzylorda) in `available`, using `owns_state = 717`; control alone is not enough. Do not add `cancel_trigger` / `cancel_effect` for this ownership condition: if KAZ loses 717 after starting a project, its active timer continues and its normal `remove_effect` still runs. Keep `fire_only_once = yes` on the 16 one-shot decisions; `aral_sibaral` retains its existing `days_re_enable = 365` behaviour. The monthly tick, startup initialization and `update_aral_sea` recalculation also remain restricted to KAZ ownership of 717. State dynamic modifiers remain on their states when ownership changes, retaining their last calculated values until KAZ owns the coast again and recalculation resumes. State construction effects must still check that Kazakhstan currently owns each target state.
 - The Siberian-water chain is deliberately uncertain and costly. Do not turn it into a guaranteed free water source or allow it to raise the dam crest.
 - The optional focus and province-photo packages are not loaded by default. Do not silently move optional content into active folders.
-- The Aral on_action file is a standalone, uniquely named file under common/on_actions/. It contains both fresh-game startup initialization and the ownership-gated monthly tick. Keep it alongside the base mod's on_actions files; do not replace those files or ask the user to merge a call manually.
+- The Aral on_action file is a standalone, uniquely named file under common/on_actions/. It contains both fresh-game startup initialization and the ownership-gated monthly tick. Keep it alongside the target TDF on_actions files; do not replace those files or ask the user to merge a call manually.
 - The active payload must remain directly copyable as one mdredux/ folder. Do not add the full KAZ country-history file or other country files just to initialize this mechanic; on_startup handles initialization after country selection. Remember that on_startup is not run when loading an existing save.
 
 Aral localisation follows the project house style: write key: "text" and never add the optional :0 version suffix. Keep the EN/RU key sets aligned; the cost generator must emit the same style.
-Reuse sprites already supplied by the target MD base when possible. Do not generate or vendor replacement icons for existing generic UI assets.
+Reuse sprites only when their definitions and textures are confirmed in TDF source files or target files supplied by the user. If a referenced sprite is not present in available sources, record it as unknown and request the target interface/GFX file before relying on it or replacing it.
 
 When changing a variable, threshold or formula, search every writer and reader: scripted effects, decisions, events, dynamic modifiers, GUI, scripted localisation, simulator and both language files. A correct formula in one file is not enough.
 
@@ -85,24 +85,17 @@ Important distinctions:
 - For debt-financed projects, distinguish the amount paid from treasury and the amount added to debt. Never infer the debt sign or unit from the label; confirm it against a known-working `modify_debt_effect` pattern.
 - A decision that can time out or be cancelled needs an explicit review of whether the money/PP is kept, refunded or never charged.
 
-### Current MD pattern for mixed treasury and political-power costs
+### Mixed treasury and political-power costs: verification boundary
 
-The current Millennium Dawn Russia decision pattern for a price containing both treasury and PP is:
-- `custom_cost_trigger` checks the treasury threshold and `has_political_power > N-1`;
-- `custom_cost_text` points to one combined label showing both resources;
-- `ai_hint_pp_cost = N` tells the AI about the PP component;
-- `complete_effect` explicitly charges `add_political_power = -N` and then applies the treasury/debt effects.
+The MDC wiki documents `custom_cost_trigger` as an affordability condition and `custom_cost_text` as the displayed custom-cost label. It does not document `ai_hint_pp_cost` or the use of `has_political_power` inside this custom-cost pattern. Do not copy a combined-cost recipe from another mod or assert that these helpers are supported. The current Aral decisions contain these fields, but their target-engine behaviour remains unverified until the relevant TDF definitions are checked. Ask the user for the source file before relying on undocumented behaviour.
 
-Do not also set `cost = N` for these combined Aral costs. That mixes the standard PP field with a custom combined-cost label and obscures which mechanism is charging PP. Keep plain PP-only decisions on the ordinary `cost` field. The parent Aral category owns the KAZ-only `allowed` gate, so do not repeat it in every child decision.
+Do not assume that `cost` and `custom_cost_text` are incompatible. Keep the player-facing cost explicit, and verify actual PP/treasury affordability and deductions against the target TDF files. The parent Aral category owns the KAZ-only `allowed` gate, so do not repeat it in every child decision.
 
-### Localisation contract for custom costs
 
-The HOI4 custom-cost localisation contract is:
-- The base key from `custom_cost_text` is used while `custom_cost_trigger` is fulfilled.
-- The `_blocked` variant is used when that trigger is not fulfilled; it is required in both EN and RU.
-- The `_tooltip` variant is optional and replaces the lower hover-tooltip text. Aral decisions provide it so the hover text can explain treasury, debt and PP components.
+### Generated custom-cost localisation
 
-Do not mark the optional `_tooltip` key as an engine error when it is absent elsewhere. For this Aral mechanic, validate every required `_blocked` key and keep the generated optional tooltip in both languages.
+The MDC wiki documents the roles of `custom_cost_trigger` and `custom_cost_text`, but does not document automatic `_blocked` or `_tooltip` suffix handling. The Aral generator currently creates these keys as a project-local presentation convention. The static audit may check that generated EN/RU files are aligned, but must not present suffix handling as a verified engine contract. Confirm that behaviour using the target TDF GUI/effect source before relying on it in-game.
+
 
 For every custom cost:
 
@@ -110,7 +103,7 @@ For every custom cost:
 - Ensure the label and tooltip agree with the actual cost effects and affordability gate.
 - Keep English and Russian key sets aligned.
 - Check that the display for an unaffordable decision remains meaningful and does not expose a misleading price.
-- If a key belongs to the absent base mod rather than this repository, report it as an external dependency until verified. Do not create a false ERROR for an external key; keys generated by this mechanic must exist locally in both languages.
+- If a key or behaviour is not defined in available TDF files or documented in the MDC wiki, leave it unknown and request the exact target source file. Do not assign it to another mod by assumption.
 
 A repeated error pattern across many decisions and both languages is usually a generator/contract problem, not dozens of unrelated manual mistakes. Diagnose the common source before editing each decision.
 

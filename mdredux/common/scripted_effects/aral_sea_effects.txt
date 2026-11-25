@@ -16,19 +16,25 @@ aral_initialize_variables = {
 }
 
 # One state; the weight aral_w is 1 for Kyzylorda, 0.5 for its neighbours, 0.25 for the far west.
+# State-scope variables are assigned before the dynamic modifier is attached.
+# KAZ is explicit to avoid depending on the caller's ROOT scope.
+# The modifier is never removed when ownership changes.
 aral_state_update = {
-	if = { limit = { is_owned_by = ROOT NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } }
 	if = {
-		limit = { is_owned_by = ROOT }
-		set_variable = { aral_s_prod = ROOT.aral_deficit }
+		limit = { is_owned_by = KAZ }
+		set_variable = { aral_s_prod = KAZ.aral_deficit }
 		multiply_variable = { aral_s_prod = aral_w }
 		multiply_variable = { aral_s_prod = -0.0010 }
-		set_variable = { aral_s_slots = ROOT.aral_deficit }
+		set_variable = { aral_s_slots = KAZ.aral_deficit }
 		multiply_variable = { aral_s_slots = aral_w }
 		multiply_variable = { aral_s_slots = -0.0006 }
-		set_variable = { aral_s_recruit = ROOT.aral_deficit }
+		set_variable = { aral_s_recruit = KAZ.aral_deficit }
 		multiply_variable = { aral_s_recruit = aral_w }
 		multiply_variable = { aral_s_recruit = -0.0010 }
+		if = {
+			limit = { NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } }
+			add_dynamic_modifier = { modifier = aral_state_modifier }
+		}
 		force_update_dynamic_modifier = yes
 	}
 }

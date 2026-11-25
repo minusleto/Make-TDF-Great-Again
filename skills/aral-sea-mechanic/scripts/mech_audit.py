@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-"""Mechanic audit for MD/HOI4 content that is NOT a focus tree: decisions, events,
-scripted effects/triggers, dynamic modifiers, scripted GUI, .gui/.gfx and localisation.
+"""Static QA for the TDF Aral Sea mechanic.
 
-Usage (from the repository root):
-    python3 -I skills/md-hoi4-country-content/scripts/mech_audit.py mdredux --prefix aral
-    python3 -I skills/md-hoi4-country-content/scripts/mech_audit.py mdredux --prefix aral --json out.json
+Run from the repository root:
+    python -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral
+    python -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral --json reports/aral.json
 
-The prefix selects the files (by file name) and the identifiers (flags, variables, loc keys)
-that belong to the mechanic. Exit code 1 when there is at least one ERROR.
-The checks come from skills/md-hoi4-country-content (loc-style.md, pitfalls.md) and from bugs
-that were found by hand in real reviews; each rule is listed in RULES at the bottom.
+Checks are based on available TDF source, curated MDC Wiki references in docs/aral-sea/,
+and explicit Aral design invariants. Unknown identifiers are not attributed to another
+mod; request the target TDF file when a required definition is undocumented.
 """
 import argparse, collections, glob, json, os, re, sys
 
@@ -27,7 +25,8 @@ def add(sev, area, msg):
 
 
 def rd(path):
-    b = open(path, "rb").read()
+    with open(path, "rb") as handle:
+        b = handle.read()
     return b, b.decode("utf-8-sig", errors="replace").replace("\r", "")
 
 
@@ -108,27 +107,21 @@ def implied_custom_cost_localisation_keys(decisions):
 
 
 def aral_decision_cost_issues(decisions):
-    """Keep Aral mixed treasury/PP costs aligned with current Millennium Dawn decisions."""
+    """Check category gating and keep political power on the native decision cost."""
     issues = []
     for decision, body in decisions.items():
         if re.search(r"(?m)^[ \t]*allowed[ \t]*=[ \t]*[{][^}]*original_tag[ \t]*=[ \t]*KAZ", body):
             issues.append(("decision " + decision, "remove duplicate KAZ allowed gate; the parent decision category already restricts the country"))
-        if re.search(r"(?m)^[ \t]*cost[ \t]*=[ \t]*[0-9]+", body):
-            issues.append(("decision " + decision, "mixed treasury/PP costs must use custom_cost_trigger + ai_hint_pp_cost, not a separate cost field"))
-        complete = inner(body, "complete_effect") or ""
-        pp = re.search(r"add_political_power[ \t]*=[ \t]*-([0-9]+)", complete)
-        if pp:
-            amount = int(pp.group(1))
-            trigger = inner(body, "custom_cost_trigger") or ""
-            if not re.search(r"has_political_power[ \t]*>[ \t]*" + str(amount - 1) + r"(?![0-9])", trigger):
-                issues.append(("decision " + decision, "custom_cost_trigger must check has_political_power > %d" % (amount - 1)))
-            hint = re.search(r"ai_hint_pp_cost[ \t]*=[ \t]*([0-9]+)", body)
-            if not hint or int(hint.group(1)) != amount:
-                issues.append(("decision " + decision, "ai_hint_pp_cost must match the PP charged in complete_effect"))
-            if not re.search(r"custom_cost_text[ \t]*=", body):
-                issues.append(("decision " + decision, "mixed treasury/PP cost requires custom_cost_text"))
+        if (
+            re.search(r"add_political_power[ \t]*=[ \t]*-[0-9]+", body)
+            or re.search(r"(?m)^[ \t]*ai_hint_pp_cost[ \t]*=", body)
+            or re.search(r"has_political_power[ \t]*>", body)
+        ):
+            issues.append((
+                "decision " + decision,
+                "use the native decision cost = N for political power; remove ai_hint_pp_cost, has_political_power custom gating and manual PP debits",
+            ))
     return issues
-
 
 def aral_localisation_style_issues(text):
     """The project omits the optional Paradox :0 localisation version suffix."""
@@ -140,19 +133,15 @@ def aral_localisation_style_issues(text):
 
 
 def aral_modifier_issues(dyn, effects):
-    """Reject unsupported modifier identifiers and keep the unemployment penalty direction correct."""
+    """Check the Aral design's required modifiers and crisis penalty direction."""
     issues = []
     country = dyn.get("aral_sea_dynamic_modifier", "")
     state = dyn.get("aral_state_modifier", "")
-    if "base_unemployment_modifier" in country:
-        issues.append(("dynamic modifier aral_sea_dynamic_modifier", "base_unemployment_modifier is not present in the target MD base; use high_unemployment_threshold_modifier"))
     if "high_unemployment_threshold_modifier" not in country:
-        issues.append(("dynamic modifier aral_sea_dynamic_modifier", "must use the supported high_unemployment_threshold_modifier"))
-    if "state_monthly_population" in state:
-        issues.append(("dynamic modifier aral_state_modifier", "state_monthly_population is not supported; monthly_population is country-scoped"))
+        issues.append(("dynamic modifier aral_sea_dynamic_modifier", "Aral's unemployment-threshold effect requires high_unemployment_threshold_modifier, documented in the MDC wiki"))
     for key in ("state_productivity_growth_modifier", "local_building_slots_factor", "recruitable_population_factor"):
         if key not in state:
-            issues.append(("dynamic modifier aral_state_modifier", "supported state debuff %s is missing" % key))
+            issues.append(("dynamic modifier aral_state_modifier", "required Aral state modifier %s is missing" % key))
     update = effects.get("update_aral_sea", "")
     if not re.search(r"multiply_variable\s*=\s*\{\s*aral_mod_jobs\s*=\s*-", update):
         issues.append(("scripted effect update_aral_sea", "unemployment-threshold modifier must be negative during the Aral crisis"))
@@ -246,8 +235,23 @@ def aral_ownership_issues(decisions, effects, code_all):
             issues.append(("decision " + decision, "Aral project decisions must not use ownership-based cancellation"))
 
     state_update = effects.get("aral_state_update", "")
-    if not re.search(r"is_owned_by\s*=\s*ROOT", state_update):
-        issues.append(("scripted_effect aral_state_update", "state modifier values must recalculate only while the state is owned by ROOT"))
+    owned_update = inner(state_update, "if") or ""
+    owned_limit = inner(owned_update, "limit") or ""
+    if not re.search(r"is_owned_by\s*=\s*KAZ", owned_limit):
+        issues.append(("scripted_effect aral_state_update", "state modifier values must recalculate only while the state is owned by KAZ"))
+    for variable in ("aral_s_prod", "aral_s_slots", "aral_s_recruit"):
+        assignment = r"set_variable\s*=\s*\{\s*" + re.escape(variable) + r"\s*=\s*KAZ\.aral_deficit\s*\}"
+        if not re.search(assignment, owned_update):
+            issues.append(("scripted_effect aral_state_update", variable + " must read KAZ.aral_deficit and be written in state scope"))
+    add_position = owned_update.find("add_dynamic_modifier = { modifier = aral_state_modifier }")
+    force_position = owned_update.find("force_update_dynamic_modifier = yes")
+    variable_positions = [owned_update.find("set_variable = { " + variable) for variable in ("aral_s_prod", "aral_s_slots", "aral_s_recruit")]
+    if add_position < 0:
+        issues.append(("scripted_effect aral_state_update", "must add aral_state_modifier in state scope while KAZ owns the state"))
+    elif any(position < 0 for position in variable_positions) or max(variable_positions) > add_position:
+        issues.append(("scripted_effect aral_state_update", "state variables must be assigned before first attaching aral_state_modifier"))
+    if force_position < 0 or (add_position >= 0 and force_position < add_position):
+        issues.append(("scripted_effect aral_state_update", "must force-refresh the state dynamic modifier after assigning its variables"))
     if re.search(r"remove_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_state_modifier\b", code_all):
         issues.append(("state modifier", "aral_state_modifier must remain on the state when ownership changes; do not remove it"))
     return issues
@@ -256,7 +260,7 @@ def aral_ownership_issues(decisions, effects, code_all):
 def num(s):
     try:
         return float(s)
-    except Exception:
+    except (TypeError, ValueError):
         return None
 
 
@@ -268,7 +272,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("root", nargs="?", default="mdredux")
     ap.add_argument("--prefix", default="aral")
-    ap.add_argument("--wiki", default="docs/aral-sea")
+    ap.add_argument("--wiki", default="docs/aral-sea", help="curated MDC Wiki reference folder (default: docs/aral-sea)")
     ap.add_argument("--json")
     a = ap.parse_args()
     P = a.prefix.lower()
@@ -432,7 +436,7 @@ def main():
                 add("ERROR", area, "scripted trigger %s is not defined" % g)
 
     for area, msg in custom_cost_blocked_key_issues(decisions, loc, langs):
-        add("ERROR", area, msg)
+        add("WARN", area, "project-generated custom-cost suffix convention: " + msg)
     if P == "aral":
         for area, msg in aral_ownership_issues(decisions, effects, code_all):
             add("ERROR", area, msg)
@@ -526,25 +530,33 @@ def main():
                     add("INFO", "text " + k, "hardcoded name '%s' (%s); check if a dynamic token fits" % (c, lg))
                     break
 
-    # ---------- H. dynamic modifiers vs wiki / repo ----------
+    # ---------- H. modifier identifiers vs curated MDC Wiki references / TDF ----------
     wiki = ""
-    for f in glob.glob(os.path.join(a.wiki, "**", "*.md"), recursive=True):
-        wiki += open(f, encoding="utf-8", errors="replace").read()
+    for wiki_file in glob.glob(os.path.join(a.wiki, "**", "*.md"), recursive=True):
+        with open(wiki_file, encoding="utf-8", errors="replace") as handle:
+            wiki += handle.read()
     repo_common = ""
-    for f in glob.glob(os.path.join(root, "common", "**", "*.txt"), recursive=True):
-        if not os.path.basename(f).lower().startswith(P):
-            repo_common += open(f, encoding="utf-8-sig", errors="replace").read()
+    for common_file in glob.glob(os.path.join(root, "common", "**", "*.txt"), recursive=True):
+        if not os.path.basename(common_file).lower().startswith(P):
+            with open(common_file, encoding="utf-8-sig", errors="replace") as handle:
+                repo_common += handle.read()
+
+    for helper in ("ai_hint_pp_cost", "has_political_power"):
+        if re.search(r"\b" + helper + r"\b", code_all) and not re.search(r"\b" + helper + r"\b", wiki):
+            add("INFO", "cost mechanics", "%s is used but is not documented in the supplied MDC Wiki references; verify it in the target TDF source file" % helper)
+
     skip = {"icon", "enable", "remove_trigger", "cooldown", "gain_xp", "dynamic", "trigger"}
-    for n, b in dyn.items():
-        ks = [k for k in re.findall(r"^\s*([a-z_0-9]+)\s*=\s*[\w.\-]+\s*$", b, re.M) if k not in skip]
-        if len(ks) > 6:
-            add("WARN", "modifier " + n, "%d modifiers (balance.md: 3-5 per spirit, capstone up to 6)" % len(ks))
-        for k in ks:
-            if not re.search(r"\b" + k + r"\b", wiki) and not re.search(r"\b" + k + r"\b", repo_common):
-                add("WARN", "modifier " + n, "%s found neither in wiki nor in other repo files: verify in game" % k)
-        for v in re.findall(r"=\s*(" + P + r"_\w+)", b):
-            if wr[v] == 0:
-                add("ERROR", "modifier " + n, "reads variable %s that is never written" % v)
+    for modifier_name, modifier_body in dyn.items():
+        modifier_keys = [
+            key for key in re.findall(r"^\s*([a-z_0-9]+)\s*=\s*[\w.\-]+\s*$", modifier_body, re.M)
+            if key not in skip
+        ]
+        for key in modifier_keys:
+            if not re.search(r"\b" + key + r"\b", wiki) and not re.search(r"\b" + key + r"\b", repo_common):
+                add("WARN", "modifier " + modifier_name, "%s was not found in curated MDC Wiki references or other TDF source files; request the target TDF file if it remains undocumented" % key)
+        for variable in re.findall(r"=\s*(" + P + r"_\w+)", modifier_body):
+            if wr[variable] == 0:
+                add("ERROR", "modifier " + modifier_name, "reads variable %s that is never written" % variable)
 
     # ---------- I. effects / triggers used vs defined ----------
     called = collections.Counter(re.findall(r"\b([a-z][a-z0-9_]*)\s*=\s*yes\b", code_all))
@@ -563,10 +575,10 @@ def main():
         if called[n] == 0 and n not in code_all.replace("%s = {" % n, "", 1):
             add("WARN", "effects", "%s is defined but never called" % n)
     if ext:
-        add("INFO", "effects", "external identifiers with '= yes' (verify they exist in the base mod): " + ", ".join(sorted(ext)))
+        add("INFO", "effects", "identifiers with '= yes' not defined in the available TDF files; check MDC Wiki and request the target TDF definition if undocumented: " + ", ".join(sorted(ext)))
     for ext_name in ("modify_treasury_effect", "modify_debt_effect"):
-        if ext_name in code_all and not re.search(ext_name, repo_common):
-            add("INFO", "effects", "%s is not used anywhere else in the repo" % ext_name)
+        if ext_name in code_all and not re.search(r"\b" + ext_name + r"\b", wiki + repo_common):
+            add("INFO", "effects", "%s is not documented with an implementation in the available TDF references; request the target TDF effect definition before relying on its side effects" % ext_name)
 
     # ---------- J. scripted GUI vs .gui / .gfx ----------
     gui_names = set(re.findall(r'\bname\s*=\s*"?([\w.\-]+)"?', gui_text))
@@ -623,7 +635,11 @@ def main():
         len(files), len(decisions), len(events), len(effects), ",".join(langs), len(L),
         len(OUT["ERROR"]), len(OUT["WARN"]), len(OUT["INFO"])))
     if a.json:
-        json.dump({k: v for k, v in OUT.items()}, open(a.json, "w"), ensure_ascii=False, indent=1)
+        output_path = os.path.abspath(a.json)
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w", encoding="utf-8", newline="\n") as handle:
+            json.dump({k: v for k, v in OUT.items()}, handle, ensure_ascii=False, indent=1)
+            handle.write("\n")
     return 1 if OUT["ERROR"] else 0
 
 
@@ -633,9 +649,9 @@ ERROR  decision: loc key missing, blocked custom-cost localisation missing, cost
 ERROR  flag checked but never set; variable read but never written; effect called but undefined
 ERROR  event: missing title/desc/option keys; scripted GUI element missing in .gui; sprite/texture missing
 ERROR  Aral: decisions, monthly tick and recalculation are gated by KAZ ownership of state 717; state modifier is persistent
-WARN   spaces, no ai_will_do, no decision log line, spirit with more than 6 modifiers, price not in label/tooltip, variable written but never read,
-       event length/label rules, banned phrases, years in text, unknown modifier names, unused effects
-INFO   hardcoded capitals, flags set but unused, external identifiers, unreferenced loc keys"""
+WARN   spaces, no ai_will_do, no decision log line, generated cost-label suffix convention, price not in label/tooltip, variable written but never read,
+       event length/label rules, banned phrases, years in text, modifier IDs absent from supplied MDC/TDF references, unused effects
+INFO   hardcoded capitals, flags set but unused, undocumented cost helpers, unresolved TDF identifiers, unreferenced loc keys"""
 
 if __name__ == "__main__":
     sys.exit(main())

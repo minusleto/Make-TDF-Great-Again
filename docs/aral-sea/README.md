@@ -62,15 +62,15 @@ never been approved or built. The mechanic therefore mostly fails, and success i
 
 ## Player interface
 
-The country and state modifiers reuse the base MD GFX_destroyed_dam icon; the panel's help marker reuses GFX_help_button_custom. No generated Aral modifier texture is required. Hovering the question-mark icon opens a guide to the 40 m baseline, dam crest, gradual project inflow, hydrology and the ownership/focus gates.
+The country and state modifiers reference `GFX_destroyed_dam`; the panel help marker references `GFX_help_button_custom`. Their definitions and texture paths are not included in this focused branch. Confirm them in the target TDF interface/GFX files before relying on them. No replacement texture is included. Hovering the question-mark icon opens a guide to the 40 m baseline, dam crest, gradual project inflow, hydrology and the ownership/focus gates.
 
 The level readout states its deviation from the natural 40 m mark. The monthly line now explicitly distinguishes a rise, a decline and no change, in metres per month.
 
 ## Install into the game
 
-Copy only the repository's mdredux/ folder into the directory that contains your full MD Redux mdredux/ folder. Let Windows merge the folders; do not delete or replace the existing folder. The active files are Aral-specific and use their own filenames, including common/on_actions/aral_sea_on_actions.txt.
+Copy only the repository's `mdredux/` folder into the `mdredux/` directory of the target TDF installation. Let Windows merge the folders; do not delete or replace the existing folder. The active files are Aral-specific and use their own filenames, including `common/on_actions/aral_sea_on_actions.txt`.
 
-No Kazakhstan history file is included or needs editing. On a new game, the standalone on_startup hook initializes the mechanic after country selection; the same file contains the ownership-gated monthly tick. Keep this file next to the base mod's other files in common/on_actions/—do not replace existing on_actions files or manually merge their contents. The active mechanic uses existing KAZ focus IDs, so keep your installed Kazakhstan focus tree.
+No Kazakhstan history file is included or needs editing. On a new game, the standalone on_startup hook initializes the mechanic after country selection; the same file contains the ownership-gated monthly tick. Keep this file next to the target TDF files in common/on_actions/—do not replace existing on_actions files or manually merge their contents. The active mechanic uses existing KAZ focus IDs, so keep your installed Kazakhstan focus tree.
 
 optional/aral_sea/ holds an obsolete six-focus prototype and a province-photo prototype; neither is copied into the game and neither is required by the active mechanic.
 
@@ -82,7 +82,7 @@ python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux --income 0
 ```
 The simulator parses mechanic formulas, project timings and costs from the code. Starting treasury defaults to the KAZ
 2000 baseline of 0.245 bn and can be overridden with `--treasury`; monthly treasury income and political power
-remain external parameters from the base mod.
+remain simulation inputs not defined by this mechanic's source files.
 
 ## In-game check
 The full list with expected numbers is in issue #12.

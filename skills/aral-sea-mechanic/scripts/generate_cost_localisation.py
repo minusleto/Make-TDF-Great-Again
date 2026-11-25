@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate the custom-cost blocked and optional hover localisation for the Aral decisions.
+"""Generate Aral's project-local blocked-label and hover-tooltip localisation variants.
 
-Default mode is check-only. Pass --write to append missing keys without rewriting existing
-translations. Values are derived from the decision's custom_cost_text and its existing
-<decision>_cost_tt localisation, so amounts are not duplicated in this script.
+The MDC wiki does not document automatic engine lookup for these suffixes. Default mode is
+check-only. Pass --write to append missing keys without rewriting existing translations.
+Values are derived from each decision's custom_cost_text and its existing <decision>_cost_tt.
 """
 from __future__ import annotations
 

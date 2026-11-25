@@ -6,8 +6,8 @@ Everything is parsed from the mod files, nothing is typed in:
   common/decisions/aral_sea_decisions.txt        length, price, debt, water, relief, requirements, gates
   events/aral_sea_events.txt                     dry-year loss, dike rebuild, price of the choices
   --treasury                  starting treasury (default: KAZ 2000 baseline, 0.245 bn)
-Treasury income and political power per month are NOT in the repo (they come from the base mod), so
-they are parameters. The player follows a fixed greedy policy (cheapest unlocked project first).
+Treasury income and political power per month are not defined by this mechanic's source files, so
+they remain explicit simulation parameters. The player follows a fixed greedy policy (cheapest unlocked project first).
 
     python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux
     python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux --income 0.1 --route phase2 --dike yes --once --seed 3
@@ -20,7 +20,8 @@ PRIORITY = ["dike", "ifas", "loan", "channel", "kokaral", "uzb", "aklak", "irrig
 
 
 def rd(p):
-    return open(p, encoding="utf-8-sig").read().replace("\r", "")
+    with open(p, encoding="utf-8-sig") as handle:
+        return handle.read().replace("\r", "")
 
 
 def nc(t):
