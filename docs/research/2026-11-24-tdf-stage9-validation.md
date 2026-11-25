@@ -267,3 +267,10 @@ These confirm that the exact English keys exist in pinned MD. They do not confir
 | Стиль и визуал | Длинные/короткие focus descriptions и option labels, generic option labels, 150 events без picture, duplicate localization keys | Рекомендательные или review findings; нельзя массово переписывать контент по порогу |
 
 **Граница аудита:** текущая задача Issue #18 — улучшить общие инструкции и надёжность классификации. Указанные country/content кандидаты не являются разрешением редактировать игровые файлы. Полный error/warn triage по каждому элементу остаётся открытым; неизвестные внешние зависимости и runtime-поведение не объявляются ошибками без соответствующего полного стека и проверки в игре.
+
+
+### Category-level decision gates (25.11.2026)
+
+HOI4 decision categories can define parent-level `allowed` and `visible` gates. A child decision only appears/is available when the corresponding category-level and decision-level conditions are fulfilled. Therefore an `original_tag = SOV` filter on a category is sufficient for all decisions inside it; do not repeat the same static gate inside every child. A decision-level `allowed` remains useful for an additional narrower restriction. `allowed` is checked at game start/save load; dynamic conditions belong in `visible`/`available`. Reference: [HOI4 Wiki — Decision modding](https://github.com/thelight0211/hoi4-wiki/blob/main/Decision%20modding%20-%20Hearts%20of%20Iron%204%20Wiki.md).
+
+Auditor output now exposes `category_metadata` and `category_has_allowed` alongside each decision's own `has_allowed`, so reviewers can distinguish parent and child gates. Regression fixtures cover both a child relying on its category gate and a child with an additional `allowed`. Full workflow [45605594176](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45605594176) passed 58/58 unit tests and all 14/14 jobs. In the current TDF checkout, 0/25 decision categories define category-level `allowed`; 31/279 individual decisions define their own. No gameplay files were edited.
