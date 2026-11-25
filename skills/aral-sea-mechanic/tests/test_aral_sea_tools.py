@@ -151,6 +151,11 @@ option = {
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):
+    def test_aral_help_uses_existing_vanilla_help_sprite(self):
+        gui = (ROOT / "mdredux" / "interface" / "aral_sea.gui").read_text(encoding="utf-8")
+        self.assertIn('spriteType = "GFX_help_button"', gui)
+        self.assertNotIn("GFX_help_button_custom", gui)
+
     def test_aral_dynamic_modifiers_use_existing_vanilla_icons(self):
         source = (
             ROOT / "mdredux" / "common" / "dynamic_modifiers" / "aral_sea_modifiers.txt"

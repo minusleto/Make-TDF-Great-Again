@@ -25,7 +25,7 @@ guiTypes = {
 		}
 		iconType = {
 			name = "aral_help_icon"
-			spriteType = "GFX_help_button_custom"
+			spriteType = "GFX_help_button"
 			Orientation = "CENTER_UP"
 			position = { x = 195 y = 7 }
 			pdx_tooltip = "ARAL_HELP_TT"
