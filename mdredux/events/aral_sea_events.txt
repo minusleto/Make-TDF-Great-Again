@@ -88,7 +88,12 @@ country_event = {
 			base = 60
 			modifier = { factor = 0 has_war = yes }
 		}
-		FROM = { set_country_flag = aral_sib_study }
+		FROM = {
+		if = {
+			limit = { has_country_flag = aral_sib_request_active owns_state = 717 }
+			set_country_flag = aral_sib_study
+		}
+	}
 	}
 	option = {
 		name = aral_sea.4.b
