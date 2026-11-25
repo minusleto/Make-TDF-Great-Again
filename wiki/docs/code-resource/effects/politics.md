@@ -65,7 +65,7 @@ set_temp_variable = { temp_outlook_increase = 0.10 }
 add_relative_party_popularity = yes
 ```
 
-📋 [Список всех партий](../../systems/politics/#subideologies) — полная таблица индексов `party_index` (0–23) со всеми субидеологиями.
+📋 [Список всех партий](../systems/politics.md#subideologies) — полная таблица индексов `party_index` (0–23) со всеми субидеологиями.
 
 _**Изменить популярность правящей идеологии:**_
 

@@ -5,10 +5,10 @@ description: "Навигация по кодовой базе"
 
 ## Разделы
 
-- [Эффекты](../effects/)
-- [Триггеры](../triggers/)
-- [Модификаторы](../modifiers/)
-- [Юниты и техника](../units/)
-- [Что такое Trigger (концепция)](../getting-started/triggers/)
-- [Переменные](../getting-started/variables/)
-- [Scopes](../getting-started/scopes/)
+- [Эффекты](../effects/index.md)
+- [Триггеры](../triggers/index.md)
+- [Модификаторы](../modifiers/index.md)
+- [Юниты и техника](../units/index.md)
+- [Что такое Trigger (концепция)](../getting-started/triggers.md)
+- [Переменные](../getting-started/variables.md)
+- [Scopes](../getting-started/scopes.md)

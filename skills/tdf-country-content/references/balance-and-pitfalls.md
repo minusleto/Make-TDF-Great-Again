@@ -1,13 +1,13 @@
 ---
 status: editorial-guidance
-updated: 2026-11-24
+updated: 2026-11-26
 scope: "Shared balance warnings, recurring implementation pitfalls and the final review checklist for TDF country-content changes."
 limits: "Editorial and balance heuristics, not engine limits or universal numeric caps; historical examples and the four-country MD medians require contextual review."
 ---
 
 # Баланс модификаторов и частые ошибки
 
-Статус: справочник редакторских и балансных предупреждений, не спецификация движка и не универсальные числовые лимиты. Основа — практика по дереву Казахстана и её проверка по репозиторию 2026-10-30; неподтверждённые положения отмечаются отдельно. Медианы по четырём странам взяты из исторической выборки `skills/md-hoi4-country-content/references/balance.md` (в `.skill`-пакете); использовать их только как ориентиры, а не как актуальную статистику всего TDF.
+Статус: справочник редакторских и балансных предупреждений, не спецификация движка и не универсальные числовые лимиты. Основа — практика по дереву Казахстана и её проверка по репозиторию 2026-10-30; неподтверждённые положения отмечаются отдельно. Медианы по четырём странам взяты из исторической выборки §5 этого файла (в `.skill`-пакете); использовать их только как ориентиры, а не как актуальную статистику всего TDF.
 
 ## 1. Правила баланса (взято)
 
@@ -71,3 +71,22 @@ limits: "Editorial and balance heuristics, not engine limits or universal numeri
 - [ ] Описание не обещает отсутствующие эффекты и передаёт значимый результат; оно не обязано перечислять каждый числовой бонус или техническую награду (см. `focus-loc.md`).
 - [ ] Нет несуществующих модификаторов и категорий.
 - [ ] `python3 -I skills/tdf-country-content/scripts/tdf_audit.py .` не прибавил ERROR.
+
+## 5. Медианы по модификаторам и эффектам [OBSERVATION]
+
+Медианы по Португалии, Польше, России и Сирии (историческая выборка): ориентиры, не лимиты. Выбросы не использовать как норму.
+
+Modifiers per idea: POR 4.3, SOV 4.5, SYR ~4.3, POL 5.3. Target 3-5, capstone up to 6.
+Land (median [range]): army_attack 0.03-0.05; army_defence 0.05; army_org 0.035; army_speed 0.05; army_morale 0.04 (POL 0.12 high); experience_gain_army 0.03; coordination 0.09-0.10 (max 0.20); planning_speed 0.10; max_planning 0.05 (max 0.15); max_command_power 9 (3-12); command_power_gain 0.11; training_time_army -0.10; supply_consumption -0.07 (max -0.13); out_of_supply -0.075; special_forces attack 0.05 / defence 0.07, training -0.15, cap 0.01-0.02; army_infantry_attack 0.05; license_production_speed 0.275.
+Navy: naval_speed 0.035 (max 0.16), navy_org 0.03 (max 0.09), navy_max_range 0.05. Air: air_defence 0.03. Stability 0.03, war_support 0.05, production_speed_buildings 0.055.
+Focus effects (median): treasury cost 5 (Russia 7.5); tech bonus 0.25-0.35; +political power 100-125. Poland has outliers (tech bonus 1.5, PP 350, treasury +250): ignore.
+Event effects: influence 2 (rarely >5); treasury -2.4..-5; PP 50-100; stability +-0.03-0.06; experience 25-35; ai_chance accept 50-70.
+Poland is stronger by quantity (5.3 modifiers) and some military values x1.4: use medians, not Poland's maxima.
+
+## 6. Паттерны багов из реальных файлов [OBSERVATION]
+
+log id != focus id; copy-paste from another country (hungary_economy.4, HUN_ ideas, hungary_* opinion modifiers); focus requires itself in available; effect only inside effect_tooltip; swap_ideas whose remove_idea is already gone; same bonus in proposal AND reply (and in the focus); stock/variant created in both focus and reply; foreign event namespace; MiG-style placeholder pictures; event id case mismatch (KAZ_army.4 vs kaz_army.4); undefined scripted loc referenced from a tooltip; hidden idea never displayed; tooltip numbers != code (promised 40, gave 18); partner that does not exist in reality (Iran/China aircraft), direction reversed (Russia taking aircraft instead of giving); duplicate loc keys; missing _desc; mixed tabs/spaces; unguarded DLC effects; naval proposal sent to wrong tag.
+
+## 7. Синтаксис, не подтверждённый в исходном проекте [UNVERIFIED]
+
+mio: effect syntax; add_mio_research_bonus; has_mio_size; crypto_strength value; mastery bonus parameters; increase_conscription_effect; tags SPR/SAF; icon/GFX names for event pictures.
