@@ -274,3 +274,16 @@ These confirm that the exact English keys exist in pinned MD. They do not confir
 HOI4 decision categories can define parent-level `allowed` and `visible` gates. A child decision only appears/is available when the corresponding category-level and decision-level conditions are fulfilled. Therefore an `original_tag = SOV` filter on a category is sufficient for all decisions inside it; do not repeat the same static gate inside every child. A decision-level `allowed` remains useful for an additional narrower restriction. `allowed` is checked at game start/save load; dynamic conditions belong in `visible`/`available`. Reference: [HOI4 Wiki — Decision modding](https://github.com/thelight0211/hoi4-wiki/blob/main/Decision%20modding%20-%20Hearts%20of%20Iron%204%20Wiki.md).
 
 Auditor output now exposes `category_metadata` and `category_has_allowed` alongside each decision's own `has_allowed`, so reviewers can distinguish parent and child gates. Regression fixtures cover both a child relying on its category gate and a child with an additional `allowed`. Full workflow [45605594176](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45605594176) passed 58/58 unit tests and all 14/14 jobs. In the current TDF checkout, 0/25 decision categories define category-level `allowed`; 31/279 individual decisions define their own. No gameplay files were edited.
+
+
+### Decision-auditor classification refinement — 25.11.2026
+
+Последний прогон на [92c410c](https://github.com/minusleto/Make-TDF-Great-Again/commit/92c410c8cfc14b1b053b126195a76aa185653617), [workflow 45607362477](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45607362477): **61/61 unit tests OK; 14/14 CI jobs success**. Full auditor по-прежнему использует report-only exit code 1 для content findings; тесты и workflow не падают.
+
+- Category metadata теперь привязана к конкретному блоку категории по строке определения, поэтому повторные category IDs в одном файле не смешивают списки дочерних решений. Regression test покрывает два блока с одинаковым ID.
+- 25 категорий / 279 решений: ни одна категория текущего checkout не задаёт собственный allowed; 31 решение задаёт свой. При этом category-level gate остаётся допустимым общим фильтром всех дочерних решений.
+- Автомиссии с activation + days_mission_timeout и available = { always = no } выведены из generic dead-condition candidates: 19 mission-gate review candidates отдельно, 6 обычных condition candidates остаются.
+- Custom-cost triage: 1 отображаемый custom-cost конфликт, 22 custom-cost-without-debit candidates, 1 threshold-only requirement candidate. Сочетание стандартного cost и простого eligibility trigger без custom text больше не считается автоматически второй ценой.
+- Прямые противоположные атомарные предикаты между visible и available: 0.
+
+Страновые игровые файлы не изменялись. Содержательная проверка конкретных оставшихся кандидатов, технологических unlocks и runtime на полной сборке остаётся открытой.
