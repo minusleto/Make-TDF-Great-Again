@@ -7,10 +7,10 @@ description: "Базовые понятия MDC-моддинга"
 
 Если вы впервые пишете код для MDC, начните с:
 
-1. [Переменных](./variables/)
-2. [Scope](./scopes/)
-3. [Triggers](./triggers/)
-4. [Скриптовых эффектов](../effects/)
+1. [Переменных](variables.md)
+2. [Scope](scopes.md)
+3. [Triggers](triggers.md)
+4. [Скриптовых эффектов](../effects/index.md)
 
 ## Важно
 

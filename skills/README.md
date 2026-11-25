@@ -20,6 +20,7 @@
 | События, цепочки и локализация событий | `tdf-country-content/references/event-loc.md` |
 | Национальные духи | `tdf-country-content/references/national-spirits.md` |
 | Составной дух-хаб с несколькими скрытыми идеями-компонентами | Дополнительно `hoi4-nested-national-spirits/SKILL.md` |
+| MIO, equipment, модули, технологии и варианты техники | `tdf-country-content/references/mio-and-equipment.md` |
 | Баланс, типовые ошибки и итоговый чек-лист | `tdf-country-content/references/balance-and-pitfalls.md` |
 | Любая работа с Казахстаном | Дополнительно `tdf-country-content/references/kazakhstan-maintenance.md` |
 
