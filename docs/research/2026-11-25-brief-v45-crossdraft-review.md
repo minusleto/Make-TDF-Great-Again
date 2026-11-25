@@ -8,11 +8,11 @@
 
 Проверены:
 
-- [v45-A — подробная редакция](../blob/main/drafts/brief-rework/brief_v45_A_detailed.txt);
-- [v45-B — модульная редакция](../blob/main/drafts/brief-rework/brief_v45_B_modular.txt);
-- [Liberal Rework.drawio.xml](../blob/main/drafts/Liberal%20Rework.drawio.xml);
-- [Копия Greece Draft.drawio (2).xml](../blob/main/drafts/%D0%9A%D0%BE%D0%BF%D0%B8%D1%8F%20Greece%20Draft.drawio%20(2).xml);
-- [berberlus.drawio.xml](../blob/main/drafts/berberlus.drawio.xml);
+- [v45-A — подробная редакция](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/brief-rework/brief_v45_A_detailed.txt);
+- [v45-B — модульная редакция](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/brief-rework/brief_v45_B_modular.txt);
+- [Liberal Rework.drawio.xml](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/Liberal%20Rework.drawio.xml);
+- [Копия Greece Draft.drawio (2).xml](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/%D0%9A%D0%BE%D0%BF%D0%B8%D1%8F%20Greece%20Draft.drawio%20(2).xml);
+- [berberlus.drawio.xml](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/berberlus.drawio.xml);
 - библиотечный [Georgia_Economy_All_Variants_With_Notes.drawio](https://github.com/minusleto/Make-TDF-Great-Again) и текущие реализации GEO/KAZ;
 - существующие статические аудиты и инвентаризация деревьев.
 
@@ -151,7 +151,7 @@
 
 Казахстанская страница — большая многодоменная доска с заметками по экономике, политике, армии, дипломатии, компаниям и проектам. Её нельзя прогонять по B с единственным модулем: такой подход отсечёт связи между экономическими решениями, оборонной промышленностью, внешними сделками и политическими условиями.
 
-Для Казахстана особенно полезно требование A о причинности и проверке каждого узла: в истории правок по этой стране уже были случаи, когда правдоподобная формулировка закупки не совпадала с реальным классом техники, когда награда срабатывала до выбора игрока и когда переименование идеи оставляло старые ссылки. Эти уроки отражены в [разборе истории повторных правок Казахстана](../blob/main/docs/research/2026-11-25-kazakhstan-history-regressions.md). Это уже инженерный уровень, не только дизайн драфта.
+Для Казахстана особенно полезно требование A о причинности и проверке каждого узла: в истории правок по этой стране уже были случаи, когда правдоподобная формулировка закупки не совпадала с реальным классом техники, когда награда срабатывала до выбора игрока и когда переименование идеи оставляло старые ссылки. Эти уроки отражены в [разборе истории повторных правок Казахстана](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/docs/research/2026-11-25-kazakhstan-history-regressions.md). Это уже инженерный уровень, не только дизайн драфта.
 
 ### 3.9. Грузия — четыре экономических варианта из Library
 
@@ -168,7 +168,7 @@
 
 ## 4. Что показали существующие реализованные страны
 
-По инвентаризации от 24 ноября в репозитории находятся 12 страновых focus tree файлов и 5 422 блока `focus`: ARM, BLR, GEO, HUN, ISR, KAZ, POL, POR, SOV, SLO, SYR и ENG. Это снимок структуры кода, а не показатель качества. См. [инвентаризацию](../blob/main/docs/research/2026-11-24-tdf-inventory.md).
+По инвентаризации от 24 ноября в репозитории находятся 12 страновых focus tree файлов и 5 422 блока `focus`: ARM, BLR, GEO, HUN, ISR, KAZ, POL, POR, SOV, SLO, SYR и ENG. Это снимок структуры кода, а не показатель качества. См. [инвентаризацию](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/docs/research/2026-11-24-tdf-inventory.md).
 
 Предыдущий статический QA от 30 октября проверял десять деревьев вместе с английской локализацией, идеями, событиями и scripted localisation. Он не запускал игру и не доказывал качество исторического дизайна. Поэтому его метрики нельзя считать оценкой новых драфтов. Они полезны как список инженерных рисков:
 
@@ -178,7 +178,7 @@
 - У Польши и России были отдельные кандидаты на локализационные/идентификаторные проблемы; их следует проверять на актуальной версии, а не переносить старые результаты в текущий код как гарантированные ошибки.
 - Сами отчёты подчёркивают, что часть отсутствующих внешних определений базового MD может быть вне локального репозитория.
 
-См. [статический аудит 30 октября](../blob/main/docs/research/2026-10-tdf-trees-audit.md) и [сравнение стандарта с деревьями](../blob/main/docs/research/2026-10-standard-vs-country-trees.md).
+См. [статический аудит 30 октября](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/docs/research/2026-10-tdf-trees-audit.md) и [сравнение стандарта с деревьями](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/docs/research/2026-10-standard-vs-country-trees.md).
 
 **Практический вывод:** для проверки v45 текущие страны лучше использовать как библиотеку реализованных решений и технических паттернов, но не как автоматический эталон. У каждого примера нужно отдельно фиксировать, что заимствуем: форму ветки, конкретную игровую награду, исторический факт, event flow или локализационную конвенцию.
 
