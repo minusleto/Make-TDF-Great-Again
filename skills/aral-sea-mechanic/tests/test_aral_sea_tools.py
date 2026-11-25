@@ -57,12 +57,12 @@ KAZ_aral_sea_category = {
 """
         self.localisations = {
             "en": """l_english:
- aral_test_cost:0 "$0.1 bn + 10 PP"
- aral_test_cost_tt:0 "Total cost: $0.2 bn; borrowed: $0.1 bn."
+ aral_test_cost: "$0.1 bn + 10 PP"
+ aral_test_cost_tt: "Total cost: $0.2 bn; borrowed: $0.1 bn."
 """,
             "ru": """l_russian:
- aral_test_cost:0 "0,1 млрд $ + 10 ПВ"
- aral_test_cost_tt:0 "Полная стоимость: 0,2 млрд $; в долг: 0,1 млрд $."
+ aral_test_cost: "0,1 млрд $ + 10 ПВ"
+ aral_test_cost_tt: "Полная стоимость: 0,2 млрд $; в долг: 0,1 млрд $."
 """,
         }
 
@@ -83,18 +83,20 @@ KAZ_aral_sea_category = {
         second, added2 = generator.merge_missing_keys(first, generated["en"], "en")
         self.assertEqual(len(added1), 2)
         self.assertEqual(added2, [])
+        self.assertIn(' aral_test_cost_blocked: "', first)
+        self.assertNotIn(' aral_test_cost_blocked:0 "', first)
         self.assertEqual(first, second)
 
     def test_conflicting_generated_key_is_not_overwritten(self):
         generated = generator.generate_entries(self.decisions, self.localisations)
-        text = self.localisations["en"] + ' aral_test_cost_blocked:0 "wrong"\n'
+        text = self.localisations["en"] + ' aral_test_cost_blocked: "wrong"\n'
         with self.assertRaises(ValueError):
             generator.merge_missing_keys(text, generated["en"], "en")
 
     def test_missing_source_tooltip_fails_clearly(self):
         broken = dict(self.localisations)
         broken["en"] = broken["en"].replace(
-            ' aral_test_cost_tt:0 "Total cost: $0.2 bn; borrowed: $0.1 bn."\n', ""
+            ' aral_test_cost_tt: "Total cost: $0.2 bn; borrowed: $0.1 bn."\n', ""
         )
         with self.assertRaisesRegex(ValueError, "missing full cost tooltip"):
             generator.generate_entries(self.decisions, broken)
@@ -150,6 +152,12 @@ complete_effect = {
             "aral_test": "allowed = { original_tag = KAZ }\\ncustom_cost_text = aral_test_cost"
         }
         self.assertTrue(any("parent decision category" in msg for _, msg in audit.aral_decision_cost_issues(decisions)))
+
+    def test_aral_localisation_omits_optional_zero_version_suffix(self):
+        self.assertEqual(audit.aral_localisation_style_issues(' aral_test: "text"'), [])
+        findings = audit.aral_localisation_style_issues(' aral_test:0 "text"')
+        self.assertEqual(len(findings), 1)
+        self.assertIn(":0", findings[0][1])
 
     def test_missing_aral_country_variables_are_initialized_without_resetting_saves(self):
         required = ("aral_sea_restoration", "aral_pending", "aral_relief", "aral_year_clock", "aral_gui_dirty")

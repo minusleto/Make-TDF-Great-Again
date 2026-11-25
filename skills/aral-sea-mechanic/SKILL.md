@@ -42,6 +42,9 @@ The design is a long-running restoration system, not a one-off national bonus. P
 - The Aral on_action file is a standalone, uniquely named file under common/on_actions/. It contains both fresh-game startup initialization and the ownership-gated monthly tick. Keep it alongside the base mod's on_actions files; do not replace those files or ask the user to merge a call manually.
 - The active payload must remain directly copyable as one mdredux/ folder. Do not add the full KAZ country-history file or other country files just to initialize this mechanic; on_startup handles initialization after country selection. Remember that on_startup is not run when loading an existing save.
 
+Aral localisation follows the project house style: write key: "text" and never add the optional :0 version suffix. Keep the EN/RU key sets aligned; the cost generator must emit the same style.
+Reuse sprites already supplied by the target MD base when possible. Do not generate or vendor replacement icons for existing generic UI assets.
+
 When changing a variable, threshold or formula, search every writer and reader: scripted effects, decisions, events, dynamic modifiers, GUI, scripted localisation, simulator and both language files. A correct formula in one file is not enough.
 
 ## File map

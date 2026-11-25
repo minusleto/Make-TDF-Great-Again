@@ -24,6 +24,14 @@ guiTypes = {
 			format = centre
 		}
 		iconType = {
+			name = "aral_help_icon"
+			spriteType = "GFX_help_button_custom"
+			Orientation = "CENTER_UP"
+			position = { x = 195 y = 7 }
+			pdx_tooltip = "ARAL_HELP_TT"
+			pdx_tooltip_delayed = "ARAL_HELP_TT"
+		}
+		iconType = {
 			name = "aral_picture"
 			spriteType = "GFX_aral_picture_strip"
 			Orientation = "CENTER_UP"

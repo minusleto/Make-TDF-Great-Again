@@ -130,6 +130,15 @@ def aral_decision_cost_issues(decisions):
     return issues
 
 
+def aral_localisation_style_issues(text):
+    """The project omits the optional Paradox :0 localisation version suffix."""
+    issues = []
+    for line_number, line in enumerate(text.splitlines(), 1):
+        if line.startswith(" ") and ':0 "' in line:
+            issues.append(("localisation", "remove optional :0 version suffix at line %d" % line_number))
+    return issues
+
+
 def aral_initialization_issues(effects):
     """Require save-safe initialization of every persistent variable read before its first write."""
     issues = []
@@ -266,6 +275,9 @@ def main():
         if f.endswith(".yml"):
             if not b.startswith(b"\xef\xbb\xbf"):
                 add("ERROR", short, "yml without BOM")
+            if P == "aral":
+                for area, msg in aral_localisation_style_issues(t):
+                    add("ERROR", short, msg)
         if f.endswith((".txt", ".gui", ".gfx", ".yml")):
             if b.count(b"\n") != b.count(b"\r\n"):
                 add("ERROR", short, "bare LF line endings (repo uses CRLF)")

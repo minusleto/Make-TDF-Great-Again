@@ -9,5 +9,4 @@ spriteTypes = {
 	spriteType = { name = "GFX_aral_bar_neg" texturefile = "gfx/interface/aral_sea/bar_neg.dds" }
 	spriteType = { name = "GFX_aral_milestone_zero" texturefile = "gfx/interface/aral_sea/milestone_zero.dds" }
 	spriteType = { name = "GFX_aral_milestone" texturefile = "gfx/interface/aral_sea/milestone.dds" }
-	spriteType = { name = "GFX_modifiers_aral_sea" texturefile = "gfx/interface/modifiers/aral_sea.dds" }
 }

@@ -15,3 +15,14 @@ Verified against the pinned upstream source snapshot:
 | `modify_debt_effect` | [`common/scripted_effects/00_budget_effects.txt`, line 1656](https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_budget_effects.txt#L1656) | Adds `debt_change` to `debt`, clamps the result to at least zero and refreshes the money UI. |
 
 Do not copy these upstream definitions into the Aral package. Confirm that the target base mod provides them and check any version-specific differences before integration.
+
+## Reused MD interface sprites
+
+The Aral modifiers and help tooltip reuse sprites already supplied by the Millennium Dawn base mod. They are deliberately not copied into the Aral payload.
+
+| Sprite | Definition | Use |
+|---|---|---|
+| GFX_destroyed_dam | interface/MD_dynamic_modifiers.gfx (upstream MD) | Existing icon in gfx/interface/dynamic_modifier/destroyed_dam.dds, used by the country and state Aral modifiers. |
+| GFX_help_button_custom | interface/MD_help_gui.gfx (upstream MD) | Existing help icon used by the Aral panel tooltip. |
+
+The Aral branch no longer includes a generated modifier icon texture. Confirm these sprite definitions exist in the target base MD version.

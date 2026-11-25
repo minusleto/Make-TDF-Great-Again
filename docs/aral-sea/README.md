@@ -60,6 +60,12 @@ never been approved or built. The mechanic therefore mostly fails, and success i
    (no benefits, no fee). The +50% increase is accepted only while the new annual fee stays at or below **0.15 bn**;
    if it would exceed the cap, Kazakhstan must refuse the price and wait two years without supply. Roughly one run in four gets the water within 35 years.
 
+## Player interface
+
+The country and state modifiers reuse the base MD GFX_destroyed_dam icon; the panel's help marker reuses GFX_help_button_custom. No generated Aral modifier texture is required. Hovering the question-mark icon opens a guide to the 40 m baseline, dam crest, gradual project inflow, hydrology and the ownership/focus gates.
+
+The level readout states its deviation from the natural 40 m mark. The monthly line now explicitly distinguishes a rise, a decline and no change, in metres per month.
+
 ## Install into the game
 
 Copy only the repository's mdredux/ folder into the directory that contains your full MD Redux mdredux/ folder. Let Windows merge the folders; do not delete or replace the existing folder. The active files are Aral-specific and use their own filenames, including common/on_actions/aral_sea_on_actions.txt.

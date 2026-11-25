@@ -72,7 +72,7 @@ def decision_cost_keys(text: str) -> list[tuple[str, str]]:
 
 def parse_localisation(text: str) -> dict[str, str]:
     result: dict[str, str] = {}
-    pattern = re.compile(r'^ ([A-Za-z0-9_.-]+):0 "((?:[^"\\]|\\.)*)"$')
+    pattern = re.compile(r'^ ([A-Za-z0-9_.-]+):\s*"((?:[^"\\]|\\.)*)"$')
     for line_number, line in enumerate(text.splitlines(), start=1):
         match = pattern.match(line)
         if not match:
@@ -111,7 +111,7 @@ def merge_missing_keys(text: str, generated: dict[str, str], lang: str) -> tuple
         if key in current and current[key] != value:
             raise ValueError("%s: existing key %s differs from generated output; review manually" % (lang, key))
         if key not in current:
-            missing.append(' %s:0 "%s"' % (key, value))
+            missing.append(' %s: "%s"' % (key, value))
     if not missing:
         return text, []
     prefix = "" if text.endswith("\n") else "\n"
