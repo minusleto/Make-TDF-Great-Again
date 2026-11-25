@@ -99,7 +99,7 @@ def implied_custom_cost_localisation_keys(decisions):
     """Return localisation keys used implicitly by custom_cost_text suffix conventions."""
     implied = set()
     for body in decisions.values():
-        match = re.search(r"custom_cost_text\\s*=\\s*(\\S+)", body)
+        match = re.search(r"custom_cost_text\s*=\s*(\S+)", body)
         if match:
             base = match.group(1)
             implied.add(base + "_blocked")
