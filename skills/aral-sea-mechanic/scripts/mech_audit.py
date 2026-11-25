@@ -111,21 +111,21 @@ def aral_decision_cost_issues(decisions):
     """Keep Aral mixed treasury/PP costs aligned with current Millennium Dawn decisions."""
     issues = []
     for decision, body in decisions.items():
-        if re.search(r"(?m)^\\s*allowed\\s*=\\s*\\{[^}]*original_tag\\s*=\\s*KAZ", body):
+        if re.search(r"(?m)^[ \t]*allowed[ \t]*=[ \t]*[{][^}]*original_tag[ \t]*=[ \t]*KAZ", body):
             issues.append(("decision " + decision, "remove duplicate KAZ allowed gate; the parent decision category already restricts the country"))
-        if re.search(r"(?m)^\\s*cost\\s*=\\s*\\d+", body):
+        if re.search(r"(?m)^[ \t]*cost[ \t]*=[ \t]*[0-9]+", body):
             issues.append(("decision " + decision, "mixed treasury/PP costs must use custom_cost_trigger + ai_hint_pp_cost, not a separate cost field"))
         complete = inner(body, "complete_effect") or ""
-        pp = re.search(r"add_political_power\\s*=\\s*-(\\d+)", complete)
+        pp = re.search(r"add_political_power[ \t]*=[ \t]*-([0-9]+)", complete)
         if pp:
             amount = int(pp.group(1))
             trigger = inner(body, "custom_cost_trigger") or ""
-            if not re.search(r"has_political_power\\s*>\\s*" + str(amount - 1) + r"\\b", trigger):
+            if not re.search(r"has_political_power[ \t]*>[ \t]*" + str(amount - 1) + r"(?![0-9])", trigger):
                 issues.append(("decision " + decision, "custom_cost_trigger must check has_political_power > %d" % (amount - 1)))
-            hint = re.search(r"ai_hint_pp_cost\\s*=\\s*(\\d+)", body)
+            hint = re.search(r"ai_hint_pp_cost[ \t]*=[ \t]*([0-9]+)", body)
             if not hint or int(hint.group(1)) != amount:
                 issues.append(("decision " + decision, "ai_hint_pp_cost must match the PP charged in complete_effect"))
-            if not re.search(r"custom_cost_text\\s*=", body):
+            if not re.search(r"custom_cost_text[ \t]*=", body):
                 issues.append(("decision " + decision, "mixed treasury/PP cost requires custom_cost_text"))
     return issues
 
