@@ -1,8 +1,12 @@
-# Make-TDF-Great-Again
+# Aral Sea mechanic — release files
 
-- `mdredux/` — контент мода (деревья, духи, решения, события, локализация)
-- `wiki/` — справочник по коду MDC
-- `docs/research/` — аудиты и исследования
-- `skills/` — скилы для агентов и людей (индекс: `skills/README.md`): `tdf-country-content` (основной, плюс скрипт аудита) и `md-hoi4-country-content` (рабочий цикл, числа)
-- `AGENTS.md` — короткая инструкция для агентов
-- `MD_SKILL.md` — ссылка на новое расположение старого скила
+This branch contains the Aral Sea mechanic release payload only:
+- active Aral gameplay files and EN/RU localisation;
+- Aral GUI and graphics;
+- the KAZ history integration file;
+- optional Aral focus-tree and province-photo material;
+- the v1.0 archive.
+
+No other country content, unrelated events, generic skills, wiki pages or repository research files belong in this branch.
+
+For the maintained implementation and current QA, see the `aral-sea-mechanic` branch. The v1.0 archive is a historical release snapshot and does not include later development fixes. The full in-game integration checklist is tracked in [Issue #12](https://github.com/minusleto/Make-TDF-Great-Again/issues/12).
