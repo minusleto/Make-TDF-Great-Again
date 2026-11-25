@@ -1764,7 +1764,7 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
                 "decision": decision_id, "has_custom_cost_trigger": has_custom_trigger,
                 "custom_cost_text": custom_text, "path": decision["path"], "line": decision["line"],
             })
-        if has_custom_trigger and decision["cost"] is not None:
+        if has_custom_trigger and custom_text and decision["cost"] is not None:
             custom_cost_conflicts.append({"decision": decision_id, "path": decision["path"], "line": decision["line"]})
         if has_custom_trigger:
             effects = []
