@@ -118,6 +118,7 @@ focus_tree = {
 ''', encoding="utf-8")
         (loc / "zz_extra_l_english.yml").write_text('''l_english:
  KAZ_visible:0 "Duplicate Visible"
+ KAZ_hidden:0 "Hidden"
  KAZ_or_child:0 "OR Child"
  KAZ_or_child_desc:0 "A sufficiently long description for testing. "
  KAZ_hidden_child:0 "Hidden Child"
@@ -255,6 +256,38 @@ focus_tree = {
             self.make_repo(root)
             result = self.audit_fixture(root)
             self.assertIn("KAZ_visible", result["dup_loc_keys"])
+            self.assertNotIn("KAZ_visible", result["dup_loc_keys_identical"])
+
+    def test_identical_localisation_duplicates_are_warn_only(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            result = self.audit_fixture(root)
+            self.assertIn("KAZ_hidden", result["dup_loc_keys_identical"])
+            self.assertNotIn("KAZ_hidden", result["dup_loc_keys"])
+            self.assertNotIn("dup_loc_keys_identical", audit.ERRORS)
+
+    def test_scripted_localisation_duplicates_are_split_by_content(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            scripts = root / "mdredux" / "common" / "scripted_localisation"
+            (scripts / "98_KAZ_duplicate_a.txt").write_text("""
+defined_text = { name = KAZ_identical_loc text = { trigger = { always = yes } localization_key = KAZ_loc1 } }
+defined_text = { name = KAZ_conflicting_loc text = { trigger = { always = yes } localization_key = KAZ_loc1 } }
+""", encoding="utf-8")
+            (scripts / "99_KAZ_duplicate_b.txt").write_text("""
+defined_text = { name = KAZ_identical_loc text = { trigger = { always = yes } localization_key = KAZ_loc1 } }
+defined_text = { name = KAZ_conflicting_loc text = { trigger = { always = no } localization_key = KAZ_loc1 } }
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            result = audit.audit_country("KAZ", countries["KAZ"], loc_index, set(), set(countries),
+                                         set(), set(), parsed, content)
+            self.assertIn("KAZ_identical_loc", result["scripted_loc_duplicate_identical"])
+            self.assertIn("KAZ_conflicting_loc", result["scripted_loc_duplicate"])
+            self.assertNotIn("scripted_loc_duplicate_identical", audit.ERRORS)
 
     def test_nested_or_does_not_hide_focus_with_visible_alternative(self):
         with tempfile.TemporaryDirectory() as temp:

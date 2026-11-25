@@ -273,6 +273,20 @@ def parse_hoi(text: str) -> ParseResult:
     root = parser.parse()
     return ParseResult(root, parser.issues, parser.open_braces - parser.close_braces)
 
+def _structural_signature(value):
+    """Return a location-independent signature for a parsed HOI block/value."""
+    if isinstance(value, Token):
+        return ("token", value.kind, value.value)
+    if isinstance(value, Block):
+        items = []
+        for item in value.items:
+            if isinstance(item, Token):
+                items.append(("token", item.kind, item.value))
+            elif isinstance(item, Entry):
+                items.append(("entry", item.key.value, _structural_signature(item.value)))
+        return ("block", tuple(items))
+    return ("unknown", type(value).__name__)
+
 
 def walk_entries(block: Block) -> Iterator[Entry]:
     for item in block.items:
@@ -511,6 +525,7 @@ def build_content_indexes(repo: Union[str, Path], countries, loc_index):
                 "path": str(path),
                 "localization_keys": [value for value in localization_keys if value],
                 "idea_refs": [value for value in idea_refs if value],
+                "signature": _structural_signature(definition.value),
             })
         # File names such as 99_KAZ_scripted_localisation.txt are useful even if a
         # malformed file contains no parseable defined_text block.
@@ -3117,17 +3132,36 @@ def audit_country(tag, country, loc_index, all_focus, known_tags, defined_events
     for issue in parsed.issues:
         R["parse_errors"].append("{}:{}".format(country["tree"].name, issue))
 
-    duplicate_keys = [key for key, occurrences in loc_index.items() if len(occurrences) > 1 and key.startswith(tag + "_")]
+    duplicate_keys = []
+    identical_duplicate_keys = []
+    for key, occurrences in loc_index.items():
+        if len(occurrences) < 2 or not key.startswith(tag + "_"):
+            continue
+        values = {occurrence.value for occurrence in occurrences}
+        if len(values) == 1:
+            identical_duplicate_keys.append(key)
+        else:
+            duplicate_keys.append(key)
     R["dup_loc_keys"] = sorted(duplicate_keys)
+    R["dup_loc_keys_identical"] = sorted(identical_duplicate_keys)
     for issue in content_indexes["script_parse_errors"].get(tag, []):
         R["parse_errors"].append(issue)
 
     defined_ideas = content_indexes["idea_ids"].get(tag, set())
 
     definitions = content_indexes["scripted_defs"].get(tag, [])
-    definition_counts = Counter(definition["name"] for definition in definitions)
-    R["scripted_loc_duplicate"] = sorted(name for name, count in definition_counts.items() if count > 1)
-    defined_scripted_names = set(definition_counts)
+    definitions_by_name = defaultdict(list)
+    for definition in definitions:
+        definitions_by_name[definition["name"]].append(definition)
+    R["scripted_loc_duplicate"] = sorted(
+        name for name, items in definitions_by_name.items()
+        if len(items) > 1 and len({item.get("signature") for item in items}) > 1
+    )
+    R["scripted_loc_duplicate_identical"] = sorted(
+        name for name, items in definitions_by_name.items()
+        if len(items) > 1 and len({item.get("signature") for item in items}) == 1
+    )
+    defined_scripted_names = set(definitions_by_name)
     referenced_scripted_names = content_indexes["scripted_refs"].get(tag, set())
     for name in sorted(referenced_scripted_names - defined_scripted_names):
         R["scripted_loc_missing"].append(name)
@@ -3861,6 +3895,7 @@ ERRORS = [
 ]
 WARNS = [
     "empty_reward", "nonstandard_filter", "hidden_branch_focus", "event_external",
+    "dup_loc_keys_identical", "scripted_loc_duplicate_identical",
     "tech_bonus_no_uses", "title_gt30", "desc_lt150", "desc_gt340", "banned_phrase",
     "tooltip_only_reward", "event_generic_label", "event_label_gt35", "event_option_label_external",
     "foreign_tag_ref", "idea_not_found",
