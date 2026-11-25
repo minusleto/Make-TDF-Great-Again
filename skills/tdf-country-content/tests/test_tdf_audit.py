@@ -918,6 +918,14 @@ KAZ_duplicate_category = {
                                  if item["id"] == "KAZ_test_category")
             self.assertTrue(category_meta["has_allowed"])
             self.assertIn("KAZ_test_decision", category_meta["decision_ids"])
+            self.assertNotIn("KAZ_another_decision", category_meta["decision_ids"])
+            duplicate_categories = [item for item in report["category_metadata"]
+                                    if item["id"] == "KAZ_duplicate_category"]
+            self.assertEqual(len(duplicate_categories), 2)
+            self.assertEqual(
+                {tuple(item["decision_ids"]) for item in duplicate_categories},
+                {("KAZ_test_decision",), ("KAZ_another_decision",)},
+            )
             test_decision = next(item for item in report["metadata"] if item["id"] == "KAZ_test_decision")
             self.assertTrue(test_decision["category_has_allowed"])
             self.assertFalse(test_decision["has_allowed"])

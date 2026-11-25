@@ -1577,6 +1577,7 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
                 block = decision_entry.value
                 decisions.append({
                     "id": decision_entry.key.value, "category": category_id,
+                    "category_line": category_entry.line,
                     "path": str(path), "line": decision_entry.line, "block": block,
                     "owner_tag": owner_tag,
                     "category_has_allowed": bool(direct_entries(category_block, "allowed")),
@@ -1877,7 +1878,9 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
             "has_visible": item["has_visible"], "has_priority": item["has_priority"],
             "decision_ids": [
                 decision["id"] for decision in decisions
-                if decision["category"] == item["id"] and decision["path"] == item["path"]
+                if decision["category"] == item["id"]
+                and decision["path"] == item["path"]
+                and decision["category_line"] == item["line"]
             ],
         } for item in categories],
         "parse_errors": parse_errors, "duplicate_category_ids": duplicate_categories,
