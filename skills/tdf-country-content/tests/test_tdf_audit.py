@@ -980,6 +980,51 @@ KAZ_category = {
             self.assertFalse(report["custom_cost_without_debit"])
 
 
+    def test_threshold_custom_cost_text_does_not_require_a_debit(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            decisions = root / "mdredux" / "common" / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""\\
+KAZ_test_category = {
+  KAZ_command_power_gate = {
+    custom_cost_trigger = { command_power > 20 }
+    custom_cost_text = command_power_more_than_20
+    visible = { always = yes }
+    complete_effect = { set_country_flag = KAZ_test_started }
+  }
+  KAZ_treasury_purchase = {
+    custom_cost_trigger = { check_variable = { treasury > 5 } }
+    custom_cost_text = cost_5_0
+    visible = { always = yes }
+    complete_effect = { set_country_flag = KAZ_purchase_started }
+  }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
+            loc.write_text(loc.read_text(encoding="utf-8") + """
+ KAZ_test_category:0 "Test category"
+ KAZ_command_power_gate:0 "Command power requirement"
+ KAZ_treasury_purchase:0 "Treasury purchase"
+ command_power_more_than_20:0 "£command_power §H20§!"
+ cost_5_0:0 "£treasury 5.0"
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_decision_audit(
+                root, countries, loc_index, all_focus, defined_events,
+                namespaces, event_parsed, content,
+            )
+
+            self.assertTrue(any(item["decision"] == "KAZ_command_power_gate"
+                                for item in report["custom_cost_gate_only_candidates"]))
+            self.assertFalse(any(item["decision"] == "KAZ_command_power_gate"
+                                 for item in report["custom_cost_without_debit"]))
+            self.assertTrue(any(item["decision"] == "KAZ_treasury_purchase"
+                                for item in report["custom_cost_without_debit"]))
+
     def test_non_clickable_mission_always_no_is_separated_from_dead_decision(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

@@ -1500,6 +1500,26 @@ def reports_have_parse_errors(*reports) -> bool:
     return any(bool(report.get(field)) for report in reports for field in PARSE_ERROR_FIELDS)
 
 
+def custom_cost_text_is_requirement(custom_text: Optional[str], loc_index) -> bool:
+    """Recognize obvious threshold/eligibility labels that do not claim a debit."""
+    if not custom_text:
+        return False
+    key = custom_text.lower()
+    requirement_key_patterns = (
+        "more_than", "greater_than", "at_least", "minimum", "required",
+        "requirement", "requires", "needs_", "need_",
+    )
+    if any(pattern in key for pattern in requirement_key_patterns):
+        return True
+    values = [item.value for item in loc_index.get(custom_text, [])]
+    text = " ".join(values).lower()
+    requirement_phrases = (
+        "at least", "more than", "greater than", "minimum of",
+        "requires at least", "must have at least", "need at least",
+    )
+    return any(phrase in text for phrase in requirement_phrases)
+
+
 def has_obvious_manual_cost_debit(effect_blocks: Sequence[Optional[Block]]) -> bool:
     entries = []
     for block in effect_blocks:
@@ -1628,7 +1648,8 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
     missing_event_refs, external_event_refs = [], []
     idea_reference_candidates, flag_reference_candidates, missing_scripted_loc = [], [], []
     invalid_numeric_fields, custom_cost_pair_issues, custom_cost_conflicts = [], [], []
-    custom_cost_without_debit, repeatability_warnings, empty_effect_warnings = [], [], []
+    custom_cost_without_debit, custom_cost_gate_only_candidates = [], []
+    repeatability_warnings, empty_effect_warnings = [], []
     nonnumeric_highlight_states, unknown_highlight_states, highlight_state_refs = [], [], []
     decision_conditions = []
     mission_gate_review_candidates = []
@@ -1751,10 +1772,21 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
             effects.extend([x.value for x in direct_entries(block, "complete_effect") if isinstance(x.value, Block)])
             effects.extend([x.value for x in direct_entries(block, "remove_effect") if isinstance(x.value, Block)])
             if not has_obvious_manual_cost_debit(effects):
-                custom_cost_without_debit.append({
+                candidate = {
                     "decision": decision_id, "custom_cost_text": custom_text,
                     "path": decision["path"], "line": decision["line"],
-                })
+                }
+                if custom_cost_text_is_requirement(custom_text, loc_index):
+                    custom_cost_gate_only_candidates.append({
+                        **candidate,
+                        "classification": "threshold_only_requirement",
+                        "reason": (
+                            "Локализация/ключ описывает минимальный порог ресурса, а не цену покупки; "
+                            "отсутствие списания может быть намеренным."
+                        ),
+                    })
+                else:
+                    custom_cost_without_debit.append(candidate)
 
         cooldown = numeric_value(decision["days_re_enable"])
         if decision["fire_only_once"] and cooldown is not None and cooldown > 0:
@@ -1893,7 +1925,9 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
         "idea_reference_candidates": idea_reference_candidates, "flag_reference_candidates": flag_reference_candidates,
         "missing_scripted_localisation": missing_scripted_loc, "invalid_numeric_fields": invalid_numeric_fields,
         "custom_cost_pair_issues": custom_cost_pair_issues, "custom_cost_conflicts": custom_cost_conflicts,
-        "custom_cost_without_debit": custom_cost_without_debit, "repeatability_warnings": repeatability_warnings,
+        "custom_cost_without_debit": custom_cost_without_debit,
+        "custom_cost_gate_only_candidates": custom_cost_gate_only_candidates,
+        "repeatability_warnings": repeatability_warnings,
         "empty_effect_warnings": empty_effect_warnings, "condition_review_candidates": decision_conditions,
         "mission_gate_review_candidates": mission_gate_review_candidates,
         "decision_gate_conflicts": decision_gate_conflicts,
@@ -4290,7 +4324,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "external_event_references", "idea_reference_candidates",
                     "flag_reference_candidates", "missing_scripted_localisation",
                     "invalid_numeric_fields", "custom_cost_pair_issues", "custom_cost_conflicts",
-                    "custom_cost_without_debit", "repeatability_warnings",
+                    "custom_cost_without_debit", "custom_cost_gate_only_candidates",
+                    "repeatability_warnings",
                     "empty_effect_warnings", "condition_review_candidates", "mission_gate_review_candidates",
                     "decision_gate_conflicts", "nonnumeric_highlight_states", "unknown_highlight_states"):
             print("  decision {}: {}".format(key, len(decision_report[key])))
