@@ -960,6 +960,69 @@ KAZ_category = {
             self.assertFalse(report["custom_cost_without_debit"])
 
 
+    def test_decision_gate_conflicts_are_warn_only_and_skip_or_alternatives(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            decisions = root / "mdredux" / "common" / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""\\
+KAZ_gate_category = {
+  KAZ_flag_conflict = {
+    visible = { AND = { has_country_flag = KAZ_stage_open NOT = { has_idea = KAZ_stage_closed } } }
+    available = { AND = { NOT = { has_country_flag = KAZ_stage_open } has_idea = KAZ_stage_closed } }
+  }
+  KAZ_nor_conflict = {
+    visible = { NOR = { has_country_flag = KAZ_nor_left has_country_flag = KAZ_nor_right } }
+    available = { has_country_flag = KAZ_nor_right }
+  }
+  KAZ_or_safe = {
+    visible = { OR = { has_country_flag = KAZ_or_left has_country_flag = KAZ_or_right } }
+    available = { NOT = { has_country_flag = KAZ_or_left } }
+  }
+  KAZ_same_condition = {
+    visible = { has_country_flag = KAZ_ready }
+    available = { has_country_flag = KAZ_ready }
+  }
+}
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_decision_audit(
+                root, countries, loc_index, all_focus, defined_events,
+                namespaces, event_parsed, content,
+            )
+
+            conflicts = report["decision_gate_conflicts"]
+            self.assertEqual(len(conflicts), 3)
+            by_decision = {}
+            for item in conflicts:
+                by_decision.setdefault(item["decision"], []).append(item)
+
+            self.assertEqual(len(by_decision["KAZ_flag_conflict"]), 2)
+            self.assertEqual(len(by_decision["KAZ_nor_conflict"]), 1)
+            self.assertNotIn("KAZ_or_safe", by_decision)
+            self.assertNotIn("KAZ_same_condition", by_decision)
+            self.assertEqual(
+                {(item["predicate"], item["visible_requirement"], item["available_requirement"])
+                 for item in by_decision["KAZ_flag_conflict"]},
+                {
+                    ("has_country_flag = KAZ_stage_open", "must_be_true", "must_be_false"),
+                    ("has_idea = KAZ_stage_closed", "must_be_false", "must_be_true"),
+                },
+            )
+            self.assertEqual(
+                by_decision["KAZ_nor_conflict"][0]["predicate"],
+                "has_country_flag = KAZ_nor_right",
+            )
+            self.assertEqual(
+                {item["classification"] for item in conflicts},
+                {"warn_only_candidate"},
+            )
+            self.assertNotIn("decision_gate_conflicts", audit.ERRORS)
+            self.assertNotIn("decision_gate_conflicts", audit.WARNS)
+
     def test_industry_audit_indexes_global_mio_equipment_and_variant_references(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

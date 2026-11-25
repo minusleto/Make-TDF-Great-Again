@@ -1375,6 +1375,53 @@ def decision_tooltip_keys(block: Block) -> List[str]:
     return found
 
 
+def decision_gate_atoms(block: Block):
+    """Collect only mandatory, simple predicates from a decision visibility gate.
+
+    AND is flattened; OR branches and compound negation are deliberately skipped.
+    The result is evidence for a WARN-only review, not a full logic solver.
+    """
+    atoms = []
+    logical_keys = {"AND", "OR", "NOT", "NOR"}
+
+    def add_atom(entry: Entry, polarity: bool):
+        if isinstance(entry.value, Token):
+            label = "{} = {}".format(entry.key.value, entry.value.value)
+        else:
+            label = "{} = {{ … }}".format(entry.key.value)
+        atoms.append({
+            "signature": (entry.key.value, _structural_signature(entry.value)),
+            "predicate": label,
+            "polarity": bool(polarity),
+            "line": entry.line,
+        })
+
+    def visit(container: Block, polarity: bool):
+        for entry in container.entries:
+            key = entry.key.value
+            value = entry.value
+            if key == "AND" and isinstance(value, Block):
+                visit(value, polarity)
+            elif key == "OR" and isinstance(value, Block):
+                # No child of OR is individually mandatory.
+                continue
+            elif key == "NOT" and isinstance(value, Block):
+                children = value.entries
+                if len(children) == 1 and children[0].key.value not in logical_keys:
+                    add_atom(children[0], not polarity)
+                # Compound NOT is intentionally left for manual review.
+            elif key == "NOR" and isinstance(value, Block):
+                # Every simple child of NOR must be false. Compound children are skipped.
+                for child in value.entries:
+                    if child.key.value not in logical_keys:
+                        add_atom(child, not polarity)
+            else:
+                add_atom(entry, polarity)
+
+    visit(block, True)
+    return atoms
+
+
 def numeric_value(value: Optional[str]) -> Optional[float]:
     if value is None:
         return None
@@ -1521,6 +1568,7 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
     custom_cost_without_debit, repeatability_warnings, empty_effect_warnings = [], [], []
     nonnumeric_highlight_states, unknown_highlight_states, highlight_state_refs = [], [], []
     decision_conditions = []
+    decision_gate_conflicts = []
 
     idea_index = (content_indexes or {}).get("idea_ids", {})
     script_defs = (content_indexes or {}).get("scripted_defs", {})
@@ -1667,6 +1715,53 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
                     "path": decision["path"], "line": decision["line"],
                 })
 
+        # Compare only mandatory atomic predicates in visible/available.
+        # allowed is a separate load/startup filter and is not compared here.
+        visible_atoms = []
+        available_atoms = []
+        for gate_entry in direct_entries(block, "visible"):
+            if isinstance(gate_entry.value, Block):
+                visible_atoms.extend(
+                    (atom, gate_entry.line) for atom in decision_gate_atoms(gate_entry.value)
+                )
+        for gate_entry in direct_entries(block, "available"):
+            if isinstance(gate_entry.value, Block):
+                available_atoms.extend(
+                    (atom, gate_entry.line) for atom in decision_gate_atoms(gate_entry.value)
+                )
+        seen_gate_conflicts = set()
+        for visible_atom, visible_gate_line in visible_atoms:
+            for available_atom, available_gate_line in available_atoms:
+                if (visible_atom["signature"] != available_atom["signature"]
+                        or visible_atom["polarity"] == available_atom["polarity"]):
+                    continue
+                conflict_key = (
+                    visible_atom["signature"], visible_atom["line"], available_atom["line"],
+                    visible_gate_line, available_gate_line,
+                )
+                if conflict_key in seen_gate_conflicts:
+                    continue
+                seen_gate_conflicts.add(conflict_key)
+                decision_gate_conflicts.append({
+                    "decision": decision_id,
+                    "category": decision["category"],
+                    "owner_tag": owner_tag,
+                    "predicate": visible_atom["predicate"],
+                    "visible_requirement": "must_be_true" if visible_atom["polarity"] else "must_be_false",
+                    "available_requirement": "must_be_true" if available_atom["polarity"] else "must_be_false",
+                    "visible_line": visible_atom["line"],
+                    "available_line": available_atom["line"],
+                    "visible_gate_line": visible_gate_line,
+                    "available_gate_line": available_gate_line,
+                    "path": decision["path"],
+                    "line": decision["line"],
+                    "classification": "warn_only_candidate",
+                    "reason": (
+                        "Один и тот же простой предикат обязателен в visible и available "
+                        "с противоположной полярностью; проверь достижимость решения вручную."
+                    ),
+                })
+
         highlight = get_block(block, "highlight_states")
         if highlight:
             for entry in nested_entries(highlight, "state"):
@@ -1712,6 +1807,7 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
         "custom_cost_pair_issues": custom_cost_pair_issues, "custom_cost_conflicts": custom_cost_conflicts,
         "custom_cost_without_debit": custom_cost_without_debit, "repeatability_warnings": repeatability_warnings,
         "empty_effect_warnings": empty_effect_warnings, "condition_review_candidates": decision_conditions,
+        "decision_gate_conflicts": decision_gate_conflicts,
         "nonnumeric_highlight_states": nonnumeric_highlight_states, "unknown_highlight_states": unknown_highlight_states,
         "highlight_state_references": highlight_state_refs, "state_inventory_available": state_inventory_available,
         "state_inventory_count": len(state_ids), "metadata": metadata,
@@ -4106,7 +4202,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "flag_reference_candidates", "missing_scripted_localisation",
                     "invalid_numeric_fields", "custom_cost_pair_issues", "custom_cost_conflicts",
                     "custom_cost_without_debit", "repeatability_warnings",
-                    "empty_effect_warnings", "condition_review_candidates",
+                    "empty_effect_warnings", "condition_review_candidates", "decision_gate_conflicts",
                     "nonnumeric_highlight_states", "unknown_highlight_states"):
             print("  decision {}: {}".format(key, len(decision_report[key])))
         print("  highlight states: {}, local state inventory available: {}".format(
@@ -4199,6 +4295,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     print("\n[branch_connectivity:{}] {}".format(key, len(items)))
                     for item in items[:60]:
                         print("  ", item)
+
+            gate_conflicts = [
+                item for item in decision_report.get("decision_gate_conflicts", [])
+                if item.get("owner_tag") == tag
+            ]
+            if gate_conflicts:
+                print("\\n[decision_gate_conflicts] {}".format(len(gate_conflicts)))
+                for item in gate_conflicts[:60]:
+                    print("  ", item)
 
         if args.json:
             report_data = dict(results)

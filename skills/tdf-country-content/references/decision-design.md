@@ -1,6 +1,6 @@
 ---
 status: project reference
-updated: 2026-11-24
+updated: 2026-11-25
 scope: TDF/MDC decision categories and decisions in mdredux/common/decisions
 limits: "Not every decision needs every field or a timer; auditor results are static candidates and cannot prove runtime, balance or external definitions."
 ---
@@ -75,6 +75,8 @@ KAZ_category = {
 - priority и поля категории — интерфейсная группировка, а не игровая награда.
 
 visible и available могут использовать одинаковые условия, если действие должно пропадать из списка при невыполнимости. Если нужно показать игроку заблокированную кнопку, условие чаще размещается в available, а более широкое условие — в visible. allowed, visible и available нельзя считать взаимозаменяемыми.
+
+Аудитор дополнительно формирует WARN-only кандидаты на прямое противоречие между обязательными атомарными предикатами в visible и available. Он распознаёт простые условия, раскрывает AND и ограниченно обрабатывает NOT/NOR; дочерние условия OR не считаются обязательными. Сложные отрицания, scripted triggers, динамические scope и общая логическая выполнимость не вычисляются. allowed намеренно не сравнивается с этими динамическими gate: это отдельный фильтр применимости. Любой кандидат требует ручной проверки и не повышает exit code.
 
 ### Стоимость
 
@@ -161,6 +163,7 @@ ai_will_do нужен, когда необходимо управлять час
 - кандидаты на неразрешённые country flags и scripted localisation;
 - custom cost без очевидного расходующего эффекта, cost вместе с custom cost, парность custom_cost_trigger/custom_cost_text;
 - подозрительное сочетание fire_only_once и days_re_enable, пустые effect blocks, постоянно ложные always = no условия;
+- WARN-only кандидаты на противоположные обязательные атомарные предикаты между visible и available (без полного решения OR/scope/scripted logic);
 - числовой формат highlight-state IDs и сверка с state inventory, только если state files действительно присутствуют в checkout.
 
 ERROR — доказуемая структурная проблема или отсутствующая локальная ссылка. WARN — кандидат на ручную проверку, в том числе когда эффект расхода спрятан в scripted effect или ссылка может быть внешней. Повтор category ID в нескольких файлах выводится как кандидат на проверку, поскольку разные файлы могут расширять одну категорию; повтор category в одном файле и повтор decision ID считаются ошибками. Ни одно предупреждение о стоимости, условии, флаге, балансе или AI не является автоматическим доказательством ошибки. Отсутствие локального state inventory явно отмечается: неизвестный state ID не объявляется отсутствующим.
