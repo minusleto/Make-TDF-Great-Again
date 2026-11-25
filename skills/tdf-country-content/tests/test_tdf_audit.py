@@ -1846,10 +1846,14 @@ KAZ_test_category = {
             "findings": [
                 {
                     "type": "localisation", "id": "sov_nationalists.20.d", "status": "confirmed",
+                    "verification_origin": "user_provided",
+                    "verification": [{"kind": "localisation definition", "path": "user-provided/localisation/events/Russia.yml"}],
                     "references": [{"repository": "TDF", "path": "mdredux/events/Russia.txt"}]
                 },
                 {
                     "type": "localisation", "id": "israel_economy.38.b", "status": "confirmed",
+                    "verification_origin": "user_provided",
+                    "verification": [{"kind": "localisation definition", "path": "user-provided/localisation/events/Israel.yml"}],
                     "references": [{"repository": "TDF", "path": "mdredux/events/Israel.txt"}]
                 },
                 {
@@ -1858,6 +1862,8 @@ KAZ_test_category = {
                 },
                 {
                     "type": "localisation", "id": "focus_only_desc", "status": "confirmed",
+                    "verification_origin": "user_provided",
+                    "verification": [{"kind": "localisation definition", "path": "user-provided/localisation/focus/Russia.yml"}],
                     "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt"}]
                 }
             ]
@@ -1889,10 +1895,14 @@ KAZ_test_category = {
             "findings": [
                 {
                     "type": "localisation", "id": "ENG_title_from_base", "status": "confirmed",
+                    "verification_origin": "user_provided",
+                    "verification": [{"kind": "localisation definition", "path": "user-provided/localisation/focus/England.yml"}],
                     "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt"}]
                 },
                 {
                     "type": "localisation", "id": "ENG_desc_from_base_desc", "status": "confirmed",
+                    "verification_origin": "user_provided",
+                    "verification": [{"kind": "localisation definition", "path": "user-provided/localisation/focus/England.yml"}],
                     "references": [{"repository": "TDF", "path": "mdredux/common/national_focus/United Kingdom_Focus_Tree.txt"}]
                 },
                 {
@@ -1905,6 +1915,8 @@ KAZ_test_category = {
                 },
                 {
                     "type": "localisation", "id": "GEO_desc_from_event_only_desc", "status": "confirmed",
+                    "verification_origin": "user_provided",
+                    "verification": [{"kind": "localisation definition", "path": "user-provided/localisation/events/Georgia.yml"}],
                     "references": [{"repository": "TDF", "path": "mdredux/events/Georgia.txt"}]
                 }
             ]

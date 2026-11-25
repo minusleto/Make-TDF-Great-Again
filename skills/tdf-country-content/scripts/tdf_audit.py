@@ -2419,6 +2419,7 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
                     )
                 ),
                 "checked_at": dependency.get("checked_at") if dependency else None,
+                "verification_origin": dependency.get("verification_origin") if dependency else None,
                 "verification": dependency.get("verification", []) if dependency else [],
                 "notes": dependency.get("notes") if dependency else (
                     "No exact registry record. Treat as unknown until the matching TDF "
