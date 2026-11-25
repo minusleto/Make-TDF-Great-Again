@@ -1549,6 +1549,18 @@ def has_obvious_manual_cost_debit(effect_blocks: Sequence[Optional[Block]]) -> b
     return False
 
 
+def technology_unlock_values(entry: Entry) -> List[str]:
+    """Read direct token-list values from enable_equipments/module unlock fields."""
+    if isinstance(entry.value, Token):
+        return [entry.value.value]
+    if not isinstance(entry.value, Block):
+        return []
+    return [
+        item.value for item in entry.value.items
+        if isinstance(item, Token) and item.value.lower() not in ("no", "none", "empty")
+    ]
+
+
 def collect_state_inventory(mod: Path):
     state_dirs = (mod / "history" / "states", mod / "common" / "history" / "states")
     files = []
@@ -2072,14 +2084,33 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
     technology_files = iter_files(technology_dir, ".txt")
     technology_ids = set()
     technology_parse_errors = []
+    equipment_unlock_references = []
+    equipment_unlocks = defaultdict(list)
+    module_unlocks = defaultdict(list)
     for path in technology_files:
         parsed = parse_hoi(read(path))
         for issue in parsed.issues:
             technology_parse_errors.append("{}:{}".format(path, issue))
         for container in find_named_blocks(parsed.root, "technologies"):
             for entry in container.entries:
-                if isinstance(entry, Entry) and isinstance(entry.value, Block):
-                    technology_ids.add(entry.key.value)
+                if not isinstance(entry, Entry) or not isinstance(entry.value, Block):
+                    continue
+                technology_id = entry.key.value
+                technology_ids.add(technology_id)
+                for field, target_kind, target_index in (
+                    ("enable_equipments", "equipment", equipment_unlocks),
+                    ("enable_equipment_modules", "module", module_unlocks),
+                ):
+                    for unlock_entry in direct_entries(entry.value, field):
+                        for target_id in technology_unlock_values(unlock_entry):
+                            target_index[target_id].append(technology_id)
+                            equipment_unlock_references.append({
+                                "technology": technology_id,
+                                "unlock_kind": target_kind,
+                                "target": target_id,
+                                "path": str(path),
+                                "line": unlock_entry.line,
+                            })
 
     # Parse all common scripts (focuses, decisions, ideas, scripted effects, etc.) plus events.
     # Do not scan MIO/equipment definition files as usage sources.
@@ -2173,6 +2204,11 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
                 "design_team": get_scalar(variant, "design_team"),
                 "allow_without_tech": get_scalar(variant, "allow_without_tech"),
                 "module_count": len(module_refs),
+                "type_unlock_technologies": sorted(set(equipment_unlocks.get(type_id, []))) if type_id else [],
+                "module_unlock_technologies": [
+                    {"module": module_id, "technologies": sorted(set(module_unlocks.get(module_id, [])))}
+                    for module_id in module_refs
+                ],
                 "path": str(path), "line": variant.line,
             })
 
@@ -2221,7 +2257,9 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
             "mio_references": len(mio_references), "equipment_files": len(equipment_files),
             "equipment_ids": len(equipment_definitions), "module_files": len(module_files),
             "module_ids": len(module_ids), "technology_files": len(technology_files),
-            "technology_ids": len(technology_ids), "equipment_variants": len(variant_definitions),
+            "technology_ids": len(technology_ids),
+            "equipment_unlock_references": len(equipment_unlock_references),
+            "equipment_variants": len(variant_definitions),
             "stockpile_grants": len(stockpile_grants),
         },
         "mio_parse_errors": mio_parse_errors,
@@ -2240,6 +2278,7 @@ def build_industry_audit(repo, countries, loc_index, all_focus=None, event_parse
         "unknown_equipment_type_references": unknown_equipment_type_references,
         "unknown_module_references": unknown_module_references,
         "unknown_technology_references": unknown_technology_references,
+        "equipment_unlock_references": equipment_unlock_references,
         "invalid_stockpile_amounts": invalid_stockpile_amounts,
         "local_equipment_localisation_candidates": local_equipment_localisation_candidates,
         "mio_definitions": mio_definitions,

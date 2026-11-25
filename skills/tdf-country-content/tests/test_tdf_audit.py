@@ -1235,6 +1235,11 @@ equipment_modules = {
 technologies = {
   KAZ_test_equipment_tech = {
     research_cost = 1
+    enable_equipments = { KAZ_test_equipment }
+    enable_equipment_modules = { test_module }
+  }
+  KAZ_test_equipment_late_tech = {
+    enable_equipments = { KAZ_test_equipment }
   }
 }
 """, encoding="utf-8")
@@ -1305,7 +1310,32 @@ technologies = {
             self.assertFalse(any(item["type"] == "KAZ_test_equipment"
                                  for item in report["unknown_equipment_type_references"]))
             self.assertFalse(report["unknown_module_references"])
-            self.assertEqual(report["counts"]["technology_ids"], 1)
+            self.assertEqual(report["counts"]["technology_ids"], 2)
+            self.assertTrue(any(
+                item["technology"] == "KAZ_test_equipment_tech"
+                and item["unlock_kind"] == "equipment"
+                and item["target"] == "KAZ_test_equipment"
+                for item in report["equipment_unlock_references"]
+            ))
+            self.assertTrue(any(
+                item["technology"] == "KAZ_test_equipment_tech"
+                and item["unlock_kind"] == "module"
+                and item["target"] == "test_module"
+                for item in report["equipment_unlock_references"]
+            ))
+            variant = next(item for item in report["equipment_variants"]
+                           if item["name"] == "KAZ Test Variant")
+            self.assertEqual(
+                variant["type_unlock_technologies"],
+                ["KAZ_test_equipment_late_tech", "KAZ_test_equipment_tech"],
+            )
+            self.assertEqual(
+                variant["module_unlock_technologies"],
+                [{"module": "test_module", "technologies": ["KAZ_test_equipment_tech"]}],
+            )
+            self.assertEqual(
+                variant["allow_without_tech"], "yes",
+            )
             self.assertTrue(any(item["amount"] == "5" and item["producer"] == "KAZ"
                                 for item in report["stockpile_grants"]))
 

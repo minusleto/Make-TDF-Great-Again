@@ -60,12 +60,13 @@ Equipment ID и technology ID — разные пространства имён
 - Equipment/chassis ID ищи среди direct children блока `equipments`.
 - Module ID ищи в `equipment_modules`.
 - Technology ID ищи среди direct children `technologies`.
+- Внутри technology definition учитывай `enable_equipments = { ... }` и `enable_equipment_modules = { ... }`: это явные связи technology → equipment/module. Аудитор индексирует их по всем локальным technology files и прикладывает к каждому `create_equipment_variant` найденные локальные unlock techs для его `type` и каждого module ID.
 - Equipment type в `create_equipment_variant` и `add_equipment_to_stockpile` должен указывать на equipment/archetype/chassis ID, а не на название технологии.
 - В `create_equipment_variant` сверяй `name`, `type`, `parent_version`, `design_team`, `modules`, `upgrades`, `icon`, `model` и `allow_without_tech`. Сверяй module IDs со всем локальным индексом модулей, а `design_team = mio:...` — с общим MIO индексом.
 - `allow_without_tech` не следует ставить автоматически: проверяй, зачем вариант выдаётся до исследования базовой техники.
 - В `add_equipment_to_stockpile` проверяй `type`, положительное `amount`, `producer` и `variant_name`. `variant_name` — строковое имя варианта, а не обязательно ключ локализации.
 - В `create_equipment_variant` обычно используется строковое `name`; не требуй YML-ключ для буквального имени. Не смешивай эти имена с ID оборудования.
-- Технологическое ограничение нельзя надёжно вывести только из значения `type`: проверь research tree, связи unlock и `allow_without_tech`. Статический аудит фиксирует инвентарь технологий и неизвестные ID, но не симулирует доступность в интерфейсе.
+- Технологическое ограничение нельзя надёжно вывести только из значения `type`: проверь research tree, связи unlock и `allow_without_tech`. Статический аудит показывает найденные локальные `enable_equipments`/`enable_equipment_modules` mappings для варианта, но отсутствие mapping в локальном срезе не доказывает отсутствие unlock в базовом MD/vanilla/DLC. Он не учитывает всю цепочку prerequisites, dynamic tech gates и фактическую доступность в UI.
 - Если equipment/module/technology ID не найден в этом срезе, помечай как кандидат на проверку вне репозитория. Не делай ERROR, если определение может быть в базовом MD, vanilla или DLC.
 
 ## 4. Откуда берётся производитель
@@ -87,6 +88,7 @@ Equipment ID и technology ID — разные пространства имён
 - equipment/chassis IDs, module IDs и technology IDs;
 - `create_equipment_variant`, `design_team`, equipment type, modules и `allow_without_tech`;
 - `add_equipment_to_stockpile`: type, amount, producer и variant name;
+- technology unlock map: `enable_equipments` и `enable_equipment_modules` из локальных research definitions, с обратной привязкой к variants;
 - кандидатов на неразрешённые equipment/module IDs, локализацию локального equipment и некорректные значения amount.
 
 Отчёты `missing_local` — кандидаты, а не разрешение автоматически менять страновой контент. Внешние зависимости остаются отдельной категорией. Повторный name key не считается ошибкой сам по себе.
