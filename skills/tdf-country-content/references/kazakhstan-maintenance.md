@@ -40,7 +40,7 @@ limits: "Not a generic HOI4 or TDF rulebook; fact and code notes may become stal
 
 1. Зафиксировать конкретную цель задачи и список ID, которые будут добавлены или изменены.
 2. Найти уже существующий сюжет/механику во всём KAZ-контенте: tree, events, ideas, decisions, scripted localisation, MIO и localisation. Не объявлять тему свободной только по отсутствию её в focus tree.
-3. До написания эффекта построить цепочку зависимостей: caller → event/decision → idea/state → дальнейший эффект → localisation. Отдельно пометить внешние IDs.
+3. До написания эффекта построить цепочку зависимостей: caller → event/decision → idea/state → дальнейший эффект → localisation. Для ideas отдельно проверить on_add/on_remove и вызываемые ими события; наличие локальной выдачи идеи — отдельное доказательство, не равное доказательству runtime-исполнения. Отдельно пометить внешние IDs.
 4. Менять связанный набор файлов вместе; не переименовывать ID без обновления всех callers. Несколько файлов одной задачи объединять в один коммит.
 5. Перед коммитом проверить точные changed IDs, prerequisites/relative positions, focus log, localization keys/duplicates, option names/logs, idea lifecycle и MIO/equipment references. Запустить KAZ audit и unit tests; при изменении общих правил — полный 12-country workflow.
 6. Сохранить JSON/log отчёт и просмотреть новые findings, включая _branch_connectivity: убедиться, что focus → event → idea → tooltip/scripted localisation и следующая focus gate имеют доказуемые локальные связи или пометки external/unknown. Review candidates — сигналы для ручной проверки, а не доказанные ошибки и не разрешение автоматически переписывать старый контент.

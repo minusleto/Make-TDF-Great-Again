@@ -444,6 +444,13 @@ def build_idea_definition_index(repo, countries):
                 ),
                 "has_on_add": bool(direct_entries(block, "on_add")),
                 "has_on_remove": bool(direct_entries(block, "on_remove")),
+                "lifecycle_event_calls": [
+                    {"lifecycle": lifecycle, "kind": call_kind, "target": target, "line": event_line}
+                    for lifecycle in ("on_add", "on_remove")
+                    for lifecycle_entry in direct_entries(block, lifecycle)
+                    if isinstance(lifecycle_entry.value, Block)
+                    for call_kind, target, event_line in iter_event_calls(lifecycle_entry.value)
+                ],
                 "has_cancel": bool(direct_entries(block, "cancel")),
                 "has_allowed_civil_war": bool(direct_entries(block, "allowed_civil_war")),
                 "days_remove": get_scalar(block, "days_remove"),
@@ -878,7 +885,7 @@ def is_local_event_key(key: str, event_id: str, tag: Optional[str] = None) -> bo
     return bool(tag and key.startswith(tag + "_"))
 
 
-def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=None):
+def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=None, idea_report=None):
     """Build project-wide event, localisation, reference and chain diagnostics."""
     mod = Path(repo) / "mdredux"
     file_tags = {
@@ -1109,11 +1116,32 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
     for definition in definitions:
         add_references(definition["block"], "event", definition["path"], definition["id"])
 
+    # Ideas can schedule events from on_add/on_remove. Keep these edges even if
+    # no local grant is known, but only use a locally granted idea as a reachability root.
+    locally_granted_ideas = {
+        item["idea"] for item in (idea_report or {}).get("idea_references", [])
+        if item.get("usage") in ("add", "timed_add")
+    }
+    for idea in (content_indexes or {}).get("idea_definitions", []):
+        for call in idea.get("lifecycle_event_calls", []):
+            references.append({
+                "kind": call["kind"], "target": call["target"],
+                "source_kind": "idea", "source": idea["path"],
+                "caller": idea["id"], "line": call["line"],
+                "source_owner_tag": idea.get("owner_tag"),
+                "lifecycle": call["lifecycle"],
+                "idea_grant_status": (
+                    "local_grant_found" if idea["id"] in locally_granted_ideas
+                    else "no_local_grant_found"
+                ),
+            })
+
     defined_ids = set(definitions_by_id)
     defined_namespaces = {item["namespace"] for item in namespace_declarations}
     unresolved_references, external_references = [], []
     event_edges = defaultdict(set)
     root_events = set()
+    idea_event_roots = set()
     scripted_effect_references = []
     scripted_effect_targets = set()
     for reference in references:
@@ -1126,6 +1154,10 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                 # Keep the reference visible but do not treat it as proof of reachability.
                 scripted_effect_references.append(dict(reference))
                 scripted_effect_targets.add(target)
+            elif reference["source_kind"] == "idea":
+                if reference.get("idea_grant_status") == "local_grant_found":
+                    root_events.add(target)
+                    idea_event_roots.add(target)
             else:
                 root_events.add(target)
             continue
@@ -1180,6 +1212,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
         "event_edges": [dict(item) for item in references
                         if item["source_kind"] == "event" and item["target"] in defined_ids],
         "root_events": sorted(root_events), "reachable_events": sorted(reachable),
+        "idea_event_roots": sorted(idea_event_roots),
     }
 
 
@@ -3429,6 +3462,7 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
 
     focus_event_edges = []
     event_event_edges = []
+    idea_event_edges = []
     unresolved_local_event_edges = []
     external_event_edges = []
     for reference in references:
@@ -3448,17 +3482,26 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
                           if (reference.get("caller") or "").startswith(tag + "_")), None)
         elif source_kind == "event":
             owner = event_file_tags.get(reference.get("source"))
+        elif source_kind == "idea":
+            owner = reference.get("source_owner_tag")
+            if not owner:
+                match = re.match(r"^([A-Z]{3})_", reference.get("caller") or "")
+                owner = match.group(1) if match else None
         edge = {
             "from_kind": source_kind, "from": reference.get("caller"),
-            "to_kind": "event", "to": target, "relation": "calls_event",
+            "to_kind": "event", "to": target,
+            "relation": "idea_lifecycle_calls_event" if source_kind == "idea" else "calls_event",
             "status": status, "path": reference.get("source"), "line": reference.get("line"),
-            "tag": owner,
+            "tag": owner, "lifecycle": reference.get("lifecycle"),
+            "idea_grant_status": reference.get("idea_grant_status"),
         }
         if source_kind == "focus" and owner:
             focus_event_edges.append(edge)
         elif source_kind == "event" and owner:
             event_event_edges.append(edge)
-        if source_kind in ("focus", "event") and owner in wanted:
+        elif source_kind == "idea" and owner:
+            idea_event_edges.append(edge)
+        if source_kind in ("focus", "event", "idea") and owner in wanted:
             if status == "missing_in_declared_local_namespace":
                 unresolved_local_event_edges.append(dict(edge))
             elif status == "external_or_unknown_namespace":
@@ -3732,6 +3775,7 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
             "focus_mio_edges": [x for x in focus_mio_edges if x["tag"] == tag],
             "event_nodes": [x for x in event_nodes if x["tag"] == tag],
             "event_event_edges": [x for x in event_event_edges if x.get("tag") == tag],
+            "idea_event_edges": [x for x in idea_event_edges if x.get("tag") == tag],
             "event_idea_grant_edges": [x for x in event_idea_grant_edges if x["tag"] == tag],
             "event_idea_gate_edges": [x for x in event_idea_gate_edges if x["tag"] == tag],
             "event_equipment_edges": [x for x in event_equipment_edges if x["tag"] == tag],
@@ -3762,6 +3806,7 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
             "focus_prerequisite_edges": len(focus_prerequisite_edges),
             "focus_event_edges": len(focus_event_edges),
             "event_event_edges": len(event_event_edges),
+            "idea_event_edges": len(idea_event_edges),
             "focus_idea_grant_edges": len(focus_idea_grant_edges),
             "focus_idea_gate_edges": len(focus_idea_gate_edges),
             "event_idea_grant_edges": len(event_idea_grant_edges),
@@ -3824,7 +3869,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         all_focus, defined_events, defined_namespaces, event_parsed = build_global_indexes(countries, args.repo)
         content_indexes = build_content_indexes(args.repo, countries, loc_index)
         idea_report = build_idea_lifecycle_audit(args.repo, countries, loc_index, content_indexes, event_parsed)
-        event_report = build_event_audit(args.repo, countries, loc_index, event_parsed, content_indexes)
+        event_report = build_event_audit(
+            args.repo, countries, loc_index, event_parsed, content_indexes, idea_report
+        )
         decision_report = build_decision_audit(args.repo, countries, loc_index, all_focus, defined_events,
                                                defined_namespaces, event_parsed, content_indexes)
         industry_report = build_industry_audit(args.repo, countries, loc_index, all_focus, event_parsed)

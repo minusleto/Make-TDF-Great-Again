@@ -45,7 +45,7 @@ limits: "Evidence candidates only; cannot resolve dynamic scopes, indirect calls
 
 ## Lifecycle ideas
 
-on_add / on_remove просматриваются на записи flags, variables и arrays. Для простых пар set/clr, add/remove, add/subtract показывается несопоставленный эффект. Это редакторская проверка, а не требование зеркалить любые эффекты: часть изменений намеренно постоянная, часть завершается timed flag или отдельным событием.
+on_add / on_remove просматриваются на записи flags, variables и arrays. Дополнительно индексируются прямые вызовы country_event / news_event внутри этих lifecycle-блоков: в _branch_connectivity появляется ребро idea → event. Такое событие считается локально достижимым только если в доступном checkout найден хотя бы один локальный add_idea / add_ideas / add_timed_idea для этой идеи. Если grant не найден, ребро остаётся в графе, но само по себе не снимает кандидат unreachable_triggered_event. Для простых пар set/clr, add/remove, add/subtract показывается несопоставленный эффект. Это редакторская проверка, а не требование зеркалить любые эффекты: часть изменений намеренно постоянная, часть завершается timed flag или отдельным событием.
 
 ## Scope и ограничения
 
@@ -83,6 +83,7 @@ Flag links сопоставляют точный ID и отдельно отме
 - focus → prerequisite focus (игровая зависимость; отдельно хранится relative_position_id, это только layout);
 - focus → event → event;
 - focus/event → выдаваемые идеи и технику;
+- idea on_add/on_remove → event, с проверкой наличия локального grant идеи;
 - focus → idea gate (available/bypass) и источники выдачи идеи по цепочке prerequisite ancestors → called events;
 - idea → custom_modifier_tooltip → scripted localisation → idea conditions;
 - focus → MIO и MIO → focus из visible;
@@ -92,5 +93,5 @@ focus_idea_gate_paths — review candidate, если локально опред
 
 unresolved_local_event_calls, external_event_calls, tooltip_script_resolution, unreachable_triggered_events и ссылки MIO показываются как отдельные типы кандидатов. Внешние namespace не превращаются в локальный missing ID. Ни один новый candidate не повышает exit code: существующие точные ERROR/WARN правила остаются источником статуса. В JSON данные расположены в _branch_connectivity, краткая статистика выводится при запуске, подробные кандидаты — через --details TAG.
 
-**Ограничения:** prerequisite ancestry — консервативное объединение ID, а не полная симуляция AND/OR, войны, DLC, динамических scope, вероятностей AI или порядка исполнения. Наличие локального пути доказывает только статическую связь вызовов, не успешное выполнение эффекта в игре. Отсутствие локального writer может означать базовый MD/историю/скрипт, которого нет в checkout. Использовать граф для навигации и ручного ревью, не для автоматического вывода о runtime-reachability.
+**Ограничения:** prerequisite ancestry — консервативное объединение ID, а не полная симуляция AND/OR, войны, DLC, динамических scope, вероятностей AI или порядка исполнения. Наличие локального пути доказывает только статическую связь вызовов, не успешное выполнение эффекта в игре. Отсутствие локального writer может означать базовый MD/историю/скрипт, которого нет в checkout. Для idea lifecycle локальная выдача лишь подтверждает статическую возможность включения on_add/on_remove в локальную цепочку; она не подтверждает фактическую дату выдачи, снятие духа или выполнение в runtime. Использовать граф для навигации и ручного ревью, не для автоматического вывода о runtime-reachability.
 

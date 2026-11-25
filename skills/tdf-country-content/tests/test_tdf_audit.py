@@ -1499,6 +1499,20 @@ country_event = {
     add_ideas = KAZ_flow_spirit_2
   }
 }
+country_event = {
+  id = kaz_flow.3
+  title = kaz_flow.3.t
+  desc = kaz_flow.3.d
+  is_triggered_only = yes
+  option = { name = kaz_flow.3.a }
+}
+country_event = {
+  id = kaz_flow.4
+  title = kaz_flow.4.t
+  desc = kaz_flow.4.d
+  is_triggered_only = yes
+  option = { name = kaz_flow.4.a }
+}
 """, encoding="utf-8")
 
             ideas = root / "mdredux" / "common" / "ideas" / "Kazakhstan_ideas.txt"
@@ -1511,6 +1525,15 @@ ideas = {
     }
     KAZ_flow_spirit_2 = {
       name = KAZ_flow_spirit
+      on_remove = {
+        country_event = { id = kaz_flow.3 days = 1 }
+      }
+    }
+    KAZ_flow_ungranted_spirit = {
+      name = KAZ_flow_ungranted_spirit
+      on_add = {
+        country_event = { id = kaz_flow.4 days = 1 }
+      }
     }
   }
 }
@@ -1546,11 +1569,18 @@ KAZ_flow_mio = {
  kaz_flow.2.t:0 "Delivery"
  kaz_flow.2.d:0 "The delivery is arranged."
  kaz_flow.2.a:0 "Accept"
+ kaz_flow.3.t:0 "Idea removal"
+ kaz_flow.3.d:0 "The granted idea was removed."
+ kaz_flow.3.a:0 "Continue"
+ kaz_flow.4.t:0 "Unreached idea"
+ kaz_flow.4.d:0 "This idea has no local grant."
+ kaz_flow.4.a:0 "Continue"
  KAZ_flow_root:0 "Root"
  KAZ_flow_root_desc:0 "A sufficiently long description used by a branch connectivity fixture."
  KAZ_flow_next:0 "Next"
  KAZ_flow_next_desc:0 "A sufficiently long description used by a branch connectivity fixture."
  KAZ_flow_spirit:0 "First stage"
+ KAZ_flow_ungranted_spirit:0 "Unreached stage"
  KAZ_flow_spirit_tt:0 "Current stage: [KAZ_flow_spirit_stage]"
  KAZ_flow_spirit_stage_desc:0 "The upgraded stage is active."
  KAZ_flow_mio_name:0 "Kazakhstan test organization"
@@ -1559,8 +1589,10 @@ KAZ_flow_mio = {
             countries, loc_index = audit.discover(root)
             _, _, _, event_parsed = audit.build_global_indexes(countries, root)
             content = audit.build_content_indexes(root, countries, loc_index)
-            event_report = audit.build_event_audit(root, countries, loc_index, event_parsed, content)
             idea_report = audit.build_idea_lifecycle_audit(root, countries, loc_index, content, event_parsed)
+            event_report = audit.build_event_audit(
+                root, countries, loc_index, event_parsed, content, idea_report
+            )
             all_focus = {
                 audit.get_scalar(body, "id")
                 for body in audit.find_named_blocks(countries["KAZ"]["tree_parsed"].root, "focus")
@@ -1585,6 +1617,28 @@ KAZ_flow_mio = {
             self.assertTrue(any(
                 edge["from"] == "kaz_flow.2" and edge["to"] == "KAZ_flow_spirit_2"
                 for edge in flow["event_idea_grant_edges"]
+            ))
+            self.assertTrue(any(
+                edge["from"] == "KAZ_flow_spirit_2" and edge["to"] == "kaz_flow.3"
+                and edge["lifecycle"] == "on_remove"
+                for edge in flow["idea_event_edges"]
+            ))
+            self.assertTrue(any(
+                edge["from"] == "KAZ_flow_ungranted_spirit" and edge["to"] == "kaz_flow.4"
+                for edge in flow["idea_event_edges"]
+            ))
+            self.assertIn("kaz_flow.3", event_report["idea_event_roots"])
+            self.assertFalse(any(
+                item["id"] == "kaz_flow.3"
+                for item in event_report["unreachable_triggered_events"]
+            ))
+            self.assertTrue(any(
+                item["id"] == "kaz_flow.4"
+                for item in event_report["unreachable_triggered_events"]
+            ))
+            self.assertTrue(any(
+                item["id"] == "kaz_flow.4"
+                for item in flow["review_candidates"]["unreachable_triggered_events"]
             ))
             tooltip_relations = {edge["relation"] for edge in flow["idea_tooltip_edges"]}
             self.assertIn("custom_modifier_tooltip", tooltip_relations)
@@ -1660,8 +1714,10 @@ ideas = {
             countries, loc_index = audit.discover(root)
             _, _, _, event_parsed = audit.build_global_indexes(countries, root)
             content = audit.build_content_indexes(root, countries, loc_index)
-            event_report = audit.build_event_audit(root, countries, loc_index, event_parsed, content)
             idea_report = audit.build_idea_lifecycle_audit(root, countries, loc_index, content, event_parsed)
+            event_report = audit.build_event_audit(
+                root, countries, loc_index, event_parsed, content, idea_report
+            )
             all_focus = {
                 audit.get_scalar(body, "id")
                 for body in audit.find_named_blocks(countries["KAZ"]["tree_parsed"].root, "focus")
