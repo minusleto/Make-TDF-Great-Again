@@ -205,3 +205,10 @@
  aral_sib_canal_cost_label_tooltip:0 "Total cost: §R$4 bn§!. From the treasury: §R$0.75 bn§!. Borrowed: §Y$3.25 bn§! (adds to debt). Political power: §R80§!."
  aral_sib_pipe_cost_label_blocked:0 "§R$1.0 bn + 80 PP§!"
  aral_sib_pipe_cost_label_tooltip:0 "Total cost: §R$5 bn§!. From the treasury: §R$1.0 bn§!. Borrowed: §Y$4 bn§! (adds to debt). Political power: §R80§!."
+
+ aral_unlock_program_tt:0 "Complete §YKazakhstan Economy§! to unlock this group of Aral projects."
+ aral_unlock_syrdarya_tt:0 "Complete §YFight the Capacity Deficit§! to unlock this group of Aral projects."
+ aral_unlock_agri_tt:0 "Complete §YAgricultural Business Program§! to unlock this group of Aral projects."
+ aral_unlock_green_tt:0 "Complete §YEnvironmental Modernization§! to unlock this group of Aral projects."
+ aral_unlock_phase2_tt:0 "Complete §YBalance the North and South§! to unlock this group of Aral projects."
+ aral_unlock_diplomacy_tt:0 "Complete §YForeign Policy of Kazakhstan§! to unlock this group of Aral projects."

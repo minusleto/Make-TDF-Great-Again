@@ -26,6 +26,20 @@ and the older second-dam plan. Design notes and the reason for every choice are 
   the sea then falls back to 40 m.
 - **Ownership of the coast.** Every Aral decision, the monthly tick and `update_aral_sea` recalculation require Kazakhstan to own state 717 (Kyzylorda), using `owns_state = 717`; control/occupation without ownership is not enough. State dynamic modifiers are intentionally attached to their states and are **not removed** when ownership changes. Their last calculated values remain on the state while another country owns it; recalculation resumes when Kazakhstan owns the coast again. State construction effects remain limited to states currently owned by Kazakhstan.
 
+## Focus gates
+The decision groups are tied to existing KAZ economic milestones. Decisions remain visible but grey until the relevant focus is complete; the available-state tooltip names the required focus:
+
+| Decision group | Required Kazakhstan focus |
+|---|---|
+| Initial programme (IFAS, loan, dike, first saxaul) | `KAZ_economy` |
+| Syr Darya works (channel, Kokaral, Aklak) | `KAZ_fight_capacity_deficit` |
+| Agricultural projects (irrigation, fisheries) | `KAZ_ABP` |
+| Second forest programme | `KAZ_ecologization` |
+| Amanotkel and final dam choice | `KAZ_balance_north_and_south` |
+| Uzbekistan agreement and Siberian-water talks | `KAZ_foreign_policy` |
+
+The six-focus package under `optional/aral_sea/optional_focus_tree/` is an archival placeholder from before the current KAZ tree was available; do not install it or overwrite the active trigger file with it.
+
 ## Projects (14 decisions) and the Siberian chain (3 more)
 IFAS programme, SYNAS loan, emergency dike, Syr Darya channel, Kokaral dam, Aklak works, irrigation modernization,
 fisheries (needs 41.5 m), protective forests I and II, Uzbekistan flow agreement, Amanotkel complex, then one of
@@ -48,8 +62,7 @@ never been approved or built. The mechanic therefore mostly fails, and success i
 ## Files
 `common/` decisions, scripted_effects, scripted_triggers, dynamic_modifiers, on_actions, scripted_guis, scripted_localisation;
 `events/aral_sea_events.txt` (dry year, dike washed out, salt storms, the Siberian chain); `interface/aral_sea.gui|gfx`, `gfx/`; EN and RU
-localisation; three lines in the KAZ history file. `optional/aral_sea/` holds a focus-gated trigger set, six focuses and a
-province photo (not loaded). Install the on_actions file only if your mod has no `on_monthly` block, otherwise merge the call
+localisation; three lines in the KAZ history file. `optional/aral_sea/` holds an obsolete six-focus prototype and a province-photo prototype; neither is loaded or required by the active mechanic. Install the on_actions file only if your mod has no `on_monthly` block, otherwise merge the call
 `aral_monthly_tick = yes` for KAZ.
 
 ## Tools (run from the repository root)

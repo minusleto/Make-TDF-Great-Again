@@ -1,3 +1,6 @@
+# ARCHIVAL PROTOTYPE ONLY — DO NOT INSTALL or copy over active scripted_triggers.
+# The live mechanic now uses existing KAZ focus IDs from Kazakhstan_Focus_Tree.txt.
+# This optional six-focus branch was a placeholder before the current KAZ tree was available.
 # Aral Sea focus branch as SHARED focuses (Millennium Dawn style joint branch).
 # 1) Put this file in common/national_focus/.
 # 2) In your Kazakhstan focus_tree add these six lines (at tree level, not inside another focus):

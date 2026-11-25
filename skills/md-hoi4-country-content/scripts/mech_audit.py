@@ -100,10 +100,39 @@ def aral_ownership_issues(decisions, effects, code_all):
     issues = []
     for decision, body in decisions.items():
         available = inner(body, "available") or ""
+        visible = inner(body, "visible") or ""
+        decision_groups = {
+            "aral_ifas": "program", "aral_loan": "program", "aral_dike": "program", "aral_saxaul1": "program",
+            "aral_channel": "syrdarya", "aral_kokaral": "syrdarya", "aral_aklak": "syrdarya",
+            "aral_irrigation": "agri", "aral_fish": "agri", "aral_saxaul2": "green",
+            "aral_amanotkel": "phase2", "aral_phase2": "phase2", "aral_dam2": "phase2",
+            "aral_uzb": "diplomacy", "aral_sibaral": "diplomacy",
+            "aral_sib_canal": "diplomacy", "aral_sib_pipe": "diplomacy",
+        }
+        group = decision_groups.get(decision)
+        if group is not None and not re.search(r"aral_unlocked_" + re.escape(group) + r"\s*=\s*yes", available):
+            issues.append(("decision " + decision, "the correct Aral focus-group gate must be present in available"))
+        if re.search(r"aral_unlocked_(?:program|syrdarya|agri|green|phase2|diplomacy)\s*=\s*yes", visible):
+            issues.append(("decision " + decision, "focus-group gates must not hide the decision; put the gate in available"))
         if not re.search(r"\bowns_state\s*=\s*717\b", available):
             issues.append(("decision " + decision, "available must require owns_state = 717"))
         if re.search(r"\bcontrols_state\s*=\s*717\b", available):
             issues.append(("decision " + decision, "use owns_state = 717, not controls_state = 717"))
+
+    required_focuses = {
+        "aral_unlocked_program": "KAZ_economy",
+        "aral_unlocked_syrdarya": "KAZ_fight_capacity_deficit",
+        "aral_unlocked_agri": "KAZ_ABP",
+        "aral_unlocked_green": "KAZ_ecologization",
+        "aral_unlocked_phase2": "KAZ_balance_north_and_south",
+        "aral_unlocked_diplomacy": "KAZ_foreign_policy",
+    }
+    for trigger, focus in required_focuses.items():
+        trigger_body = inner(code_all, trigger) or ""
+        if not re.search(r"has_completed_focus\s*=\s*" + re.escape(focus) + r"\b", trigger_body):
+            issues.append(("scripted trigger " + trigger, "must require completed focus " + focus))
+        if re.search(r"\balways\s*=\s*yes\b", trigger_body):
+            issues.append(("scripted trigger " + trigger, "must not be left permanently open"))
 
     monthly = inner(code_all, "on_monthly")
     if monthly is None or not re.search(r"original_tag\s*=\s*KAZ", monthly) or not re.search(r"owns_state\s*=\s*717", monthly):

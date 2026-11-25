@@ -19,6 +19,16 @@ def load_module(name, path):
 generator = load_module("aral_cost_generator", GENERATOR_PATH)
 audit = load_module("aral_mech_audit", AUDIT_PATH)
 
+FOCUS_TRIGGER_SOURCE = """
+aral_unlocked_program = { has_completed_focus = KAZ_economy }
+aral_unlocked_syrdarya = { has_completed_focus = KAZ_fight_capacity_deficit }
+aral_unlocked_agri = { has_completed_focus = KAZ_ABP }
+aral_unlocked_green = { has_completed_focus = KAZ_ecologization }
+aral_unlocked_phase2 = { has_completed_focus = KAZ_balance_north_and_south }
+aral_unlocked_diplomacy = { has_completed_focus = KAZ_foreign_policy }
+"""
+
+
 
 class CostLocalisationGeneratorTests(unittest.TestCase):
     def setUp(self):
@@ -91,8 +101,10 @@ class MechanicAuditRegressionTests(unittest.TestCase):
 
     def test_valid_aral_ownership_contract_has_no_findings(self):
         decisions = {
-            "aral_test": """
+            "aral_ifas": """
+visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = {
+  custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
   custom_trigger_tooltip = { tooltip = aral_coast_tt owns_state = 717 }
 }
 """
@@ -109,12 +121,14 @@ on_monthly = {
   effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } }
 }
 """
+        code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
     def test_treasury_and_debt_effects_must_not_be_hidden(self):
         decisions = {
-            "aral_test": """
-available = { owns_state = 717 }
+            "aral_ifas": """
+visible = { NOT = { has_country_flag = aral_ifas_done } }
+available = { aral_unlocked_program = yes owns_state = 717 }
 complete_effect = {
   hidden_effect = {
     modify_treasury_effect = yes
@@ -132,12 +146,40 @@ on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_ara
 on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
 """
         issues = audit.aral_ownership_issues(decisions, effects, code)
+        code += FOCUS_TRIGGER_SOURCE
+        issues = audit.aral_ownership_issues(decisions, effects, code)
         self.assertTrue(any("outside hidden_effect" in issue[1] for issue in issues))
+
+    def test_focus_group_triggers_are_bound_to_real_kaz_focus_ids(self):
+        decisions = {
+            "aral_ifas": """
+visible = { NOT = { has_country_flag = aral_ifas_done } }
+available = { aral_unlocked_program = yes owns_state = 717 }
+"""
+        }
+        effects = {
+            "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
+            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+        }
+        code = """
+on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
+on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+"""
+        code += FOCUS_TRIGGER_SOURCE
+        self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
+        broken = code.replace(
+            "aral_unlocked_program = { has_completed_focus = KAZ_economy }",
+            "aral_unlocked_program = { always = yes }",
+        )
+        issues = audit.aral_ownership_issues(decisions, effects, broken)
+        self.assertTrue(any("must not be left permanently open" in issue[1] for issue in issues))
 
     def test_old_control_gate_or_removal_of_state_modifier_is_flagged(self):
         decisions = {
-            "aral_test": """
+            "aral_ifas": """
+visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = {
+  custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
   custom_trigger_tooltip = { tooltip = aral_coast_tt controls_state = 717 }
 }
 """
@@ -151,6 +193,8 @@ on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
 on_monthly = { effect = { if = { limit = { original_tag = KAZ controls_state = 717 } aral_monthly_tick = yes } } }
 remove_dynamic_modifier = { modifier = aral_state_modifier }
 """
+        issues = audit.aral_ownership_issues(decisions, effects, code)
+        code += FOCUS_TRIGGER_SOURCE
         issues = audit.aral_ownership_issues(decisions, effects, code)
         self.assertGreaterEqual(len(issues), 4)
 

@@ -1,3 +1,5 @@
+# ARCHIVAL PROTOTYPE ONLY — DO NOT INSTALL or copy over the active trigger file.
+# The live mechanic is gated by existing KAZ focus IDs in mdredux/common/scripted_triggers/aral_sea_triggers.txt.
 # FOCUS-GATED version: install ONLY after the six focuses exist in your tree (otherwise the log fills with unknown-focus errors).
 # Each group of decisions unlocks when its focus is completed.
 aral_unlocked_program   = { has_completed_focus = KAZ_aral_programme }          # IFAS, protective forests, SYNAS loan, emergency dike

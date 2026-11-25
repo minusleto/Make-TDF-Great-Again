@@ -35,6 +35,7 @@ The design is a long-running restoration system, not a one-off national bonus. P
 - `aral_pending` is earned water that arrives gradually. Project completion should not instantly dump the whole amount into the sea.
 - `aral_relief` mitigates environmental and social fallout; it does not itself add water.
 - The monthly tick, dry-year events, dike failure and project effects must use the same variables and thresholds as the GUI and simulator.
+- Aral decision groups use existing KAZ focus milestones. Keep decisions visible and put the unlock gate in `available` with a `custom_trigger_tooltip`; do not hide locked projects with a `visible` gate.
 - Coast-dependent Aral decisions, monthly ticks and `update_aral_sea` recalculations require Kazakhstan to **own** state 717 (Kyzylorda), using `owns_state = 717`; control without ownership is not sufficient. State dynamic modifiers are deliberately persistent: once applied, they remain on their states when ownership changes. Their last values stay in place while KAZ does not own the coast and are recalculated when KAZ owns it again. State construction effects must still check that Kazakhstan currently owns each target state.
 - The Siberian-water chain is deliberately uncertain and costly. Do not turn it into a guaranteed free water source or allow it to raise the dam crest.
 - The optional focus and province-photo packages are not loaded by default. Do not silently move optional content into active folders.
