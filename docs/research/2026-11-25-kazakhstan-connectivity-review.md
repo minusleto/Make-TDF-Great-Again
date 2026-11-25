@@ -47,12 +47,14 @@ The earlier KAZ report showed 55 calls to namespaces not defined in the local ev
 
 | Target | Calls | Current call sites / scope | Verification |
 |---|---:|---|---|
-| mdc4.16 | 51 | 15 kaz_army.*; 16 kaz_cas.*; 20 kaz_foreign.* response/rejection options | **Unknown**: no exact definition found by search in official Millennium Dawn current main |
-| mdc4.13 | 1 | KAZ_rapprochement_nato focus, Diplomacy | **Unknown**: no exact definition found by search in official Millennium Dawn current main |
+| mdc4.16 | 51 | 15 kaz_army.*; 16 kaz_cas.*; 20 kaz_foreign.* response/rejection options | **Confirmed locally**: bundled definition in `mdredux/events/00_Generic_dip_events.txt:607`; English keys in `MDC_generic_dip_events_l_english.yml:88–90` |
+| mdc4.13 | 1 | KAZ_rapprochement_nato focus, Diplomacy | **Confirmed locally**: bundled definition in `mdredux/events/00_Generic_dip_events.txt:470`; English keys in `MDC_generic_dip_events_l_english.yml:74–77` |
 | diplomatic_response.1 | 2 | KAZ_alash.5 and KAZ_alash.8 responses | **Confirmed** in pinned MD baseline 04b2ba1: events/Diplomatic_Response.txt:6 and English localisation events_l_english.yml:1624–1626 |
 | hungary_economy.4 | 1 | KAZ_subsidies_from_IMF focus, economy path outside the current three-branch scope | **Unknown**: no exact definition found by search in official Millennium Dawn current main |
 
-The 51 mdc4.16 calls are the external dependency worth prioritising for the current work because they sit directly in the Army, Diplomacy/foreign and CAS branches. The registry now records mdc4.16 and mdc4.13 as unknown, not as missing or confirmed. diplomatic_response.1 is recorded as confirmed. The single IMF/Hungary call is recorded for completeness but is outside the current branch scope.
+The earlier unknown classification for `mdc4.16` and `mdc4.13` is superseded by the TDF generic diplomacy upload on 2026-11-25. Both definitions and their English localisation keys are now present in the same checkout and are marked `confirmed` in `docs/research/external-dependencies.json` by commit [dfe4102](https://github.com/minusleto/Make-TDF-Great-Again/commit/dfe4102426e3a347123f3f652bb236e59e59f115). The updated KAZ audit finds no unresolved or external references to either ID: all 51 `mdc4.16` calls resolve locally and preserve `FROM` recipient scope (15 Army / 16 CAS / 20 foreign-cooperation). `mdc4.13` is also local and resolves the NATO focus call.
+
+`diplomatic_response.1` remains a confirmed external dependency in the pinned MD baseline. The single `hungary_economy.4` call remains unknown and belongs to the IMF economy focus outside the current Army/Diplomacy/CAS work.
 
 Do not treat unknown as proof of a broken link: the dependency may belong to another enabled package or compatibility layer. Confirm the actual source and load order against the user's target mod stack before patching any gameplay event.
 
@@ -75,3 +77,22 @@ This is a strong local linkage candidate, but complete base-MD/shared definition
 - Branch scoping is based on explicit references in the current local TDF checkout. Third-party mods and dynamically constructed IDs remain outside this static index.
 - New lifecycle edges are navigation evidence. A local grant makes an `on_add` / `on_remove` call a possible local root; it does not prove the idea is active at a specific moment.
 - All gameplay findings remain in this roadmap; no new issues or PRs were created.
+
+
+## 6. Проверка после загрузки generic diplomacy source (2026-11-25)
+
+В TDF добавлены общие события `mdc4.1`–`mdc4.19` и английская локализация. Для KAZ это закрывает прежние unknown candidates `mdc4.13` и `mdc4.16`; игровой код Казахстана не менялся.
+
+В [workflow run 45583799089](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45583799089) прошли **51/51 unit tests**, full repository audit и все 12 country audits (**14/14 jobs success**). Full/per-country auditor runs работают в report-only CI: job завершается success, даже если сам content audit возвращает exit code 1 из-за существующих ERROR-кандидатов. Это не означает, что все игровые файлы прошли runtime или полный ERROR triage.
+
+Новый WARN-only анализатор сравнивает `option.name` с ID в стандартном диагностическом `log` вида `<option-key> executed`. Полный отчёт содержит **245 кандидатов** по всему checkout (147 — другой event ID в том же namespace, 58 — другой суффикс опции того же event ID, 40 — другой namespace). Это не доказанные ошибки: `log` остаётся свободным диагностическим текстом, поэтому несовпадения требуют контекста и не влияют на exit code. В generic diplomacy file найдено два явных review candidates:
+- `mdc4.4`: option key `mdc4.4.b`, log key `mdc4.5.b` (строки 138/140);
+- `mdc4.17`: option key `mdc4.4.b`, log key `mdc4.19.b` (строки 664/666); при этом локализованный `mdc4.17.b` существует, а отдельное событие `mdc4.19` также определено. Целевую refusal-chain до исправления необходимо подтвердить вручную.
+
+KAZ audit больше не показывает `mdc4.13` или `mdc4.16` как внешние вызовы. Остаются самостоятельные кандидаты:
+- `KAZ_strategic_partnership_china_loc` — нет локального `defined_text`; это всё ещё кандидат для проверки полного MD/shared stack и отображения tooltip.
+- один log mismatch в `KAZ_alash.2`: `KAZ_alash.2.a` против `KAZ_alash.1.a` (строки 4305/4307); не менять в рамках skill issue.
+- пять active-branch option logs отсутствуют: `kaz_army.7.a`, `kaz_army.7.b`, `kaz_army.8.a`, `kaz_cas.32.a`, `kaz_cas.33.a`. Они остаются content candidates; исправление игровых событий не входит в scope.
+- `hungary_economy.4` остаётся неизвестным вызовом из IMF economy focus, вне активных трёх веток; `diplomatic_response.1` подтверждён pinned upstream MD.
+
+**Ограничение:** KAZ audit завершился как успешное CI job, но content exit code остаётся 1 из-за статических ERROR-кандидатов в доступном срезе. Открытые вопросы и 32 старых `KAZ_eco.*` / `KAZ_com.*` orphan candidates остаются в исходном разделе выше; они не были удалены или переписаны. Stage 9 остаётся открытым до полного ERROR/WARN triage и проверки false-positive/runtime matrix.
