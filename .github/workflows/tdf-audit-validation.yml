@@ -55,6 +55,8 @@ jobs:
         run: python -I skills/md-hoi4-country-content/scripts/mech_audit.py mdredux --prefix aral
       - name: Simulate Aral mechanic
         run: python -I skills/md-hoi4-country-content/scripts/aral_model_sim.py mdredux --income 0.03 --route phase2 --once --seed 5
+      - name: Check generated Aral cost localisation
+        run: python -I skills/aral-sea-mechanic/scripts/generate_cost_localisation.py
 
   full-audit:
     name: Full repository audit

@@ -111,6 +111,29 @@ on_monthly = {
 """
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
+    def test_treasury_and_debt_effects_must_not_be_hidden(self):
+        decisions = {
+            "aral_test": """
+available = { owns_state = 717 }
+complete_effect = {
+  hidden_effect = {
+    modify_treasury_effect = yes
+    modify_debt_effect = yes
+  }
+}
+"""
+        }
+        effects = {
+            "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
+            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+        }
+        code = """
+on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
+on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+"""
+        issues = audit.aral_ownership_issues(decisions, effects, code)
+        self.assertTrue(any("outside hidden_effect" in issue[1] for issue in issues))
+
     def test_old_control_gate_or_removal_of_state_modifier_is_flagged(self):
         decisions = {
             "aral_test": """

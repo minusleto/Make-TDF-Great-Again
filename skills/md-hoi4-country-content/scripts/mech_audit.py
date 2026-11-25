@@ -118,6 +118,12 @@ def aral_ownership_issues(decisions, effects, code_all):
     if not re.search(r"if\s*=\s*\{\s*limit\s*=\s*\{\s*owns_state\s*=\s*717\b", update):
         issues.append(("scripted_effect update_aral_sea", "recalculation must be gated by owns_state = 717"))
 
+    for decision, body in decisions.items():
+        complete = inner(body, "complete_effect") or ""
+        hidden = inner(complete, "hidden_effect") or ""
+        if re.search(r"modify_(?:treasury|debt)_effect\s*=\s*yes", hidden):
+            issues.append(("decision " + decision, "treasury/debt effects must be outside hidden_effect so their cost effects are visible"))
+
     state_update = effects.get("aral_state_update", "")
     if not re.search(r"is_owned_by\s*=\s*ROOT", state_update):
         issues.append(("scripted_effect aral_state_update", "state modifier values must recalculate only while the state is owned by ROOT"))
