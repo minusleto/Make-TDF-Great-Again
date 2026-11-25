@@ -237,3 +237,12 @@ These confirm that the exact English keys exist in pinned MD. They do not confir
 ### Stage 9 status
 
 **Stage 9 remains open.** Auditor false-positive handling and test coverage improved, but complete content ERROR/WARN triage and the false-positive/runtime matrix are not finished. No HOI4 runtime was launched. No country gameplay files were changed, and no new issue or PR was created.
+
+
+**Актуализация 2026-11-25 — коммит [902e124](https://github.com/minusleto/Make-TDF-Great-Again/commit/902e12434b30904df38f66f528cef9f31207211f), workflow [45602234704](https://github.com/minusleto/Make-TDF-Great-Again/actions/runs/45602234704):**
+
+- 58/58 unit tests прошли за 1,315 секунды; новый `test_decision_gate_conflicts_are_warn_only_and_skip_or_alternatives` прошёл вместе с существующими MIO/equipment, event, hidden/legacy idea, tooltip и disabled-branch fixtures.
+- Все 14/14 CI jobs завершились `success`: unit tests/inventory, полный аудит и 12 страновых jobs. Полный аудит запустился и сохранил report artifact; его exit code — `1` из-за content ERROR findings (report-only), не из-за parser/test/CI failure.
+- В полном checkout: 6 decision files / 25 categories / 279 decisions; `decision_gate_conflicts = 0`, `condition_review_candidates = 25`. Ноль конфликтов означает, что эвристика не нашла совпадающих обязательных предикатов с противоположной полярностью в текущих решениях; это не доказывает общую логическую выполнимость условий.
+- MIO/equipment inventory: 57 files / 401 organizations, 414 equipment IDs, 719 modules, 993 technologies, 381 variants, 431 stockpile grants. Ideas: 15 files / 2,601 definitions / 9,054 references. External registry: 1,036 findings, 44 matched/registered, 992 not registered; missing entries remain candidates, not automatic errors.
+- Full auditor still reports the existing one parser error in `navy_submarine_doctrines.txt:297` and other content candidates documented in this report. No country/gameplay files were modified; no in-game runtime was launched.
