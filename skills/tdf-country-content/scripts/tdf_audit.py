@@ -1506,8 +1506,7 @@ def custom_cost_text_is_requirement(custom_text: Optional[str], loc_index) -> bo
         return False
     key = custom_text.lower()
     requirement_key_patterns = (
-        "more_than", "greater_than", "at_least", "minimum", "required",
-        "requirement", "requires", "needs_", "need_",
+        "more_than", "greater_than", "at_least", "minimum",
     )
     if any(pattern in key for pattern in requirement_key_patterns):
         return True
