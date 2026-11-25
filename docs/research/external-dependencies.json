@@ -1524,7 +1524,7 @@
         {
           "repository": "TDF",
           "path": "mdredux/common/decisions/aral_sea_decisions.txt",
-          "line": 1643,
+          "line": 24,
           "usage": "Aral project decisions execute the treasury transaction after a `treasury_change` value is set."
         }
       ],
@@ -1548,7 +1548,7 @@
         {
           "repository": "TDF",
           "path": "mdredux/common/decisions/aral_sea_decisions.txt",
-          "line": 1656,
+          "line": 152,
           "usage": "Debt-financed Aral projects execute the debt transaction after a `debt_change` value is set."
         }
       ],
