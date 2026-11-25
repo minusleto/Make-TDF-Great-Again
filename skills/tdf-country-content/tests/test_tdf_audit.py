@@ -1181,6 +1181,11 @@ ideas = {
       picture = generic_company
       modifier = { custom_modifier_tooltip = KAZ_dynamic_tt }
     }
+    KAZ_legacy_stage2 = {
+      name = KAZ_legacy
+      picture = generic_company
+      modifier = { stability_factor = 0.03 }
+    }
     CPLP_member = {
       name = CPLP_member
       picture = generic_company
@@ -1208,6 +1213,10 @@ ideas = {
       add_timed_idea = { idea = KAZ_hidden_component days = 30 }
       swap_ideas = { remove_idea = KAZ_legacy add_idea = KAZ_legacy_stage1 }
     }
+  }
+  focus = {
+    id = KAZ_legacy_stage2_direct_grant
+    completion_reward = { add_ideas = KAZ_legacy_stage2 }
   }
 }
 """
@@ -1245,11 +1254,19 @@ defined_text = {
 
             self.assertIn("CPLP_member", content["idea_ids"]["KAZ"])
             self.assertEqual(report["counts"]["idea_files"], 1)
-            self.assertEqual(report["counts"]["definitions"], 5)
+            self.assertEqual(report["counts"]["definitions"], 6)
             self.assertTrue(any(item["idea"] == "KAZ_legacy"
                                 for item in report["legacy_ids_without_idea_suffix"]))
             self.assertTrue(any(item["idea"] == "KAZ_legacy_stage1" and item["base_idea"] == "KAZ_legacy"
                                 for item in report["stage_name_links"]))
+            self.assertTrue(any(
+                item["remove_idea"] == "KAZ_legacy" and item["add_idea"] == "KAZ_legacy_stage1"
+                for item in report["stage_swap_transitions"]
+            ))
+            self.assertTrue(any(
+                item["idea"] == "KAZ_legacy_stage2"
+                for item in report["stage_grant_without_swap_candidates"]
+            ))
             self.assertTrue(any(item["idea"] == "KAZ_hidden_component" and item["usage"] == "timed_add"
                                 for item in report["idea_references"]))
             self.assertTrue(any(item["idea"] == "CPLP_member" and item["usage"] == "add"

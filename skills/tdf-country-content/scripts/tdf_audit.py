@@ -647,6 +647,7 @@ def build_idea_lifecycle_audit(repo, countries, loc_index, content_indexes, even
     references = []
     granted_ids = set()
     source_parse_errors = []
+    swap_blocks = []
 
     def values_from(entry):
         if isinstance(entry.value, Token):
@@ -673,6 +674,14 @@ def build_idea_lifecycle_audit(repo, countries, loc_index, content_indexes, even
     for path, parsed in sources:
         for issue in parsed.issues:
             source_parse_errors.append("{}:{}: {}".format(path, issue.line, issue.message))
+        for swap in find_named_blocks(parsed.root, "swap_ideas"):
+            old_idea = get_scalar(swap, "remove_idea")
+            new_idea = get_scalar(swap, "add_idea")
+            if old_idea and new_idea:
+                swap_blocks.append({
+                    "remove_idea": old_idea, "add_idea": new_idea,
+                    "path": str(path), "line": swap.line,
+                })
         for entry in walk_entries(parsed.root):
             key = entry.key.value
             if key in ("add_ideas", "add_idea"):
@@ -686,6 +695,52 @@ def build_idea_lifecycle_audit(repo, countries, loc_index, content_indexes, even
                     add_ref(idea_id, "condition", path, entry.line)
             elif key == "add_timed_idea" and isinstance(entry.value, Block):
                 add_ref(get_scalar(entry.value, "idea"), "timed_add", path, entry.line)
+
+    # Connect staged idea families to explicit swap_ideas transitions. This is
+    # an inventory only: a missing same-block swap is a review candidate because
+    # removal may happen in a separate effect or external script.
+    stage_ids = {item["idea"] for item in stage_name_links}
+    family_by_id = {
+        idea_id: resolved_name_key(values[0])
+        for idea_id, values in definitions_by_id.items()
+    }
+    stage_swap_transitions = []
+    for swap in swap_blocks:
+        old_idea, new_idea = swap["remove_idea"], swap["add_idea"]
+        if old_idea == new_idea or old_idea not in family_by_id or new_idea not in family_by_id:
+            continue
+        old_family, new_family = family_by_id[old_idea], family_by_id[new_idea]
+        if old_family == new_family and (old_idea in stage_ids or new_idea in stage_ids):
+            owner_tag = next(
+                (item["owner_tag"] for item in definitions_by_id[new_idea] if item.get("owner_tag")),
+                next((item["owner_tag"] for item in definitions_by_id[old_idea] if item.get("owner_tag")), None),
+            )
+            stage_swap_transitions.append({
+                "owner_tag": owner_tag, "family": old_family,
+                "remove_idea": old_idea, "add_idea": new_idea,
+                "path": swap["path"], "line": swap["line"],
+                "classification": "same_family_swap_candidate",
+            })
+
+    ideas_added_by_any_swap = {item["add_idea"] for item in swap_blocks}
+    stage_grant_without_swap_candidates = []
+    for item in references:
+        idea_id = item["idea"]
+        if item["usage"] != "add" or idea_id not in stage_ids or idea_id in ideas_added_by_any_swap:
+            continue
+        owner_tag = next(
+            (definition["owner_tag"] for definition in definitions_by_id.get(idea_id, [])
+             if definition.get("owner_tag")),
+            None,
+        )
+        stage_grant_without_swap_candidates.append({
+            **item, "owner_tag": owner_tag,
+            "classification": "direct_stage_grant_review_candidate",
+            "reason": (
+                "Ступень выдана add_idea/add_ideas вне найденного swap_ideas; "
+                "проверь, где снимается предыдущая ступень (включая scripted/external effects)."
+            ),
+        })
 
     missing_local_references = []
     external_references = []
@@ -780,6 +835,8 @@ def build_idea_lifecycle_audit(repo, countries, loc_index, content_indexes, even
         "duplicate_idea_ids": duplicate_idea_ids,
         "missing_name_localisation": missing_name_localisation,
         "stage_name_links": stage_name_links,
+        "stage_swap_transitions": stage_swap_transitions,
+        "stage_grant_without_swap_candidates": stage_grant_without_swap_candidates,
         "legacy_ids_without_idea_suffix": legacy_ids_without_suffix,
         "missing_local_idea_references": missing_local_references,
         "external_idea_references": external_references,
@@ -4274,6 +4331,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             idea_report["counts"]["visible_ideas"], idea_report["counts"]["hidden_ideas"],
             idea_report["counts"]["idea_references"]))
         for key in ("parse_errors", "source_parse_errors", "duplicate_idea_ids", "missing_name_localisation",
+                    "stage_name_links", "stage_swap_transitions", "stage_grant_without_swap_candidates",
                     "missing_local_idea_references", "external_idea_references",
                     "unresolved_unprefixed_idea_references", "not_locally_granted_candidates",
                     "custom_modifier_tooltip_missing_localisation",
