@@ -1159,6 +1159,30 @@
         }
       ],
       "notes": "Exact English localisation key verified in the pinned MD baseline. This confirms key availability only; the text's suitability for the TDF focus and the actual target mod load order remain separate checks."
+    },
+    {
+      "type": "localisation",
+      "id": "SOV_the_third_rome",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base focus localisation in localisation/english/replace/replaced_from_nsb_focus_l_english.yml",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/national_focus/Russia_Focus_Tree.txt",
+          "line": 5180,
+          "usage": "SOV_the_third_rome focus title key; exact key is absent from local TDF English focus localisation"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact upstream English focus title key",
+          "path": "localisation/english/replace/replaced_from_nsb_focus_l_english.yml",
+          "line": 9,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/localisation/english/replace/replaced_from_nsb_focus_l_english.yml#L9"
+        }
+      ],
+      "notes": "Exact English title key verified in the pinned MD base replace localisation. This confirms key existence only, not whether the NSB replacement text is appropriate for TDF or whether the target mod stack loads this exact baseline."
     }
   ]
 }
