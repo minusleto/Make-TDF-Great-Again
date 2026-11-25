@@ -139,6 +139,7 @@ visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = {
   custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 }
+fire_only_once = yes
 """
         }
         effects = {
@@ -180,7 +181,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
 
         gated = decisions["aral_ifas"].replace(
             "available = { aral_unlocked_program = yes }",
-            "available = { aral_unlocked_program = yes }",
+            "available = { aral_unlocked_program = yes owns_state = 717 }",
         )
         issues = audit.aral_ownership_issues({"aral_ifas": gated}, effects, code)
         self.assertTrue(any("must not depend on ownership" in issue[1] for issue in issues))
@@ -225,6 +226,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = { aral_unlocked_program = yes }
+fire_only_once = yes
 """
         }
         effects = {
@@ -249,6 +251,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         decisions = {
             "aral_ifas": """
 available = { aral_unlocked_program = yes }
+fire_only_once = yes
 """
         }
         effects = {
