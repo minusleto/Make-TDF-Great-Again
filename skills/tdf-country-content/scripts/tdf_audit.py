@@ -1587,6 +1587,8 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
                     "fire_only_once": (get_scalar(block, "fire_only_once") or "").lower() in ("yes", "true", "1"),
                     "has_visible": bool(direct_entries(block, "visible")),
                     "has_available": bool(direct_entries(block, "available")),
+                    "has_activation": bool(direct_entries(block, "activation")),
+                    "days_mission_timeout": get_scalar(block, "days_mission_timeout"),
                     "has_allowed": bool(direct_entries(block, "allowed")),
                     "has_ai_will_do": bool(direct_entries(block, "ai_will_do")),
                     "has_complete_effect": bool(direct_entries(block, "complete_effect")),
@@ -1628,6 +1630,7 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
     custom_cost_without_debit, repeatability_warnings, empty_effect_warnings = [], [], []
     nonnumeric_highlight_states, unknown_highlight_states, highlight_state_refs = [], [], []
     decision_conditions = []
+    mission_gate_review_candidates = []
     decision_gate_conflicts = []
 
     idea_index = (content_indexes or {}).get("idea_ids", {})
@@ -1769,11 +1772,24 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
         for field in ("allowed", "visible", "available"):
             condition = get_block(block, field)
             if condition and get_scalar(condition, "always") == "no":
-                decision_conditions.append({
+                condition_item = {
                     "decision": decision_id, "condition": field,
                     "reason": "always = no делает условие постоянно ложным; проверь, что это намеренно",
                     "path": decision["path"], "line": decision["line"],
-                })
+                }
+                if (field == "available" and decision["has_activation"]
+                        and decision["days_mission_timeout"] is not None):
+                    mission_gate_review_candidates.append({
+                        **condition_item,
+                        "classification": "non_clickable_mission_gate",
+                        "reason": (
+                            "У решения есть activation и days_mission_timeout: available = always no "
+                            "может намеренно запрещать ручной выбор у автоматически запускаемой миссии. "
+                            "Проверь activation, cancel_trigger, timeout_effect и источник активации."
+                        ),
+                    })
+                else:
+                    decision_conditions.append(condition_item)
 
         # Compare only mandatory atomic predicates in visible/available.
         # allowed is a separate load/startup filter and is not compared here.
@@ -1876,6 +1892,7 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
         "custom_cost_pair_issues": custom_cost_pair_issues, "custom_cost_conflicts": custom_cost_conflicts,
         "custom_cost_without_debit": custom_cost_without_debit, "repeatability_warnings": repeatability_warnings,
         "empty_effect_warnings": empty_effect_warnings, "condition_review_candidates": decision_conditions,
+        "mission_gate_review_candidates": mission_gate_review_candidates,
         "decision_gate_conflicts": decision_gate_conflicts,
         "nonnumeric_highlight_states": nonnumeric_highlight_states, "unknown_highlight_states": unknown_highlight_states,
         "highlight_state_references": highlight_state_refs, "state_inventory_available": state_inventory_available,
@@ -4271,8 +4288,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "flag_reference_candidates", "missing_scripted_localisation",
                     "invalid_numeric_fields", "custom_cost_pair_issues", "custom_cost_conflicts",
                     "custom_cost_without_debit", "repeatability_warnings",
-                    "empty_effect_warnings", "condition_review_candidates", "decision_gate_conflicts",
-                    "nonnumeric_highlight_states", "unknown_highlight_states"):
+                    "empty_effect_warnings", "condition_review_candidates", "mission_gate_review_candidates",
+                    "decision_gate_conflicts", "nonnumeric_highlight_states", "unknown_highlight_states"):
             print("  decision {}: {}".format(key, len(decision_report[key])))
         print("  highlight states: {}, local state inventory available: {}".format(
             len(decision_report["highlight_state_references"]), decision_report["state_inventory_available"]))

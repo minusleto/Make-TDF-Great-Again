@@ -972,6 +972,51 @@ KAZ_category = {
             self.assertFalse(report["custom_cost_without_debit"])
 
 
+    def test_non_clickable_mission_always_no_is_separated_from_dead_decision(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            decisions = root / "mdredux" / "common" / "decisions"
+            decisions.mkdir(parents=True)
+            (decisions / "Kazakhstan.txt").write_text("""\\
+KAZ_mission_category = {
+  KAZ_ticker_mission = {
+    activation = { has_country_flag = KAZ_mission_started }
+    days_mission_timeout = 30
+    visible = { has_country_flag = KAZ_mission_started }
+    available = { always = no }
+    timeout_effect = { clr_country_flag = KAZ_mission_started }
+  }
+  KAZ_dead_decision = {
+    visible = { always = yes }
+    available = { always = no }
+  }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
+            loc.write_text(loc.read_text(encoding="utf-8") + """
+ KAZ_mission_category:0 "Mission category"
+ KAZ_ticker_mission:0 "Ticker mission"
+ KAZ_dead_decision:0 "Disabled decision"
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            all_focus, defined_events, namespaces, event_parsed = audit.build_global_indexes(countries, root)
+            content = audit.build_content_indexes(root, countries, loc_index)
+            report = audit.build_decision_audit(
+                root, countries, loc_index, all_focus, defined_events,
+                namespaces, event_parsed, content,
+            )
+
+            mission = next(item for item in report["metadata"] if item["id"] == "KAZ_ticker_mission")
+            self.assertTrue(mission["has_activation"])
+            self.assertEqual(mission["days_mission_timeout"], "30")
+            self.assertTrue(any(item["decision"] == "KAZ_ticker_mission"
+                                for item in report["mission_gate_review_candidates"]))
+            self.assertFalse(any(item["decision"] == "KAZ_ticker_mission"
+                                 for item in report["condition_review_candidates"]))
+            self.assertTrue(any(item["decision"] == "KAZ_dead_decision"
+                                for item in report["condition_review_candidates"]))
+
     def test_decision_gate_conflicts_are_warn_only_and_skip_or_alternatives(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
