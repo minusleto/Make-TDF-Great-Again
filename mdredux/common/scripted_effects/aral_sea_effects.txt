@@ -1,0 +1,214 @@
+# Aral Sea mechanic. Every variable starts at 0 (= the sea as it is at the start date), so nothing needs to be set up:
+# the first update_aral_sea (called from the KAZ history file) adds the modifiers, and every monthly tick re-checks them.
+#
+#   aral_sea_restoration  -30..100   decimetres above the natural level of the Small Aral (0 = 40 m, 20 = 42 m, 40 = 44 m, 60 = 46 m); never above aral_cap
+#   aral_pending                     water earned by finished projects that has not arrived yet (15% of it arrives per month)
+#   aral_relief                      fallout eased by forests and fisheries (does not add water)
+#   aral_deficit = 100 - 1.25 x restoration - relief   -> strength of every penalty
+
+# One state; the weight aral_w is 1 for Kyzylorda, 0.5 for its neighbours, 0.25 for the far west.
+aral_state_update = {
+	if = { limit = { is_owned_by = ROOT NOT = { has_dynamic_modifier = { modifier = aral_state_modifier } } } add_dynamic_modifier = { modifier = aral_state_modifier } }
+	if = {
+		limit = { is_owned_by = ROOT }
+		set_variable = { aral_s_prod = ROOT.aral_deficit }
+		multiply_variable = { aral_s_prod = aral_w }
+		multiply_variable = { aral_s_prod = -0.0010 }
+		set_variable = { aral_s_pop = ROOT.aral_deficit }
+		multiply_variable = { aral_s_pop = aral_w }
+		multiply_variable = { aral_s_pop = -0.0005 }
+		set_variable = { aral_s_slots = ROOT.aral_deficit }
+		multiply_variable = { aral_s_slots = aral_w }
+		multiply_variable = { aral_s_slots = -0.0006 }
+		set_variable = { aral_s_recruit = ROOT.aral_deficit }
+		multiply_variable = { aral_s_recruit = aral_w }
+		multiply_variable = { aral_s_recruit = -0.0010 }
+		set_variable = { aral_s_level = ROOT.aral_sea_level }
+		set_variable = { aral_s_change = ROOT.aral_monthly_change }
+		force_update_dynamic_modifier = yes
+	}
+}
+
+aral_update_states = {
+	717 = { set_variable = { aral_w = 1 } aral_state_update = yes }
+	1224 = { set_variable = { aral_w = 0.5 } aral_state_update = yes }
+	1231 = { set_variable = { aral_w = 0.5 } aral_state_update = yes }
+	1226 = { set_variable = { aral_w = 0.5 } aral_state_update = yes }
+	1230 = { set_variable = { aral_w = 0.25 } aral_state_update = yes }
+	718 = { set_variable = { aral_w = 0.25 } aral_state_update = yes }
+}
+
+# Shared ending of every project: show the changed modifiers and recalculate.
+aral_finish = {
+	custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = aral_sea_dynamic_modifier }
+	custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = aral_state_modifier }
+	update_aral_sea = yes
+}
+
+update_aral_sea = {
+	# Recalculate the system only while Kazakhstan owns the Aral coast (state 717).
+	# State modifiers are intentionally NOT removed when ownership changes: they stay on their states.
+	if = {
+		limit = { owns_state = 717 }
+	if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_sea_dynamic_modifier } } } add_dynamic_modifier = { modifier = aral_sea_dynamic_modifier } }
+	# What holds the water sets the highest level the sea can reach. Nothing: the natural level, 40 m (the sill of the Berg Strait,
+	# everything above it spills into the Large Aral). An earth dike 41 m, the Kokaral dam 42 m, Phase II 44 m, the Second Dam 46 m.
+	set_variable = { aral_cap = 0 }
+	if = { limit = { has_country_flag = aral_dike } set_variable = { aral_cap = 10 } }
+	if = { limit = { has_country_flag = aral_kokaral_done } set_variable = { aral_cap = 20 } }
+	if = { limit = { has_country_flag = aral_phase2_done } set_variable = { aral_cap = 40 } }
+	if = { limit = { has_country_flag = aral_dam2_done } set_variable = { aral_cap = 60 } }
+	clamp_variable = { var = aral_sea_restoration min = -30 max = aral_cap }
+	# water that reaches a full sea spills away
+	set_temp_variable = { aral_room = aral_cap }
+	subtract_from_variable = { aral_room = aral_sea_restoration }
+	if = { limit = { check_variable = { aral_room < 0.01 } } set_variable = { aral_pending = 0 } }
+	# what a dry year costs the sea, in decimetres: regulated flow helps, a wide surface hurts
+	set_variable = { aral_dry_loss = 3 }
+	if = { limit = { has_country_flag = aral_aklak_done } subtract_from_variable = { aral_dry_loss = 1 } }
+	if = { limit = { has_country_flag = aral_amanotkel_done } subtract_from_variable = { aral_dry_loss = 1 } }
+	if = { limit = { has_country_flag = aral_dam2_done } add_to_variable = { aral_dry_loss = 2 } }
+	if = { limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } } subtract_from_variable = { aral_dry_loss = 3 } }
+	if = { limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } } subtract_from_variable = { aral_dry_loss = 2 } }
+	clamp_variable = { var = aral_dry_loss min = 0 }
+	# penalties: 100 at the start, 1.25 per decimetre gained, minus the fallout that forests and fisheries ease
+	set_variable = { aral_deficit = aral_sea_restoration }
+	multiply_variable = { aral_deficit = -1.25 }
+	add_to_variable = { aral_deficit = 100 }
+	subtract_from_variable = { aral_deficit = aral_relief }
+	clamp_variable = { var = aral_deficit min = 0 max = 200 }
+
+	# water level in metres: 1 point of restoration = 1 decimetre above the natural 40 m
+	set_variable = { aral_sea_level = aral_sea_restoration }
+	multiply_variable = { aral_sea_level = 0.1 }
+	set_variable = { aral_gain = aral_sea_level }
+	add_to_variable = { aral_sea_level = 40 }
+
+	# country penalties (strongest at deficit 100)
+	set_variable = { aral_mod_agri = aral_deficit }
+	multiply_variable = { aral_mod_agri = -0.0006 }
+	set_variable = { aral_mod_agtax = aral_deficit }
+	multiply_variable = { aral_mod_agtax = -0.0006 }
+	set_variable = { aral_mod_pop = aral_deficit }
+	multiply_variable = { aral_mod_pop = -0.0003 }
+	set_variable = { aral_mod_migr = aral_deficit }
+	multiply_variable = { aral_mod_migr = -0.0005 }
+	set_variable = { aral_mod_jobs = aral_deficit }
+	multiply_variable = { aral_mod_jobs = 0.0005 }
+	if = { limit = { has_country_flag = aral_irrigation_done } add_to_variable = { aral_mod_agri = 0.05 } }
+	if = { limit = { has_country_flag = aral_fish_done } add_to_variable = { aral_mod_agtax = 0.05 } }
+	if = { limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_mod_agri = 0.08 } }
+	if = { limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_mod_agri = 0.04 } }
+
+	# water already earned but still arriving (pale "ghost" segments on the bar)
+	set_variable = { aral_potential = aral_sea_restoration }
+	add_to_variable = { aral_potential = aral_pending }
+	clamp_variable = { var = aral_potential min = -30 max = aral_cap }
+
+	# picture strip frame (7 satellite pictures, 1 = emptiest ... 7 = fullest); the start is frame 4
+	set_variable = { aral_pic_frame = 4 }
+	if = { limit = { check_variable = { aral_sea_restoration > 9.99 } } set_variable = { aral_pic_frame = 5 } }
+	if = { limit = { check_variable = { aral_sea_restoration > 34.99 } } set_variable = { aral_pic_frame = 6 } }
+	if = { limit = { check_variable = { aral_sea_restoration > 54.99 } } set_variable = { aral_pic_frame = 7 } }
+
+	aral_calc_drift = yes
+	force_update_dynamic_modifier = yes
+	aral_update_states = yes
+	add_to_variable = { aral_gui_dirty = 1 }
+	}
+}
+
+# The river keeps refilling the sea up to its crest; every improvement adds to the inflow, a wide surface evaporates.
+aral_calc_drift = {
+	set_variable = { aral_drift = -0.05 }
+	if = { limit = { has_country_flag = aral_channel_done } add_to_variable = { aral_drift = -0.05 } }
+	if = { limit = { has_country_flag = aral_uzb_done } add_to_variable = { aral_drift = -0.05 } }
+	if = { limit = { has_country_flag = aral_irrigation_done } add_to_variable = { aral_drift = -0.05 } }
+	if = { limit = { has_country_flag = aral_dam2_done } add_to_variable = { aral_drift = 0.1 } }
+	if = { limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_drift = -0.3 } }
+	if = { limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_drift = -0.15 } }
+
+	set_variable = { aral_fill = aral_pending }
+	multiply_variable = { aral_fill = 0.15 }
+	if = { limit = { check_variable = { aral_pending > 0.001 } check_variable = { aral_fill < 0.5 } } set_variable = { aral_fill = 0.5 } }
+	if = { limit = { check_variable = { aral_fill > aral_pending } } set_variable = { aral_fill = aral_pending } }
+	if = { limit = { check_variable = { aral_pending < 0.001 } } set_variable = { aral_fill = 0 } }
+
+	# at the crest the inflow only spills over
+	set_temp_variable = { aral_room = aral_cap }
+	subtract_from_variable = { aral_room = aral_sea_restoration }
+	if = {
+		limit = { check_variable = { aral_room < 0.01 } }
+		set_variable = { aral_fill = 0 }
+		if = { limit = { check_variable = { aral_drift < 0 } } set_variable = { aral_drift = 0 } }
+	}
+
+	set_variable = { aral_monthly_change = aral_fill }
+	subtract_from_variable = { aral_monthly_change = aral_drift }
+	set_variable = { aral_monthly_level = aral_monthly_change }
+	multiply_variable = { aral_monthly_level = 0.1 }
+}
+
+# The washed-out earth dike takes everything above the natural level with it.
+aral_dike_lost = {
+	set_variable = { aral_pending = 0 }
+	if = { limit = { check_variable = { aral_sea_restoration > 0 } } set_variable = { aral_sea_restoration = 0 } }
+}
+
+# Called by on_monthly for KAZ.
+aral_monthly_tick = {
+	if = {
+		limit = { owns_state = 717 }
+		aral_calc_drift = yes
+		subtract_from_variable = { aral_sea_restoration = aral_drift }
+		add_to_variable = { aral_sea_restoration = aral_fill }
+		subtract_from_variable = { aral_pending = aral_fill }
+		clamp_variable = { var = aral_pending min = 0 max = 200 }
+
+		# hydrology: once a year the river is dry (20%), wet (15%) or normal (65%)
+		add_to_variable = { aral_year_clock = 1 }
+		if = {
+			limit = { check_variable = { aral_year_clock > 11.99 } }
+			set_variable = { aral_year_clock = 0 }
+			# the first spring after the start: salt storms, unless the first forests already stand
+			if = {
+				limit = { NOT = { has_country_flag = aral_ev_dust } NOT = { has_country_flag = aral_saxaul1_done } }
+				set_country_flag = aral_ev_dust
+				country_event = { id = aral_sea.3 days = 2 }
+			}
+			random_list = {
+				20 = { country_event = { id = aral_sea.1 } }
+				15 = { add_to_variable = { aral_pending = 2 } }
+				65 = { }
+			}
+			# Siberian water is paid for every year, and Russia may reopen the price
+			if = {
+				limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } }
+				set_temp_variable = { treasury_change = aral_sib_fee }
+				modify_treasury_effect = yes
+				random_list = {
+					15 = { country_event = { id = aral_sea.9 } }
+					85 = { }
+				}
+			}
+			if = {
+				limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } }
+				set_temp_variable = { treasury_change = aral_sib_fee }
+				modify_treasury_effect = yes
+				random_list = {
+					8 = { country_event = { id = aral_sea.9 } }
+					92 = { }
+				}
+			}
+		}
+		# an earth dike is washed out by a spring flood about once in three years
+		if = {
+			limit = { has_country_flag = aral_dike }
+			random_list = {
+				3 = { country_event = { id = aral_sea.2 } }
+				97 = { }
+			}
+		}
+		update_aral_sea = yes
+	}
+}
