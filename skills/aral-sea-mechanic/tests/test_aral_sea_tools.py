@@ -112,6 +112,7 @@ available = {
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
             "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
 on_startup = {
@@ -140,6 +141,7 @@ complete_effect = {
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
             "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
 on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
@@ -160,6 +162,7 @@ available = { aral_unlocked_program = yes owns_state = 717 }
         effects = {
             "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
             "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
 on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
@@ -174,6 +177,25 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         issues = audit.aral_ownership_issues(decisions, effects, broken)
         self.assertTrue(any("must not be left permanently open" in issue[1] for issue in issues))
 
+    def test_monthly_tick_effect_itself_requires_ownership(self):
+        decisions = {
+            "aral_ifas": """
+available = { aral_unlocked_program = yes owns_state = 717 }
+"""
+        }
+        effects = {
+            "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
+            "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_monthly_tick": "aral_calc_drift = yes",
+        }
+        code = """
+on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
+on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+"""
+        code += FOCUS_TRIGGER_SOURCE
+        issues = audit.aral_ownership_issues(decisions, effects, code)
+        self.assertTrue(any(area == "scripted_effect aral_monthly_tick" for area, _ in issues))
+
     def test_old_control_gate_or_removal_of_state_modifier_is_flagged(self):
         decisions = {
             "aral_ifas": """
@@ -187,6 +209,7 @@ available = {
         effects = {
             "update_aral_sea": "if = { limit = { controls_state = 717 } update_aral = yes }",
             "aral_state_update": "if = { limit = { is_owned_by = ROOT } force_update_dynamic_modifier = yes }",
+            "aral_monthly_tick": "aral_calc_drift = yes",
         }
         code = """
 on_startup = { effect = { KAZ = { update_aral_sea = yes } } }

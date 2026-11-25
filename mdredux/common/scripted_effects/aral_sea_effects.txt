@@ -157,55 +157,58 @@ aral_dike_lost = {
 
 # Called by on_monthly for KAZ.
 aral_monthly_tick = {
-	aral_calc_drift = yes
-	subtract_from_variable = { aral_sea_restoration = aral_drift }
-	add_to_variable = { aral_sea_restoration = aral_fill }
-	subtract_from_variable = { aral_pending = aral_fill }
-	clamp_variable = { var = aral_pending min = 0 max = 200 }
+	if = {
+		limit = { owns_state = 717 }
+		aral_calc_drift = yes
+		subtract_from_variable = { aral_sea_restoration = aral_drift }
+		add_to_variable = { aral_sea_restoration = aral_fill }
+		subtract_from_variable = { aral_pending = aral_fill }
+		clamp_variable = { var = aral_pending min = 0 max = 200 }
 
-	# hydrology: once a year the river is dry (20%), wet (15%) or normal (65%)
-	add_to_variable = { aral_year_clock = 1 }
-	if = {
-		limit = { check_variable = { aral_year_clock > 11.99 } }
-		set_variable = { aral_year_clock = 0 }
-		# the first spring after the start: salt storms, unless the first forests already stand
+		# hydrology: once a year the river is dry (20%), wet (15%) or normal (65%)
+		add_to_variable = { aral_year_clock = 1 }
 		if = {
-			limit = { NOT = { has_country_flag = aral_ev_dust } NOT = { has_country_flag = aral_saxaul1_done } }
-			set_country_flag = aral_ev_dust
-			country_event = { id = aral_sea.3 days = 2 }
-		}
-		random_list = {
-			20 = { country_event = { id = aral_sea.1 } }
-			15 = { add_to_variable = { aral_pending = 2 } }
-			65 = { }
-		}
-		# Siberian water is paid for every year, and Russia may reopen the price
-		if = {
-			limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } }
-			set_temp_variable = { treasury_change = aral_sib_fee }
-			modify_treasury_effect = yes
+			limit = { check_variable = { aral_year_clock > 11.99 } }
+			set_variable = { aral_year_clock = 0 }
+			# the first spring after the start: salt storms, unless the first forests already stand
+			if = {
+				limit = { NOT = { has_country_flag = aral_ev_dust } NOT = { has_country_flag = aral_saxaul1_done } }
+				set_country_flag = aral_ev_dust
+				country_event = { id = aral_sea.3 days = 2 }
+			}
 			random_list = {
-				15 = { country_event = { id = aral_sea.9 } }
-				85 = { }
+				20 = { country_event = { id = aral_sea.1 } }
+				15 = { add_to_variable = { aral_pending = 2 } }
+				65 = { }
+			}
+			# Siberian water is paid for every year, and Russia may reopen the price
+			if = {
+				limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } }
+				set_temp_variable = { treasury_change = aral_sib_fee }
+				modify_treasury_effect = yes
+				random_list = {
+					15 = { country_event = { id = aral_sea.9 } }
+					85 = { }
+				}
+			}
+			if = {
+				limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } }
+				set_temp_variable = { treasury_change = aral_sib_fee }
+				modify_treasury_effect = yes
+				random_list = {
+					8 = { country_event = { id = aral_sea.9 } }
+					92 = { }
+				}
 			}
 		}
+		# an earth dike is washed out by a spring flood about once in three years
 		if = {
-			limit = { has_country_flag = aral_sib_pipe_done NOT = { has_country_flag = aral_sib_cut } }
-			set_temp_variable = { treasury_change = aral_sib_fee }
-			modify_treasury_effect = yes
+			limit = { has_country_flag = aral_dike }
 			random_list = {
-				8 = { country_event = { id = aral_sea.9 } }
-				92 = { }
+				3 = { country_event = { id = aral_sea.2 } }
+				97 = { }
 			}
 		}
+		update_aral_sea = yes
 	}
-	# an earth dike is washed out by a spring flood about once in three years
-	if = {
-		limit = { has_country_flag = aral_dike }
-		random_list = {
-			3 = { country_event = { id = aral_sea.2 } }
-			97 = { }
-		}
-	}
-	update_aral_sea = yes
 }

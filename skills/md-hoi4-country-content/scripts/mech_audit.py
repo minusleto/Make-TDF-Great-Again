@@ -147,6 +147,10 @@ def aral_ownership_issues(decisions, effects, code_all):
     if not re.search(r"if\s*=\s*\{\s*limit\s*=\s*\{\s*owns_state\s*=\s*717\b", update):
         issues.append(("scripted_effect update_aral_sea", "recalculation must be gated by owns_state = 717"))
 
+    monthly_tick = effects.get("aral_monthly_tick", "")
+    if not re.search(r"if\s*=\s*\{\s*limit\s*=\s*\{\s*owns_state\s*=\s*717\b", monthly_tick):
+        issues.append(("scripted_effect aral_monthly_tick", "monthly tick must be gated by owns_state = 717"))
+
     for decision, body in decisions.items():
         complete = inner(body, "complete_effect") or ""
         hidden = inner(complete, "hidden_effect") or ""
