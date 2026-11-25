@@ -87,6 +87,17 @@ KAZ_aral_sea_category = {
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):
+    def test_custom_cost_suffixes_are_implicitly_referenced(self):
+        decisions = {
+            "aral_test": """
+custom_cost_text = aral_test_cost
+"""
+        }
+        self.assertEqual(
+            audit.implied_custom_cost_localisation_keys(decisions),
+            {"aral_test_cost_blocked", "aral_test_cost_tooltip"},
+        )
+
     def test_missing_blocked_variant_is_error_but_optional_tooltip_is_not(self):
         decisions = {"aral_test": "custom_cost_text = aral_test_cost"}
         loc = {

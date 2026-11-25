@@ -95,6 +95,18 @@ def custom_cost_blocked_key_issues(decisions, loc, langs):
     return issues
 
 
+def implied_custom_cost_localisation_keys(decisions):
+    """Return localisation keys used implicitly by custom_cost_text suffix conventions."""
+    implied = set()
+    for body in decisions.values():
+        match = re.search(r"custom_cost_text\\s*=\\s*(\\S+)", body)
+        if match:
+            base = match.group(1)
+            implied.add(base + "_blocked")
+            implied.add(base + "_tooltip")
+    return implied
+
+
 def aral_ownership_issues(decisions, effects, code_all):
     """Enforce the Aral coast ownership gates and persistent state modifier contract."""
     issues = []
@@ -507,6 +519,7 @@ def main():
         referenced |= {c, c + "_desc"}
     for i in events:
         referenced |= {i + ".t", i + ".d"}
+    referenced |= implied_custom_cost_localisation_keys(decisions)
     big = code_all + "\n" + gui_text + "\n" + "\n".join(loc.get("en", {}).values())
     for k in loc.get("en", {}):
         if k in referenced:
