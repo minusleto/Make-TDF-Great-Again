@@ -5,8 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 GENERATOR_PATH = Path(__file__).resolve().parents[1] / "scripts" / "generate_cost_localisation.py"
-AUDIT_PATH = ROOT / "skills" / "md-hoi4-country-content" / "scripts" / "mech_audit.py"
-SIMULATOR_PATH = ROOT / "skills" / "md-hoi4-country-content" / "scripts" / "aral_model_sim.py"
+AUDIT_PATH = ROOT / "skills" / "aral-sea-mechanic" / "scripts" / "mech_audit.py"
+SIMULATOR_PATH = ROOT / "skills" / "aral-sea-mechanic" / "scripts" / "aral_model_sim.py"
 
 
 def load_module(name, path):

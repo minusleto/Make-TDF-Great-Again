@@ -7,14 +7,14 @@ description: 'Use when developing, reviewing, simulating, documenting or debuggi
 
 ## When to use this skill
 
-Use this specialist skill for work on the Kazakhstan Aral Sea mechanic and its toolchain. In this TDF repository it supplements `tdf-country-content/SKILL.md`; do not load the generic `md-hoi4-country-content` skill alongside the TDF skill.
+Use this specialist skill for work on the Kazakhstan Aral Sea mechanic and its toolchain. The `aral-sea-mechanic` branch is intentionally kept as an Aral-focused snapshot: do not add unrelated country content, events, localisation, wiki pages or generic TDF research files.
 
 Before changing anything, read:
 
 1. `docs/aral-sea/README.md` — current design, variables, projects, file map and simulation commands.
 2. GitHub issue #12 — design rationale, decisions already made and outstanding in-game checks.
 3. The exact code being changed. The live code is the source of truth when it differs from an older note or issue description.
-4. `skills/tdf-country-content/SKILL.md` and the relevant TDF references (especially the KAZ maintenance notes). Use repository code and verified engine behaviour as the final authority.
+4. `docs/aral-sea/EXTERNAL_DEPENDENCIES.md` for the base-MD effects that are intentionally outside this focused snapshot. Use repository code and verified engine behaviour as the final authority.
 
 Do not load every wiki page or every skill reference by default. Search for a specific unresolved mechanic or engine behaviour.
 
@@ -54,7 +54,7 @@ When changing a variable, threshold or formula, search every writer and reader: 
 | GUI | `mdredux/common/scripted_guis/aral_sea_category_gui.txt`, `mdredux/interface/aral_sea.gui`, `mdredux/interface/aral_sea.gfx`, `mdredux/gfx/interface/aral_sea/` |
 | Localisation | `mdredux/localisation/english/aral_sea_l_english.yml`, `mdredux/localisation/russian/aral_sea_l_russian.yml` |
 | Optional content | `optional/aral_sea/` |
-| Documentation and tools | `docs/aral-sea/README.md`, `skills/aral-sea-mechanic/scripts/generate_cost_localisation.py`, `skills/md-hoi4-country-content/scripts/mech_audit.py`, `skills/md-hoi4-country-content/scripts/aral_model_sim.py` |
+| Documentation and tools | `docs/aral-sea/README.md`, `skills/aral-sea-mechanic/scripts/generate_cost_localisation.py`, `skills/aral-sea-mechanic/scripts/mech_audit.py`, `skills/aral-sea-mechanic/scripts/aral_model_sim.py` |
 
 Use the current tree to confirm exact paths before editing; do not copy this table blindly if the layout changes.
 
@@ -129,9 +129,9 @@ The mechanic audit is a static checker, not a substitute for testing in HOI4. It
 
 Useful baseline commands from the repository root:
 
-    python3 -I skills/md-hoi4-country-content/scripts/mech_audit.py mdredux --prefix aral
-    python3 -I skills/md-hoi4-country-content/scripts/aral_model_sim.py mdredux
-    python3 -I skills/md-hoi4-country-content/scripts/aral_model_sim.py mdredux --income 0.03 --route dam2 --dike yes --once --seed 5
+    python3 -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral
+    python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux
+    python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux --income 0.03 --route dam2 --dike yes --once --seed 5
 
 The simulator derives its report from the current code, but it is still a model. It does not prove that HOI4 executes the script as intended.
 
@@ -151,7 +151,7 @@ Four short, purposeful commands are not inherently wasteful. The goal is to avoi
 
 Example preserving the audit exit code:
 
-    python3 -I skills/md-hoi4-country-content/scripts/mech_audit.py mdredux --prefix aral > /tmp/aral-audit.log 2>&1
+    python3 -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral > /tmp/aral-audit.log 2>&1
     rc=$?
     grep -E '^== |SUMMARY|^  \[' /tmp/aral-audit.log | sed -n '1,50p'
     echo "Audit exit code: $rc"

@@ -1,0 +1,43 @@
+name: Aral Sea mechanic validation
+
+on:
+  push:
+    branches: [aral-sea-mechanic]
+    paths:
+      - "mdredux/**"
+      - "optional/aral_sea/**"
+      - "docs/aral-sea/**"
+      - "skills/aral-sea-mechanic/**"
+      - ".github/workflows/aral-sea-validation.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "mdredux/**"
+      - "optional/aral_sea/**"
+      - "docs/aral-sea/**"
+      - "skills/aral-sea-mechanic/**"
+      - ".github/workflows/aral-sea-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  aral-mechanic-validation:
+    name: Aral Sea mechanic tests and audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run Aral mechanic unit tests
+        run: python -m unittest discover -s skills/aral-sea-mechanic/tests -v
+      - name: Check generated EN/RU custom-cost localisation
+        run: python -I skills/aral-sea-mechanic/scripts/generate_cost_localisation.py
+      - name: Audit Aral mechanic
+        run: python -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral
+      - name: Simulate Aral restoration paths
+        run: python -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux --runs 20

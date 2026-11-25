@@ -1,16 +1,34 @@
-# Инструкции для агентов
+# Agent instructions — Aral Sea mechanic branch
 
-Репозиторий: срез мода TDF / MDC (Hearts of Iron IV, Millennium Dawn) в `mdredux/`, wiki по коду в `wiki/`, исследования в `docs/research/`. Полного base MD, vanilla и DLC в checkout нет. External IDs сверять с `docs/research/external-dependencies.md` и `docs/research/external-dependencies.json`; статусы и источники сохранять явно. Upstream baseline 2026-11-24 (Millennium Dawn main @ `04b2ba126fc1057bf2ab4bac0407b3235983994c`, descriptor 2.0.0 / HOI4 1.19.*) — справочный snapshot, не утверждение о совместимости с целевой TDF-сборкой. ID, отсутствующий в checkout, не считать ошибкой без проверки intended MD / HOI4 / DLC source.
+This branch intentionally contains only the Kazakhstan Aral Sea mechanic and its directly related maintenance material. It is a focused snapshot, not a complete TDF/MDC checkout.
 
-Перед работой с контентом страны прочитать `skills/README.md` и `skills/tdf-country-content/SKILL.md`. Единственные основные источники доменных правил и их маршрутизация перечислены в `skills/tdf-country-content/references/README.md`; не копировать их содержание в AGENTS. Если для тега есть country style card, открывать только `skills/tdf-country-content/references/countries/<TAG>.md`, не загружать все карточки. Карточка — контекстный reference, не шаблон ветки и не историческая верификация.
+## Scope
+- Keep gameplay content under `mdredux/**` limited to Aral-named files, plus the KAZ country-history file that contains the Aral startup integration call.
+- Keep optional content only under `optional/aral_sea/**`.
+- Keep documentation only under `docs/aral-sea/**`.
+- Keep scripts and tests only under `skills/aral-sea-mechanic/**`.
+- Do not add other countries' files, unrelated events, generic wiki pages, general TDF research, broad country skills or generic tools to this branch.
+- Base-MD definitions are external. Track the Aral-specific verified dependencies in `docs/aral-sea/EXTERNAL_DEPENDENCIES.md`.
 
-Профильные справочники открывать по маршрутизации из README. `design-guide.md` нужен для проектирования или содержательного ревью целой ветки и выбора механики; для точечной правки одного фокуса, события или ключа локализации его не открывать автоматически.
+## Required mechanic invariants
+- All 17 Aral decisions require `owns_state = 717` in `available`.
+- Do not use `controls_state = 717` as a substitute.
+- Do not add ownership-based `cancel_trigger` or `cancel_effect`: a project already started continues its timer after loss of state 717.
+- Keep `fire_only_once = yes` on the 16 one-shot decisions; `aral_sibaral` keeps its re-enable behaviour.
+- The monthly tick and `update_aral_sea` recalculation require KAZ ownership of state 717.
+- State dynamic modifiers remain attached to their states when ownership changes; state construction effects remain limited to states KAZ currently owns.
+- Keep EN/RU localisation in sync, preserving UTF-8 BOM and CRLF in YML.
+- Do not install the optional six-focus prototype over the live KAZ focus tree.
 
-Главное:
-- Фокус по возможности открывает инструмент (решение, дух-ключ, событие с выбором, механику), а не только выдаёт числа. Мосты допустимы, если связывают этапы ветки.
-- Длина описания фокуса: редакторский ориентир 200–280 знаков, допустимый диапазон 150–340. Не ломать хороший текст ради счётчика; главное — конкретика, естественность и соответствие награде.
-- Не назначать одну страну универсальным эталоном. Для фокусов, событий и опций выбирать подходящие примеры из разных стран и переносить только те приёмы, которые работают в конкретном контексте. Подписи вроде `Nice/Good/Excellent` оценивать по смыслу события, а не запрещать автоматически.
-- Картинка события желательна, но не обязательна: не ставить неподходящий GFX ради заполнения поля. Плейсхолдер — только с `#TODO`.
-- Описанное в тексте должно соответствовать реальной награде; `log` должен соответствовать ID. В новых и редактируемых блоках соблюдать табы и соглашения проекта, но не форматировать массово нетронутый legacy-контент. Для yml сохранять UTF-8 BOM и исходные окончания строк.
-- Аудит — статическая проверка, не тест игры. Из корня репозитория запускать `python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --require-external-registry` и `python3 -I skills/tdf-country-content/scripts/tdf_inventory.py .`; external references, source permalinks и verification statuses вести в `docs/research/external-dependencies.json` и пояснять в соседнем `.md`.
-- Изменения заливать прямо в `main` (решение команды); перед коммитом сверить актуальный HEAD и не перезаписывать чужие коммиты.
+## Workflow
+1. Read `docs/aral-sea/README.md`, `docs/aral-sea/EXTERNAL_DEPENDENCIES.md`, issue #12 and the specialist `skills/aral-sea-mechanic/SKILL.md`.
+2. Inspect only the Aral files relevant to the task and trace each changed variable across code, GUI, localisation, tests and simulator.
+3. Run the dedicated unit tests, localisation generator check, mechanic audit and simulator.
+4. Review the exact file list and diff before committing. Keep one commit per coherent task.
+5. Never describe a static audit or simulation as an in-game test.
+
+## Git discipline
+- Work on `aral-sea-mechanic`.
+- Fetch and inspect the current branch head before creating commits.
+- Never move the ref backwards or overwrite a concurrent commit; update refs with an expected-SHA lease.
+- Because this branch intentionally omits unrelated repository files, do not merge its entire tree into the full TDF branch. Transfer only the Aral-specific paths.
