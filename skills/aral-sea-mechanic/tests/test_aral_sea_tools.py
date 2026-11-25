@@ -121,6 +121,36 @@ option = {
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):
+    def test_mixed_treasury_and_pp_cost_uses_current_md_pattern(self):
+        decisions = {
+            "aral_test": """
+custom_cost_trigger = {
+  check_variable = { treasury > 0.05 }
+  has_political_power > 24
+}
+custom_cost_text = aral_test_cost
+ai_hint_pp_cost = 25
+complete_effect = {
+  log = "Decision aral_test"
+  add_political_power = -25
+  set_temp_variable = { treasury_change = -0.05 }
+  modify_treasury_effect = yes
+}
+"""
+        }
+        self.assertEqual(audit.aral_decision_cost_issues(decisions), [])
+
+        broken = {
+            "aral_test": decisions["aral_test"].replace("has_political_power > 24", "has_political_power > 20")
+        }
+        self.assertTrue(any("has_political_power > 24" in msg for _, msg in audit.aral_decision_cost_issues(broken)))
+
+    def test_category_allowed_must_not_be_duplicated_in_each_aral_decision(self):
+        decisions = {
+            "aral_test": "allowed = { original_tag = KAZ }\\ncustom_cost_text = aral_test_cost"
+        }
+        self.assertTrue(any("parent decision category" in msg for _, msg in audit.aral_decision_cost_issues(decisions)))
+
     def test_missing_aral_country_variables_are_initialized_without_resetting_saves(self):
         required = ("aral_sea_restoration", "aral_pending", "aral_relief", "aral_year_clock", "aral_gui_dirty")
         initializer = "\\n".join(

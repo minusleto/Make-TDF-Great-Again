@@ -82,6 +82,16 @@ Important distinctions:
 - For debt-financed projects, distinguish the amount paid from treasury and the amount added to debt. Never infer the debt sign or unit from the label; confirm it against a known-working `modify_debt_effect` pattern.
 - A decision that can time out or be cancelled needs an explicit review of whether the money/PP is kept, refunded or never charged.
 
+### Current MD pattern for mixed treasury and political-power costs
+
+The current Millennium Dawn Russia decision pattern for a price containing both treasury and PP is:
+- `custom_cost_trigger` checks the treasury threshold and `has_political_power > N-1`;
+- `custom_cost_text` points to one combined label showing both resources;
+- `ai_hint_pp_cost = N` tells the AI about the PP component;
+- `complete_effect` explicitly charges `add_political_power = -N` and then applies the treasury/debt effects.
+
+Do not also set `cost = N` for these combined Aral costs. That mixes the standard PP field with a custom combined-cost label and obscures which mechanism is charging PP. Keep plain PP-only decisions on the ordinary `cost` field. The parent Aral category owns the KAZ-only `allowed` gate, so do not repeat it in every child decision.
+
 ### Localisation contract for custom costs
 
 The HOI4 custom-cost localisation contract is:
