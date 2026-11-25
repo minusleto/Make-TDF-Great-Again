@@ -25,6 +25,13 @@ audit = load_module("aral_mech_audit", AUDIT_PATH)
 simulator = load_module("aral_sea_simulator", SIMULATOR_PATH)
 
 FOCUS_TRIGGER_SOURCE = """
+aral_unlocked_program = { has_completed_focus = KAZ_economy }
+aral_unlocked_syrdarya = { has_completed_focus = KAZ_fight_capacity_deficit }
+aral_unlocked_agri = { has_completed_focus = KAZ_ABP }
+aral_unlocked_green = { has_completed_focus = KAZ_ecologization }
+aral_unlocked_phase2 = { has_completed_focus = KAZ_balance_north_and_south }
+aral_unlocked_diplomacy = { has_completed_focus = KAZ_foreign_policy }
+"""
 
 STATE_UPDATE_SOURCE = """
 if = {
@@ -36,14 +43,6 @@ if = {
   force_update_dynamic_modifier = yes
 }
 """
-aral_unlocked_program = { has_completed_focus = KAZ_economy }
-aral_unlocked_syrdarya = { has_completed_focus = KAZ_fight_capacity_deficit }
-aral_unlocked_agri = { has_completed_focus = KAZ_ABP }
-aral_unlocked_green = { has_completed_focus = KAZ_ecologization }
-aral_unlocked_phase2 = { has_completed_focus = KAZ_balance_north_and_south }
-aral_unlocked_diplomacy = { has_completed_focus = KAZ_foreign_policy }
-"""
-
 
 
 class AralSimulatorTests(unittest.TestCase):
