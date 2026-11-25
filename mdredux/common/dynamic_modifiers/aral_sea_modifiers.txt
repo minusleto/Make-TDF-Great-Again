@@ -1,7 +1,7 @@
 # Values are VARIABLES set in update_aral_sea. Penalties shrink as the deficit falls.
 # Country-wide national spirit
 aral_sea_dynamic_modifier = {
-	icon = GFX_destroyed_dam
+	icon = GFX_idea_generic_agrarian_society
 	agricolture_productivity_modifier = aral_mod_agri          # agriculture
 	agriculture_tax_modifier = aral_mod_agtax                  # income from agriculture and fishing
 	monthly_population = aral_mod_pop                          # population growth
@@ -11,7 +11,7 @@ aral_sea_dynamic_modifier = {
 
 # State modifier, applied to Kyzylorda (full), Turkistan/Aktobe/Ulutau (x0.5), Mangystau/Atyrau (x0.25)
 aral_state_modifier = {
-	icon = GFX_destroyed_dam
+	icon = GFX_idea_generic_agrarian_reform
 	state_productivity_growth_modifier = aral_s_prod
 	local_building_slots_factor = aral_s_slots
 	recruitable_population_factor = aral_s_recruit

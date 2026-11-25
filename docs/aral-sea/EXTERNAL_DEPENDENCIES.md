@@ -26,7 +26,7 @@ The MDC wiki documents both `monthly_population` and `state_monthly_population`,
 
 ## Sprite dependencies still requiring target-file confirmation
 
-The Aral GUI refers to `GFX_destroyed_dam` and `GFX_help_button_custom`. Their target-TDF definitions and texture paths are not included in this focused branch. Confirm them in the target TDF interface/GFX files supplied by the user before relying on them or replacing them.
+The two Aral dynamic modifiers now use existing vanilla HOI4 sprites: `GFX_idea_generic_agrarian_society` for the country-wide impact and `GFX_idea_generic_agrarian_reform` for the regional fallout. Both are defined in the base game's [`interface/ideas.gfx`](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/ideas.gfx#L2190-L2212) / [agrarian reform entry](https://github.com/Killeritch/Hearts-of-Iron-IV/blob/master/interface/ideas.gfx#L2906-L2912); no custom image or texture was added. The help button still refers to `GFX_help_button_custom`, whose target-TDF definition and texture path are not included in this focused branch. Confirm that one in the target TDF interface/GFX files before relying on it. The `ARAL_HELP_TT` English and Russian tooltip texts themselves are present in the Aral localisation files.
 
 ## Verification rules
 

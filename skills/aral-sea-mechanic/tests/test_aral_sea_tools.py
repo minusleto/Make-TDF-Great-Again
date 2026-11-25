@@ -151,6 +151,14 @@ option = {
 
 
 class MechanicAuditRegressionTests(unittest.TestCase):
+    def test_aral_dynamic_modifiers_use_existing_vanilla_icons(self):
+        source = (
+            ROOT / "mdredux" / "common" / "dynamic_modifiers" / "aral_sea_modifiers.txt"
+        ).read_text(encoding="utf-8")
+        self.assertIn("icon = GFX_idea_generic_agrarian_society", source)
+        self.assertIn("icon = GFX_idea_generic_agrarian_reform", source)
+        self.assertNotIn("GFX_destroyed_dam", source)
+
     def test_native_pp_cost_does_not_need_to_be_repeated_in_treasury_label(self):
         body = """
 cost = 25
