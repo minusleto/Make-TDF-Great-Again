@@ -23,17 +23,12 @@ aral_state_update = {
 		set_variable = { aral_s_prod = ROOT.aral_deficit }
 		multiply_variable = { aral_s_prod = aral_w }
 		multiply_variable = { aral_s_prod = -0.0010 }
-		set_variable = { aral_s_pop = ROOT.aral_deficit }
-		multiply_variable = { aral_s_pop = aral_w }
-		multiply_variable = { aral_s_pop = -0.0005 }
 		set_variable = { aral_s_slots = ROOT.aral_deficit }
 		multiply_variable = { aral_s_slots = aral_w }
 		multiply_variable = { aral_s_slots = -0.0006 }
 		set_variable = { aral_s_recruit = ROOT.aral_deficit }
 		multiply_variable = { aral_s_recruit = aral_w }
 		multiply_variable = { aral_s_recruit = -0.0010 }
-		set_variable = { aral_s_level = ROOT.aral_sea_level }
-		set_variable = { aral_s_change = ROOT.aral_monthly_change }
 		force_update_dynamic_modifier = yes
 	}
 }
@@ -104,7 +99,7 @@ update_aral_sea = {
 	set_variable = { aral_mod_migr = aral_deficit }
 	multiply_variable = { aral_mod_migr = -0.0005 }
 	set_variable = { aral_mod_jobs = aral_deficit }
-	multiply_variable = { aral_mod_jobs = 0.0005 }
+	multiply_variable = { aral_mod_jobs = -0.0005 }
 	if = { limit = { has_country_flag = aral_irrigation_done } add_to_variable = { aral_mod_agri = 0.05 } }
 	if = { limit = { has_country_flag = aral_fish_done } add_to_variable = { aral_mod_agtax = 0.05 } }
 	if = { limit = { has_country_flag = aral_sib_canal_done NOT = { has_country_flag = aral_sib_cut } } add_to_variable = { aral_mod_agri = 0.08 } }

@@ -139,6 +139,26 @@ def aral_localisation_style_issues(text):
     return issues
 
 
+def aral_modifier_issues(dyn, effects):
+    """Reject unsupported modifier identifiers and keep the unemployment penalty direction correct."""
+    issues = []
+    country = dyn.get("aral_sea_dynamic_modifier", "")
+    state = dyn.get("aral_state_modifier", "")
+    if "base_unemployment_modifier" in country:
+        issues.append(("dynamic modifier aral_sea_dynamic_modifier", "base_unemployment_modifier is not present in the target MD base; use high_unemployment_threshold_modifier"))
+    if "high_unemployment_threshold_modifier" not in country:
+        issues.append(("dynamic modifier aral_sea_dynamic_modifier", "must use the supported high_unemployment_threshold_modifier"))
+    if "state_monthly_population" in state:
+        issues.append(("dynamic modifier aral_state_modifier", "state_monthly_population is not supported; monthly_population is country-scoped"))
+    for key in ("state_productivity_growth_modifier", "local_building_slots_factor", "recruitable_population_factor"):
+        if key not in state:
+            issues.append(("dynamic modifier aral_state_modifier", "supported state debuff %s is missing" % key))
+    update = effects.get("update_aral_sea", "")
+    if not re.search(r"multiply_variable\s*=\s*\{\s*aral_mod_jobs\s*=\s*-", update):
+        issues.append(("scripted effect update_aral_sea", "unemployment-threshold modifier must be negative during the Aral crisis"))
+    return issues
+
+
 def aral_initialization_issues(effects):
     """Require save-safe initialization of every persistent variable read before its first write."""
     issues = []
@@ -417,6 +437,8 @@ def main():
         for area, msg in aral_ownership_issues(decisions, effects, code_all):
             add("ERROR", area, msg)
         for area, msg in aral_initialization_issues(effects):
+            add("ERROR", area, msg)
+        for area, msg in aral_modifier_issues(dyn, effects):
             add("ERROR", area, msg)
         for area, msg in aral_decision_cost_issues(decisions):
             add("ERROR", area, msg)

@@ -159,6 +159,16 @@ complete_effect = {
         self.assertEqual(len(findings), 1)
         self.assertIn(":0", findings[0][1])
 
+    def test_aral_dynamic_modifiers_only_use_supported_scope_keys(self):
+        dyn = {
+            "aral_sea_dynamic_modifier": "agricolture_productivity_modifier = aral_mod_agri\\nagriculture_tax_modifier = aral_mod_agtax\\nmonthly_population = aral_mod_pop\\nmigration_rate_value_factor = aral_mod_migr\\nhigh_unemployment_threshold_modifier = aral_mod_jobs",
+            "aral_state_modifier": "state_productivity_growth_modifier = aral_s_prod\\nlocal_building_slots_factor = aral_s_slots\\nrecruitable_population_factor = aral_s_recruit",
+        }
+        effects = {"update_aral_sea": "multiply_variable = { aral_mod_jobs = -0.0005 }"}
+        self.assertEqual(audit.aral_modifier_issues(dyn, effects), [])
+        dyn["aral_state_modifier"] += "\\nstate_monthly_population = aral_s_pop"
+        self.assertTrue(any("state_monthly_population" in msg for _, msg in audit.aral_modifier_issues(dyn, effects)))
+
     def test_missing_aral_country_variables_are_initialized_without_resetting_saves(self):
         required = ("aral_sea_restoration", "aral_pending", "aral_relief", "aral_year_clock", "aral_gui_dirty")
         initializer = "\\n".join(

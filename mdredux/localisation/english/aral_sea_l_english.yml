@@ -4,7 +4,7 @@
  aral_sea_dynamic_modifier: "Impact of the Aral Sea"
  aral_sea_dynamic_modifier_desc: "The retreat of the Aral Sea leaves salt and dust on the exposed seabed. Winds carry this fallout inland: fields become less productive, towns lose workers and local communities become harder to sustain. As the sea returns and protection programmes mature, the pressure gradually eases."
  aral_state_modifier: "Aral Sea Fallout"
- aral_state_modifier_desc: "These regions lie closest to the exposed seabed. Salt and dust storms and the loss of fisheries undermine local productivity, population and room for development. The pressure is strongest in Kyzylorda, weaker in neighbouring regions, and remains attached to the state if its owner changes."
+ aral_state_modifier_desc: "These regions lie closest to the exposed seabed. Salt and dust storms and the loss of fisheries undermine local productivity, reduce the manpower available for recruitment and limit room for development. The pressure is strongest in Kyzylorda, weaker in neighbouring regions, and remains attached to the state if its owner changes."
  aral_ifas: "IFAS Basin Programme"
  aral_ifas_desc: "The International Fund for Saving the Aral Sea coordinates basin programmes across Central Asia. It returns no water, but joining it brings donors, studies and a seat at the table where the region's water is argued over."
  aral_ifas_cost_label: "$0.05 bn + 25 PP"
