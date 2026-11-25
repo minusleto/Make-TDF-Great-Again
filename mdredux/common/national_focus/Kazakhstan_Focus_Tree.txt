@@ -292,7 +292,7 @@ focus_tree = {
 		search_filters = { economy }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kashagan"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_neftinvest"
 		}
 
 		ai_will_do = {
@@ -380,7 +380,7 @@ focus_tree = {
 		search_filters = { economy }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kashagan"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_tengiz"
 		}
 
 		ai_will_do = {
@@ -402,7 +402,7 @@ focus_tree = {
 		search_filters = { economy }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kashagan"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_karachaganak"
 		}
 
 		ai_will_do = {
@@ -1908,9 +1908,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kazakh_color"
-			set_temp_variable = { treasury_change = -1 }
-			modify_treasury_effect = yes
-			add_stability = 0.03
+			two_random_culture_infrastructure = yes
+			set_temp_variable = { culture_to_add_temp = 25 }
+			add_culture = yes
+			add_ideas = KAZ_kazakh_cultural_revival_idea
 		}
 
 		ai_will_do = {
@@ -1938,11 +1939,169 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_union_with_trade_org"
-			swap_ideas = {
-				remove_idea = oligarchs
-				add_idea = labour_unions
+			custom_effect_tooltip = KAZ_union_with_trade_org_effect_tt
+			if = {
+				limit = { NOT = { has_idea = labour_unions } }
+				if = {
+					limit = { has_idea = oligarchs }
+					swap_ideas = {
+						remove_idea = oligarchs
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = small_medium_business_owners }
+					swap_ideas = {
+						remove_idea = small_medium_business_owners
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = international_bankers }
+					swap_ideas = {
+						remove_idea = international_bankers
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = industrial_conglomerates }
+					swap_ideas = {
+						remove_idea = industrial_conglomerates
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = fossil_fuel_industry }
+					swap_ideas = {
+						remove_idea = fossil_fuel_industry
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = maritime_industry }
+					swap_ideas = {
+						remove_idea = maritime_industry
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = defense_industry }
+					swap_ideas = {
+						remove_idea = defense_industry
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = landowners }
+					swap_ideas = {
+						remove_idea = landowners
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = farmers }
+					swap_ideas = {
+						remove_idea = farmers
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = communist_cadres }
+					swap_ideas = {
+						remove_idea = communist_cadres
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_military }
+					swap_ideas = {
+						remove_idea = the_military
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = intelligence_community }
+					swap_ideas = {
+						remove_idea = intelligence_community
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_priesthood }
+					swap_ideas = {
+						remove_idea = the_priesthood
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_ulema }
+					swap_ideas = {
+						remove_idea = the_ulema
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_clergy }
+					swap_ideas = {
+						remove_idea = the_clergy
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = wahabi_ulema }
+					swap_ideas = {
+						remove_idea = wahabi_ulema
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_donju }
+					swap_ideas = {
+						remove_idea = the_donju
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = saudi_royal_family }
+					swap_ideas = {
+						remove_idea = saudi_royal_family
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = iranian_quds_force }
+					swap_ideas = {
+						remove_idea = iranian_quds_force
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = foreign_jihadis }
+					swap_ideas = {
+						remove_idea = foreign_jihadis
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = wall_street }
+					swap_ideas = {
+						remove_idea = wall_street
+						add_idea = labour_unions
+					}
+				}
+				else_if = {
+					limit = { has_idea = chaebols }
+					swap_ideas = {
+						remove_idea = chaebols
+						add_idea = labour_unions
+					}
+				}
+				else = { add_ideas = labour_unions }
 			}
-			add_ideas = KAZ_trade_union_alliance_idea
+			if = {
+				limit = { NOT = { has_idea = freedom_trade_unions_01 } }
+				set_ghent_system = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1970,7 +2129,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_kill_euro3"
-			set_party_index_to_ruling_party = yes
+			set_temp_variable = { party_index = 4 }
 			set_temp_variable = { party_popularity_increase = 0.025 }
 			set_temp_variable = { temp_outlook_increase = 0.025 }
 			add_relative_party_popularity = yes
@@ -1978,6 +2137,8 @@ focus_tree = {
 			change_oligarchs_opinion = yes
 			newline = yes
 			decrease_corruption = yes
+			set_temp_variable = { modify_capitalization = -0.035 }
+			modify_capitalization_support = yes
 		}
 
 		ai_will_do = {
@@ -2005,23 +2166,31 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_nationaliz_of_industr"
+			add_political_power = -50
+			add_stability = -0.05
 			set_temp_variable = { temp_opinion = -7 }
 			change_oligarchs_opinion = yes
 			set_temp_variable = { temp_opinion = -7 }
 			change_international_bankers_opinion = yes
 			newline = yes
 			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = { building = arms_factory size > 0 include_locked = yes }
+				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = industrial_complex
+					type = arms_factory
 					level = 1
 					instant_build = yes
 				}
 			}
 			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = { building = agriculture_district size > 0 include_locked = yes }
+				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = industrial_complex
+					type = agriculture_district
 					level = 1
 					instant_build = yes
 				}
@@ -2054,21 +2223,27 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_revision_of_privat"
+			add_political_power = -50
 			set_temp_variable = { temp_opinion = -7 }
 			change_oligarchs_opinion = yes
 			newline = yes
 			random_owned_controlled_state = {
-			add_extra_state_shared_building_slots = 1
+				limit = {
+					free_building_slots = { building = offices size > 0 include_locked = yes }
+				}
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = arms_factory
+					type = offices
 					level = 1
 					instant_build = yes
 				}
 			}
 			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 1
+				limit = {
+					free_building_slots = { building = infrastructure size > 0 include_locked = yes }
+				}
 				add_building_construction = {
-					type = industrial_complex
+					type = infrastructure
 					level = 1
 					instant_build = yes
 				}
@@ -3499,7 +3674,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_reform_military_districts"
-			country_event = kaz_army.5
+			country_event = kaz_army.6
 			swap_ideas = {
 				remove_idea = KAZ_outdated_army_2_idea
 				add_idea = KAZ_outdated_army_3_idea
@@ -3755,7 +3930,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_airmobile_forces"
-			country_event = kaz_army.4
+			country_event = kaz_army.5
 			set_temp_variable = { treasury_change = -2 }
 			modify_treasury_effect = yes
 		}
@@ -3835,7 +4010,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_complete_aircraft_russia"
-			SOV = { country_event = { id = kaz_army.7 days = 1 } }
+			SOV = { country_event = { id = kaz_army.27 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				add_equipment_to_stockpile = {
@@ -3965,7 +4140,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_skylark_israel"
-			ISR = { country_event = { id = kaz_army.9 days = 1 } }
+			ISR = { country_event = { id = kaz_army.31 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				set_temp_variable = { percent_change = 1 }
@@ -4056,7 +4231,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_wing_loong_china"
-			CHI = { country_event = { id = kaz_army.1 days = 1 } }
+			CHI = { country_event = { id = kaz_army.29 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				set_temp_variable = { percent_change = 1 }
@@ -4182,6 +4357,11 @@ focus_tree = {
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				unlock_military_industrial_organization_tooltip = mio:KAZ_KPE_tank_manufacturer
+				mio:KAZ_KPE_tank_manufacturer = {
+					add_mio_size_up_requirement_factor = -0.03
+					add_mio_funds = 500
+					add_mio_research_bonus = 0.01
+				}
 			}
 		}
 
@@ -4216,7 +4396,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_6x6"
-			SAF = { country_event = { id = kaz_army.11 days = 1 } }
+			SAF = { country_event = { id = kaz_army.19 days = 1 } }
 			custom_effect_tooltip = KAZ_barys_6x6_tt
 			effect_tooltip = {
 				add_tech_bonus = {
@@ -4231,6 +4411,14 @@ focus_tree = {
 				change_influence_percentage = yes
 				set_temp_variable = { treasury_change = -5.5 }
 				modify_treasury_effect = yes
+				if = {
+					limit = { has_dlc = "Arms Against Tyranny" }
+					mio:KAZ_KPE_tank_manufacturer = {
+						add_mio_size_up_requirement_factor = -0.03
+						add_mio_funds = 1000
+						add_mio_research_bonus = 0.02
+					}
+				}
 			}
 		}
 
@@ -4264,7 +4452,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_arlan"
-			SAF = { country_event = { id = kaz_army.34 days = 1 } }
+			SAF = { country_event = { id = kaz_army.23 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				set_technology = { util_vehicle_5 = 1 }
@@ -4279,6 +4467,8 @@ focus_tree = {
 					uses = 1
 					category = CAT_util
 				}
+				add_opinion_modifier = { target = SAF modifier = military_cooperation }
+				add_relation_modifier = { target = SAF modifier = military_cooperation }
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = SAF }
 				set_temp_variable = { influence_target = KAZ }
@@ -4307,6 +4497,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY }
 
 		available = {
+			has_tech = util_vehicle_5
 			ISR = {
 				has_opinion = { target = KAZ value > 9 }
 				has_tech = util_vehicle_5
@@ -4318,14 +4509,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_alan"
-			ISR = { country_event = { id = kaz_army.36 days = 1 } }
-			custom_effect_tooltip = effect_if_they_accept_TT
+			ISR = { country_event = { id = kaz_army.25 days = 1 } }
+			custom_effect_tooltip = KAZ_alan_tooltip_loc
 			effect_tooltip = {
-				set_technology = { util_vehicle_5 = 1 }
-				add_equipment_to_stockpile = {
-					type = util_vehicle_5
-					amount = 100
-				}
+				add_opinion_modifier = { target = ISR modifier = military_cooperation }
+				add_relation_modifier = { target = ISR modifier = military_cooperation }
+				set_temp_variable = { temp_opinion = 1 }
+				change_the_military_opinion = yes
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { tag_index = ISR }
 				set_temp_variable = { influence_target = KAZ }
@@ -4438,7 +4628,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_btr_barys_8x8"
-			SAF = { country_event = { id = kaz_army.13 days = 1 } }
+			SAF = { country_event = { id = kaz_army.21 days = 1 } }
 			custom_effect_tooltip = KAZ_barys_8x8_tt
 			effect_tooltip = {
 				add_tech_bonus = {
@@ -4522,14 +4712,16 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naiza_israel"
-			ISR = { country_event = { id = kaz_army.30 days = 1 } }
+			ISR = { country_event = { id = kaz_army.13 days = 1 } }
+			effect_tooltip = {
+				set_temp_variable = { percent_change = 2 }
+				set_temp_variable = { tag_index = ISR }
+				set_temp_variable = { influence_target = KAZ }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = ISR modifier = military_cooperation }
+				reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
+			}
 			custom_effect_tooltip = KAZ_naiza_tooltip_loc
-			set_temp_variable = { percent_change = 2 }
-			set_temp_variable = { tag_index = ISR }
-			set_temp_variable = { influence_target = KAZ }
-			change_influence_percentage = yes
-			add_opinion_modifier = { target = ISR modifier = military_cooperation }
-			reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
 		}
 
 		ai_will_do = {
@@ -4566,31 +4758,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_semser_israel"
-			ISR = { country_event = { id = kaz_army.32 days = 1 } }
+			ISR = { country_event = { id = kaz_army.15 days = 1 } }
 			custom_effect_tooltip = KAZ_semser_tooltip_loc
-			if = {
-				limit = { has_dlc = "No Step Back" }
-				create_equipment_variant = {
-					name = "Semser"
-					type = medium_tank_artillery_chassis_2
-					parent_version = 0
-					allow_without_tech = yes
-					modules = {
-						main_armament_slot = art_med_gun_gen1
-						turret_type_slot = tank_no_turret
-						reload_type_slot = manual_loading
-						ammunition_load_slot = artillery_light_ammo_1
-						suspension_type_slot = tank_wheeled_suspension_medium
-						engine_type_slot = tank_diesel_engine_gen2
-						special_type_slot_4 = tank_battlestation_2
-						special_type_slot_5 = direct_fire_conversion_medium
-					}
-					upgrades = { tank_nsb_fire_upgrade = 2 }
-					obsolete = no
-					icon = "GFX_ISR_SPG3"
-				}
-				add_equipment_to_stockpile = { type = medium_tank_artillery_chassis_2 variant_name = "Semser" amount = 6 }
-			}
 		}
 
 		ai_will_do = {
@@ -4627,26 +4796,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aibat_israel"
-			create_equipment_variant = {
-				name = "Aibat"
-				type = medium_tank_artillery_chassis_2
-				parent_version = 0
-				allow_without_tech = yes
-				modules = {
-					main_armament_slot = art_med_gun_gen1
-					turret_type_slot = tank_no_turret
-					reload_type_slot = automatic_loading
-					ammunition_load_slot = artillery_light_ammo_1
-					suspension_type_slot = tank_wheeled_suspension_medium
-					engine_type_slot = tank_diesel_engine_gen2
-					special_type_slot_4 = tank_battlestation_2
-					special_type_slot_5 = mortar_barrel_conversion
-				}
-				upgrades = { tank_nsb_fire_upgrade = 2 }
-				obsolete = no
-				icon = "GFX_ISR_SPR2"
-			}
-			add_equipment_to_stockpile = { type = medium_tank_artillery_chassis_2 variant_name = "Aibat" amount = 18 }
+			ISR = { country_event = { id = kaz_army.17 days = 1 } }
+			custom_effect_tooltip = KAZ_aibat_tooltip_loc
 		}
 
 		ai_will_do = {
@@ -4684,7 +4835,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_t72kae_turkish"
-			TUR = { country_event = { id = kaz_army.24 days = 1 } }
+			TUR = { country_event = { id = kaz_army.7 days = 1 } }
 			custom_effect_tooltip = KAZ_t72kae_tooltip_loc
 			effect_tooltip = {
 				add_tech_bonus = {
@@ -4733,7 +4884,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_taimas_turkish"
-			TUR = { country_event = { id = kaz_army.26 days = 1 } }
+			TUR = { country_event = { id = kaz_army.9 days = 1 } }
 			custom_effect_tooltip = KAZ_taimas_tooltip_loc
 			effect_tooltip = {
 				set_temp_variable = { percent_change = 2 }
@@ -4782,7 +4933,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_army_sarp"
-			TUR = { country_event = { id = kaz_army.28 days = 1 } }
+			TUR = { country_event = { id = kaz_army.11 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				add_opinion_modifier = { target = TUR modifier = military_cooperation }
@@ -4862,7 +5013,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_coop_russia"
-			SOV = { country_event = { id = kaz_army.21 days = 1 } }
+			SOV = { country_event = { id = kaz_army.3 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				navy_experience = 40
@@ -4907,7 +5058,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naval_coop_turkey"
-			TUR = { country_event = { id = kaz_army.17 days = 1 } }
+			TUR = { country_event = { id = kaz_army.1 days = 1 } }
 			custom_effect_tooltip = effect_if_they_accept_TT
 			effect_tooltip = {
 				add_tech_bonus = {
@@ -5058,7 +5209,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Auyl Party
 	focus = {
 		id = KAZ_aul_party
 		icon = aul_start
@@ -5080,6 +5231,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_aul_party"
 			country_event = KAZ_aul.1
 			hidden_effect = {
+				add_ideas = KAZ_aul_legacy_idea
 				if = {
 					limit = { NOT = { is_in_array = { ruling_party = 3 } } }
 					set_temp_variable = { rul_party_temp = 3 }
@@ -5093,7 +5245,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Ak Zhol Party
 	focus = {
 		id = KAZ_dem_ak_zhol_party
 		icon = akzhol_start
@@ -5113,11 +5265,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_dem_ak_zhol_party"
-			if = {
-				limit = { NOT = { is_in_array = { ruling_party = 2 } } }
-				set_temp_variable = { rul_party_temp = 2 }
-				set_temp_variable = { enable_elections = 0 }
-				change_ruling_party_effect = yes
+			hidden_effect = {
+				add_ideas = KAZ_akz_reformist_mandate_idea
+				if = {
+					limit = { NOT = { is_in_array = { ruling_party = 2 } } }
+					set_temp_variable = { rul_party_temp = 2 }
+					set_temp_variable = { enable_elections = 0 }
+					change_ruling_party_effect = yes
+				}
 			}
 			country_event = KAZ_zhol.1
 		}
@@ -5126,7 +5281,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#State Apparatus Reform
 	focus = {
 		id = KAZ_aul_state_apparatus_reform
 		icon = aul_gov_reform
@@ -5157,7 +5312,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Unicameral Parliament
 	focus = {
 		id = KAZ_aul_unicameral_parliament
 		icon = aul_parlament
@@ -5184,7 +5339,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Judicial Reform
 	focus = {
 		id = KAZ_aul_judicial_reform
 		icon = aul_equality
@@ -5217,7 +5372,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Agrarian Bank
 	focus = {
 		id = KAZ_aul_agrarian_bank
 		icon = aul_agro_Bank
@@ -5295,7 +5450,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Restore Old Kazakh Names
 	focus = {
 		id = KAZ_aul_return_old_kazakh_names
 		icon = aul_rename
@@ -5322,7 +5477,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Regional Decentralization
 	focus = {
 		id = KAZ_aul_decentralization_regions
 		icon = aul_decentr
@@ -5354,7 +5509,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Regulate Agro-Industry
 	focus = {
 		id = KAZ_aul_regulation_agro_industry
 		icon = aul_agro
@@ -5387,7 +5542,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Rural Credit Police
 	focus = {
 		id = KAZ_aul_credit_farmer_police
 		icon = aul_farmers
@@ -5420,7 +5575,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Ban Insults to National Traditions
 	focus = {
 		id = KAZ_aul_ban_insult_national_traditions
 		icon = aul_defense
@@ -5451,7 +5606,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Respect National Identity
 	focus = {
 		id = KAZ_aul_respect_national_identity
 		icon = aul_nat
@@ -5486,7 +5641,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Labor Education
 	focus = {
 		id = KAZ_aul_labor_education
 		icon = aul_work_education
@@ -5513,7 +5668,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Support Entrepreneurship
 	focus = {
 		id = KAZ_aul_support_entrepreneurship
 		icon = aul_business
@@ -5543,7 +5698,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Food Aid Program
 	focus = {
 		id = KAZ_aul_food_aid
 		icon = aul_help
@@ -5577,7 +5732,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Food Security
 	focus = {
 		id = KAZ_aul_food_security
 		icon = aul_foods
@@ -5608,7 +5763,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Volunteer and Patriotic Projects
 	focus = {
 		id = KAZ_aul_volunteer_patriotic_projects
 		icon = aul_help_love
@@ -5642,7 +5797,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Youth Policy
 	focus = {
 		id = KAZ_aul_youth_policy
 		icon = aul_young
@@ -5679,7 +5834,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Halal Export
 	focus = {
 		id = KAZ_aul_halal_export
 		icon = aul_export_halal
@@ -5741,7 +5896,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Direct Access to Markets
 	focus = {
 		id = KAZ_aul_direct_market_access
 		icon = aul_market
@@ -5771,7 +5926,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Unified Social Standard
 	focus = {
 		id = KAZ_aul_unified_social_standard
 		icon = aul_family
@@ -5802,7 +5957,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Stop Internal Migration
 	focus = {
 		id = KAZ_aul_stop_internal_migration
 		icon = aul_migration
@@ -5832,7 +5987,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Light in Every Village
 	focus = {
 		id = KAZ_aul_light_in_every_village
 		icon = aul_light
@@ -5870,7 +6025,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Family Policy
 	focus = {
 		id = KAZ_aul_family_policy
 		icon = aul_family_policy
@@ -5906,7 +6061,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Investments and Innovations
 	focus = {
 		id = KAZ_aul_investment_and_innovation
 		icon = aul_invest
@@ -5950,7 +6105,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Irrigation and Water Supply
 	focus = {
 		id = KAZ_aul_irrigation_and_water_supply
 		icon = aul_water
@@ -5985,7 +6140,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Agrarian Power
 	focus = {
 		id = KAZ_aul_agrarian_power
 		icon = aul_final
@@ -6023,7 +6178,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Unicameral Parliament
 	focus = {
 		id = KAZ_akz_unicameral_parliament
 		icon = akzhol_parlament
@@ -6050,7 +6205,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Law on Parliamentary Opposition
 	focus = {
 		id = KAZ_akz_law_on_parliamentary_opposition
 		icon = akzhol_parlament_reform
@@ -6085,7 +6240,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Expand Maslikhat Powers
 	focus = {
 		id = KAZ_akz_expand_maslikhat_powers
 		icon = akzhol_maslih
@@ -6113,7 +6268,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Expand Rural Akim Powers
 	focus = {
 		id = KAZ_akz_expand_rural_akim_powers
 		icon = akzhol_selo
@@ -6141,7 +6296,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Introduce New VAT
 	focus = {
 		id = KAZ_akz_introduce_new_vat
 		icon = akzhol_vat
@@ -6176,7 +6331,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Online Court Broadcasts
 	focus = {
 		id = KAZ_akz_online_court_broadcasts
 		icon = akzhol_live
@@ -6209,7 +6364,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Tax Cuts
 	focus = {
 		id = KAZ_akz_tax_cut
 		icon = akzhol_tax_lov
@@ -6243,7 +6398,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Lower Credit Rates
 	focus = {
 		id = KAZ_akz_lower_credit_rates
 		icon = akzhol_tax_lov2
@@ -6274,7 +6429,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Return of Capital
 	focus = {
 		id = KAZ_akz_return_capitals
 		icon = return_capital
@@ -6308,7 +6463,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Liability for Subordinates' Corruption
 	focus = {
 		id = KAZ_akz_responsibility_for_corruption_of_subordinates
 		icon = akzhol_corruption
@@ -6337,7 +6492,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protection from Devaluation
 	focus = {
 		id = KAZ_akz_protection_from_devaluation
 		icon = akzhol_tenge
@@ -6374,7 +6529,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Duty-Free Import of Electric Cars
 	focus = {
 		id = KAZ_akz_duty_free_import_electric_cars
 		icon = akzhol_cars
@@ -6416,7 +6571,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Reduce Foreign Labor Quotas
 	focus = {
 		id = KAZ_akz_reduce_foreign_labor_quotas
 		icon = akzhol_works
@@ -6461,7 +6616,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Deoffshorization
 	focus = {
 		id = KAZ_akz_deoffshorization
 		icon = akzhol_deofshore
@@ -6497,7 +6652,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Expand Housing Construction
 	focus = {
 		id = KAZ_akz_expand_housing_construction
 		icon = akzhol_build
@@ -6534,7 +6689,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Raise Salaries for Public Employees
 	focus = {
 		id = KAZ_akz_raise_salaries_for_state_employees
 		icon = akzhol_budget
@@ -6572,7 +6727,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Financial Oversight of Healthcare
 	focus = {
 		id = KAZ_akz_financial_control_of_healthcare
 		icon = akzhol_medecine
@@ -6607,7 +6762,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Support Domestic Producers
 	focus = {
 		id = KAZ_akz_support_domestic_producers
 		icon = akzhol_fabric
@@ -6642,7 +6797,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Graduate Employment Program
 	focus = {
 		id = KAZ_akz_employment_of_graduates
 		icon = akzhol_student
@@ -6677,7 +6832,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protect the Spiritual Sphere from Foreign Influence
 	focus = {
 		id = KAZ_akz_protection_of_spiritual_sphere
 		icon = akzhol_infl_defense
@@ -6709,7 +6864,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protection of the Kazakh Language
 	focus = {
 		id = KAZ_akz_protection_of_kazakh_language
 		icon = akzhol_language
@@ -6743,7 +6898,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Peaceful Dispute Resolution
 	focus = {
 		id = KAZ_akz_resolving_disputes_peacefully
 		icon = akzhol_world
@@ -6778,7 +6933,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Protection of Private Life
 	focus = {
 		id = KAZ_akz_protection_of_private_life
 		icon = akzhol_defense_family
@@ -6815,7 +6970,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Implement European Standards
 	focus = {
 		id = KAZ_akz_implementing_european_standards
 		icon = akzhol_europe
@@ -6859,7 +7014,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Return of Alash
 	focus = {
 		id = KAZ_return_alash
 		icon = alash_start
@@ -6877,6 +7032,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_return_alash"
+			hidden_effect = {
+				add_ideas = KAZ_alash_legacy_idea
+			}
 			country_event = KAZ_alash.1
 			if = {
 				limit = { NOT = { is_in_array = { ruling_party = 20 } } }
@@ -6890,7 +7048,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#The Army - Our New Foundation
 	focus = {
 		id = KAZ_army_alash
 		icon = alash_army
@@ -6996,7 +7154,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Council of Tengrians
 	focus = {
 		id = KAZ_soviet_alash
 		icon = alash_tengri
@@ -7025,14 +7183,14 @@ focus_tree = {
 				remove_idea = sunni
 				add_idea = tengri
 			}
-			add_ideas = KAZ_soviet_tegr
+			add_ideas = KAZ_soviet_tegr_idea
 		}
 
 		ai_will_do = {
 			base = 2.5
 		}
 	}
-
+	#Heritage of Alash Orda
 	focus = {
 		id = KAZ_alash_orda
 		icon = alash_history
@@ -7060,7 +7218,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Purge of the Old Elite
 	focus = {
 		id = KAZ_gold_elite_alash
 		icon = generic_economic_upper_class
@@ -7089,7 +7247,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Kazakh - The Priority Language
 	focus = {
 		id = KAZ_language_alash
 		icon = akzhol_language
@@ -7112,14 +7270,14 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_language_alash"
 			set_temp_variable = { percent_change = 4}
 			change_domestic_influence_percentage = yes
-			add_ideas = KAZ_language_idea_alash
+			add_ideas = KAZ_language_alash_idea
 		}
 
 		ai_will_do = {
 			base = 2.5
 		}
 	}
-
+	#Anti-Corruption Tribunals
 	focus = {
 		id = KAZ_anti_corrup_alash
 		icon = POL_fight_corruption
@@ -7147,7 +7305,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Repatriation of Capital
 	focus = {
 		id = KAZ_return_money_alash
 		icon = alash_back_capital
@@ -7183,7 +7341,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Spirit of Revival
 	focus = {
 		id = KAZ_vozroshd_alash
 		icon = alash_standup
@@ -7217,7 +7375,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Unified Alphabet
 	focus = {
 		id = KAZ_alphavit_alash
 		icon = alash_language_question
@@ -7245,7 +7403,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Unity Through Freedom
 	focus = {
 		id = KAZ_alash_freedoom_relig
 		icon = religious_unity
@@ -7277,7 +7435,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Equality of Nations
 	focus = {
 		id = KAZ_narodi_alash
 		icon = alash_birlik
@@ -7303,14 +7461,14 @@ focus_tree = {
 			add_relative_party_popularity = yes
 			set_temp_variable = { treasury_change = -5 }
 			modify_treasury_effect = yes
-			add_ideas = KAZ_equal_people
+			add_ideas = KAZ_equal_people_idea
 		}
 
 		ai_will_do = {
 			base = 2.5
 		}
 	}
-
+	#The Second Republic of Alash
 	focus = {
 		id = KAZ_2_respublic_of_alash
 		icon = alash_republic
@@ -7340,7 +7498,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Development of the Kazakh Arsenal
 	focus = {
 		id = KAZ_arsenal_alash
 		icon = vg_military_invest
@@ -7372,7 +7530,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Zhas Alash Officer Corps
 	focus = {
 		id = KAZ_officer_alash
 		icon = reorganization_of_infantry
@@ -7451,7 +7609,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Steppe Lightning Doctrine
 	focus = {
 		id = KAZ_doctrine_alash
 		icon = alash_doctrine
@@ -7479,7 +7637,7 @@ focus_tree = {
 				uses = 2
 				category = CAT_land_doctrine
 			}
-			add_ideas = KAZ_steppe_lightning_doctrine
+			add_ideas = KAZ_steppe_lightning_doctrine_idea
 			set_temp_variable = { temp_opinion = 4 }
 			change_the_military_opinion = yes
 		}
@@ -7488,7 +7646,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Defense of a Great Country
 	focus = {
 		id = KAZ_defense_country_alash
 		icon = alash_defense
@@ -7508,7 +7666,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_defense_country_alash"
-			add_ideas = KAZ_country_defense
+			add_ideas = KAZ_country_defense_idea
 			set_temp_variable = { treasury_change = -30 }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = KAZ_start_defense
@@ -7586,7 +7744,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Breaking the Chains
 	focus = {
 		id = KAZ_razriv_cepey_alash
 		icon = alash_liber
@@ -7613,7 +7771,7 @@ focus_tree = {
 			change_domestic_influence_percentage = yes
 			swap_ideas = {
 				remove_idea = KAZ_arsenal_alash_idea
-				add_idea = KAZ_arsenal_alash_idea2
+				add_idea = KAZ_arsenal_alash_2_idea
 			}
 			custom_effect_tooltip = KAZ_razriv_cepey_alash_tooltip
 			newline = yes
@@ -7652,7 +7810,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Turan Pact
 	focus = {
 		id = KAZ_pact_turana
 		icon = alash_pact_turana
@@ -7684,7 +7842,7 @@ focus_tree = {
 				}
 				leave_faction = yes
 			}
-			add_ideas = KAZ_alash_faction_super
+			add_ideas = KAZ_alash_faction_super_idea
 			create_faction_from_template = faction_template_kaz_alash
 		}
 
@@ -7692,7 +7850,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#The Almaty Conference
 	focus = {
 		id = KAZ_conferense_almaty_alash
 		icon = alash_almaty
@@ -7784,7 +7942,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Our Turkish Brother?
 	focus = {
 		id = KAZ_our_turkish_brouther
 		icon = alash_turkish
@@ -7828,7 +7986,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#The question of the Heir to a Great Empire
 	focus = {
 		id = KAZ_friend_mongolia_alash
 		icon = alash_mongolia
@@ -7877,7 +8035,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Turan Bridge
 	focus = {
 		id = KAZ_most_turana_alash
 		icon = alash_azer
@@ -7989,7 +8147,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#The Persian Question
 	focus = {
 		id = KAZ_question_persia
 		icon = alash_persia
@@ -8046,7 +8204,7 @@ focus_tree = {
 			}
 		}
 	}
-
+	#Claims on Our Russian Territories
 	focus = {
 		id = KAZ_russian_territory
 		icon = alash_sov_core
@@ -8068,7 +8226,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_russian_territory"
-			add_ideas = KAZ_war_with_russia
+			add_ideas = KAZ_war_with_russia_idea
 			newline = yes
 			# custom_effect_tooltip = KAZ_get_core_sov
 			# hidden_effect = {
@@ -8093,7 +8251,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Curbing the Taliban
 	focus = {
 		id = KAZ_talib_alash
 		icon = alash_taliban
@@ -8158,7 +8316,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Claims on Our Chinese Territories
 	focus = {
 		id = KAZ_chi_territory
 		icon = alash_chi_core
@@ -8180,7 +8338,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_chi_territory"
-			add_ideas = KAZ_war_with_china
+			add_ideas = KAZ_war_with_china_idea
 			newline = yes
 			592 = { add_claim_by = KAZ }
 		}
@@ -8189,7 +8347,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Return by Force
 	focus = {
 		id = KAZ_war_russia_alash
 		icon = alash_sov_war
@@ -8240,7 +8398,7 @@ focus_tree = {
 			base = 2.5
 		}
 	}
-
+	#Return by Force
 	focus = {
 		id = KAZ_war_chi_alash
 		icon = alash_chi_war
@@ -8289,7 +8447,7 @@ focus_tree = {
 			}
 		}
 	}
-
+	#Great Turkestan
 	focus = {
 		id = KAZ_great_turkestan
 		icon = alash_final
@@ -9621,6 +9779,7 @@ focus_tree = {
         }
     }
 
+	#Era of Nazarbayev
 	focus = {
 		id = KAZ_naz_era
 		icon = kaz_naz_start
@@ -9650,7 +9809,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Strategy 1997-2030
 	focus = {
 		id = KAZ_naz_2030
 		icon = kaz_naz_2030
@@ -9678,7 +9837,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Creation of National Fund
 	focus = {
 		id = KAZ_naz_create_money
 		icon = kaz_naz_safe_money
@@ -9707,7 +9866,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Party Building
 	focus = {
 		id = KAZ_naz_party_building
 		icon = kaz_naz_party
@@ -9735,7 +9894,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Reform of KNB and Presidential Security Service
 	focus = {
 		id = KAZ_naz_knb_president
 		icon = kaz_naz_defense
@@ -9768,7 +9927,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Creation of National Guard
 	focus = {
 		id = KAZ_naz_create_nac
 		icon = kaz_naz_guard
@@ -9828,7 +9987,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Fight Against Religious Extremism
 	focus = {
 		id = KAZ_naz_war_religion
 		icon = jihad_war
@@ -9880,7 +10039,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Strengthening Nur-Otan
 	focus = {
 		id = KAZ_naz_nur_otan
 		icon = kaz_naz_nur_otan
@@ -9908,7 +10067,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Creation of FNB Samruk-Kazyna
 	focus = {
 		id = KAZ_naz_samruk
 		icon = kaz_naz_samruk
@@ -9938,7 +10097,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Unified National Testing
 	focus = {
 		id = KAZ_naz_test
 		icon = kaz_naz_test
@@ -9970,7 +10129,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Kazakhstan Institute of Strategic Studies
 	focus = {
 		id = KAZ_naz_university
 		icon = kaz_naz_univer
@@ -10002,7 +10161,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Creation of Turkic Council
 	focus = {
 		id = KAZ_naz_turkic_soviet
 		icon = kaz_naz_soviet_turk
@@ -10057,7 +10216,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Revival of Turkestan
 	focus = {
 		id = KAZ_naz_create_turkestan
 		icon = kaz_naz_turkestan
@@ -10076,7 +10235,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_turkic_soviet"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_create_turkestan"
 			country_event = KAZ_naz.6
 		}
 
@@ -10084,7 +10243,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#State Language Development Fund
 	focus = {
 		id = KAZ_naz_language
 		icon = akzhol_language
@@ -10116,7 +10275,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Return of Ethnic Kazakhs
 	focus = {
 		id = KAZ_naz_etnic_kazakhs
 		icon = kaz_naz_back
@@ -10135,7 +10294,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_entic_kazakhs"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_etnic_kazakhs"
 			swap_ideas = {
 				remove_idea = KAZ_naz_era_idea2
 				add_idea = KAZ_naz_era_idea3
@@ -10147,7 +10306,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Development of the "Bolashaq" program
 	focus = {
 		id = KAZ_naz_bolashak
 		icon = kaz_naz_bolashak
@@ -10185,7 +10344,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Network of Intellectual Schools
 	focus = {
 		id = KAZ_naz_schools
 		icon = kazakhstan_school
@@ -10219,7 +10378,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Rukhani Jangyru Program
 	focus = {
 		id = KAZ_naz_lat
 		icon = kaz_naz_vozroshd
@@ -10268,7 +10427,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Expansion of Social Assistance
 	focus = {
 		id = KAZ_naz_help
 		icon = kaz_naz_social_help
@@ -10301,7 +10460,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Strategy Kazakhstan-2050
 	focus = {
 		id = KAZ_naz_kazakhstan_2050
 		icon = kaz_naz_2050
@@ -10322,7 +10481,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_kazakhstan_2030"
+			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_kazakhstan_2050"
 			one_random_infrastructure = yes
 			swap_ideas = {
 				remove_idea = KAZ_naz_2030_idea
@@ -10334,7 +10493,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Sacred Geography and Museum Heritage
 	focus = {
 		id = KAZ_naz_geography
 		icon = kaz_naz_history
@@ -10364,7 +10523,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Electronic Government
 	focus = {
 		id = KAZ_naz_e_government
 		icon = kaz_naz_egov
@@ -10404,7 +10563,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Anti-Corruption Agency
 	focus = {
 		id = KAZ_naz_anticorruption
 		icon = kaz_naz_corruption
@@ -10439,7 +10598,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Constitutional Amendments
 	focus = {
 		id = KAZ_naz_constitution
 		icon = kaz_naz_reform_con
@@ -10475,7 +10634,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Reform of the Supreme Judicial Council
 	focus = {
 		id = KAZ_naz_soviet
 		icon = kaz_naz_sud
@@ -10507,7 +10666,7 @@ focus_tree = {
 			base = 2
 		}
 	}
-
+	#Conferment of Elbasy Status
 	focus = {
 		id = KAZ_naz_elbasy
 		icon = kaz_naz_end
@@ -10528,7 +10687,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KAZ_naz_elbasy"
-			country_event = KAZ_naz.5
+			country_event = KAZ_naz.7
 		}
 
 		ai_will_do = {
@@ -12864,7 +13023,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Modernize Shymkent Refinery
+	#Modernize Shymkent Refinery
 	focus = {
 		id = KAZ_modernize_shymkent_refinery
 		icon = kaz_chi_npz
@@ -12927,7 +13086,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Aiju Agroparks
+	#Aiju Agroparks
 	focus = {
 		id = KAZ_aiju_agroparks
 		icon = kaz_chi_ferma
@@ -12986,7 +13145,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Zhanazhol Gas Processing Plant
+	#Zhanazhol Gas Processing Plant
 	focus = {
 		id = KAZ_zhanazhol_gas_plant
 		icon = kaz_chi_gas
@@ -13048,7 +13207,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Allur and JAC Auto Cluster
+	#Allur and JAC Auto Cluster
 	focus = {
 		id = KAZ_allur_jac_auto_cluster
 		icon = kaz_chi_cars
@@ -13110,7 +13269,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Lovol Tractors
+	#Lovol Tractors
 	focus = {
 		id = KAZ_lovol_tractors
 		icon = kaz_chi_lovol
@@ -13173,7 +13332,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Zhanatas Wind Power
+	#Zhanatas Wind Power
 	focus = {
 		id = KAZ_zhanatas_wind_power
 		icon = cooperation_with_china
@@ -13233,7 +13392,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Huawei Infrastructure
+	#Huawei Infrastructure
 	focus = {
 		id = KAZ_huawei_infrastructure
 		icon = huawei
@@ -13300,7 +13459,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Modernize Aktau Port
+	#Modernize Aktau Port
 	focus = {
 		id = KAZ_modernize_aktau_port
 		icon = kaz_port_aktau
@@ -13361,7 +13520,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Copper Smelter in Abay
+	#Copper Smelter in Abay
 	focus = {
 		id = KAZ_copper_smelter_abay
 		icon = kaz_cop_chi
@@ -13423,7 +13582,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# CITIC Fertilizer Plants
+	#CITIC Fertilizer Plants
 	focus = {
 		id = KAZ_citic_fertilizer_plants
 		icon = kaz_chi_udobr
@@ -13484,7 +13643,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Jibek Joly Steel Plant
+	#Jibek Joly Steel Plant
 	focus = {
 		id = KAZ_jibek_joly_steel_plant
 		icon = kaz_chi_jiber
@@ -13546,7 +13705,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Hengtong Data Centers
+	#Hengtong Data Centers
 	focus = {
 		id = KAZ_hengtong_data_centers
 		icon = kaz_data_centres
@@ -13893,7 +14052,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Pharmaceutical Cluster and R&D Center
+	#Pharmaceutical Cluster and R&D Center
 	focus = {
 		id = KAZ_pharma_cluster_rnd_center
 		icon = kaz_india_tabletki
@@ -13955,7 +14114,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Construction of Class A Logistics Warehouses
+	#Construction of Class A Logistics Warehouses
 	focus = {
 		id = KAZ_class_a_logistics_warehouses
 		icon = kaz_singapur
@@ -14018,7 +14177,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Water Infrastructure with ICD
+	#Water Infrastructure with ICD
 	focus = {
 		id = KAZ_water_infrastructure_icd
 		icon = kaz_water_islam
@@ -14043,7 +14202,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Joint Startup Support Fund
+	#Joint Startup Support Fund
 	focus = {
 		id = KAZ_joint_startup_support_fund
 		icon = kaz_startap
@@ -14104,7 +14263,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# Qatar Gas Chemistry Alliance
+	#Qatar Gas Chemistry Alliance
 	focus = {
 		id = KAZ_qatar_gas_chemistry_alliance
 		icon = generic_muslim_quatar
@@ -14169,7 +14328,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# ACWA Green Power Deal
+	#ACWA Green Power Deal
 	focus = {
 		id = KAZ_acwa_power_wind_deal
 		icon = kaz_sau_acwa
@@ -14237,7 +14396,7 @@ focus_tree = {
 			base = 1
 		}
 	}
-	# CICA Diplomatic Center
+	#CICA Diplomatic Center
 	focus = {
 		id = KAZ_cica_diplomatic_center
 		icon = kaz_cica
@@ -14263,7 +14422,7 @@ focus_tree = {
 	}
 	### CAS ###
 
-	# Central Asian Cooperation
+	#Central Asian Cooperation
 	focus = {
 		id = KAZ_cas_central_asian_cooperation
 		icon = kaz_cas_start
@@ -14287,7 +14446,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Increase Political Influence
+	#Increase Political Influence
 	focus = {
 		id = KAZ_cas_increase_political_influence
 		icon = kaz_cas_influence
@@ -14347,7 +14506,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Good Neighbourhood Treaty
+	#Good Neighbourhood Treaty
 	focus = {
 		id = KAZ_cas_good_neighbourhood_treaty
 		icon = kaz_cas_friends
@@ -14403,7 +14562,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Transport Space
+	#Single Transport Space
 	focus = {
 		id = KAZ_cas_single_transport_space
 		icon = kaz_cas_roads
@@ -14464,7 +14623,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Coordination Security HQ
+	#Coordination Security HQ
 	focus = {
 		id = KAZ_cas_coordination_security_hq
 		icon = kaz_cas_defense
@@ -14521,7 +14680,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Market Central Asia
+	#Single Market Central Asia
 	focus = {
 		id = KAZ_cas_single_market_central_asia
 		icon = kaz_cas_rynok
@@ -14577,7 +14736,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Energy Union
+	#Energy Union
 	focus = {
 		id = KAZ_cas_energy_union
 		icon = kaz_cas_electr
@@ -14630,7 +14789,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# General Staff Academy
+	#General Staff Academy
 	focus = {
 		id = KAZ_cas_general_staff_academy
 		icon = kaz_cas_army_study
@@ -14693,7 +14852,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Peacekeeping Corps Central Asia
+	#Peacekeeping Corps Central Asia
 	focus = {
 		id = KAZ_cas_peacekeeping_corps_central_asia
 		icon = kaz_cas_mir
@@ -14746,7 +14905,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Central Asian Development Bank
+	#Central Asian Development Bank
 	focus = {
 		id = KAZ_cas_central_asian_development_bank
 		icon = kaz_cas_bank
@@ -14805,7 +14964,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Joint Military Anti-Terror Exercises
+	#Joint Military Anti-Terror Exercises
 	focus = {
 		id = KAZ_cas_joint_military_anti_terror_exercises
 		icon = kaz_cas_antiterror
@@ -14866,7 +15025,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Joint Food Security Program
+	#Joint Food Security Program
 	focus = {
 		id = KAZ_cas_joint_food_security_program
 		icon = kaz_cas_foods
@@ -14920,7 +15079,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Made In Central Asia
+	#Made In Central Asia
 	focus = {
 		id = KAZ_cas_made_in_central_asia
 		icon = kaz_made_in_cas
@@ -14974,7 +15133,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Air Defense System
+	#Single Air Defense System
 	focus = {
 		id = KAZ_cas_single_air_defense_system
 		icon = kaz_cas_pvo
@@ -15047,7 +15206,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Expand Kazakh Military Industrial Complex
+	#Expand Kazakh Military Industrial Complex
 	focus = {
 		id = KAZ_cas_expand_kazakh_mic
 		icon = kaz_cas_ke_kpe
@@ -15107,7 +15266,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Single Currency Altai
+	#Single Currency Altai
 	focus = {
 		id = KAZ_cas_single_currency_altyn
 		icon = kaz_cas_altyn
@@ -15166,7 +15325,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Strengthen Central Asian Forces
+	#Strengthen Central Asian Forces
 	focus = {
 		id = KAZ_cas_strengthen_central_asian_forces
 		icon = kaz_cas_mg
@@ -15244,7 +15403,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Confederate Treaty
+	#Confederate Treaty
 	focus = {
 		id = KAZ_cas_confederate_treaty
 		icon = kaz_cas_final
@@ -15310,7 +15469,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Referendum Single State
+	#Referendum Single State
 	focus = {
 		id = KAZ_cas_referendum_single_state
 		icon = kaz_cas_unity
@@ -15491,7 +15650,7 @@ focus_tree = {
 			base = 1.5
 		}
 	}
-	# Strengthen Confederation
+	#Strengthen Confederation
 	focus = {
 		id = KAZ_cas_strengthen_confederation
 		icon = kaz_cas_mg_2

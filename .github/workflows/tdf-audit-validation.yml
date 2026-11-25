@@ -1,0 +1,151 @@
+name: TDF auditor validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "mdredux/**"
+      - "skills/tdf-country-content/**"
+      - "docs/research/external-dependencies.*"
+      - ".github/workflows/tdf-audit-validation.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "mdredux/**"
+      - "skills/tdf-country-content/**"
+      - "docs/research/external-dependencies.*"
+      - ".github/workflows/tdf-audit-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    name: Auditor and inventory unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run all auditor unit tests
+        run: python -m unittest discover -s skills/tdf-country-content/tests -v
+
+  full-audit:
+    name: Full repository audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run full audit
+        shell: bash
+        run: |
+          mkdir -p reports
+          if python -I skills/tdf-country-content/scripts/tdf_audit.py . --require-external-registry --json reports/full-audit.json > reports/full-audit.log 2>&1; then
+            status=0
+          else
+            status=$?
+          fi
+          printf "%s\n" "$status" > reports/exit-code.txt
+          cat reports/full-audit.log
+          if [ "$status" -eq 1 ]; then
+            echo "Full audit completed with content findings; see uploaded report."
+            {
+              echo "### Full repository audit"
+              echo "- Completed; content ERROR findings are recorded in the uploaded JSON/log artifact."
+              echo "- Auditor exit code: 1 (content findings; report-only, does not fail this job)."
+            } >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$status" -ne 0 ]; then
+            echo "Full audit could not complete (exit code $status); see uploaded report."
+            {
+              echo "### Full repository audit"
+              echo "- Execution/input failure; auditor exit code: $status."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit "$status"
+          else
+            echo "Full audit completed with no ERROR findings."
+            {
+              echo "### Full repository audit"
+              echo "- Completed with no ERROR findings."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Run structural inventory
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p reports
+          python -I skills/tdf-country-content/scripts/tdf_inventory.py . --json reports/inventory.json > reports/inventory.log
+          cat reports/inventory.log
+
+      - name: Upload full audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tdf-full-audit
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14
+
+  country-audit:
+    name: Country audit (${{ matrix.tag }})
+    needs: [unit-tests]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        tag: [ARM, BLR, ENG, GEO, HUN, ISR, KAZ, POL, POR, SLO, SOV, SYR]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run country audit
+        shell: bash
+        run: |
+          mkdir -p reports
+          if python -I skills/tdf-country-content/scripts/tdf_audit.py . --tags "${{ matrix.tag }}" --require-external-registry --json "reports/audit-${{ matrix.tag }}.json" > "reports/audit-${{ matrix.tag }}.log" 2>&1; then
+            status=0
+          else
+            status=$?
+          fi
+          printf "%s\n" "$status" > reports/exit-code.txt
+          cat "reports/audit-${{ matrix.tag }}.log"
+          if [ "$status" -eq 1 ]; then
+            echo "${{ matrix.tag }} audit completed with content findings; see uploaded report."
+            {
+              echo "### Country audit (${{ matrix.tag }})"
+              echo "- Completed; content ERROR findings are recorded in the uploaded JSON/log artifact."
+              echo "- Auditor exit code: 1 (content findings; report-only, does not fail this job)."
+            } >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$status" -ne 0 ]; then
+            echo "${{ matrix.tag }} audit could not complete (exit code $status); see uploaded report."
+            {
+              echo "### Country audit (${{ matrix.tag }})"
+              echo "- Execution/input failure; auditor exit code: $status."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit "$status"
+          else
+            echo "${{ matrix.tag }} audit completed with no ERROR findings."
+            {
+              echo "### Country audit (${{ matrix.tag }})"
+              echo "- Completed with no ERROR findings."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload country audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tdf-audit-${{ matrix.tag }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14

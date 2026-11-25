@@ -30,7 +30,6 @@ KAZ_Aselsan_Engineering_electronics = {
 	include = generic_cnc_equipment_organization
 }
 
-
 KAZ_AHKE_helicopter_manufacturer = {
 	allowed = { original_tag = KAZ }
 	visible = { KAZ = { has_completed_focus = KAZ_create_AHKE } }

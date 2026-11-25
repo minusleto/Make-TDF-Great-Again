@@ -1469,10 +1469,6 @@ country_event = {
 			set_temp_variable = { influence_target = KAZ }
 			change_influence_percentage = yes
 		}
-		country_event = {
-			id = KAZ_naz.5
-			days = 1
-		}
 
 		ai_chance = {
 			base = 0
@@ -1511,25 +1507,6 @@ country_event = {
 }
 
 country_event = {
-	id = KAZ_naz.5
-	title = KAZ_naz.5.t
-	desc = KAZ_naz.5.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = KAZ_naz.5.a
-		log = "[GetDateText]: [This.GetName]: KAZ_naz.5.a executed"
-		add_political_power = 150
-		set_temp_variable = { party_index = 7 }
-		set_temp_variable = { party_popularity_increase = 0.05 }
-		set_temp_variable = { temp_outlook_increase = 0.05 }
-		add_relative_party_popularity = yes
-		add_country_leader_trait = elbasy
-	}
-}
-
-country_event = {
 	id = KAZ_naz.6
 	title = KAZ_naz.6.t
 	desc = KAZ_naz.6.d
@@ -1549,6 +1526,25 @@ country_event = {
 			}
 			one_state_infrastructure = yes
 		}
+	}
+}
+
+country_event = {
+	id = KAZ_naz.7
+	title = KAZ_naz.7.t
+	desc = KAZ_naz.7.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = KAZ_naz.7.a
+		log = "[GetDateText]: [This.GetName]: KAZ_naz.7.a executed"
+		add_political_power = 150
+		set_temp_variable = { party_index = 7 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		add_relative_party_popularity = yes
+		add_country_leader_trait = elbasy
 	}
 }
 
@@ -3068,7 +3064,7 @@ country_event = {
 		name = KAZ_com.27.a
 		log = "[GetDateText]: [This.GetName]: KAZ_com.27.a executed"
 		add_political_power = 100
-		set_party_index_to_ruling_party = yes
+		set_temp_variable = { party_index = 4 }
 		set_temp_variable = {
 			party_popularity_increase = 0.05
 		}
@@ -3180,7 +3176,7 @@ country_event = {
 }
 
 # ARMY
-# CHI Wing Loong UAV Proposal
+# TUR Naval Shipyard Partnership Proposal
 country_event = {
 	id = kaz_army.1
 	title = kaz_army.1.t
@@ -3193,22 +3189,40 @@ country_event = {
 		name = kaz_army.1.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.1.a executed"
 		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = CHI }
+		set_temp_variable = { tag_index = TUR }
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
-		set_temp_variable = { treasury_change = 5 }
+		set_temp_variable = { treasury_change = 1 }
 		modify_treasury_effect = yes
 		KAZ = { country_event = { id = kaz_army.2 days = 1 } }
-		ai_chance = { base = 100 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = 90
+				has_opinion = {
+					target = KAZ
+					value > 10
+				}
+			}
+		}
 	}
 	option = {
 		name = kaz_army.1.b
 		log = "[GetDateText]: [This.GetName]: kaz_army.1.b executed"
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = { base = 0 }
-	}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 100
+				has_opinion = {
+					target = KAZ
+					value < 10
+				}
+			}
+		}
+	}	
 }
-# CHI Wing Loong UAV agreed
+# TUR Naval Shipyard Partnership agreed
 country_event = {
 	id = kaz_army.2
 	title = kaz_army.2.t
@@ -3221,27 +3235,92 @@ country_event = {
 		name = kaz_army.2.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.2.a executed"
 		add_tech_bonus = {
-			name = KAZ_wing_loong_china
-			bonus = 0.75
+			name = KAZ_naval_coop_turkey
+			bonus = 0.5
 			uses = 1
-			category = CAT_drones
+			category = CAT_corvette
 		}
-		KAZ_upgrade_drone_program = yes
-		set_temp_variable = { treasury_change = -5 }
+		set_temp_variable = { treasury_change = -1 }
 		modify_treasury_effect = yes
 	}
 }
-# Airmobile Forces
+# SOV Naval Cooperation Proposal
+country_event = {
+	id = kaz_army.3
+	title = kaz_army.3.t
+	desc = kaz_army.3.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.3.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.3.a executed"
+		add_command_power = -25
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		KAZ = { country_event = { id = kaz_army.4 days = 1 } }
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = 90
+				has_opinion = {
+					target = KAZ
+					value > 10
+				}
+			}
+		}
+	}
+	option = {
+		name = kaz_army.3.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.3.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 100
+				has_opinion = {
+					target = KAZ
+					value < 10
+				}
+			}
+		}
+	}	
+}
+# SOV Naval Cooperation agreed
 country_event = {
 	id = kaz_army.4
 	title = kaz_army.4.t
 	desc = kaz_army.4.d
+	picture = GFX_handshake_black #TODO
 
 	is_triggered_only = yes
 
 	option = {
 		name = kaz_army.4.a
 		log = "[GetDateText]: [This.GetName]: kaz_army.4.a executed"
+		navy_experience = 40
+		add_daily_mastery = {
+			amount = 0.5
+			days = 100
+			name = KAZ_naval_russia_training
+			folder = naval
+		}
+	}
+}
+# Airmobile Forces
+country_event = {
+	id = kaz_army.5
+	title = kaz_army.5.t
+	desc = kaz_army.5.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.5.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.5.a executed"
 		add_ideas = KAZ_airmobile_forces_idea
 		division_template = {
 			name = "Airmobile Brigade"
@@ -3262,463 +3341,43 @@ country_event = {
 		}
 	}
 }
-
 #New Structure of the Armed Forces
 country_event = {
-    id = kaz_army.5
-    title = kaz_army.5.t
-    desc = kaz_army.5.d
+    id = kaz_army.6
+    title = kaz_army.6.t
+    desc = kaz_army.6.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
     option = {
-        name = kaz_army.5.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.5.a executed"
+        name = kaz_army.6.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.6.a executed"
         add_ideas = KAZ_regional_commands_idea
     }
 }
-# SOV Su-30SM Deal Proposal
+#Kazakhstan Requests T-72KAE Cooperation
 country_event = {
 	id = kaz_army.7
 	title = kaz_army.7.t
 	desc = kaz_army.7.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.7.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.7.a executed"
-		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = SOV }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
-		set_temp_variable = { treasury_change = 6 }
-		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.8 days = 1 } }
-		ai_chance = { base = 100 }
-	}
-	option = {
-		name = kaz_army.7.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.7.b executed"
-		FROM = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = { base = 0 }
-	}
-}
-
-# SOV Su-30SM Deal agreed
-country_event = {
-	id = kaz_army.8
-	title = kaz_army.8.t
-	desc = kaz_army.8.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.8.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.8.a executed"
-		add_equipment_to_stockpile = {
-			type = small_plane_airframe_2
-			amount = 20
-			variant_name = "Su-30SM"
-			producer = SOV
-		}
-		add_tech_bonus = {
-			name = KAZ_complete_aircraft_russia
-			bonus = 0.75
-			uses = 1
-			category = CAT_fighter
-			category = CAT_air_engine
-		}
-		set_temp_variable = { treasury_change = -6 }
-		modify_treasury_effect = yes
-	}
-}
-# ISR Skylark UAV Proposal
-country_event = {
-	id = kaz_army.9
-	title = kaz_army.9.t
-	desc = kaz_army.9.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.9.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.9.a executed"
-		set_temp_variable = { treasury_change = 5 }
-		modify_treasury_effect = yes
-		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = ISR }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
-		FROM = { country_event = { id = kaz_army.10 days = 1 } }
-		ai_chance = {
-			base = 100
-		}
-	}
-	option = {
-		name = kaz_army.9.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.9.b executed"
-		FROM = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = {
-			base = 0
-		}
-	}
-}
-# ISR Skylark UAV agreed
-country_event = {
-	id = kaz_army.10
-	title = kaz_army.10.t
-	desc = kaz_army.10.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.10.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.10.a executed"
-		add_tech_bonus = {
-			name = KAZ_skylark_israel
-			bonus = 0.75
-			uses = 1
-			category = CAT_l_drone
-		}
-		KAZ_upgrade_drone_program = yes
-		set_temp_variable = { treasury_change = -5 }
-		modify_treasury_effect = yes
-	}
-}
-# SAF Barys 6x6 Licence Proposal
-country_event = {
-	id = kaz_army.11
-	title = kaz_army.11.t
-	desc = kaz_army.11.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.11.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.11.a executed"
-		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = SAF }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
-		set_temp_variable = { treasury_change = 5.5 }
-		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.12 days = 1 } }
-		ai_chance = { base = 100 }
-	}
-	option = {
-		name = kaz_army.11.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.11.b executed"
-		FROM = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = { base = 0 }
-	}
-}
-
-# SAF Barys 6x6 Licence agreed
-country_event = {
-	id = kaz_army.12
-	title = kaz_army.12.t
-	desc = kaz_army.12.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.12.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.12.a executed"
-		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		create_equipment_variant = {
-			name = "Barys 6x6"
-			type = medium_tank_amphibious_chassis_1
-			parent_version = 2
-			design_team = mio:KAZ_KPE_tank_manufacturer
-			allow_without_tech = yes
-			modules = {
-				main_armament_slot = small_autocannon_2
-				reload_type_slot = automatic_loading
-				ammunition_load_slot = mixed_autocannon_ammo_1
-				turret_type_slot = tank_unmanned_turret
-				suspension_type_slot = tank_wheeled_suspension_medium
-				armor_type_slot = tank_steel_armor_gen2
-				engine_type_slot = tank_diesel_engine_gen2
-				special_type_slot_1 = smoke_launchers_2
-				special_type_slot_2 = afv_reverse_doors
-				special_type_slot_3 = afv_troop_capacity
-				special_type_slot_4 = tank_battlestation_1
-			}
-			upgrades = {
-				tank_nsb_armor_upgrade = 1
-			}
-			icon = "GFX_GER_APC_4"
-		}
-		add_equipment_to_stockpile = {
-			type = medium_tank_amphibious_chassis_1
-			variant_name = "Barys 6x6"
-			amount = 120
-		}
-		add_tech_bonus = {
-			name = KAZ_btr_barys_6x6
-			bonus = 0.5
-			uses = 1
-			category = CAT_apc
-		}
-		set_temp_variable = { treasury_change = -5.5 }
-		modify_treasury_effect = yes
-	}
-}
-
-# SAF Barys 8x8 Licence Proposal
-country_event = {
-	id = kaz_army.13
-	title = kaz_army.13.t
-	desc = kaz_army.13.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.13.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.13.a executed"
-		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = SAF }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
-		set_temp_variable = { treasury_change = 5.5 }
-		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.14 days = 1 } }
-		ai_chance = { base = 100 }
-	}
-	option = {
-		name = kaz_army.13.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.13.b executed"
-		FROM = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = { base = 0 }
-	}
-}
-
-# SAF Barys 8x8 Licence agreed
-country_event = {
-	id = kaz_army.14
-	title = kaz_army.14.t
-	desc = kaz_army.14.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.14.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.14.a executed"
-		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		create_equipment_variant = {
-			name = "Barys 8x8"
-			type = medium_tank_flame_chassis_2
-			parent_version = 1
-			design_team = mio:KAZ_KPE_tank_manufacturer
-			allow_without_tech = yes
-			modules = {
-				main_armament_slot = small_autocannon_2
-				reload_type_slot = automatic_loading
-				ammunition_load_slot = mixed_autocannon_ammo_3
-				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_wheeled_suspension_medium
-				armor_type_slot = afv_alum_armor_gen2
-				engine_type_slot = tank_diesel_engine_gen2
-				special_type_slot_1 = smoke_launchers_2
-				special_type_slot_2 = afv_troop_capacity
-				special_type_slot_3 = afv_reverse_doors
-				special_type_slot_4 = tank_battlestation_2_thermal
-			}
-			upgrades = {
-				tank_nsb_armor_upgrade = 3
-			}
-			icon = "gfx/interface/technologies/JAP/LAND/APC4.dds"
-		}
-		add_equipment_to_stockpile = {
-			type = medium_tank_flame_chassis_2
-			variant_name = "Barys 8x8"
-			amount = 120
-		}
-		mio:KAZ_KPE_tank_manufacturer = {
-			add_mio_size_up_requirement_factor = -0.03
-			add_mio_funds = 1000
-			add_mio_research_bonus = 0.02
-		}
-		add_tech_bonus = {
-			name = KAZ_btr_barys_8x8
-			bonus = 0.5
-			uses = 1
-			category = CAT_ifv
-		}
-		set_temp_variable = { treasury_change = -5.5 }
-		modify_treasury_effect = yes
-	}
-}
-
-# TUR Naval Shipyard Partnership Proposal
-country_event = {
-	id = kaz_army.17
-	title = kaz_army.17.t
-	desc = kaz_army.17.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.17.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.17.a executed"
-		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = TUR }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
-		set_temp_variable = { treasury_change = 1 }
-		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.18 days = 1 } }
-		ai_chance = {
-			base = 10
-			modifier = {
-				add = 90
-				has_opinion = {
-					target = KAZ
-					value > 10
-				}
-			}
-		}
-	}
-	option = {
-		name = kaz_army.17.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.17.b executed"
-		FROM = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = {
-			base = 0
-			modifier = {
-				add = 100
-				has_opinion = {
-					target = KAZ
-					value < 10
-				}
-			}
-		}
-	}	
-}
-# TUR Naval Shipyard Partnership agreed
-country_event = {
-	id = kaz_army.18
-	title = kaz_army.18.t
-	desc = kaz_army.18.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.18.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.18.a executed"
-		add_tech_bonus = {
-			name = KAZ_naval_coop_turkey
-			bonus = 0.5
-			uses = 1
-			category = CAT_corvette
-		}
-		set_temp_variable = { treasury_change = -1 }
-		modify_treasury_effect = yes
-	}
-}
-
-# SOV Naval Cooperation Proposal
-country_event = {
-	id = kaz_army.21
-	title = kaz_army.21.t
-	desc = kaz_army.21.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.21.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.21.a executed"
-		add_command_power = -25
-		set_temp_variable = { percent_change = 1 }
-		set_temp_variable = { tag_index = SOV }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
-		KAZ = { country_event = { id = kaz_army.22 days = 1 } }
-		ai_chance = {
-			base = 10
-			modifier = {
-				add = 90
-				has_opinion = {
-					target = KAZ
-					value > 10
-				}
-			}
-		}
-	}
-	option = {
-		name = kaz_army.21.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.21.b executed"
-		FROM = { country_event = { id = mdc4.16 days = 1 } }
-		ai_chance = {
-			base = 0
-			modifier = {
-				add = 100
-				has_opinion = {
-					target = KAZ
-					value < 10
-				}
-			}
-		}
-	}	
-}
-# SOV Naval Cooperation agreed
-country_event = {
-	id = kaz_army.22
-	title = kaz_army.22.t
-	desc = kaz_army.22.d
-	picture = GFX_handshake_black #TODO
-
-	is_triggered_only = yes
-
-	option = {
-		name = kaz_army.22.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.22.a executed"
-		navy_experience = 40
-		add_daily_mastery = {
-			amount = 0.5
-			days = 100
-			name = KAZ_naval_russia_training
-			folder = naval
-		}
-	}
-}
-#Kazakhstan Requests T-72KAE Cooperation
-country_event = {
-	id = kaz_army.24
-	title = kaz_army.24.t
-	desc = kaz_army.24.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.24.a
+		name = kaz_army.7.a
 		set_temp_variable = { percent_change = 2 }
 		set_temp_variable = { tag_index = TUR }
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
 		set_temp_variable = { treasury_change = 7.5 }
 		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.25 days = 1 } }
+		KAZ = { country_event = { id = kaz_army.8 days = 1 } }
 		ai_chance = {
 			base = 70
 		}
 	}
 	option = {
-		name = kaz_army.24.b
+		name = kaz_army.7.b
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 5
@@ -3731,14 +3390,14 @@ country_event = {
 }
 #Turkey Accepted T-72KAE Cooperation
 country_event = {
-	id = kaz_army.25
-	title = kaz_army.25.t
-	desc = kaz_army.25.d
+	id = kaz_army.8
+	title = kaz_army.8.t
+	desc = kaz_army.8.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.25.a
+		name = kaz_army.8.a
 		create_equipment_variant = {
 			name = "T-72KAE"
 			type = medium_tank_chassis_1
@@ -3781,29 +3440,29 @@ country_event = {
 }
 #Kazakhstan Requests Taimas 8x8 Cooperation
 country_event = {
-	id = kaz_army.26
-	title = kaz_army.26.t
-	desc = kaz_army.26.d
+	id = kaz_army.9
+	title = kaz_army.9.t
+	desc = kaz_army.9.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.26.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.26.a executed"
+		name = kaz_army.9.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.9.a executed"
 		set_temp_variable = { percent_change = 2 }
 		set_temp_variable = { tag_index = TUR }
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
 		set_temp_variable = { treasury_change = 5.5 }
 		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.27 days = 1 } }
+		KAZ = { country_event = { id = kaz_army.10 days = 1 } }
 		ai_chance = {
 			base = 70
 		}
 	}
 	option = {
-		name = kaz_army.26.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.26.b executed"
+		name = kaz_army.9.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.9.b executed"
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 5
@@ -3816,15 +3475,15 @@ country_event = {
 }
 #Turkey Accepted Taimas 8x8 Cooperation
 country_event = {
-	id = kaz_army.27
-	title = kaz_army.27.t
-	desc = kaz_army.27.d
+	id = kaz_army.10
+	title = kaz_army.10.t
+	desc = kaz_army.10.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.27.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.27.a executed"
+		name = kaz_army.10.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.10.a executed"
 		create_equipment_variant = {
 			name = "TAIMAS 8x8"
 			type = medium_tank_flame_chassis_2
@@ -3871,15 +3530,15 @@ country_event = {
 }
 #Kazakhstan Requests SARP Combat Modules
 country_event = {
-	id = kaz_army.28
-	title = kaz_army.28.t
-	desc = kaz_army.28.d
+	id = kaz_army.11
+	title = kaz_army.11.t
+	desc = kaz_army.11.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.28.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.28.a executed"
+		name = kaz_army.11.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.11.a executed"
 		set_temp_variable = { treasury_change = 5 }
 		modify_treasury_effect = yes
 		set_temp_variable = { percent_change = 2 }
@@ -3887,14 +3546,14 @@ country_event = {
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		KAZ = { country_event = { id = kaz_army.29 days = 1 } }
+		KAZ = { country_event = { id = kaz_army.12 days = 1 } }
 		ai_chance = {
 			base = 70
 		}
 	}
 	option = {
-		name = kaz_army.28.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.28.b executed"
+		name = kaz_army.11.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.11.b executed"
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 5
@@ -3907,15 +3566,15 @@ country_event = {
 }
 #Turkey Accepted SARP Integration
 country_event = {
-	id = kaz_army.29
-	title = kaz_army.29.t
-	desc = kaz_army.29.d
+	id = kaz_army.12
+	title = kaz_army.12.t
+	desc = kaz_army.12.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.29.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.29.a executed"
+		name = kaz_army.12.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.12.a executed"
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
@@ -3924,16 +3583,16 @@ country_event = {
 }
 #Kazakhstan Requests Naiza MLRS Cooperation
 country_event = {
-	id = kaz_army.30
-	title = kaz_army.30.t
-	desc = kaz_army.30.d
+	id = kaz_army.13
+	title = kaz_army.13.t
+	desc = kaz_army.13.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.30.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.30.a executed"
-		KAZ = { country_event = { id = kaz_army.31 days = 1 } }
+		name = kaz_army.13.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.13.a executed"
+		KAZ = { country_event = { id = kaz_army.14 days = 1 } }
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		set_temp_variable = { treasury_change = 6 }
 		modify_treasury_effect = yes
@@ -3946,8 +3605,8 @@ country_event = {
 		}
 	}
 	option = {
-		name = kaz_army.30.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.30.b executed"
+		name = kaz_army.13.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.13.b executed"
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 5
@@ -3960,21 +3619,17 @@ country_event = {
 }
 #Israel Accepted Naiza MLRS Cooperation
 country_event = {
-	id = kaz_army.31
-	title = kaz_army.31.t
-	desc = kaz_army.31.d
+	id = kaz_army.14
+	title = kaz_army.14.t
+	desc = kaz_army.14.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.31.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.31.a executed"
+		name = kaz_army.14.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.14.a executed"
 		set_temp_variable = { treasury_change = -6 }
 		modify_treasury_effect = yes
-		set_temp_variable = { percent_change = 2 }
-		set_temp_variable = { tag_index = ISR }
-		set_temp_variable = { influence_target = KAZ }
-		change_influence_percentage = yes
 		create_equipment_variant = {
 			name = "Naiza MLRS"
 			type = medium_tank_rocket_chassis_2
@@ -4008,29 +3663,29 @@ country_event = {
 }
 #Kazakhstan Requests Semser SPH Cooperation
 country_event = {
-	id = kaz_army.32
-	title = kaz_army.32.t
-	desc = kaz_army.32.d
+	id = kaz_army.15
+	title = kaz_army.15.t
+	desc = kaz_army.15.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.32.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.32.a executed"
+		name = kaz_army.15.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.15.a executed"
 		set_temp_variable = { treasury_change = 5 }
 		modify_treasury_effect = yes
 		set_temp_variable = { percent_change = 2 }
 		set_temp_variable = { tag_index = ISR }
 		set_temp_variable = { influence_target = KAZ }
 		change_influence_percentage = yes
-		KAZ = { country_event = { id = kaz_army.33 days = 1 } }
+		KAZ = { country_event = { id = kaz_army.16 days = 1 } }
 		ai_chance = {
 			base = 70
 		}
 	}
 	option = {
-		name = kaz_army.32.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.32.b executed"
+		name = kaz_army.15.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.15.b executed"
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 5
@@ -4043,15 +3698,15 @@ country_event = {
 }
 #Israel Accepted Semser Cooperation
 country_event = {
-	id = kaz_army.33
-	title = kaz_army.33.t
-	desc = kaz_army.33.d
+	id = kaz_army.16
+	title = kaz_army.16.t
+	desc = kaz_army.16.d
 	picture = GFX_POL_mig_29_event #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.33.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.33.a executed"
+		name = kaz_army.16.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.16.a executed"
 		set_temp_variable = { treasury_change = -5 }
 		modify_treasury_effect = yes
 		set_temp_variable = { percent_change = 2 }
@@ -4087,17 +3742,264 @@ country_event = {
 		reverse_add_opinion_modifier = { target = ISR modifier = military_cooperation }
 	}
 }
-# SAF Arlan Production Proposal
+# ISR Aibat Cooperation Proposal
 country_event = {
-	id = kaz_army.34
-	title = kaz_army.34.t
-	desc = kaz_army.34.d
+	id = kaz_army.17
+	title = kaz_army.17.t
+	desc = kaz_army.17.d
 	picture = GFX_handshake_black #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.34.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.34.a executed"
+		name = kaz_army.17.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.17.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { treasury_change = 4 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.18 days = 1 } }
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = kaz_army.17.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.17.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = {
+			base = 5
+			modifier = {
+				has_opinion = { target = FROM value > 9 }
+				factor = 0
+			}
+		}
+	}
+}
+# ISR Aibat Cooperation agreed
+country_event = {
+	id = kaz_army.18
+	title = kaz_army.18.t
+	desc = kaz_army.18.d
+	picture = GFX_handshake_black #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.18.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.18.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		add_relation_modifier = { target = FROM modifier = military_cooperation }
+		create_equipment_variant = {
+			name = "Aibat"
+			type = medium_tank_artillery_chassis_2
+			parent_version = 0
+			design_team = mio:KAZ_Kazakhstan_Engineering_manufacturing
+			allow_without_tech = yes
+			modules = {
+				main_armament_slot = art_med_gun_gen1
+				turret_type_slot = tank_no_turret
+				reload_type_slot = automatic_loading
+				ammunition_load_slot = artillery_light_ammo_1
+				suspension_type_slot = tank_torsion_bar_suspension_medium
+				engine_type_slot = tank_diesel_engine_gen2
+				special_type_slot_4 = tank_battlestation_2
+				special_type_slot_5 = mortar_barrel_conversion
+			}
+			upgrades = { tank_nsb_fire_upgrade = 2 }
+			obsolete = no
+			icon = "GFX_ISR_SPR2"
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_artillery_chassis_2
+			variant_name = "Aibat"
+			amount = 18
+		}
+		set_temp_variable = { treasury_change = -4 }
+		modify_treasury_effect = yes
+	}
+}
+# SAF Barys 6x6 Licence Proposal
+country_event = {
+	id = kaz_army.19
+	title = kaz_army.19.t
+	desc = kaz_army.19.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.19.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.19.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = SAF }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 5.5 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.20 days = 1 } }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = kaz_army.19.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.19.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = { base = 0 }
+	}
+}
+# SAF Barys 6x6 Licence agreed
+country_event = {
+	id = kaz_army.20
+	title = kaz_army.20.t
+	desc = kaz_army.20.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.20.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.20.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		create_equipment_variant = {
+			name = "Barys 6x6"
+			type = medium_tank_amphibious_chassis_1
+			parent_version = 2
+			design_team = mio:KAZ_KPE_tank_manufacturer
+			allow_without_tech = yes
+			modules = {
+				main_armament_slot = small_autocannon_2
+				reload_type_slot = automatic_loading
+				ammunition_load_slot = mixed_autocannon_ammo_1
+				turret_type_slot = tank_unmanned_turret
+				suspension_type_slot = tank_wheeled_suspension_medium
+				armor_type_slot = tank_steel_armor_gen2
+				engine_type_slot = tank_diesel_engine_gen2
+				special_type_slot_1 = smoke_launchers_2
+				special_type_slot_2 = afv_reverse_doors
+				special_type_slot_3 = afv_troop_capacity
+				special_type_slot_4 = tank_battlestation_1
+			}
+			upgrades = {
+				tank_nsb_armor_upgrade = 1
+			}
+			icon = "GFX_GER_APC_4"
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_amphibious_chassis_1
+			variant_name = "Barys 6x6"
+			amount = 120
+		}
+		add_tech_bonus = {
+			name = KAZ_btr_barys_6x6
+			bonus = 0.5
+			uses = 1
+			category = CAT_apc
+		}
+		set_temp_variable = { treasury_change = -5.5 }
+		modify_treasury_effect = yes
+		if = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			mio:KAZ_KPE_tank_manufacturer = {
+				add_mio_size_up_requirement_factor = -0.03
+				add_mio_funds = 1000
+				add_mio_research_bonus = 0.02
+			}
+		}
+	}
+}
+# SAF Barys 8x8 Licence Proposal
+country_event = {
+	id = kaz_army.21
+	title = kaz_army.21.t
+	desc = kaz_army.21.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.21.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.21.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = SAF }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 5.5 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.22 days = 1 } }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = kaz_army.21.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.21.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = { base = 0 }
+	}
+}
+# SAF Barys 8x8 Licence agreed
+country_event = {
+	id = kaz_army.22
+	title = kaz_army.22.t
+	desc = kaz_army.22.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.22.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.22.a executed"
+		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		create_equipment_variant = {
+			name = "Barys 8x8"
+			type = medium_tank_flame_chassis_2
+			parent_version = 1
+			design_team = mio:KAZ_KPE_tank_manufacturer
+			allow_without_tech = yes
+			modules = {
+				main_armament_slot = small_autocannon_2
+				reload_type_slot = automatic_loading
+				ammunition_load_slot = mixed_autocannon_ammo_3
+				turret_type_slot = tank_base_tank_turret
+				suspension_type_slot = tank_wheeled_suspension_medium
+				armor_type_slot = afv_alum_armor_gen2
+				engine_type_slot = tank_diesel_engine_gen2
+				special_type_slot_1 = smoke_launchers_2
+				special_type_slot_2 = afv_troop_capacity
+				special_type_slot_3 = afv_reverse_doors
+				special_type_slot_4 = tank_battlestation_2_thermal
+			}
+			upgrades = {
+				tank_nsb_armor_upgrade = 3
+			}
+			icon = "gfx/interface/technologies/JAP/LAND/APC4.dds"
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_flame_chassis_2
+			variant_name = "Barys 8x8"
+			amount = 120
+		}
+		mio:KAZ_KPE_tank_manufacturer = {
+			add_mio_size_up_requirement_factor = -0.03
+			add_mio_funds = 1000
+			add_mio_research_bonus = 0.02
+		}
+		add_tech_bonus = {
+			name = KAZ_btr_barys_8x8
+			bonus = 0.5
+			uses = 1
+			category = CAT_ifv
+		}
+		set_temp_variable = { treasury_change = -5.5 }
+		modify_treasury_effect = yes
+	}
+}
+# SAF Arlan Production Proposal
+country_event = {
+	id = kaz_army.23
+	title = kaz_army.23.t
+	desc = kaz_army.23.d
+	picture = GFX_handshake_black #TODO
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.23.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.23.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		set_temp_variable = { percent_change = 1 }
 		set_temp_variable = { tag_index = SAF }
@@ -4105,12 +4007,12 @@ country_event = {
 		change_influence_percentage = yes
 		set_temp_variable = { treasury_change = 4 }
 		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.35 days = 1 } }
+		KAZ = { country_event = { id = kaz_army.24 days = 1 } }
 		ai_chance = { base = 70 }
 	}
 	option = {
-		name = kaz_army.34.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.34.b executed"
+		name = kaz_army.23.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.23.b executed"
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 5
@@ -4123,16 +4025,17 @@ country_event = {
 }
 # SAF Arlan Production agreed
 country_event = {
-	id = kaz_army.35
-	title = kaz_army.35.t
-	desc = kaz_army.35.d
+	id = kaz_army.24
+	title = kaz_army.24.t
+	desc = kaz_army.24.d
 	picture = GFX_handshake_black #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.35.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.35.a executed"
+		name = kaz_army.24.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.24.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
+		add_relation_modifier = { target = FROM modifier = military_cooperation }
 		set_technology = { util_vehicle_5 = 1 }
 		add_equipment_to_stockpile = {
 			type = util_vehicle_5
@@ -4151,15 +4054,15 @@ country_event = {
 }
 # ISR Alan Development Proposal
 country_event = {
-	id = kaz_army.36
-	title = kaz_army.36.t
-	desc = kaz_army.36.d
+	id = kaz_army.25
+	title = kaz_army.25.t
+	desc = kaz_army.25.d
 	picture = GFX_handshake_black #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.36.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.36.a executed"
+		name = kaz_army.25.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.25.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
 		set_temp_variable = { percent_change = 1 }
 		set_temp_variable = { tag_index = ISR }
@@ -4167,12 +4070,12 @@ country_event = {
 		change_influence_percentage = yes
 		set_temp_variable = { treasury_change = 4 }
 		modify_treasury_effect = yes
-		KAZ = { country_event = { id = kaz_army.37 days = 1 } }
+		KAZ = { country_event = { id = kaz_army.26 days = 1 } }
 		ai_chance = { base = 70 }
 	}
 	option = {
-		name = kaz_army.36.b
-		log = "[GetDateText]: [This.GetName]: kaz_army.36.b executed"
+		name = kaz_army.25.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.25.b executed"
 		FROM = { country_event = { id = mdc4.16 days = 1 } }
 		ai_chance = {
 			base = 5
@@ -4185,25 +4088,187 @@ country_event = {
 }
 # ISR Alan Development agreed
 country_event = {
-	id = kaz_army.37
-	title = kaz_army.37.t
-	desc = kaz_army.37.d
+	id = kaz_army.26
+	title = kaz_army.26.t
+	desc = kaz_army.26.d
 	picture = GFX_handshake_black #TODO
 	is_triggered_only = yes
 
 	option = {
-		name = kaz_army.37.a
-		log = "[GetDateText]: [This.GetName]: kaz_army.37.a executed"
+		name = kaz_army.26.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.26.a executed"
 		add_opinion_modifier = { target = FROM modifier = military_cooperation }
-		set_technology = { util_vehicle_5 = 1 }
-		add_equipment_to_stockpile = {
-			type = util_vehicle_5
-			amount = 100
-		}
+		add_relation_modifier = { target = FROM modifier = military_cooperation }
 		set_temp_variable = { treasury_change = -4 }
 		modify_treasury_effect = yes
 	}
 }
+# SOV Su-30SM Deal Proposal
+country_event = {
+	id = kaz_army.27
+	title = kaz_army.27.t
+	desc = kaz_army.27.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.27.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.27.a executed"
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = SOV }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 6 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.28 days = 1 } }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = kaz_army.27.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.27.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = { base = 0 }
+	}
+}
+# SOV Su-30SM Deal agreed
+country_event = {
+	id = kaz_army.28
+	title = kaz_army.28.t
+	desc = kaz_army.28.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.28.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.28.a executed"
+		add_equipment_to_stockpile = {
+			type = small_plane_airframe_2
+			amount = 20
+			variant_name = "Su-30SM"
+			producer = SOV
+		}
+		add_tech_bonus = {
+			name = KAZ_complete_aircraft_russia
+			bonus = 0.75
+			uses = 1
+			category = CAT_fighter
+			category = CAT_air_engine
+		}
+		set_temp_variable = { treasury_change = -6 }
+		modify_treasury_effect = yes
+	}
+}
+# ARMY
+# CHI Wing Loong UAV Proposal
+country_event = {
+	id = kaz_army.29
+	title = kaz_army.29.t
+	desc = kaz_army.29.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.29.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.29.a executed"
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = CHI }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		set_temp_variable = { treasury_change = 5 }
+		modify_treasury_effect = yes
+		KAZ = { country_event = { id = kaz_army.30 days = 1 } }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = kaz_army.29.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.29.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = { base = 0 }
+	}
+}
+# CHI Wing Loong UAV agreed
+country_event = {
+	id = kaz_army.30
+	title = kaz_army.30.t
+	desc = kaz_army.30.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.30.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.30.a executed"
+		add_tech_bonus = {
+			name = KAZ_wing_loong_china
+			bonus = 0.75
+			uses = 1
+			category = CAT_drones
+		}
+		KAZ_upgrade_drone_program = yes
+		set_temp_variable = { treasury_change = -5 }
+		modify_treasury_effect = yes
+	}
+}
+# ISR Skylark UAV Proposal
+country_event = {
+	id = kaz_army.31
+	title = kaz_army.31.t
+	desc = kaz_army.31.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.31.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.31.a executed"
+		set_temp_variable = { treasury_change = 5 }
+		modify_treasury_effect = yes
+		set_temp_variable = { percent_change = 1 }
+		set_temp_variable = { tag_index = ISR }
+		set_temp_variable = { influence_target = KAZ }
+		change_influence_percentage = yes
+		FROM = { country_event = { id = kaz_army.32 days = 1 } }
+		ai_chance = {
+			base = 100
+		}
+	}
+	option = {
+		name = kaz_army.31.b
+		log = "[GetDateText]: [This.GetName]: kaz_army.31.b executed"
+		FROM = { country_event = { id = mdc4.16 days = 1 } }
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+# ISR Skylark UAV agreed
+country_event = {
+	id = kaz_army.32
+	title = kaz_army.32.t
+	desc = kaz_army.32.d
+	picture = GFX_handshake_black #TODO
+
+	is_triggered_only = yes
+
+	option = {
+		name = kaz_army.32.a
+		log = "[GetDateText]: [This.GetName]: kaz_army.32.a executed"
+		add_tech_bonus = {
+			name = KAZ_skylark_israel
+			bonus = 0.75
+			uses = 1
+			category = CAT_l_drone
+		}
+		KAZ_upgrade_drone_program = yes
+		set_temp_variable = { treasury_change = -5 }
+		modify_treasury_effect = yes
+	}
+}
+
+
 
 # Alan Configuration Choice
 
@@ -4245,8 +4310,8 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.1 }
 		add_relative_party_popularity = yes
 		swap_ideas = {
-			remove_idea = KAZ_soviet_tegr
-			add_idea = KAZ_soviet_tegr2
+			remove_idea = KAZ_soviet_tegr_idea
+			add_idea = KAZ_soviet_tegr2_idea
 		}
 	}
 }
@@ -4309,7 +4374,7 @@ country_event = {
 					target = ROOT
 					autonomy_state = autonomy_autonomous_federation
 				}
-				add_ideas = KAZ_alash_faction_super
+				add_ideas = KAZ_alash_faction_super_idea
 			}
 			if = {
 				limit = { NOT = { is_in_array = { ruling_party = 20 } } }
@@ -4435,7 +4500,7 @@ country_event = {
 			add_to_faction = PREV 
 			country_event = diplomatic_response.1
 		}
-		add_ideas = KAZ_alash_faction_super
+		add_ideas = KAZ_alash_faction_super_idea
 		add_opinion_modifier = { target = KAZ modifier = has_expressed_loyalty }
 		diplomatic_relation = {
 			country = KAZ
@@ -4619,7 +4684,7 @@ country_event = {
 			change_influence_percentage = yes
 		}
 		newline = yes
-		add_ideas = KAZ_alash_lat
+		add_ideas = KAZ_alash_lat_idea
 	}
 
 	option = {
@@ -4690,7 +4755,7 @@ country_event = {
 		set_temp_variable = { influence_target = TRK }
 		change_influence_percentage = yes
 		newline = yes
-		add_ideas = KAZ_alash_tyr
+		add_ideas = KAZ_alash_tyr_idea
 	}
 
 	option = {
@@ -4761,7 +4826,7 @@ country_event = {
 		set_temp_variable = { influence_target = ABK }
 		change_influence_percentage = yes
 		newline = yes
-		add_ideas = KAZ_alash_cyr
+		add_ideas = KAZ_alash_cyr_idea
 	}
 }
 
@@ -7129,8 +7194,6 @@ country_event = {
 			category = CAT_l_fighter
 			category = CAT_inf_wep
 		}
-		set_temp_variable = { temp_opinion = 2 }
-		change_the_military_opinion = yes
 		set_temp_variable = { treasury_change = -7.5 }
 		modify_treasury_effect = yes
 	}
@@ -7224,8 +7287,6 @@ country_event = {
 			amount = 250
 			producer = TUR
 		}
-		set_temp_variable = { temp_opinion = 2 }
-		change_the_military_opinion = yes
 		KAZ_upgrade_drone_program = yes
 		set_temp_variable = { treasury_change = -7.5 }
 		modify_treasury_effect = yes

@@ -59,9 +59,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -77,9 +75,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -94,9 +90,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -113,9 +107,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -129,9 +121,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -147,9 +137,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -169,9 +157,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -192,9 +178,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -206,123 +190,11 @@ ideas = {
             }
         }
 
-        KAZ_naz_era_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
-            }
-
-            modifier = {
-            }
-        }
-
-        KAZ_naz_era_idea2 = {
-            name = KAZ_naz_era_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                command_power_gain = 0.25
-                foreign_subversive_activites = -0.2
-                ct_effectiveness_modifier = 0.15
-                fascism_drift = -0.05
-                stability_factor = 0.05
-            }
-        }
-
-        KAZ_naz_era_idea3 = {
-            name = KAZ_naz_era_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                command_power_gain = 0.25
-                foreign_subversive_activites = -0.2
-                ct_effectiveness_modifier = 0.15
-                fascism_drift = -0.05
-                stability_factor = 0.05
-                monthly_population = 0.2
-                migration_rate_value_factor = 0.2
-                border_control_multiplier_modifier = -0.15
-            }
-        }
-
-        KAZ_naz_era_idea4 = {
-            name = KAZ_naz_era_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                enemy_declare_war_tension = 0.05
-                drift_defence_factor = 0.2
-                defensive_war_stability_factor = 0.1
-                weekly_casualties_war_support = 0.015
-                party_popularity_stability_factor = 0.3
-                command_power_gain = 0.25
-                foreign_subversive_activites = -0.2
-                ct_effectiveness_modifier = 0.15
-                fascism_drift = -0.05
-                stability_factor = 0.05
-                monthly_population = 0.2
-                migration_rate_value_factor = 0.2
-                border_control_multiplier_modifier = -0.15
-            }
-        }
-
-        KAZ_naz_era_idea5 = {
-            name = KAZ_naz_era_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                enemy_declare_war_tension = 0.05
-                drift_defence_factor = 0.3
-                defensive_war_stability_factor = 0.1
-                weekly_casualties_war_support = 0.015
-                party_popularity_stability_factor = 0.3
-                command_power_gain = 0.25
-                foreign_subversive_activites = -0.2
-                ct_effectiveness_modifier = 0.15
-                fascism_drift = -0.05
-                stability_factor = 0.1
-                monthly_population = 0.2
-                migration_rate_value_factor = 0.2
-                border_control_multiplier_modifier = -0.15
-                communism_drift = 0.02
-                censorship_laws_cost_factor = -0.1
-            }
-        }
-
         KAZ_naz_test_idea = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -338,9 +210,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -358,9 +228,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -380,9 +248,7 @@ ideas = {
             allowed_civil_war = { always = yes }
 
             cancel = {
-                NOT = {
-                    emerging_autocracy_are_in_power = yes
-                }
+                emerging_autocracy_are_not_in_power = yes
             }
 
             modifier = {
@@ -390,15 +256,8 @@ ideas = {
                 country_productivity_growth_modifier = 0.04
             }
         }
+
         #### NAZ BRANCH END ####
-        #### TOK BRANCH START ####
-
-
-
-
-
-
-        #### TOK BRANCH END ####
         #### TOK BRANCH START ####
         KAZ_tok_opposition_law = {
             allowed_civil_war = { always = yes }
@@ -464,473 +323,6 @@ ideas = {
             }
         }
         #### TOK BRANCH END ####
-        #### AK ZHOL BRANCH ####
-        # The Great Kazakh Language
-        KAZ_language_idea_akz = {
-            name = KAZ_language_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                research_speed_factor = 0.08
-                econ_cycle_upg_cost_multiplier_modifier = -0.11
-                nationalist_drift = 0.01
-                drift_defence_factor = 0.05
-                political_power_gain = 0.08
-            }
-        }
-        KAZ_akz_expand_maslikhat_power_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_buildings_factor = 0.05
-                consumer_goods_factor = -0.03
-                expected_adm_modifier = -0.5
-                bureaucracy_cost_multiplier_modifier = -0.1
-            }
-        }
-
-        KAZ_akz_expand_maslikhat_power_idea2 = {
-            name = KAZ_akz_expand_maslikhat_power_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_buildings_factor = 0.05
-                consumer_goods_factor = -0.03
-                expected_adm_modifier = -0.5
-                bureaucracy_cost_multiplier_modifier = -0.1
-                democratic_acceptance = 5
-                democratic_drift = 0.01
-                tax_gain_multiplier_modifier = 0.02
-                police_cost_multiplier_modifier = -0.05
-                monthly_population = 0.05
-            }
-        }
-
-        KAZ_akz_new_vat_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_buildings_factor = 0.1
-                corporate_tax_income_multiplier_modifier = 0.05
-                tax_rate_change_multiplier_modifier = 0.25
-            }
-        }
-
-        KAZ_akz_new_vat_idea2 = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_buildings_factor = 0.1
-                corporate_tax_income_multiplier_modifier = 0.05
-                tax_rate_change_multiplier_modifier = 0.25
-                interest_rate_multiplier_modifier = -2
-                inflation_defence_multiplier_modifier = 0.1
-            }
-        }
-
-        KAZ_akz_new_vat_idea3 = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_buildings_factor = 0.1
-                corporate_tax_income_multiplier_modifier = 0.05
-                tax_rate_change_multiplier_modifier = 0.25
-                interest_rate_multiplier_modifier = -2
-                inflation_defence_multiplier_modifier = 0.1
-                inflation_multiplier_modifier = -0.1
-                base_inflation_percent_modifier = -0.01
-                stability_factor = 0.05
-                resource_export_multiplier_modifier = 0.05
-            }
-        }
-
-        KAZ_akz_new_vat_idea4 = {
-            name = KAZ_akz_new_vat_idea3
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                corporate_tax_income_multiplier_modifier = 0.05
-                tax_rate_change_multiplier_modifier = 0.25
-                interest_rate_multiplier_modifier = -2
-                inflation_defence_multiplier_modifier = 0.1
-                inflation_multiplier_modifier = -0.1
-                base_inflation_percent_modifier = -0.01
-                stability_factor = 0.08
-                resource_export_multiplier_modifier = 0.05
-                social_cost_multiplier_modifier = 0.07
-                health_cost_multiplier_modifier = 0.07
-                production_speed_buildings_factor = 0.14
-                branches_salary_multiplier_modifier = 0.07
-                companies_salary_multiplier_modifier = 0.07
-            }
-        }
-
-        KAZ_akz_expand_rural_akim_powers_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                monthly_population = 0.05
-                agricolture_productivity_modifier = 0.075
-                agriculture_district_income_tax_modifier = 0.1
-            }
-        }
-        KAZ_akz_return_capitals_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                population_tax_income_multiplier_modifier = 0.02
-                corporate_tax_income_multiplier_modifier = 0.02
-                consumer_goods_factor = -0.03
-                stability_factor = 0.03
-            }
-        }
-
-        KAZ_akz_deoffshorization_idea = { # KAZ_akz_return_capitals_idea2
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                population_tax_income_multiplier_modifier = 0.03
-                corporate_tax_income_multiplier_modifier = 0.03
-                consumer_goods_factor = -0.05
-                stability_factor = 0.05
-                corruption_cost_factor = -0.07
-            }
-        }
-
-        KAZ_akz_deoffshorization_idea2 = { # KAZ_akz_return_capitals_idea3
-            name = KAZ_akz_deoffshorization_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_buildings_factor = 0.05
-                population_tax_income_multiplier_modifier = 0.04
-                corporate_tax_income_multiplier_modifier = 0.04
-                consumer_goods_factor = -0.07
-                stability_factor = 0.05
-                corruption_cost_factor = -0.07
-            }
-        }
-
-        KAZ_akz_responsibility_for_corruption_of_subordinates_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                small_businesses_tax_modifier = -0.05
-                small_businesses_workers_modifier = -0.05
-                companies_tax_gain_multiplier_modifier = -0.05
-                corruption_cost_factor = -0.2
-                political_power_factor = 0.07
-                corporate_tax_income_multiplier_modifier = -0.03
-            }
-        }
-
-        KAZ_akz_parliamentary_opposition = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                fascism_drift = -0.01
-                communism_drift = -0.01
-                neutrality_drift = -0.01
-                nationalist_drift = -0.01
-            }
-        }
-
-        KAZ_akz_protection_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                democratic_drift = -0.02
-                drift_defence_factor = -0.1
-                fascism_drift = 0.01
-                nationalist_drift = 0.01
-                political_power_factor = -0.07
-                foreign_influence_defense_modifier = 0.15
-            }
-        }
-
-        KAZ_akz_employment_of_graduates_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    western_liberals_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                total_workforce_modifier = 0.05
-                education_cost_multiplier_modifier = 0.1
-                productivity_growth_modifier = 0.25
-                research_speed_factor = 0.05
-            }
-        }
-        # AKZHOL END #
-
-        KAZ_rapid_industrialization = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                consumer_goods_factor = -0.05
-                country_productivity_growth_modifier = -0.1
-                production_speed_buildings_factor = 0.2
-                industrial_capacity_factory = 0.1
-                production_factory_efficiency_gain_factor = -0.08
-                production_factory_max_efficiency_factor = 0.10
-                stability_factor = -0.05
-            }
-        }
-
-        KAZ_infrastructure_development = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.05
-                social_cost_multiplier_modifier = -0.05
-                health_cost_multiplier_modifier = -0.05
-                out_of_supply_factor = -0.15
-                army_speed_factor = 0.08
-                local_resources_factor = 0.05
-            }
-        }
-
-        KAZ_aul_entrepreneur_support_idea = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                small_businesses_tax_modifier = -0.08
-                small_businesses_productivity_modifier = 0.10
-                small_businesses_workers_modifier = 0.06
-                offices_productivity = 0.05
-            }
-        }
-
-        KAZ_aul_entrepreneur_support_idea2 = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                small_businesses_tax_modifier = -0.1
-                small_businesses_productivity_modifier = 0.13
-                small_businesses_workers_modifier = 0.1
-                offices_productivity = 0.07
-                consumer_goods_factor = -0.05
-                tax_gain_multiplier_modifier = 0.02
-                production_speed_buildings_factor = 0.02
-            }
-        }
-
-        KAZ_aul_invest_and_inovations = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                receiving_investment_duration_modifier = -0.1
-                receiving_investment_cost_modifier = -0.075
-                investment_duration_modifier = -0.07
-                investment_cost_modifier = -0.08
-                internal_investments_pp_cost_modifier = -0.15
-                internal_investments_money_cost_modifier = -0.125
-            }
-        }
-
-        KAZ_electrical_revolution = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                energy_gain_multiplier = 0.1
-                energy_use_multiplier = -0.08
-                pop_energy_use_multiplier = -0.05
-            }
-        }
-
-        KAZ_financing_of_farmers_aul = {
-            allowed_civil_war = { always = yes}
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                social_cost_multiplier_modifier = 0.07
-                agricolture_productivity_modifier = 0.05
-                stability_factor = 0.03
-                base_inflation_percent_modifier = 0.01
-                companies_salary_multiplier_modifier = 0.08
-            }
-        }
-
-        KAZ_aul_agrarian_bank_idea = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                agricolture_productivity_modifier = 0.08
-                agriculture_district_income_tax_modifier = 0.06
-                production_speed_buildings_factor = 0.03
-                base_inflation_percent_modifier = 0.02
-            }
-        }
-
-        KAZ_aul_agrarian_bank_idea2 = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                agricolture_productivity_modifier = 0.14
-                agriculture_district_income_tax_modifier = 0.1
-                production_speed_buildings_factor = 0.06
-                base_inflation_percent_modifier = 0.01
-                agriculture_workers_modifier = 0.06
-                small_businesses_productivity_modifier = 0.03
-            }
-        }
-
-        KAZ_aul_agrarian_bank_idea3 = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.03
-                agricolture_productivity_modifier = 0.2
-                agriculture_district_income_tax_modifier = 0.1
-                production_speed_buildings_factor = 0.06
-                base_inflation_percent_modifier = -0.01
-                agriculture_workers_modifier = 0.08
-                small_businesses_productivity_modifier = 0.03
-                consumer_goods_factor = 0.025
-                expected_welfare_modifier = -0.5
-                expected_healthcare_modifier = -0.5
-            }
-        }
-
-        KAZ_aul_agrarian_bank_idea4 = {
-            allowed_civil_war = { always = yes }
-            cancel = {
-                western_social_democrats_are_not_in_power = yes
-            }
-
-            modifier = {
-                stability_factor = 0.075
-                agricolture_productivity_modifier = 0.25
-                agriculture_district_income_tax_modifier = 0.1
-                production_speed_buildings_factor = 0.06
-                base_inflation_percent_modifier = -0.03
-                agriculture_workers_modifier = 0.1
-                small_businesses_productivity_modifier = 0.03
-                consumer_goods_factor = 0.05
-                expected_welfare_modifier = -0.75
-                expected_healthcare_modifier = -0.75
-                social_cost_multiplier_modifier = 0.15
-                health_cost_multiplier_modifier = 0.15
-                inflation_defence_multiplier_modifier = 0.1
-                monthly_population = 0.15
-            }
-        }
 
         # Последствия девальвации
         KAZ_consequences_of_hyperinflation_idea = {
@@ -962,98 +354,6 @@ ideas = {
                 branches_tax_gain_multiplier_modifier = -0.12
                 bureaucracy_cost_factor = -0.15
                 corruption_cost_factor = 0.3
-            }
-        }
-
-        # Invest in the defense of the country
-        KAZ_country_defense = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                land_bunker_effectiveness_factor = 0.2
-                production_speed_bunker_factor = 1
-            }
-        }
-
-        # Purge of Old Elites
-        KAZ_old_elite_alash_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                corruption_cost_factor = -0.2
-                bureaucracy_cost_factor = -0.75
-                bureaucracy_cost_multiplier_modifier = -0.25
-                expected_adm_modifier = -0.5
-            }
-        }
-
-        # The Great Kazakh Language
-        KAZ_language_idea_alash = {
-            name = KAZ_language_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                research_speed_factor = 0.08
-                econ_cycle_upg_cost_multiplier_modifier = -0.11
-                nationalist_drift = 0.01
-                drift_defence_factor = 0.05
-                political_power_gain = 0.08
-            }
-        }
-
-        # Kazakh Arsenal
-        KAZ_arsenal_alash_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_arms_factory_factor = 0.05
-                military_factories_productivity = 0.07
-                international_market_income_modifier = -0.05
-                leased_military_factories_cost_modifier = 0.06
-            }
-        }
-
-        # Kazakh Arsenal 2
-        KAZ_arsenal_alash_idea2 = {
-            name = KAZ_arsenal_alash_idea
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                production_speed_arms_factory_factor = 0.1
-                military_factories_productivity = 0.14
-                international_market_income_modifier = -0.1
-                leased_military_factories_cost_modifier = 0.12
-                tax_gain_multiplier_modifier = 0.05
             }
         }
 
@@ -1513,11 +813,636 @@ ideas = {
                 army_org_factor = 0.06
             }
         }
+
+        #### Alash Hidden Ideas ####
+        KAZ_country_defense_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                land_bunker_effectiveness_factor = 0.2
+                production_speed_bunker_factor = 1
+            }
+        }
+        KAZ_old_elite_alash_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                corruption_cost_factor = -0.2
+                bureaucracy_cost_factor = -0.75
+                bureaucracy_cost_multiplier_modifier = -0.25
+                expected_adm_modifier = -0.5
+            }
+        }
+        KAZ_language_alash_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                research_speed_factor = 0.08
+                econ_cycle_upg_cost_multiplier_modifier = -0.11
+                nationalist_drift = 0.01
+                drift_defence_factor = 0.05
+                political_power_gain = 0.08
+            }
+        }
+        KAZ_arsenal_alash_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_arms_factory_factor = 0.05
+                military_factories_productivity = 0.07
+                international_market_income_modifier = -0.05
+                leased_military_factories_cost_modifier = 0.06
+            }
+        }
+        KAZ_arsenal_alash_2_idea = {
+            name = KAZ_arsenal_alash_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_arms_factory_factor = 0.1
+                military_factories_productivity = 0.14
+                international_market_income_modifier = -0.1
+                leased_military_factories_cost_modifier = 0.12
+                tax_gain_multiplier_modifier = 0.05
+            }
+        }
+
+        #### Auyl Hidden Ideas ####
+        KAZ_rapid_industrialization = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                consumer_goods_factor = -0.05
+                country_productivity_growth_modifier = -0.1
+                production_speed_buildings_factor = 0.2
+                industrial_capacity_factory = 0.1
+                production_factory_efficiency_gain_factor = -0.08
+                production_factory_max_efficiency_factor = 0.10
+                stability_factor = -0.05
+            }
+        }
+
+        KAZ_infrastructure_development = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.05
+                social_cost_multiplier_modifier = -0.05
+                health_cost_multiplier_modifier = -0.05
+                out_of_supply_factor = -0.15
+                army_speed_factor = 0.08
+                local_resources_factor = 0.05
+            }
+        }
+
+        KAZ_aul_entrepreneur_support_idea = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                small_businesses_tax_modifier = -0.08
+                small_businesses_productivity_modifier = 0.10
+                small_businesses_workers_modifier = 0.06
+                offices_productivity = 0.05
+            }
+        }
+
+        KAZ_aul_entrepreneur_support_idea2 = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                small_businesses_tax_modifier = -0.1
+                small_businesses_productivity_modifier = 0.13
+                small_businesses_workers_modifier = 0.1
+                offices_productivity = 0.07
+                consumer_goods_factor = -0.05
+                tax_gain_multiplier_modifier = 0.02
+                production_speed_buildings_factor = 0.02
+            }
+        }
+
+        KAZ_aul_invest_and_inovations = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                receiving_investment_duration_modifier = -0.1
+                receiving_investment_cost_modifier = -0.075
+                investment_duration_modifier = -0.07
+                investment_cost_modifier = -0.08
+                internal_investments_pp_cost_modifier = -0.15
+                internal_investments_money_cost_modifier = -0.125
+            }
+        }
+
+        KAZ_electrical_revolution = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                energy_gain_multiplier = 0.1
+                energy_use_multiplier = -0.08
+                pop_energy_use_multiplier = -0.05
+            }
+        }
+
+        KAZ_financing_of_farmers_aul = {
+            allowed_civil_war = { always = yes}
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                social_cost_multiplier_modifier = 0.07
+                agricolture_productivity_modifier = 0.05
+                stability_factor = 0.03
+                base_inflation_percent_modifier = 0.01
+                companies_salary_multiplier_modifier = 0.08
+            }
+        }
+
+        KAZ_aul_agrarian_bank_idea = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                agricolture_productivity_modifier = 0.08
+                agriculture_district_income_tax_modifier = 0.06
+                production_speed_buildings_factor = 0.03
+                base_inflation_percent_modifier = 0.02
+            }
+        }
+
+        KAZ_aul_agrarian_bank_idea2 = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                agricolture_productivity_modifier = 0.14
+                agriculture_district_income_tax_modifier = 0.1
+                production_speed_buildings_factor = 0.06
+                base_inflation_percent_modifier = 0.01
+                agriculture_workers_modifier = 0.06
+                small_businesses_productivity_modifier = 0.03
+            }
+        }
+
+        KAZ_aul_agrarian_bank_idea3 = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.03
+                agricolture_productivity_modifier = 0.2
+                agriculture_district_income_tax_modifier = 0.1
+                production_speed_buildings_factor = 0.06
+                base_inflation_percent_modifier = -0.01
+                agriculture_workers_modifier = 0.08
+                small_businesses_productivity_modifier = 0.03
+                consumer_goods_factor = 0.025
+                expected_welfare_modifier = -0.5
+                expected_healthcare_modifier = -0.5
+            }
+        }
+
+        KAZ_aul_agrarian_bank_idea4 = {
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.075
+                agricolture_productivity_modifier = 0.25
+                agriculture_district_income_tax_modifier = 0.1
+                production_speed_buildings_factor = 0.06
+                base_inflation_percent_modifier = -0.03
+                agriculture_workers_modifier = 0.1
+                small_businesses_productivity_modifier = 0.03
+                consumer_goods_factor = 0.05
+                expected_welfare_modifier = -0.75
+                expected_healthcare_modifier = -0.75
+                social_cost_multiplier_modifier = 0.15
+                health_cost_multiplier_modifier = 0.15
+                inflation_defence_multiplier_modifier = 0.1
+                monthly_population = 0.15
+            }
+        }
+
+        #### Ak Zhol Hidden Ideas ####
+        KAZ_language_idea_akz = {
+            name = KAZ_language_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                research_speed_factor = 0.08
+                econ_cycle_upg_cost_multiplier_modifier = -0.11
+                nationalist_drift = 0.01
+                drift_defence_factor = 0.05
+                political_power_gain = 0.08
+            }
+        }
+
+        KAZ_akz_expand_maslikhat_power_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_buildings_factor = 0.05
+                consumer_goods_factor = -0.03
+                expected_adm_modifier = -0.5
+                bureaucracy_cost_multiplier_modifier = -0.1
+            }
+        }
+
+        KAZ_akz_expand_maslikhat_power_idea2 = {
+            name = KAZ_akz_expand_maslikhat_power_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_buildings_factor = 0.05
+                consumer_goods_factor = -0.03
+                expected_adm_modifier = -0.5
+                bureaucracy_cost_multiplier_modifier = -0.1
+                democratic_acceptance = 5
+                democratic_drift = 0.01
+                tax_gain_multiplier_modifier = 0.02
+                police_cost_multiplier_modifier = -0.05
+                monthly_population = 0.05
+            }
+        }
+
+        KAZ_akz_new_vat_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_buildings_factor = 0.1
+                corporate_tax_income_multiplier_modifier = 0.05
+                tax_rate_change_multiplier_modifier = 0.25
+            }
+        }
+
+        KAZ_akz_new_vat_idea2 = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_buildings_factor = 0.1
+                corporate_tax_income_multiplier_modifier = 0.05
+                tax_rate_change_multiplier_modifier = 0.25
+                interest_rate_multiplier_modifier = -2
+                inflation_defence_multiplier_modifier = 0.1
+            }
+        }
+
+        KAZ_akz_new_vat_idea3 = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_buildings_factor = 0.1
+                corporate_tax_income_multiplier_modifier = 0.05
+                tax_rate_change_multiplier_modifier = 0.25
+                interest_rate_multiplier_modifier = -2
+                inflation_defence_multiplier_modifier = 0.1
+                inflation_multiplier_modifier = -0.1
+                base_inflation_percent_modifier = -0.01
+                stability_factor = 0.05
+                resource_export_multiplier_modifier = 0.05
+            }
+        }
+
+        KAZ_akz_new_vat_idea4 = {
+            name = KAZ_akz_new_vat_idea3
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                corporate_tax_income_multiplier_modifier = 0.05
+                tax_rate_change_multiplier_modifier = 0.25
+                interest_rate_multiplier_modifier = -2
+                inflation_defence_multiplier_modifier = 0.1
+                inflation_multiplier_modifier = -0.1
+                base_inflation_percent_modifier = -0.01
+                stability_factor = 0.08
+                resource_export_multiplier_modifier = 0.05
+                social_cost_multiplier_modifier = 0.07
+                health_cost_multiplier_modifier = 0.07
+                production_speed_buildings_factor = 0.14
+                branches_salary_multiplier_modifier = 0.07
+                companies_salary_multiplier_modifier = 0.07
+            }
+        }
+
+        KAZ_akz_expand_rural_akim_powers_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                monthly_population = 0.05
+                agricolture_productivity_modifier = 0.075
+                agriculture_district_income_tax_modifier = 0.1
+            }
+        }
+
+        KAZ_akz_return_capitals_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                population_tax_income_multiplier_modifier = 0.02
+                corporate_tax_income_multiplier_modifier = 0.02
+                consumer_goods_factor = -0.03
+                stability_factor = 0.03
+            }
+        }
+
+        KAZ_akz_deoffshorization_idea = { # KAZ_akz_return_capitals_idea2
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                population_tax_income_multiplier_modifier = 0.03
+                corporate_tax_income_multiplier_modifier = 0.03
+                consumer_goods_factor = -0.05
+                stability_factor = 0.05
+                corruption_cost_factor = -0.07
+            }
+        }
+
+        KAZ_akz_deoffshorization_idea2 = { # KAZ_akz_return_capitals_idea3
+            name = KAZ_akz_deoffshorization_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                production_speed_buildings_factor = 0.05
+                population_tax_income_multiplier_modifier = 0.04
+                corporate_tax_income_multiplier_modifier = 0.04
+                consumer_goods_factor = -0.07
+                stability_factor = 0.05
+                corruption_cost_factor = -0.07
+            }
+        }
+
+        KAZ_akz_responsibility_for_corruption_of_subordinates_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                small_businesses_tax_modifier = -0.05
+                small_businesses_workers_modifier = -0.05
+                companies_tax_gain_multiplier_modifier = -0.05
+                corruption_cost_factor = -0.2
+                political_power_factor = 0.07
+                corporate_tax_income_multiplier_modifier = -0.03
+            }
+        }
+
+        KAZ_akz_parliamentary_opposition = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                fascism_drift = -0.01
+                communism_drift = -0.01
+                neutrality_drift = -0.01
+                nationalist_drift = -0.01
+            }
+        }
+
+        KAZ_akz_protection_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                democratic_drift = -0.02
+                drift_defence_factor = -0.1
+                fascism_drift = 0.01
+                nationalist_drift = 0.01
+                political_power_factor = -0.07
+                foreign_influence_defense_modifier = 0.15
+            }
+        }
+
+        KAZ_akz_employment_of_graduates_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+
+            modifier = {
+                total_workforce_modifier = 0.05
+                education_cost_multiplier_modifier = 0.1
+                productivity_growth_modifier = 0.25
+                research_speed_factor = 0.05
+            }
+        }
+
     }
     country = {
+        # Nazarbayev national spirits
+
+        KAZ_naz_era_idea = {
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
+            }
+        }
+
+        KAZ_naz_era_idea2 = {
+            name = KAZ_naz_era_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                command_power_gain = 0.25
+                foreign_subversive_activites = -0.2
+                ct_effectiveness_modifier = 0.15
+                fascism_drift = -0.05
+                stability_factor = 0.05
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
+            }
+        }
+
+        KAZ_naz_era_idea3 = {
+            name = KAZ_naz_era_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                command_power_gain = 0.25
+                foreign_subversive_activites = -0.2
+                ct_effectiveness_modifier = 0.15
+                fascism_drift = -0.05
+                stability_factor = 0.05
+                monthly_population = 0.2
+                migration_rate_value_factor = 0.2
+                border_control_multiplier_modifier = -0.15
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
+            }
+        }
+
+        KAZ_naz_era_idea4 = {
+            name = KAZ_naz_era_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                enemy_declare_war_tension = 0.05
+                drift_defence_factor = 0.2
+                defensive_war_stability_factor = 0.1
+                weekly_casualties_war_support = 0.015
+                party_popularity_stability_factor = 0.3
+                command_power_gain = 0.25
+                foreign_subversive_activites = -0.2
+                ct_effectiveness_modifier = 0.15
+                fascism_drift = -0.05
+                stability_factor = 0.05
+                monthly_population = 0.2
+                migration_rate_value_factor = 0.2
+                border_control_multiplier_modifier = -0.15
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
+            }
+        }
+
+        KAZ_naz_era_idea5 = {
+            name = KAZ_naz_era_idea
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                emerging_autocracy_are_not_in_power = yes
+            }
+
+            modifier = {
+                enemy_declare_war_tension = 0.05
+                drift_defence_factor = 0.3
+                defensive_war_stability_factor = 0.1
+                weekly_casualties_war_support = 0.015
+                party_popularity_stability_factor = 0.3
+                command_power_gain = 0.25
+                foreign_subversive_activites = -0.2
+                ct_effectiveness_modifier = 0.15
+                fascism_drift = -0.05
+                stability_factor = 0.1
+                monthly_population = 0.2
+                migration_rate_value_factor = 0.2
+                border_control_multiplier_modifier = -0.15
+                communism_drift = 0.02
+                censorship_laws_cost_factor = -0.1
+                custom_modifier_tooltip = KAZ_naz_era_idea_tt
+            }
+        }
+
+
+
+
+
         # Tokayev national spirits
 
         # Modernization and final settlement
+
         KAZ_tok_new_era_court = {
             name = KAZ_tok_new_era
             allowed_civil_war = { always = yes }
@@ -1615,8 +1540,6 @@ ideas = {
                 intelligence_agency_defense = 1
             }
         }
-
-
 
         KAZ_tok_adiletti_complete_idea = {
             name = KAZ_tok_adiletti_idea
@@ -1736,8 +1659,8 @@ ideas = {
         }
 
         KAZ_tok_new_era2 = {
-            allowed_civil_war = { always = yes }
             name = KAZ_tok_new_era
+            allowed_civil_war = { always = yes }
             cancel = {
                 NOT = {
                     emerging_autocracy_are_in_power = yes
@@ -1754,8 +1677,8 @@ ideas = {
         }
 
         KAZ_tok_new_era3 = {
-            allowed_civil_war = { always = yes }
             name = KAZ_tok_new_era
+            allowed_civil_war = { always = yes }
             cancel = {
                 NOT = {
                     emerging_autocracy_are_in_power = yes
@@ -1794,16 +1717,6 @@ ideas = {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         KAZ_tok_mass_protests_idea = {
             picture = factory_strikes
             allowed_civil_war = { always = yes }
@@ -1819,9 +1732,9 @@ ideas = {
         }
 
         KAZ_tok_mass_protests_recovery_idea = {
+            name = KAZ_tok_mass_protests_idea
             picture = factory_strikes
             allowed_civil_war = { always = yes }
-            name = KAZ_tok_mass_protests_idea
             modifier = {
                 stability_factor = -0.1
                 political_power_factor = -0.1
@@ -1931,30 +1844,6 @@ ideas = {
                 tax_gain_multiplier_modifier = 0.05
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         # UNIVERSAL
         # Однопалатный парламент
@@ -2124,246 +2013,6 @@ ideas = {
             }
         }
 
-        #### Alash ####
-        # Religious Freedom
-        KAZ_religious_freedom_idea = {
-            picture = alash_freedom_religion
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-            allowed_civil_war = { always = yes }
-            modifier = {
-                stability_factor = 0.03
-                party_popularity_stability_factor = 0.03
-                internal_factions_cost_factor = -0.05
-                bureaucracy_cost_multiplier_modifier = 0.02
-                neutrality_drift = -0.01
-            }
-        }
-
-        # Language Reform 1
-        KAZ_alash_lat = {
-            picture = alphabet_lat
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                research_speed_factor = 0.10
-                political_power_factor = 0.05
-                stability_factor = -0.05
-                consumer_goods_factor = 0.02
-                democratic_drift = 0.01
-                nationalist_drift = -0.01
-                education_cost_multiplier_modifier = 0.1
-                education_budget_cost_factor = -0.5
-                expected_education_modifier = -0.5
-            }
-        }
-
-        # Language Reform 2
-        KAZ_alash_tyr = {
-            picture = alphabet_tyr
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                nationalist_drift = 0.08
-                army_core_attack_factor = 0.1
-                stability_factor = -0.05
-                political_power_factor = 0.10
-                research_speed_factor = -0.15
-                consumer_goods_factor = 0.05
-                education_cost_multiplier_modifier = 0.1
-                education_budget_cost_factor = -0.5
-                expected_education_modifier = -0.5
-            }
-        }
-
-        # Language Reform 3
-        KAZ_alash_cyr = {
-            picture = alphabet_cyr
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                research_speed_factor = 0.05
-                stability_factor = 0.05
-                political_power_factor = -0.05
-                nationalist_drift = -0.01
-                econ_cycle_upg_cost_multiplier_modifier = -0.11
-                education_cost_multiplier_modifier = 0.1
-                education_budget_cost_factor = -0.5
-                expected_education_modifier = -0.5
-            }
-        }
-
-        # War with China
-        KAZ_war_with_china = {
-            picture = alash_war_chine
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            targeted_modifier = {
-                tag = CHI
-                attack_bonus_against = 0.1
-                defense_bonus_against = 0.1
-            }
-
-            modifier = {
-                army_org_factor = 0.03
-                experience_gain_army = 0.1
-            }
-        }
-
-        # War with Russia
-        KAZ_war_with_russia = {
-            picture = alash_war_russia
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            targeted_modifier = {
-                tag = SOV
-                attack_bonus_against = 0.1
-                defense_bonus_against = 0.1
-            }
-
-            modifier = {
-                army_org_factor = 0.03
-                experience_gain_army = 0.1
-            }
-        }
-
-        # Soviet Tegrism
-        KAZ_soviet_tegr = {
-            picture = tengri_ideas
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                stability_factor = 0.05
-                political_power_factor = -0.075
-                foreign_influence_defense_modifier = 0.07
-                nationalist_drift = 0.02
-                foreign_influence_modifier = 0.03
-            }
-        }
-
-        # Soviet Tegrism 2
-        KAZ_soviet_tegr2 = {
-            name = KAZ_soviet_tegr
-            allowed_civil_war = { always = yes }
-            picture = tengri_ideas
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                stability_factor = 0.075
-                war_support_factor = 0.05
-                political_power_factor = -0.1
-                foreign_influence_defense_modifier = 0.14
-                nationalist_drift = 0.04
-                foreign_influence_modifier = 0.03
-                nationalist_acceptance = 20
-                democratic_acceptance = -10
-                nationalist_outlook_campaign_cost_modifier = -0.25
-            }
-        }
-
-        # Equal People
-        KAZ_equal_people = {
-            picture = alash_equal
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                stability_factor = 0.05
-                social_cost_multiplier_modifier = 0.04
-                education_cost_multiplier_modifier = 0.04
-                health_cost_multiplier_modifier = 0.04
-                drift_defence_factor = 0.1
-                monthly_population = 0.1
-            }
-        }
-
-        # Steppe Lightning Doctrine
-        KAZ_steppe_lightning_doctrine = {
-            picture = alash_doctrine
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = {
-                    nationalist_right_wing_populists_are_in_power = yes
-                }
-            }
-
-            modifier = {
-                army_speed_factor = 0.10
-                army_org_factor = 0.08
-                army_attack_factor = 0.05
-                attrition = -0.1
-                supply_consumption_factor = -0.08
-                out_of_supply_factor = -0.15
-            }
-        }
-
-        # Turan Faction
-        KAZ_alash_faction_super = {
-            picture = alash_faction
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = { is_in_faction_with = KAZ }
-            }
-
-            modifier = {
-                send_volunteer_size = 2
-                send_volunteer_divisions_required = -0.20
-                send_volunteers_tension = -0.15
-            }
-        }
-        #### Alash end ####
-
         #### Economy Ideas ####
         KAZ_tax_reform_idea = {
             allowed_civil_war = { always = yes }
@@ -2437,8 +2086,6 @@ ideas = {
 
         #### Start Ideas End ####
 
-
-
         KAZ_tok_support_business = {
             allowed_civil_war = { always = yes }
             cancel = {
@@ -2453,6 +2100,17 @@ ideas = {
         }
 
         # COMMUNISTS
+        KAZ_kazakh_cultural_revival_idea = {
+            picture = culture_resistance_idea
+            allowed_civil_war = { always = yes }
+            modifier = {
+                culture_defence_modifier = 0.10
+                stability_factor = 0.05
+                production_speed_culture_infrastructure_factor = 0.15
+                country_culture_modifier = 5
+            }
+        }
+
         KAZ_electronic_gosplan_idea = {
             allowed_civil_war = { always = yes }
             cancel = { NOT = { emerging_communist_state_are_in_power = yes } }
@@ -2519,14 +2177,15 @@ ideas = {
             }
 
             modifier = {
-                stability_factor = -0.07
+                stability_factor = -0.10
                 consumer_goods_factor = 0.1
+                base_inflation_percent_modifier = 0.03
                 inflation_defence_multiplier_modifier = -0.3
                 interest_rate_multiplier_modifier = -2
                 econ_cycle_upg_cost_multiplier_modifier = 0.5
-                tax_gain_multiplier_modifier = -0.15
+                tax_gain_multiplier_modifier = -0.20
                 return_on_investment_modifier = -0.15
-                production_speed_buildings_factor = -0.2
+                production_speed_buildings_factor = -0.25
             }
         }
 
@@ -2564,23 +2223,6 @@ ideas = {
                 tax_gain_multiplier_modifier = -0.03
                 return_on_investment_modifier = -0.03
                 production_speed_buildings_factor = -0.05
-            }
-        }
-
-        KAZ_trade_union_alliance_idea = {
-            allowed_civil_war = { always = yes }
-
-            cancel = {
-                NOT = { emerging_communist_state_are_in_power = yes }
-            }
-
-            modifier = {
-                civilian_factories_productivity = 0.06
-                military_factories_productivity = 0.03
-                offices_productivity = 0.03
-                agricolture_productivity_modifier = 0.02
-                branches_salary_multiplier_modifier = 0.05
-                companies_tax_gain_multiplier_modifier = 0.05
             }
         }
 
@@ -2773,7 +2415,238 @@ ideas = {
             }
         }
 
-        #### AUL BRANCH ####
+        #### Alash ####
+        # Alash legacy hub
+        KAZ_alash_legacy_idea = {
+            picture = alash_start
+            allowed_civil_war = { always = yes }
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+            modifier = {
+                custom_modifier_tooltip = KAZ_alash_legacy_idea_tt
+            }
+        }
+        # Language Reform 1
+        KAZ_alash_lat_idea = {
+            picture = alphabet_lat
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                research_speed_factor = 0.10
+                political_power_factor = 0.05
+                stability_factor = -0.05
+                consumer_goods_factor = 0.02
+                democratic_drift = 0.01
+                nationalist_drift = -0.01
+                education_cost_multiplier_modifier = 0.1
+                education_budget_cost_factor = -0.5
+                expected_education_modifier = -0.5
+            }
+        }
+        # Language Reform 2
+        KAZ_alash_tyr_idea = {
+            picture = alphabet_tyr
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                nationalist_drift = 0.08
+                army_core_attack_factor = 0.1
+                stability_factor = -0.05
+                political_power_factor = 0.10
+                research_speed_factor = -0.15
+                consumer_goods_factor = 0.05
+                education_cost_multiplier_modifier = 0.1
+                education_budget_cost_factor = -0.5
+                expected_education_modifier = -0.5
+            }
+        }
+        # Language Reform 3
+        KAZ_alash_cyr_idea = {
+            picture = alphabet_cyr
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                research_speed_factor = 0.05
+                stability_factor = 0.05
+                political_power_factor = -0.05
+                nationalist_drift = -0.01
+                econ_cycle_upg_cost_multiplier_modifier = -0.11
+                education_cost_multiplier_modifier = 0.1
+                education_budget_cost_factor = -0.5
+                expected_education_modifier = -0.5
+            }
+        }
+        # War with China
+        KAZ_war_with_china_idea = {
+            picture = alash_war_chine
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            targeted_modifier = {
+                tag = CHI
+                attack_bonus_against = 0.1
+                defense_bonus_against = 0.1
+            }
+
+            modifier = {
+                army_org_factor = 0.03
+                experience_gain_army = 0.1
+            }
+        }
+        # War with Russia
+        KAZ_war_with_russia_idea = {
+            picture = alash_war_russia
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            targeted_modifier = {
+                tag = SOV
+                attack_bonus_against = 0.1
+                defense_bonus_against = 0.1
+            }
+
+            modifier = {
+                army_org_factor = 0.03
+                experience_gain_army = 0.1
+            }
+        }
+        # Soviet Tegrism
+        KAZ_soviet_tegr_idea = {
+            picture = tengri_ideas
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.05
+                political_power_factor = -0.075
+                foreign_influence_defense_modifier = 0.07
+                nationalist_drift = 0.02
+                foreign_influence_modifier = 0.03
+            }
+        }
+        # Soviet Tegrism 2
+        KAZ_soviet_tegr2_idea = {
+            name = KAZ_soviet_tegr_idea
+            allowed_civil_war = { always = yes }
+            picture = tengri_ideas
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.075
+                war_support_factor = 0.05
+                political_power_factor = -0.1
+                foreign_influence_defense_modifier = 0.14
+                nationalist_drift = 0.04
+                foreign_influence_modifier = 0.03
+                nationalist_acceptance = 20
+                democratic_acceptance = -10
+                nationalist_outlook_campaign_cost_modifier = -0.25
+            }
+        }
+        # Equal People
+        KAZ_equal_people_idea = {
+            picture = alash_equal
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                stability_factor = 0.05
+                social_cost_multiplier_modifier = 0.04
+                education_cost_multiplier_modifier = 0.04
+                health_cost_multiplier_modifier = 0.04
+                drift_defence_factor = 0.1
+                monthly_population = 0.1
+            }
+        }
+        # Steppe Lightning Doctrine
+        KAZ_steppe_lightning_doctrine_idea = {
+            picture = alash_doctrine
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+
+            modifier = {
+                army_speed_factor = 0.10
+                army_org_factor = 0.08
+                army_attack_factor = 0.05
+                attrition = -0.1
+                supply_consumption_factor = -0.08
+                out_of_supply_factor = -0.15
+            }
+        }
+        # Turan Faction
+        KAZ_alash_faction_super_idea = {
+            picture = alash_faction
+            allowed_civil_war = { always = yes }
+
+            cancel = {
+                NOT = { is_in_faction_with = KAZ }
+            }
+
+            modifier = {
+                send_volunteer_size = 2
+                send_volunteer_divisions_required = -0.20
+                send_volunteers_tension = -0.15
+            }
+        }
+        # Religious Freedom
+        KAZ_religious_freedom_idea = {
+            picture = alash_freedom_religion
+            cancel = {
+                nationalist_right_wing_populists_are_not_in_power = yes
+            }
+            allowed_civil_war = { always = yes }
+            modifier = {
+                stability_factor = 0.03
+                party_popularity_stability_factor = 0.03
+                internal_factions_cost_factor = -0.05
+                bureaucracy_cost_multiplier_modifier = 0.02
+                neutrality_drift = -0.01
+            }
+        }
+
+        #### Auyl ####
+        # Auyl legacy hub
+        KAZ_aul_legacy_idea = {
+            picture = aul_start #todo
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_social_democrats_are_not_in_power = yes
+            }
+            modifier = {
+                custom_modifier_tooltip = KAZ_aul_legacy_idea_tt
+            }
+        }
         KAZ_aul_national_identity_idea = {
             picture = aul_patriotism
             allowed_civil_war = { always = yes }
@@ -2880,7 +2753,19 @@ ideas = {
                 expected_healthcare_modifier = -0.25
             }
         }
-        #### AUL BRANCH END ####
+
+        #### Ak Zhol ####
+        # Ak Zhol reformist mandate hub
+        KAZ_akz_reformist_mandate_idea = {
+            picture = akzhol_start
+            allowed_civil_war = { always = yes }
+            cancel = {
+                western_liberals_are_not_in_power = yes
+            }
+            modifier = {
+                custom_modifier_tooltip = KAZ_akz_reformist_mandate_idea_tt
+            }
+        }
 
         #Foreign policy
         KAZ_BLR_agro_modernization_idea = {
