@@ -60,11 +60,13 @@ never been approved or built. The mechanic therefore mostly fails, and success i
    (no benefits, no fee). The +50% increase is accepted only while the new annual fee stays at or below **0.15 bn**;
    if it would exceed the cap, Kazakhstan must refuse the price and wait two years without supply. Roughly one run in four gets the water within 35 years.
 
-## Files
-`common/` decisions, scripted_effects, scripted_triggers, dynamic_modifiers, on_actions, scripted_guis, scripted_localisation;
-`events/aral_sea_events.txt` (dry year, dike washed out, salt storms, the Siberian chain); `interface/aral_sea.gui|gfx`, `gfx/`; EN and RU
-localisation; three lines in the KAZ history file. `optional/aral_sea/` holds an obsolete six-focus prototype and a province-photo prototype; neither is loaded or required by the active mechanic. Install the on_actions file only if your mod has no `on_monthly` block, otherwise merge the call
-`aral_monthly_tick = yes` for KAZ.
+## Install into the game
+
+Copy only the repository's mdredux/ folder into the directory that contains your full MD Redux mdredux/ folder. Let Windows merge the folders; do not delete or replace the existing folder. The active files are Aral-specific and use their own filenames, including common/on_actions/aral_sea_on_actions.txt.
+
+No Kazakhstan history file is included or needs editing. On a new game, the standalone on_startup hook initializes the mechanic after country selection; the same file contains the ownership-gated monthly tick. Keep this file next to the base mod's other files in common/on_actions/—do not replace existing on_actions files or manually merge their contents. The active mechanic uses existing KAZ focus IDs, so keep your installed Kazakhstan focus tree.
+
+optional/aral_sea/ holds an obsolete six-focus prototype and a province-photo prototype; neither is copied into the game and neither is required by the active mechanic.
 
 ## Tools (run from the repository root)
 ```

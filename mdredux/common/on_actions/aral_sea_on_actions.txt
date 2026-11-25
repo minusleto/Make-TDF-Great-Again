@@ -1,5 +1,5 @@
-# The initial history call is kept as a baseline; on_startup re-applies it after country/state history is loaded.
-# Both initialization and the monthly update are limited to Kazakhstan owning state 717 (Kyzylorda).
+# Initialize after country selection; no KAZ country-history edit is required.
+# Startup initialization and the monthly update run only while Kazakhstan owns state 717 (Kyzylorda).
 on_actions = {
 	on_startup = {
 		effect = {
