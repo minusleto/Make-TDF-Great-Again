@@ -522,6 +522,42 @@ country_event = { id = kaz_test.12 title = kaz_test.12.t desc = kaz_test.12.d is
             self.assertNotIn("GENERIC_accept", result["event_option_label_missing"])
 
 
+    def test_event_option_log_key_mismatch_is_warn_only(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.make_repo(root)
+            events = root / "mdredux" / "events" / "Kazakhstan.txt"
+            events.write_text("""
+add_namespace = kaz_test
+country_event = {
+  id = kaz_test.1
+  title = kaz_test.1.t
+  desc = kaz_test.1.d
+  option = { name = kaz_test.1.a log = "[GetDateText]: [This.GetName]: kaz_test.1.a executed" }
+  option = { name = kaz_test.1.b log = "[GetDateText]: [This.GetName]: kaz_test.1.a executed" }
+  option = { name = kaz_test.1.c log = "Custom diagnostic message" }
+}
+""", encoding="utf-8")
+            loc = root / "mdredux" / "localisation" / "english" / "kazakhstan_a_l_english.yml"
+            loc.write_text("""l_english:
+ kaz_test.1.t:0 "A test event"
+ kaz_test.1.d:0 "A sufficiently descriptive test event."
+ kaz_test.1.a:0 "First option"
+ kaz_test.1.b:0 "Second option"
+ kaz_test.1.c:0 "Third option"
+""", encoding="utf-8")
+            countries, loc_index = audit.discover(root)
+            _, _, _, parsed = audit.build_global_indexes(countries, root)
+            report = audit.build_event_audit(root, countries, loc_index, parsed)
+            self.assertEqual(len(report["option_log_key_mismatches"]), 1)
+            finding = report["option_log_key_mismatches"][0]
+            self.assertEqual(finding["event_id"], "kaz_test.1")
+            self.assertEqual(finding["option_key"], "kaz_test.1.b")
+            self.assertEqual(finding["log_key"], "kaz_test.1.a")
+            self.assertGreater(finding["option_line"], 0)
+            self.assertGreater(finding["log_line"], 0)
+            self.assertNotIn("option_log_key_mismatches", audit.ERRORS)
+
     def test_event_calls_support_scalar_and_block_syntax(self):
         parsed = audit.parse_hoi("""
 country_event = kaz_test.1

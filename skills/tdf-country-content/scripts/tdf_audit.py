@@ -974,6 +974,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
     duplicate_loc_definitions = []
     generic_option_labels, long_option_labels = [], []
     option_loc_lines = []
+    option_log_key_mismatches = []
     missing_event_idea_candidates = []
     missing_event_scripted_loc = []
     idea_index = (content_indexes or {}).get("idea_ids", {})
@@ -1027,11 +1028,28 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                     elif len(label) > 35:
                         long_option_labels.append(label_info)
             # Check log independently: a missing name must not hide a missing log.
-            if get_scalar(option, "log") is None:
+            log_entry = next(
+                (item for item in direct_entries(option, "log") if scalar(item)), None
+            )
+            log_value = scalar(log_entry)
+            if log_entry is None:
                 option_loc_lines.append({
                     "key": key or "?", "event_id": definition["id"],
                     "path": definition["path"], "line": option_entry.line,
                 })
+            elif key:
+                # Only compare the established diagnostic form. Arbitrary log text
+                # is intentionally left alone because it need not contain a key.
+                log_match = re.search(
+                    r"(?:^|:\s*)([A-Za-z0-9_]+\.\d+\.[A-Za-z0-9_]+)\s+executed\s*$",
+                    log_value or "",
+                )
+                if log_match and log_match.group(1) != key:
+                    option_log_key_mismatches.append({
+                        "event_id": definition["id"], "path": definition["path"],
+                        "option_key": key, "log_key": log_match.group(1),
+                        "option_line": option_entry.line, "log_line": log_entry.line,
+                    })
 
     # Event-local idea references are compared against this repository slice.
     # Missing IDs are candidates: cross-country and base-MD ideas may be external.
@@ -1202,6 +1220,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
         "missing_option_localisation": missing_option_loc, "external_option_localisation": external_option_loc,
         "generic_option_labels": generic_option_labels, "long_option_labels": long_option_labels,
         "options_without_log": option_loc_lines,
+        "option_log_key_mismatches": option_log_key_mismatches,
         "missing_event_idea_candidates": missing_event_idea_candidates,
         "missing_event_scripted_localisation": missing_event_scripted_loc,
         "reused_title_desc_keys": reused_event_loc, "unresolved_references": unresolved_references,
@@ -3980,7 +3999,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "missing_option_names", "duplicate_event_ids", "duplicate_namespaces",
                     "missing_localisation", "external_localisation", "duplicate_localisation_definitions",
                     "missing_option_localisation", "external_option_localisation", "generic_option_labels",
-                    "long_option_labels", "options_without_log", "missing_event_idea_candidates",
+                    "long_option_labels", "options_without_log", "option_log_key_mismatches",
+                    "missing_event_idea_candidates",
                     "missing_event_scripted_localisation", "reused_title_desc_keys",
                     "unresolved_references", "external_references", "scripted_effect_references",
                     "unreachable_triggered_events",
