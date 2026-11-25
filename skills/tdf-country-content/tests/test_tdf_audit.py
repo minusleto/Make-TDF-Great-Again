@@ -2468,6 +2468,52 @@ class DocumentationPolicyTests(unittest.TestCase):
                 broken.append(target)
         self.assertEqual(broken, [], "Broken local links in reference index")
 
+class SkillNavigationTests(unittest.TestCase):
+    """Guards for agent-facing navigation: routing targets exist, nothing is orphaned or spliced."""
+
+    REPO = Path(__file__).parents[3]
+    SKILL_DIR = REPO / "skills" / "tdf-country-content"
+
+    def _skill_md_files(self):
+        return sorted((self.REPO / "skills").rglob("*.md"))
+
+    def test_skill_md_routing_targets_exist(self):
+        text = (self.SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        table = "\n".join(line for line in text.split("\n") if line.startswith("|"))
+        targets = [t for t in re.findall(r"`([^`\s]+\.md)`", table) if "<" not in t]
+        self.assertTrue(targets, "SKILL.md routing table has no file targets")
+        missing = [t for t in targets if not (self.SKILL_DIR / t).exists()]
+        self.assertEqual(missing, [], "SKILL.md routes to missing files")
+
+    def test_every_reference_is_routed_from_skill_md(self):
+        text = (self.SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        refs = sorted(p.name for p in (self.SKILL_DIR / "references").glob("*.md"))
+        unrouted = [name for name in refs if name not in text]
+        self.assertEqual(unrouted, [], "References not reachable from SKILL.md routing")
+
+    def test_no_links_to_removed_generic_skill(self):
+        offenders = []
+        for path in self._skill_md_files() + [self.REPO / "AGENTS.md", self.REPO / "README.md"]:
+            if "md-hoi4-country-content" in path.read_text(encoding="utf-8"):
+                offenders.append(str(path.relative_to(self.REPO)))
+        self.assertEqual(offenders, [], "Active docs still reference the removed generic skill")
+
+    def test_skill_docs_have_single_h1_and_front_matter(self):
+        problems = []
+        for path in self._skill_md_files():
+            text = path.read_text(encoding="utf-8")
+            in_fence = False
+            h1 = 0
+            for line in text.split("\n"):
+                if line.startswith(("```", "~~~")):
+                    in_fence = not in_fence
+                elif not in_fence and line.startswith("# "):
+                    h1 += 1
+            status_lines = len(re.findall(r"^status:", text, re.M))
+            if h1 > 1 or status_lines > 1:
+                problems.append((str(path.relative_to(self.REPO)), h1, status_lines))
+        self.assertEqual(problems, [], "Duplicated H1 or front matter (spliced content?)")
+
 if __name__ == "__main__":
     unittest.main()
 

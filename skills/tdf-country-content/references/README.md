@@ -1,13 +1,13 @@
 ---
 status: source-of-truth-map
-updated: 2026-11-25
+updated: 2026-11-26
 scope: Canonical authority map for TDF/MDC skill rules, references, audit severity and verification boundaries.
 limits: This is a routing and authority index, not a replacement for domain references or a guarantee of HOI4 runtime behaviour.
 ---
 
 # TDF/MDC reference map — source of truth
 
-Этот файл — единственная подробная карта доменных правил. В нём указано, какой документ является основным источником по теме, каков статус его положений и где проходят границы проверки. Общий SKILL и AGENTS должны маршрутизировать к этим источникам, а не переписывать их содержание.
+Этот файл — единственная подробная карта доменных правил; читать его нужно только при конфликте правил или вопросе о статусе положения (стартовая маршрутизация — в [SKILL.md](../SKILL.md)). В нём указано, какой документ является основным источником по теме, каков статус его положений и где проходят границы проверки. Общий SKILL и AGENTS должны маршрутизировать к этим источникам, а не переписывать их содержание.
 
 ## Как разрешать противоречия
 
@@ -42,6 +42,7 @@ limits: This is a routing and authority index, not a replacement for domain refe
 | Decision categories и decisions | [decision-design.md](decision-design.md) | [REQUIRED] Семантика полей/локальных связей; баланс и optional fields требуют контекста |
 | Ideas / national spirits и lifecycle | [national-spirits.md](national-spirits.md) | Проектный reference; численные сравнения — исторические наблюдения |
 | Составные hidden-idea hubs | [Nested national spirits skill](../../hoi4-nested-national-spirits/SKILL.md) | Специализированный pattern; не загружать для обычного духа |
+| Шаблоны кода: порядок полей фокуса, цепочка предложение→ответ, scripted-effect cheat-sheet, техи, техника | [code-patterns.md](code-patterns.md) | Паттерны из практики; синтаксис с `[?]` не подтверждён, сверять по локальному коду и `wiki/` |
 | MIO, equipment, modules, technologies и variants | [mio-and-equipment.md](mio-and-equipment.md) | Статический QA; missing definitions остаются unknown до проверки точного TDF-файла |
 | Межфайловые flags, variables, arrays, scripts, history и связность focus/event/idea/MIO-цепочек | [state-flow.md](state-flow.md) | Статический typed evidence graph _state_flow + _branch_connectivity; candidates не доказывают runtime-reachability |
 | Балансные предупреждения и общий checklist | [balance-and-pitfalls.md](balance-and-pitfalls.md) | [RECOMMENDED] Никаких универсальных числовых лимитов |
