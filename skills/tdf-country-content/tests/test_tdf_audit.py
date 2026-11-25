@@ -922,7 +922,7 @@ KAZ_duplicate_category = {
             self.assertFalse(test_decision["has_allowed"])
             repeat_decision = next(item for item in report["metadata"] if item["id"] == "KAZ_repeat_decision")
             self.assertTrue(repeat_decision["category_has_allowed"])
-            self.assertTrue(repeat_decision["has_allowed"])
+            self.assertFalse(repeat_decision["has_allowed"])
             self.assertTrue(any(item["target"] == "KAZ_missing_decision" for item in report["missing_decision_references"]))
             self.assertTrue(any(item["target"] == "BASE_MD_DECISION" for item in report["external_decision_references"]))
             self.assertTrue(any(item["target"] == "KAZ_missing_focus" for item in report["missing_focus_references"]))
