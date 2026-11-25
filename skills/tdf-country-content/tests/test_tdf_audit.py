@@ -1488,6 +1488,92 @@ KAZ_test_category = {
             self.assertTrue(report["registry_available"])
 
 
+    def test_confirmed_external_events_resolve_only_exact_local_namespace_gaps(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            registry_dir = root / "docs" / "research"
+            registry_dir.mkdir(parents=True)
+            registry = {
+                "schema_version": 1,
+                "last_reviewed": "2026-11-25",
+                "baseline": {
+                    "repository": "MillenniumDawn/Millennium-Dawn",
+                    "commit": "04b2ba126fc1057bf2ab4bac0407b3235983994c"
+                },
+                "dependencies": [
+                    {
+                        "type": "event", "id": "arm_foreign_legion.3", "status": "confirmed",
+                        "expected_source": "Millennium Dawn pinned base event definition",
+                        "checked_at": "2026-11-25",
+                        "verification": [{"kind": "event definition", "path": "events/05_armenia.txt", "line": 12532}],
+                        "notes": "Exact event definition verified in the pinned base snapshot."
+                    },
+                    {
+                        "type": "event", "id": "russia.3", "status": "unknown",
+                        "expected_source": "Millennium Dawn Russia events",
+                        "checked_at": "2026-11-25", "verification": [],
+                        "notes": "Not verified in the pinned baseline."
+                    },
+                    {
+                        "type": "event", "id": "syria_bashar.8", "status": "assumption",
+                        "expected_source": "Millennium Dawn Syria events",
+                        "checked_at": "2026-11-25", "verification": [],
+                        "notes": "Usage only; definition not verified."
+                    }
+                ]
+            }
+            (registry_dir / "external-dependencies.json").write_text(
+                __import__("json").dumps(registry, ensure_ascii=False), encoding="utf-8"
+            )
+            event_report = {
+                "external_references": [],
+                "unresolved_references": [
+                    {"kind": "country_event", "target": "arm_foreign_legion.3",
+                     "source": "mdredux/events/Armenia.txt", "line": 10, "source_kind": "event"},
+                    {"kind": "country_event", "target": "russia.3",
+                     "source": "mdredux/events/Russia.txt", "line": 20, "source_kind": "event"},
+                    {"kind": "news_event", "target": "syria_bashar.8",
+                     "source": "mdredux/events/Syria.txt", "line": 30, "source_kind": "event"},
+                    {"kind": "country_event", "target": "not_registered.1",
+                     "source": "mdredux/events/Georgia.txt", "line": 40, "source_kind": "event"}
+                ],
+                "external_localisation": [], "external_option_localisation": [],
+                "missing_event_idea_candidates": []
+            }
+            decision_report = {
+                "external_tooltip_localisation": [], "external_event_references": [],
+                "external_focus_references": [], "external_decision_references": []
+            }
+            idea_report = {"external_idea_references": [], "unresolved_unprefixed_idea_references": []}
+            industry_report = {
+                "external_mio_references": [], "missing_local_mio_references": [],
+                "external_mio_name_localisation_candidates": [],
+                "unknown_equipment_type_references": [], "unknown_module_references": [],
+                "unknown_technology_references": []
+            }
+            state_flow_report = {"unresolved_scripted_call_candidates": []}
+
+            dependency_report = audit.build_external_dependency_audit(
+                root, event_report, decision_report, idea_report, industry_report, state_flow_report
+            )
+            by_key = {(item["type"], item["id"]): item for item in dependency_report["findings"]}
+            self.assertEqual(by_key[("event", "arm_foreign_legion.3")]["status"], "confirmed")
+            self.assertEqual(by_key[("event", "russia.3")]["status"], "unknown")
+            self.assertEqual(by_key[("event", "syria_bashar.8")]["status"], "assumption")
+            self.assertEqual(by_key[("event", "not_registered.1")]["registry_status"], "unregistered")
+
+            audit.classify_confirmed_external_event_references(event_report, dependency_report)
+            self.assertEqual(
+                [item["target"] for item in event_report["confirmed_external_references"]],
+                ["arm_foreign_legion.3"]
+            )
+            self.assertEqual(
+                [item["target"] for item in event_report["unresolved_references"]],
+                ["russia.3", "syria_bashar.8", "not_registered.1"]
+            )
+            self.assertNotIn("confirmed_external_references", audit.ERRORS)
+
+
     def test_invalid_utf8_is_reported_instead_of_replaced(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.txt"

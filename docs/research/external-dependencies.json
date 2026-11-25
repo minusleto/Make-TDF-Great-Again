@@ -557,7 +557,7 @@
       "namespace": "georg_monarchist",
       "status": "unknown",
       "expected_source": "Unknown; not found in TDF local Georgia events or pinned Millennium Dawn Georgia events",
-      "checked_at": "2026-11-24",
+      "checked_at": "2026-11-25",
       "where_used": [
         {
           "repository": "TDF",
@@ -584,7 +584,7 @@
           "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Georgia.txt"
         }
       ],
-      "notes": "The focus calls this ID, but no definition was found in the TDF Georgia event file or the pinned Millennium Dawn 04b2ba1 Georgia event file. Keep status unknown because another installed module or a different base-MD revision may still supply it; the available evidence makes it a high-priority missing-event candidate."
+      "notes": "The TDF focus call remains unresolved locally. Rechecked the pinned MD Georgia event file and current-main code search on 2026-11-25; no exact active definition was found. Keep unknown because another enabled package or a different target MD revision may supply it."
     },
     {
       "type": "event",
@@ -714,6 +714,259 @@
       ],
       "notes": "Confirmed in the pinned official Millennium Dawn baseline: event definition and English title/description/option key. This shared event is a valid external dependency, not a local missing-event candidate.",
       "namespace": "diplomatic_response"
+    },
+    {
+      "type": "event",
+      "id": "arm_foreign_legion.3",
+      "namespace": "arm_foreign_legion",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base event definition in events/05_armenia.txt",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Armenia.txt",
+          "line": 13684,
+          "usage": "arm_expansion.16 event call; recipient is the target country"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/05_armenia.txt",
+          "line": 12532,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/05_armenia.txt#L12532"
+        }
+      ],
+      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+    },
+    {
+      "type": "event",
+      "id": "arm_foreign_legion.6",
+      "namespace": "arm_foreign_legion",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base event definition in events/05_armenia.txt",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/ideas/Armenia_ideas.txt",
+          "line": 45,
+          "usage": "ARM_armenian_foreign_legion_moblize_idea on_remove lifecycle event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/05_armenia.txt",
+          "line": 12656,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/05_armenia.txt#L12656"
+        }
+      ],
+      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+    },
+    {
+      "type": "event",
+      "id": "sov_gru.1",
+      "namespace": "sov_gru",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Armenia.txt",
+          "line": 13885,
+          "usage": "arm_reaction.1 event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Russia.txt",
+          "line": 11066,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L11066"
+        }
+      ],
+      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+    },
+    {
+      "type": "event",
+      "id": "sov_gru.4",
+      "namespace": "sov_gru",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/ideas/Russian_ideas.txt",
+          "line": 3444,
+          "usage": "SOV_gru_foreign on_remove lifecycle event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Russia.txt",
+          "line": 11170,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L11170"
+        }
+      ],
+      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+    },
+    {
+      "type": "event",
+      "id": "sov_nationalists.51",
+      "namespace": "sov_nationalists",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/ideas/Russian_ideas.txt",
+          "line": 987,
+          "usage": "SOV_idea_governorate on_remove lifecycle event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Russia.txt",
+          "line": 6015,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L6015"
+        }
+      ],
+      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+    },
+    {
+      "type": "event",
+      "id": "sov_nationalists.53",
+      "namespace": "sov_nationalists",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 4964,
+          "usage": "russia_governorate.1 event call; second call is at line 4965"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Russia.txt",
+          "line": 6037,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L6037"
+        }
+      ],
+      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+    },
+    {
+      "type": "event",
+      "id": "sov_final_strike.2",
+      "namespace": "sov_final_strike",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base event definition in events/Russia.txt",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 8206,
+          "usage": "sov_final_strike.8 event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "event definition",
+          "path": "events/Russia.txt",
+          "line": 6522,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt#L6522"
+        }
+      ],
+      "notes": "Exact event definition verified in pinned MD baseline. This confirms the event ID only; matching English localisation keys were not independently verified. For lifecycle callers, this also does not prove runtime timing."
+    },
+    {
+      "type": "event",
+      "id": "russia.3",
+      "namespace": "russia",
+      "status": "unknown",
+      "expected_source": "Millennium Dawn Russia events; exact definition not located in pinned 04b2ba1",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 1983,
+          "usage": "russia.10 event call in accepted integration branch"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "pinned baseline file checked; exact ID not found",
+          "path": "events/Russia.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt"
+        }
+      ],
+      "notes": "A later current-main changelog mentions adding russia.3, but an exact active definition was not independently located in the current-main Russia.txt during this review. Keep unknown until the intended target MD revision is checked."
+    },
+    {
+      "type": "event",
+      "id": "russia.4",
+      "namespace": "russia",
+      "status": "unknown",
+      "expected_source": "Millennium Dawn Russia events; exact definition not located in pinned 04b2ba1",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 2025,
+          "usage": "russia.10 event call in refusal/integration branch"
+        },
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Russia.txt",
+          "line": 2535,
+          "usage": "russia.24 event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "pinned baseline file checked; exact ID not found",
+          "path": "events/Russia.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Russia.txt"
+        }
+      ],
+      "notes": "A later current-main changelog mentions adding russia.4, but an exact active definition was not independently located in the current-main Russia.txt during this review. Keep unknown until the intended target MD revision is checked."
+    },
+    {
+      "type": "event",
+      "id": "syria_bashar.8",
+      "namespace": "syria_bashar",
+      "status": "unknown",
+      "expected_source": "Unknown Syria/Bashar event package or revision",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/events/Syria.txt",
+          "line": 11078,
+          "usage": "syrian_democrats.7 event call"
+        }
+      ],
+      "verification": [
+        {
+          "kind": "pinned baseline Syria event file checked; exact ID not found",
+          "path": "events/Syria.txt",
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/events/Syria.txt"
+        }
+      ],
+      "notes": "No exact definition found in the pinned MD Syria event file or current-main code search. Keep unknown rather than asserting the ID is absent from all enabled packages."
     }
   ]
 }

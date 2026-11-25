@@ -10,7 +10,7 @@
 
 ## Статусы
 
-- `confirmed` — точное определение или English localisation key найден в указанном upstream commit либо точное shared definition включено в сам TDF checkout. Для локально bundled dependency указывай TDF-файл и его локализацию, а не называй её отсутствующей внешней зависимостью.
+- `confirmed` — точное определение или English localisation key найден в указанном upstream commit либо точное shared definition включено в сам TDF checkout. Для event ID это подтверждает только существование определения; наличие его локализационных ключей и runtime-цепочку фиксируй отдельно.
 - `assumption` — найдено использование в upstream, но определяющий блок не проверен независимо.
 - `unknown` — не подтверждено. Не объявлять ID существующим или отсутствующим.
 
@@ -29,6 +29,8 @@ JSON-ключ `_external_dependencies` сопоставляет unresolved candi
 Shared TDF definitions тоже могут быть приведены как положительные примеры. Например, `USA_lockheed_martin_aircraft_manufacturer` используется Польшей и Великобританией, но его MIO definition присутствует в TDF checkout — это не missing external MIO.
 
 ## Поддержка реестра
+
+Реестр также учитывает event ID, на которые ссылается локально объявленный namespace, но точное определение которых находится в pinned base MD. Только точное совпадение `type = event` + `status = confirmed` переводит такой вызов из `unresolved_references` в `confirmed_external_references`; `unknown`, `assumption` и незарегистрированные ID остаются unresolved. Подтверждение определения не подтверждает title/desc/option localisation, scope, получателя или runtime-достижимость.
 
 1. Для `confirmed` открывай defining file, а не просто usage, и сохраняй permalink с commit SHA и строкой. Если определение уже bundled в TDF, фиксируй его как локальную shared dependency.
 2. Для `assumption` сохраняй место использования и прямо отмечай, что definition не проверена.

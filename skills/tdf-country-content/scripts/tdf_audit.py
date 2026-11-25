@@ -2134,6 +2134,18 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
             "source_kind": reference.get("source_kind"), "caller": reference.get("caller"),
             "classification": "namespace_not_defined_in_local_checkout",
         })
+    # A namespace can be declared locally while a specific event ID is supplied by base MD.
+    # Keep these exact IDs in the registry instead of treating the local namespace as proof
+    # that every event in it must be defined in the TDF checkout.
+    for reference in event_report.get("unresolved_references", []):
+        if reference.get("kind") not in ("country_event", "news_event"):
+            continue
+        add_reference("event", reference.get("target"), {
+            "path": reference.get("source"), "line": reference.get("line"),
+            "source_kind": reference.get("source_kind"), "caller": reference.get("caller"),
+            "lifecycle": reference.get("lifecycle"),
+            "classification": "id_missing_from_local_definition_but_namespace_is_declared",
+        })
     for list_key in ("external_localisation", "external_option_localisation"):
         for reference in event_report.get(list_key, []):
             add_reference("localisation", reference.get("key"), {
@@ -2249,7 +2261,31 @@ def build_external_dependency_audit(repo, event_report, decision_report, idea_re
         ))
     unregistered = [item for item in findings if item["registry_status"] == "unregistered"]
     status_counts = Counter(item["status"] for item in findings)
-    type_counts = Counter(item["type"] for item in findings)
+    type_counts = Counter(item["type"] for ite
+def classify_confirmed_external_event_references(event_report, external_dependency_report):
+    """Move only exact, registry-confirmed base event IDs out of local missing-ID errors."""
+    confirmed_event_ids = {
+        item.get("id")
+        for item in external_dependency_report.get("findings", [])
+        if item.get("type") == "event" and item.get("status") == "confirmed"
+    }
+    confirmed, unresolved = [], []
+    for reference in event_report.get("unresolved_references", []):
+        target = reference.get("target")
+        if reference.get("kind") in ("country_event", "news_event") and target in confirmed_event_ids:
+            confirmed.append({
+                **reference,
+                "resolution": "confirmed_external_definition",
+                "registry_status": "confirmed",
+            })
+        else:
+            unresolved.append(reference)
+    event_report["confirmed_external_references"] = confirmed
+    event_report["unresolved_references"] = unresolved
+    return event_report
+
+
+m in findings)
     return {
         "registry_available": True, "registry_path": relative_registry_path,
         "schema_version": registry.get("schema_version"),
@@ -3512,6 +3548,9 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
     unresolved_refs = {
         item.get("target") for item in event_report.get("unresolved_references", [])
     }
+    confirmed_external_event_ids = {
+        item.get("target") for item in event_report.get("confirmed_external_references", [])
+    }
 
     focus_event_edges = []
     event_event_edges = []
@@ -3526,6 +3565,8 @@ def build_branch_connectivity_audit(countries, event_report, idea_report, indust
             status = "local_definition"
         elif target in unresolved_refs:
             status = "missing_in_declared_local_namespace"
+        elif target in confirmed_external_event_ids:
+            status = "confirmed_external_definition"
         else:
             status = "external_or_unknown_namespace"
         source_kind = reference.get("source_kind")
@@ -3933,6 +3974,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         external_dependency_report = build_external_dependency_audit(
             args.repo, event_report, decision_report, idea_report, industry_report, state_flow_report
         )
+        classify_confirmed_external_event_references(event_report, external_dependency_report)
         if args.require_external_registry and not external_dependency_report.get("registry_available"):
             raise AuditInputError(
                 "обязательный реестр внешних зависимостей не найден: {}".format(
@@ -4037,7 +4079,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "long_option_labels", "options_without_log", "option_log_key_mismatches",
                     "missing_event_idea_candidates",
                     "missing_event_scripted_localisation", "reused_title_desc_keys",
-                    "unresolved_references", "external_references", "scripted_effect_references",
+                    "unresolved_references", "confirmed_external_references",
+                    "external_references", "scripted_effect_references",
                     "unreachable_triggered_events",
                     "events_without_picture"):
             print("  {}: {}".format(key, len(event_report[key])))
