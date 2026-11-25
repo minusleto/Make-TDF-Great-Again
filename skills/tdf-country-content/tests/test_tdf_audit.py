@@ -871,6 +871,7 @@ KAZ_test_category = {
     complete_effect = { set_temp_variable = { treasury_change = -5 } modify_treasury_effect = yes country_event = { id = kaz_test.1 } }
   }
   KAZ_repeat_decision = {
+    allowed = { has_country_flag = KAZ_extra_gate }
     fire_only_once = yes
     days_remove = 30
     days_re_enable = 365
@@ -922,7 +923,7 @@ KAZ_duplicate_category = {
             self.assertFalse(test_decision["has_allowed"])
             repeat_decision = next(item for item in report["metadata"] if item["id"] == "KAZ_repeat_decision")
             self.assertTrue(repeat_decision["category_has_allowed"])
-            self.assertFalse(repeat_decision["has_allowed"])
+            self.assertTrue(repeat_decision["has_allowed"])
             self.assertTrue(any(item["target"] == "KAZ_missing_decision" for item in report["missing_decision_references"]))
             self.assertTrue(any(item["target"] == "BASE_MD_DECISION" for item in report["external_decision_references"]))
             self.assertTrue(any(item["target"] == "KAZ_missing_focus" for item in report["missing_focus_references"]))
