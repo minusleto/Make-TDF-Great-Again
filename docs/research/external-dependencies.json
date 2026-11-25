@@ -589,38 +589,51 @@
     {
       "type": "event",
       "id": "mdc4.16",
-      "status": "unknown",
-      "expected_source": "Unknown external package / compatibility layer; not located in official Millennium Dawn current-main code search",
+      "status": "confirmed",
+      "expected_source": "TDF bundled generic diplomatic event layer (`mdredux/events/00_Generic_dip_events.txt`)",
       "checked_at": "2026-11-25",
       "where_used": [
         {
           "repository": "TDF",
           "path": "mdredux/events/Kazakhstan.txt",
           "line": 51,
-          "usage": "kaz_cas.1 decline response; representative CAS call"
+          "usage": "kaz_cas.1 refusal response; event is sent to FROM"
         },
         {
           "repository": "TDF",
           "path": "mdredux/events/Kazakhstan.txt",
           "line": 3212,
-          "usage": "kaz_army.1 decline response; representative Army call"
+          "usage": "kaz_army.1 refusal response; event is sent to FROM"
         },
         {
           "repository": "TDF",
           "path": "mdredux/events/Kazakhstan.txt",
           "line": 7456,
-          "usage": "kaz_foreign.85 decline response; representative Diplomacy/foreign-cooperation call"
+          "usage": "kaz_foreign.85 refusal response; event is sent to FROM"
         }
       ],
-      "verification": [],
-      "notes": "51 local calls in the current KAZ branch set: 15 from kaz_army events, 16 from kaz_cas events and 20 from kaz_foreign events. Additional search performed on 2026-11-25 against official Millennium Dawn current main (HEAD 8ba03bedb15352d25b142ef2d4c945bbc50b4ca4): no exact code definition was returned. The identifier remains unknown, not disproven; check the user's actual enabled mod stack and load order.",
+      "verification": [
+        {
+          "kind": "TDF local event definition",
+          "path": "mdredux/events/00_Generic_dip_events.txt",
+          "line": 607,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/ca350bd59a41635c19c30a97e9b644a65a7b0684/mdredux/events/00_Generic_dip_events.txt#L607"
+        },
+        {
+          "kind": "TDF English localisation",
+          "path": "mdredux/localisation/english/MDC_generic_dip_events_l_english.yml",
+          "line": 88,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/ca350bd59a41635c19c30a97e9b644a65a7b0684/mdredux/localisation/english/MDC_generic_dip_events_l_english.yml#L88"
+        }
+      ],
+      "notes": "The exact event definition and English title/description/option keys are present in the TDF checkout. All 51 active KAZ calls resolve locally and are issued inside FROM recipient scopes: 15 from kaz_army, 16 from kaz_cas and 20 from kaz_foreign. This replaces the former unknown classification for this repository snapshot; retain it as a bundled local shared dependency, not an unresolved external call.",
       "namespace": "mdc4"
     },
     {
       "type": "event",
       "id": "mdc4.13",
-      "status": "unknown",
-      "expected_source": "Unknown external package / compatibility layer; not located in official Millennium Dawn current-main code search",
+      "status": "confirmed",
+      "expected_source": "TDF bundled generic diplomatic event layer (`mdredux/events/00_Generic_dip_events.txt`)",
       "checked_at": "2026-11-25",
       "where_used": [
         {
@@ -630,8 +643,21 @@
           "usage": "KAZ_rapprochement_nato focus completion reward; Diplomacy"
         }
       ],
-      "verification": [],
-      "notes": "Additional search performed on 2026-11-25 against official Millennium Dawn current main (HEAD 8ba03bedb15352d25b142ef2d4c945bbc50b4ca4): no exact code definition was returned. The identifier remains unknown, not disproven; check the user's actual enabled mod stack and load order.",
+      "verification": [
+        {
+          "kind": "TDF local event definition",
+          "path": "mdredux/events/00_Generic_dip_events.txt",
+          "line": 470,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/ca350bd59a41635c19c30a97e9b644a65a7b0684/mdredux/events/00_Generic_dip_events.txt#L470"
+        },
+        {
+          "kind": "TDF English localisation",
+          "path": "mdredux/localisation/english/MDC_generic_dip_events_l_english.yml",
+          "line": 74,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/ca350bd59a41635c19c30a97e9b644a65a7b0684/mdredux/localisation/english/MDC_generic_dip_events_l_english.yml#L74"
+        }
+      ],
+      "notes": "The exact event definition and English title/description/option keys are now present in the TDF checkout. This resolves the former unknown candidate for this repository snapshot; retain the entry as a bundled local shared dependency, not an unresolved external call.",
       "namespace": "mdc4"
     },
     {

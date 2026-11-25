@@ -10,7 +10,7 @@
 
 ## Статусы
 
-- `confirmed` — точное определение или English localisation key найден в указанном upstream commit. Shared definition в самом TDF также подтверждает cross-country ссылку.
+- `confirmed` — точное определение или English localisation key найден в указанном upstream commit либо точное shared definition включено в сам TDF checkout. Для локально bundled dependency указывай TDF-файл и его локализацию, а не называй её отсутствующей внешней зависимостью.
 - `assumption` — найдено использование в upstream, но определяющий блок не проверен независимо.
 - `unknown` — не подтверждено. Не объявлять ID существующим или отсутствующим.
 
@@ -30,7 +30,7 @@ Shared TDF definitions тоже могут быть приведены как п
 
 ## Поддержка реестра
 
-1. Для `confirmed` открывай defining file, а не просто usage, и сохраняй permalink с commit SHA и строкой.
+1. Для `confirmed` открывай defining file, а не просто usage, и сохраняй permalink с commit SHA и строкой. Если определение уже bundled в TDF, фиксируй его как локальную shared dependency.
 2. Для `assumption` сохраняй место использования и прямо отмечай, что definition не проверена.
 3. Для `unknown` перечисляй call sites и ожидаемый источник как гипотезу.
 4. При обновлении MD повторно сверяй descriptor, commit SHA, дату и меняющиеся IDs.
