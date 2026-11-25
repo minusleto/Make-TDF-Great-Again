@@ -1513,6 +1513,54 @@
         }
       ],
       "notes": "Exact key was not found in the local TDF English localisation inventory or in the checked pinned upstream decision, decision-flags, SOV-focus and event localisation files. Absence from these sampled sources does not prove global absence from every enabled package, DLC or version; keep unknown and do not automatically filter the missing decision title finding."
+    },
+    {
+      "type": "scripted_effect",
+      "id": "modify_treasury_effect",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base scripted effects",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/decisions/aral_sea_decisions.txt",
+          "line": 24,
+          "usage": "Aral project decisions execute the treasury transaction after a `treasury_change` value is set."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact scripted effect definition",
+          "path": "common/scripted_effects/00_budget_effects.txt",
+          "line": 1643,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_budget_effects.txt#L1643"
+        }
+      ],
+      "notes": "The pinned definition adds treasury_change to treasury and refreshes the money UI; it skips the charge only when MD_skip_treasury_cost is set. Aral decision costs rely on this base-MD effect."
+    },
+    {
+      "type": "scripted_effect",
+      "id": "modify_debt_effect",
+      "status": "confirmed",
+      "expected_source": "Millennium Dawn pinned base scripted effects",
+      "checked_at": "2026-11-25",
+      "where_used": [
+        {
+          "repository": "TDF",
+          "path": "mdredux/common/decisions/aral_sea_decisions.txt",
+          "line": 152,
+          "usage": "Debt-financed Aral projects execute the debt transaction after a `debt_change` value is set."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "exact scripted effect definition",
+          "path": "common/scripted_effects/00_budget_effects.txt",
+          "line": 1656,
+          "url": "https://github.com/MillenniumDawn/Millennium-Dawn/blob/04b2ba126fc1057bf2ab4bac0407b3235983994c/common/scripted_effects/00_budget_effects.txt#L1656"
+        }
+      ],
+      "notes": "The pinned definition adds debt_change to debt, clamps debt to a minimum of zero and refreshes the money UI. Aral debt-financed projects rely on this base-MD effect."
     }
   ]
 }
