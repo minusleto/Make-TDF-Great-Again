@@ -24,8 +24,7 @@ and the older second-dam plan. Design notes and the reason for every choice are 
   unless the first forests stand.
 - The earth dike lifts the crest to 41 m but is washed out with 3% chance per month until the Kokaral dam stands;
   the sea then falls back to 40 m.
-- **Control of the coast.** Every decision needs `controls_state = 717` (Kyzylorda), and the monthly tick runs only while
-  Kazakhstan exists and controls it. Building effects and state modifiers touch a state only while Kazakhstan owns it.
+- **Ownership of the coast.** Every Aral decision, the monthly tick and `update_aral_sea` recalculation require Kazakhstan to own state 717 (Kyzylorda), using `owns_state = 717`; control/occupation without ownership is not enough. State dynamic modifiers are intentionally attached to their states and are **not removed** when ownership changes. Their last calculated values remain on the state while another country owns it; recalculation resumes when Kazakhstan owns the coast again. State construction effects remain limited to states currently owned by Kazakhstan.
 
 ## Projects (14 decisions) and the Siberian chain (3 more)
 IFAS programme, SYNAS loan, emergency dike, Syr Darya channel, Kokaral dam, Aklak works, irrigation modernization,

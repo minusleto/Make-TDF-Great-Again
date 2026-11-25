@@ -46,6 +46,10 @@ aral_finish = {
 }
 
 update_aral_sea = {
+	# Recalculate the system only while Kazakhstan owns the Aral coast (state 717).
+	# State modifiers are intentionally NOT removed when ownership changes: they stay on their states.
+	if = {
+		limit = { owns_state = 717 }
 	if = { limit = { NOT = { has_dynamic_modifier = { modifier = aral_sea_dynamic_modifier } } } add_dynamic_modifier = { modifier = aral_sea_dynamic_modifier } }
 	# What holds the water sets the highest level the sea can reach. Nothing: the natural level, 40 m (the sill of the Berg Strait,
 	# everything above it spills into the Large Aral). An earth dike 41 m, the Kokaral dam 42 m, Phase II 44 m, the Second Dam 46 m.
@@ -111,6 +115,7 @@ update_aral_sea = {
 	force_update_dynamic_modifier = yes
 	aral_update_states = yes
 	add_to_variable = { aral_gui_dirty = 1 }
+	}
 }
 
 # The river keeps refilling the sea up to its crest; every improvement adds to the inflow, a wide surface evaporates.

@@ -1,10 +1,20 @@
-# MERGE into your existing on_monthly block if you already have one.
-# The mechanic only runs while Kazakhstan exists and controls state 717 (Kyzylorda, the Aral coast).
+# The initial history call is kept as a baseline; on_startup re-applies it after country/state history is loaded.
+# Both initialization and the monthly update are limited to Kazakhstan owning state 717 (Kyzylorda).
 on_actions = {
+	on_startup = {
+		effect = {
+			KAZ = {
+				if = {
+					limit = { owns_state = 717 }
+					update_aral_sea = yes
+				}
+			}
+		}
+	}
 	on_monthly = {
 		effect = {
 			if = {
-				limit = { original_tag = KAZ controls_state = 717 }
+				limit = { original_tag = KAZ owns_state = 717 }
 				aral_monthly_tick = yes
 			}
 		}

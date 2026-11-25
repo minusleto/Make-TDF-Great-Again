@@ -9,7 +9,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_ifas_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
 		custom_cost_text = aral_ifas_cost_label
@@ -42,7 +42,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_loan_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
 		custom_cost_text = aral_loan_cost_label
@@ -83,7 +83,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_kokaral_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.04 } }
 		custom_cost_text = aral_dike_cost_label
@@ -127,7 +127,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_channel_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
@@ -172,7 +172,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_kokaral_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.15 } }
@@ -217,7 +217,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_aklak_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
@@ -259,7 +259,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_irrigation_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_channel has_country_flag = aral_channel_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.4 } }
@@ -305,7 +305,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_fish_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 		}
@@ -347,7 +347,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_saxaul1_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.15 } }
 		custom_cost_text = aral_saxaul1_cost_label
@@ -386,7 +386,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_saxaul2_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_saxaul1 has_country_flag = aral_saxaul1_done }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 		}
@@ -429,7 +429,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_uzb_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_ifas has_country_flag = aral_ifas_done }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.05 } }
@@ -463,7 +463,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_amanotkel_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_aklak has_country_flag = aral_aklak_done }
 			custom_trigger_tooltip = { tooltip = aral_req_irrigation has_country_flag = aral_irrigation_done }
 		}
@@ -506,7 +506,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_phase2_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_amanotkel has_country_flag = aral_amanotkel_done }
 			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 			custom_trigger_tooltip = { tooltip = aral_excl_phase2_tt NOT = { has_country_flag = aral_dam2_started } }
@@ -553,7 +553,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_dam2_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_amanotkel has_country_flag = aral_amanotkel_done }
 			custom_trigger_tooltip = { tooltip = aral_req_uzb has_country_flag = aral_uzb_done }
 			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
@@ -605,7 +605,7 @@ KAZ_aral_sea_category = {
 			NOT = { has_country_flag = aral_sib_pipe_done }
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_russia_tt country_exists = SOV }
 			custom_trigger_tooltip = { tooltip = aral_req_nostudy_tt NOT = { has_country_flag = aral_sib_study } }
 			custom_trigger_tooltip = { tooltip = aral_req_ifas has_country_flag = aral_ifas_done }
@@ -647,7 +647,7 @@ KAZ_aral_sea_category = {
 			has_country_flag = aral_sib_ok
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 			custom_trigger_tooltip = { tooltip = aral_excl_sib_canal_tt NOT = { has_country_flag = aral_sib_pipe_started } }
 		}
@@ -687,7 +687,7 @@ KAZ_aral_sea_category = {
 			has_country_flag = aral_sib_ok
 		}
 		available = {
-			custom_trigger_tooltip = { tooltip = aral_req_coast_tt controls_state = 717 }
+			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 			custom_trigger_tooltip = { tooltip = aral_excl_sib_pipe_tt NOT = { has_country_flag = aral_sib_canal_started } }
 		}
