@@ -1778,7 +1778,10 @@ def build_decision_audit(repo, countries, loc_index, all_focus, defined_events,
             })
         if has_custom_trigger and custom_text and decision["cost"] is not None:
             custom_cost_conflicts.append({"decision": decision_id, "path": decision["path"], "line": decision["line"]})
-        if has_custom_trigger:
+        # A trigger without custom_cost_text is not an explicit displayed price.
+        # Keep the trigger/text pairing warning, but don't infer a missing debit
+        # from an eligibility gate alone.
+        if has_custom_trigger and custom_text:
             effects = []
             effects.extend([x.value for x in direct_entries(block, "complete_effect") if isinstance(x.value, Block)])
             effects.extend([x.value for x in direct_entries(block, "remove_effect") if isinstance(x.value, Block)])

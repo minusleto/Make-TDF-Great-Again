@@ -1045,6 +1045,11 @@ KAZ_test_category = {
     visible = { always = yes }
     complete_effect = { set_country_flag = KAZ_purchase_started }
   }
+  KAZ_trigger_only_gate = {
+    custom_cost_trigger = { check_variable = { treasury > 5 } }
+    visible = { always = yes }
+    complete_effect = { set_country_flag = KAZ_trigger_only_started }
+  }
 }
 """, encoding="utf-8")
             loc = root / "mdredux" / "localisation" / "english" / "zz_extra_l_english.yml"
@@ -1052,6 +1057,7 @@ KAZ_test_category = {
  KAZ_test_category:0 "Test category"
  KAZ_command_power_gate:0 "Command power requirement"
  KAZ_treasury_purchase:0 "Treasury purchase"
+ KAZ_trigger_only_gate:0 "Trigger only gate"
  command_power_more_than_20:0 "£command_power §H20§!"
  cost_5_0:0 "£treasury 5.0"
 """, encoding="utf-8")
@@ -1069,6 +1075,10 @@ KAZ_test_category = {
                                  for item in report["custom_cost_without_debit"]))
             self.assertTrue(any(item["decision"] == "KAZ_treasury_purchase"
                                 for item in report["custom_cost_without_debit"]))
+            self.assertTrue(any(item["decision"] == "KAZ_trigger_only_gate"
+                                for item in report["custom_cost_pair_issues"]))
+            self.assertFalse(any(item["decision"] == "KAZ_trigger_only_gate"
+                                 for item in report["custom_cost_without_debit"]))
 
     def test_non_clickable_mission_always_no_is_separated_from_dead_decision(self):
         with tempfile.TemporaryDirectory() as temp:
