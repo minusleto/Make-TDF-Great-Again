@@ -2,10 +2,13 @@ name: TDF auditor validation
 
 on:
   push:
-    branches: [main]
+    branches: [main, aral-sea-mechanic]
     paths:
       - "mdredux/**"
       - "skills/tdf-country-content/**"
+      - "skills/aral-sea-mechanic/**"
+      - "skills/md-hoi4-country-content/scripts/mech_audit.py"
+      - "skills/md-hoi4-country-content/scripts/aral_model_sim.py"
       - "docs/research/external-dependencies.*"
       - ".github/workflows/tdf-audit-validation.yml"
   pull_request:
@@ -13,6 +16,9 @@ on:
     paths:
       - "mdredux/**"
       - "skills/tdf-country-content/**"
+      - "skills/aral-sea-mechanic/**"
+      - "skills/md-hoi4-country-content/scripts/mech_audit.py"
+      - "skills/md-hoi4-country-content/scripts/aral_model_sim.py"
       - "docs/research/external-dependencies.*"
       - ".github/workflows/tdf-audit-validation.yml"
   workflow_dispatch:
@@ -33,6 +39,25 @@ jobs:
           python-version: "3.12"
       - name: Run all auditor unit tests
         run: python -m unittest discover -s skills/tdf-country-content/tests -v
+
+  aral-mechanic-validation:
+    name: Aral Sea mechanic tests and audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run Aral mechanic unit tests
+        run: python -m unittest discover -s skills/aral-sea-mechanic/tests -v
+      - name: Check generated EN/RU custom-cost localisation
+        run: python -I skills/aral-sea-mechanic/scripts/generate_cost_localisation.py
+      - name: Audit Aral mechanic
+        run: python -I skills/md-hoi4-country-content/scripts/mech_audit.py mdredux --prefix aral
+      - name: Simulate Aral restoration paths
+        run: python -I skills/md-hoi4-country-content/scripts/aral_model_sim.py mdredux --runs 20
 
   full-audit:
     name: Full repository audit

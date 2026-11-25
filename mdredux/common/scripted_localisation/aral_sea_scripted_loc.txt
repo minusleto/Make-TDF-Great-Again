@@ -1,0 +1,35 @@
+defined_text = {
+	name = GetAralStatus
+	text = {
+		trigger = { check_variable = { aral_sea_restoration < -4 } }
+		localization_key = ARAL_STATUS_CRITICAL
+	}
+	text = {
+		trigger = { check_variable = { aral_sea_restoration > 39.99 } }
+		localization_key = ARAL_STATUS_RECOVERY
+	}
+	text = {
+		trigger = { check_variable = { aral_sea_restoration > 14.99 } }
+		localization_key = ARAL_STATUS_STABLE
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = ARAL_STATUS_DRYING
+	}
+}
+
+defined_text = {
+	name = GetAralTrend
+	text = {
+		trigger = { check_variable = { aral_monthly_change < -0.001 } }
+		localization_key = ARAL_TREND_DOWN
+	}
+	text = {
+		trigger = { check_variable = { aral_monthly_change > 0.001 } }
+		localization_key = ARAL_TREND_UP
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = ARAL_TREND_FLAT
+	}
+}

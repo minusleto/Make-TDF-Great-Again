@@ -244,6 +244,9 @@
 	set_variable = { var = population_tax_rate value = 9 }
 	set_variable = { var = int_investments value = 10 }
 
+	# Aral Sea mechanic: initialize its country and state modifiers at game start.
+	update_aral_sea = yes
+
 	set_popularities = {
 		democratic = 8
 		communism = 58.7

@@ -1,0 +1,6 @@
+spriteTypes = {
+	spriteType = { name = "GFX_terrain_aral_1" texturefile = "gfx/interface/terrain/aral_sea_1.dds" }
+	spriteType = { name = "GFX_terrain_aral_2" texturefile = "gfx/interface/terrain/aral_sea_2.dds" }
+	spriteType = { name = "GFX_terrain_aral_3" texturefile = "gfx/interface/terrain/aral_sea_3.dds" }
+	spriteType = { name = "GFX_terrain_aral_4" texturefile = "gfx/interface/terrain/aral_sea_4.dds" }
+}
