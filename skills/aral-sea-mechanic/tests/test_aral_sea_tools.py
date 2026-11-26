@@ -398,20 +398,20 @@ class MechanicAuditRegressionTests(unittest.TestCase):
         self.assertIn("icon = GFX_idea_generic_agrarian_reform", source)
         self.assertNotIn("GFX_destroyed_dam", source)
 
-    def test_native_pp_cost_does_not_need_to_be_repeated_in_treasury_label(self):
-        body = """
-cost = 25
-custom_cost_text = aral_test_cash
-"""
-        localisations = {
-            "en": {"aral_test_cash": "$0.05 bn"},
-            "ru": {"aral_test_cash": "0,05 млрд $"},
-        }
-        self.assertEqual(
-            audit.aral_pp_cost_label_issues("aral_test", body, localisations, ("en", "ru")),
-            [],
-        )
 
+    def test_native_pp_cost_is_separate_from_full_treasury_price(self):
+        decisions = {
+            "aral_test": """
+cost = 25
+custom_cost_text = cost_0_5
+complete_effect = {
+  set_temp_variable = { treasury_change = -0.5 }
+  modify_treasury_effect = yes
+}
+"""
+        }
+        self.assertEqual(audit.aral_decision_cost_issues(decisions), [])
+        self.assertEqual(audit.aral_treasury_cost_issues(decisions, {}), [])
     def test_pp_cost_uses_native_decision_cost_and_separates_treasury(self):
         decisions = {
             "aral_test": """

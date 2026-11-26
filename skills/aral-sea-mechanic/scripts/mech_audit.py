@@ -114,22 +114,6 @@ def implied_custom_cost_localisation_keys(decisions):
     return implied
 
 
-def aral_pp_cost_label_issues(decision, body, localisations, languages):
-    """The native decision UI displays cost = N; custom_cost_text displays treasury cash."""
-    if re.search(r"(?m)^\s*cost\s*=\s*[0-9]+", body):
-        return []
-    cost = re.search(r"(?m)^\s*cost\s*=\s*([0-9]+)", body)
-    label = re.search(r"custom_cost_text\s*=\s*(\S+)", body)
-    if not cost or not label:
-        return []
-    issues = []
-    for language in languages:
-        value = localisations.get(language, {}).get(label.group(1), "")
-        if not re.search(r"(?<!\d)" + cost.group(1) + r"(?!\d)", value):
-            issues.append(("decision " + decision, "political-power cost %s is charged but not shown in label %s (%s): '%s'" % (cost.group(1), label.group(1), language, value)))
-    return issues
-
-
 def aral_decision_cost_issues(decisions):
     """Check category gating and keep political power on the native decision cost."""
     issues = []
@@ -636,8 +620,6 @@ def main():
         if cost and cct:
             c = cost.group(1)
             # With native cost = N, the engine displays PP separately; the custom label is for treasury cash.
-            for area_name, message in aral_pp_cost_label_issues(n, b, loc, langs):
-                add("ERROR", area_name, message)
             for tk in re.findall(r"custom_effect_tooltip\s*=\s*(\S+_cost_tt)", cce):
                 for lg in langs:
                     if not re.search(r"(?<!\d)" + c + r"(?!\d)", loc[lg].get(tk, "")):
