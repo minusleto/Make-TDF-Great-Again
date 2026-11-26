@@ -120,7 +120,7 @@ The level readout states its deviation from the natural 40 m mark. The monthly l
 
 Copy only the repository's `mdredux/` folder into the `mdredux/` directory of the target TDF installation. Let Windows merge the folders; do not delete or replace the existing folder. The active files are Aral-specific and use their own filenames, including `common/on_actions/aral_sea_on_actions.txt`.
 
-No Kazakhstan history file is included or needs editing. On a new game, the standalone on_startup hook initializes the mechanic after country selection; the same file contains the ownership-gated monthly tick. Keep this file next to the target TDF files in common/on_actions/—do not replace existing on_actions files or manually merge their contents. The active mechanic uses existing KAZ focus IDs, so keep your installed Kazakhstan focus tree.
+No Kazakhstan history file is included or needs editing. On a new game, `on_startup` runs once in global scope after country selection, so the hook explicitly enters `KAZ` and calls `update_aral_sea` directly; KAZ owns state 717 at the new-game start, so there is no redundant startup ownership test. The monthly pulse uses `on_monthly_KAZ`, which runs only for Kazakhstan; `aral_monthly_tick` contains the separate legal-ownership check and pauses hydrology if KAZ later loses state 717. Keep this file next to the target TDF files in `common/on_actions/`—do not replace existing on_actions files or manually merge their contents. The active mechanic uses existing KAZ focus IDs, so keep your installed Kazakhstan focus tree.
 
 optional/aral_sea/ holds an obsolete six-focus prototype and a province-photo prototype; neither is copied into the game and neither is required by the active mechanic.
 

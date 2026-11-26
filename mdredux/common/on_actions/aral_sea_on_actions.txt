@@ -1,22 +1,16 @@
-# Initialize after country selection; no KAZ country-history edit is required.
-# Startup initialization and the monthly update run only while Kazakhstan owns state 717 (Kyzylorda).
+# New-game initialization has global scope, so explicitly enter KAZ.
+# The monthly pulse is KAZ-specific; the scripted tick handles the state-ownership gate.
 on_actions = {
 	on_startup = {
 		effect = {
 			KAZ = {
-				if = {
-					limit = { owns_state = 717 }
-					update_aral_sea = yes
-				}
+				update_aral_sea = yes
 			}
 		}
 	}
-	on_monthly = {
+	on_monthly_KAZ = {
 		effect = {
-			if = {
-				limit = { original_tag = KAZ owns_state = 717 }
-				aral_monthly_tick = yes
-			}
+			aral_monthly_tick = yes
 		}
 	}
 }

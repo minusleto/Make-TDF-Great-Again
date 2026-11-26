@@ -320,14 +320,18 @@ def aral_ownership_issues(decisions, effects, code_all):
         if re.search(r"\balways\s*=\s*yes\b", trigger_body):
             issues.append(("scripted trigger " + trigger, "must not be left permanently open"))
 
-    monthly = inner(code_all, "on_monthly")
-    if monthly is None or not re.search(r"original_tag\s*=\s*KAZ", monthly) or not re.search(r"owns_state\s*=\s*717", monthly):
-        issues.append(("on_actions", "on_monthly must call the Aral tick only for KAZ while it owns state 717"))
+    monthly = inner(code_all, "on_monthly_KAZ")
+    if monthly is None or not re.search(r"aral_monthly_tick\s*=\s*yes", monthly):
+        issues.append(("on_actions", "use on_monthly_KAZ to call aral_monthly_tick only for Kazakhstan"))
+    elif re.search(r"(?:original_tag|owns_state|controls_state)\s*=", monthly):
+        issues.append(("on_actions", "on_monthly_KAZ already scopes to KAZ; call aral_monthly_tick directly and keep the ownership gate inside that scripted effect"))
 
     startup = inner(code_all, "on_startup")
     kaz_startup = inner(startup, "KAZ") if startup is not None else None
-    if kaz_startup is None or not re.search(r"owns_state\s*=\s*717", kaz_startup) or not re.search(r"update_aral_sea\s*=\s*yes", kaz_startup):
-        issues.append(("on_actions", "on_startup must scope into KAZ and initialize Aral only while it owns state 717"))
+    if kaz_startup is None or not re.search(r"update_aral_sea\s*=\s*yes", kaz_startup):
+        issues.append(("on_actions", "on_startup must scope into KAZ and call update_aral_sea"))
+    elif re.search(r"owns_state\s*=\s*717", kaz_startup):
+        issues.append(("on_actions", "remove the redundant owns_state = 717 check from KAZ startup initialization"))
 
     update = effects.get("update_aral_sea", "")
     if not re.search(r"if\s*=\s*\{\s*limit\s*=\s*\{\s*owns_state\s*=\s*717\b", update):

@@ -64,6 +64,43 @@ class AralDecisionFormattingTests(unittest.TestCase):
         )
 
 
+    def test_on_actions_use_tag_specific_pulse_without_duplicate_gates(self):
+        decisions = {
+            "aral_ifas": """
+available = { aral_unlocked_program = yes controls_state = 717 }
+fire_only_once = yes
+"""
+        }
+        effects = {
+            "update_aral_sea": "if = { limit = { owns_state = 717 } update_aral = yes }",
+            "aral_state_update": STATE_UPDATE_SOURCE,
+            "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
+        }
+        code = """
+on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
+on_monthly_KAZ = { effect = { aral_monthly_tick = yes } }
+"""
+        code += FOCUS_TRIGGER_SOURCE
+        self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
+
+        redundant_startup = code.replace(
+            "KAZ = { update_aral_sea = yes }",
+            "KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } }",
+        )
+        issues = audit.aral_ownership_issues(decisions, effects, redundant_startup)
+        self.assertTrue(any("redundant owns_state" in message for _, message in issues))
+
+        generic_monthly = code.replace("on_monthly_KAZ", "on_monthly")
+        issues = audit.aral_ownership_issues(decisions, effects, generic_monthly)
+        self.assertTrue(any("on_monthly_KAZ" in message for _, message in issues))
+
+        duplicate_monthly_gate = code.replace(
+            "on_monthly_KAZ = { effect = { aral_monthly_tick = yes } }",
+            "on_monthly_KAZ = { effect = { if = { limit = { owns_state = 717 } aral_monthly_tick = yes } } }",
+        )
+        issues = audit.aral_ownership_issues(decisions, effects, duplicate_monthly_gate)
+        self.assertTrue(any("keep the ownership gate inside" in message for _, message in issues))
+
 class AralSimulatorTests(unittest.TestCase):
     def test_parser_does_not_require_kazakhstan_history_file(self):
         constants, decisions = simulator.parse(str(ROOT / "mdredux"))
@@ -448,10 +485,10 @@ fire_only_once = yes
         }
         code = """
 on_startup = {
-  effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } }
+  effect = { KAZ = { update_aral_sea = yes } }
 }
-on_monthly = {
-  effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } }
+on_monthly_KAZ = {
+  effect = { aral_monthly_tick = yes }
 }
 """
         code += FOCUS_TRIGGER_SOURCE
@@ -470,8 +507,8 @@ fire_only_once = yes
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
-on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
-on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
+on_monthly_KAZ = { effect = { aral_monthly_tick = yes } }
 """
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
@@ -499,8 +536,8 @@ complete_effect = { set_temp_variable = { treasury_change = -0.05 } modify_treas
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
-on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
-on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
+on_monthly_KAZ = { effect = { aral_monthly_tick = yes } }
 """
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
@@ -539,8 +576,8 @@ complete_effect = {
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
-on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
-on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
+on_monthly_KAZ = { effect = { aral_monthly_tick = yes } }
 """
         issues = audit.aral_ownership_issues(decisions, effects, code)
         code += FOCUS_TRIGGER_SOURCE
@@ -561,8 +598,8 @@ fire_only_once = yes
             "aral_monthly_tick": "if = { limit = { owns_state = 717 } aral_calc_drift = yes }",
         }
         code = """
-on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
-on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
+on_monthly_KAZ = { effect = { aral_monthly_tick = yes } }
 """
         code += FOCUS_TRIGGER_SOURCE
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
@@ -586,8 +623,8 @@ fire_only_once = yes
             "aral_monthly_tick": "aral_calc_drift = yes",
         }
         code = """
-on_startup = { effect = { KAZ = { if = { limit = { owns_state = 717 } update_aral_sea = yes } } } }
-on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 } aral_monthly_tick = yes } } }
+on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
+on_monthly_KAZ = { effect = { aral_monthly_tick = yes } }
 """
         code += FOCUS_TRIGGER_SOURCE
         issues = audit.aral_ownership_issues(decisions, effects, code)
@@ -610,7 +647,7 @@ available = {
         }
         code = """
 on_startup = { effect = { KAZ = { update_aral_sea = yes } } }
-on_monthly = { effect = { if = { limit = { original_tag = KAZ controls_state = 717 } aral_monthly_tick = yes } } }
+on_monthly_KAZ = { effect = { if = { limit = { controls_state = 717 } aral_monthly_tick = yes } } }
 remove_dynamic_modifier = { modifier = aral_state_modifier }
 """
         issues = audit.aral_ownership_issues(decisions, effects, code)
