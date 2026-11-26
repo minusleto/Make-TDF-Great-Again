@@ -323,7 +323,7 @@ option = {
 }
 """
         }
-        event_text = "add_namespace = aral_sea\\n"
+        event_text = "add_namespace = aral_sea"
         self.assertEqual(
             audit.aral_event_reference_issues(decisions, effects, events, event_text),
             [],
