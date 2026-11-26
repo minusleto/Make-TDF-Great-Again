@@ -2,7 +2,7 @@
 status: editorial-guidance
 updated: 2026-11-26
 scope: "Shared balance warnings, recurring implementation pitfalls and the final review checklist for TDF country-content changes."
-limits: "Editorial and balance heuristics, not engine limits or universal numeric caps; historical examples and the four-country MD medians require contextual review."
+limits: "Editorial and balance heuristics, not engine limits or universal numeric caps; historical examples and the four-country (POR, POL, SOV, SYR) medians require contextual review."
 ---
 
 # Баланс модификаторов и частые ошибки

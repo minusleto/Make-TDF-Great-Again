@@ -2,7 +2,7 @@
 status: historical-reference
 updated: 2026-11-24
 scope: "How country content is split across TDF files and how the available country systems connect."
-limits: "Detailed measurements are the 2026-10-30 ten-tree sample; the 2026-11-24 inventory is the current file-count source. The base Millennium Dawn mod is absent."
+limits: "Detailed measurements are the 2026-10-30 ten-tree sample; the 2026-11-24 inventory is the current file-count source. Target-build files outside this checkout are absent."
 ---
 
 # Как устроена страна в ТДФ

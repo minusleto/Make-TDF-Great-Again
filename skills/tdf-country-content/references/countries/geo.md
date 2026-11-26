@@ -26,6 +26,6 @@ limits: "Not exhaustive; historical claims and external dependencies require sep
 
 Возможные направления для исследования: транспортная связность и транзит, устойчивость государственных институтов, профессионализация армии и оборонная промышленность, энергетическая инфраструктура. **Это направления для поиска, не подтверждённо свободные темы**; сначала проверить весь контент страны.
 
-**Техническая оговорка:** `GEO_stc_delta_materiel_manufacturer` занесён в реестр внешних зависимостей со статусом `unknown`. Не объявлять его доказанно отсутствующим или подтверждённым внешним MIO без проверки целевой версии базового MD.
+**Техническая оговорка:** `GEO_stc_delta_materiel_manufacturer` занесён в реестр внешних зависимостей со статусом `unknown`. Не объявлять его доказанно отсутствующим или подтверждённым внешним MIO без проверки файла целевой сборки TDF.
 
 **Источники:** [Georgia_Focus_Tree.txt](https://github.com/minusleto/Make-TDF-Great-Again/blob/26a6d8ca1f21fdaabbe7ca1c9294401727c1c165/mdredux/common/national_focus/Georgia_Focus_Tree.txt), [external dependency registry](../../../../docs/research/external-dependencies.md).

@@ -66,8 +66,8 @@ Equipment ID и technology ID — разные пространства имён
 - `allow_without_tech` не следует ставить автоматически: проверяй, зачем вариант выдаётся до исследования базовой техники.
 - В `add_equipment_to_stockpile` проверяй `type`, положительное `amount`, `producer` и `variant_name`. `variant_name` — строковое имя варианта, а не обязательно ключ локализации.
 - В `create_equipment_variant` обычно используется строковое `name`; не требуй YML-ключ для буквального имени. Не смешивай эти имена с ID оборудования.
-- Технологическое ограничение нельзя надёжно вывести только из значения `type`: проверь research tree, связи unlock и `allow_without_tech`. Статический аудит показывает найденные локальные `enable_equipments`/`enable_equipment_modules` mappings для варианта, но отсутствие mapping в локальном срезе не доказывает отсутствие unlock в базовом MD/vanilla/DLC. Он не учитывает всю цепочку prerequisites, dynamic tech gates и фактическую доступность в UI.
-- Если equipment/module/technology ID не найден в этом срезе, помечай как кандидат на проверку вне репозитория. Не делай ERROR, если определение может быть в базовом MD, vanilla или DLC.
+- Технологическое ограничение нельзя надёжно вывести только из значения `type`: проверь research tree, связи unlock и `allow_without_tech`. Статический аудит показывает найденные локальные `enable_equipments`/`enable_equipment_modules` mappings для варианта, но отсутствие mapping в локальном срезе не доказывает отсутствие unlock во внешних файлах целевой сборки/vanilla/DLC. Он не учитывает всю цепочку prerequisites, dynamic tech gates и фактическую доступность в UI.
+- Если equipment/module/technology ID не найден в этом срезе, помечай как кандидат на проверку вне репозитория. Не делай ERROR, если определение может быть во внешних файлах целевой сборки, vanilla или DLC.
 
 ## 4. Откуда берётся производитель
 
@@ -115,4 +115,4 @@ python3 -I -m unittest discover -s skills/tdf-country-content/tests -v
 python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --json industry-audit.json
 ```
 
-Скрипт не запускает HOI4 и не проверяет runtime-поведение, цены, реальную доступность технологий, историческую правдоподобность или содержимое отсутствующего базового мода.
+Скрипт не запускает HOI4 и не проверяет runtime-поведение, цены, реальную доступность технологий, историческую правдоподобность или содержимое файлов вне среза.

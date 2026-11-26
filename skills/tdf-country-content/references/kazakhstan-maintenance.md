@@ -2,7 +2,7 @@
 status: country-specific-standard
 updated: 2026-11-25
 scope: "Additional maintenance agreements, technical notes and open checks for Kazakhstan (KAZ) only."
-limits: "Not a generic HOI4 or TDF rulebook; fact and code notes may become stale and must be checked against current files and base MD."
+limits: "Not a generic HOI4 or TDF rulebook; fact and code notes may become stale and must be checked against current files and the target build."
 ---
 
 # Kazakhstan maintenance (TDF repository)
@@ -19,7 +19,7 @@ limits: "Not a generic HOI4 or TDF rulebook; fact and code notes may become stal
 | Дипломатия, предложение, закупка | Фокус-инициатор, `mdredux/events/Kazakhstan.txt`, событие партнёра/ответ, используемые ideas, flags/variables и localization | `event-loc.md`, `state-flow.md`, реестр внешних зависимостей |
 | National spirit / idea | Определение в `mdredux/common/ideas/Kazakhstan_ideas.txt`, все add/remove callers, scripted localisation и ключи | `national-spirits.md`; nested-spirit skill только для составного hidden-idea hub |
 | Армия, MIO, техника | Связанный фокус, `mdredux/common/military_industrial_organization/organizations/MDC_KAZ_organizations.txt`, нужные equipment/module/technology definitions и localisation | `mio-and-equipment.md`, при необходимости `focus-design.md` |
-| Decision | Сначала найти существующую категорию, все KAZ callers и доступные общие/base-MD решения; в текущем inventory отдельного KAZ decision-файла нет, поэтому не создавать новый файл автоматически | `decision-design.md`, `state-flow.md` |
+| Decision | Сначала найти существующую категорию, все KAZ callers и доступные общие решения; в текущем inventory отдельного KAZ decision-файла нет, поэтому не создавать новый файл автоматически | `decision-design.md`, `state-flow.md` |
 | Только локализация | Найти все uses ключа и совпадения по всему набору English YML, а не только в одном файле | `file-formatting.md`, `focus-loc.md` или `event-loc.md` |
 | Flags, variables, arrays, scripted effects | Все места записи/чтения символа, history и вызываемые scripts | `state-flow.md` |
 
@@ -117,7 +117,7 @@ Focus map
 Критерии готовности:
 ~~~
 
-Карта должна включать не только новые IDs: проверить переиспользуемые KAZ и общие механики, которые уже дают тот же бонус или активируют ту же цепочку. Для каждой зависимости указать статус: локально подтверждена / подтверждена базовым MD или DLC / предположение / неизвестно. Неизвестное не маскировать примером из соседней страны.
+Карта должна включать не только новые IDs: проверить переиспользуемые KAZ и общие механики, которые уже дают тот же бонус или активируют ту же цепочку. Для каждой зависимости указать статус: локально подтверждена / подтверждена файлом целевой сборки или DLC / предположение / неизвестно. Неизвестное не маскировать примером из соседней страны.
 
 #### Этап E. Проверить механику и сценарии до написания блоков
 
@@ -186,17 +186,17 @@ git diff --check
 - KAZ: 0 focus `log_mismatch` — существующий формат логов является положительным примером; сохранять его.
 - KAZ: 57 локально не найденных focus description keys, 1 title key и 13 повторяющихся localisation keys — перед добавлением локализации искать uses и определения по всему набору YML.
 - KAZ: 27 event options без `log` — включать проверку option fields в краткий event checklist.
-- KAZ: 243 `nonstandard_filter` WARN связаны с токеном `economy` в `search_filters`. Не повышать это до ERROR и не заменять массово на `FOCUS_FILTER_*`: сначала проверить, как custom filter определяется в целевой UI/base MD, которой нет в локальном срезе.
+- KAZ: 243 `nonstandard_filter` WARN связаны с токеном `economy` в `search_filters`. Не повышать это до ERROR и не заменять массово на `FOCUS_FILTER_*`: сначала проверить, как custom filter определяется в целевой сборке TDF (UI), которой нет в локальном срезе.
 
 ## 1. Готовые заготовки для KAZ
 
-Эти блоки — стартовые шаблоны, а не готовые игровые решения. Перед копированием замени примерные ID, страну-партнёра, технологию, GFX, координаты и эффекты; затем проверь существование каждого ID в актуальном checkout и целевой базе MD. Не переносить целиком reward соседнего фокуса: сначала решить, какой scope должен получить эффект.
+Эти блоки — стартовые шаблоны, а не готовые игровые решения. Перед копированием замени примерные ID, страну-партнёра, технологию, GFX, координаты и эффекты; затем проверь существование каждого ID в актуальном checkout и целевой сборке TDF. Не переносить целиком reward соседнего фокуса: сначала решить, какой scope должен получить эффект.
 
 Общие шаблоны кода собраны в `code-patterns.md`, но это справочник паттернов, а не замена сверке с текущим KAZ-кодом и версией движка.
 
 ### 1.1. Новый focus
 
-Порядок полей соответствует действующему KAZ tree. В качестве примера фильтра использован фактически применяемый `FOCUS_FILTER_ARMY`; для экономики не подменять его на `economy` или другой токен без отдельной проверки UI/base MD.
+Порядок полей соответствует действующему KAZ tree. В качестве примера фильтра использован фактически применяемый `FOCUS_FILTER_ARMY`; для экономики не подменять его на `economy` или другой токен без отдельной проверки UI в целевой сборке.
 
 ~~~hoi4
 focus = {
@@ -386,7 +386,7 @@ KAZ_example_mio = {
 
 ### 1.6. Decisions
 
-Сейчас в локальном inventory нет отдельного KAZ decision-файла. Поэтому здесь намеренно нет copy-paste шаблона решения: сначала проверь, подходит ли существующая общая категория/base-MD decision и какие KAZ callers уже открывают действие. Если действительно требуется локальная категория или отдельный файл, сначала согласуй структуру и затем используй `decision-design.md`; не создавай `Kazakhstan.txt` автоматически.
+Сейчас в локальном inventory нет отдельного KAZ decision-файла. Поэтому здесь намеренно нет copy-paste шаблона решения: сначала проверь, подходит ли существующая общая категория или решение и какие KAZ callers уже открывают действие. Если действительно требуется локальная категория или отдельный файл, сначала согласуй структуру и затем используй `decision-design.md`; не создавай `Kazakhstan.txt` автоматически.
 
 ## 2. Структура дерева и формат
 
@@ -425,11 +425,11 @@ KAZ_example_mio = {
 Это датированные снимки предыдущих аудитов, а не автоматически актуальная спецификация. Открывать по теме задачи и перепроверять выводы по текущим файлам, brief и источникам:
 - [`2026-10-kazakhstan-tree-audit.md`](../../../docs/research/2026-10-kazakhstan-tree-audit.md) — общий аудит казахстанского дерева: оборонная промышленность, армия, флот, технический QA и исторические ориентиры.
 - [`2026-10-kazakhstan-navy-design-review.md`](../../../docs/research/2026-10-kazakhstan-navy-design-review.md) — отдельное ревью каспийской флотилии, дипломатических цепочек, духа-проблемы и открытых проектных решений.
-- [`2026-11-25-kazakhstan-history-regressions.md`](../../../docs/research/2026-11-25-kazakhstan-history-regressions.md) — ретроспектива повторных правок KAZ (2026-10-28—2026-11-24): техника и tech gates, event scope, renumbering, air branch, Alash/Nazarbayev spirits, MIO, localisation и file endings. Использовать как набор safeguards, а не как неизменяемую спецификацию движка. Повторно проверять вопросы, отмеченные в ревью: `two_state_dockyards` (эффект приведён по wiki, но отсутствует в деревьях репозитория); `folder = naval` для `add_daily_mastery` (наличие naval-папки у доктрин само по себе не доказывает поддержку scripted effect); внешний `mdc4.16` (его реализация вне репозитория); временную картинку событий `GFX_POL_mig_29_event #TODO`. Их статус мог измениться после даты заметки; сверять с текущим базовым модом и каталогом GFX.
+- [`2026-11-25-kazakhstan-history-regressions.md`](../../../docs/research/2026-11-25-kazakhstan-history-regressions.md) — ретроспектива повторных правок KAZ (2026-10-28—2026-11-24): техника и tech gates, event scope, renumbering, air branch, Alash/Nazarbayev spirits, MIO, localisation и file endings. Использовать как набор safeguards, а не как неизменяемую спецификацию движка. Повторно проверять вопросы, отмеченные в ревью: `two_state_dockyards` (эффект приведён по wiki, но отсутствует в деревьях репозитория); `folder = naval` для `add_daily_mastery` (наличие naval-папки у доктрин само по себе не доказывает поддержку scripted effect); внешний `mdc4.16` (его реализация вне репозитория); временную картинку событий `GFX_POL_mig_29_event #TODO`. Их статус мог измениться после даты заметки; сверять с текущей целевой сборкой TDF и каталогом GFX.
 
 ## 6. Известные технические вопросы
 
-- В репозитории встречаются `add_daily_mastery` с папками `air`, `land` и `elite_forces`; вариант с папкой `naval` в доступном срезе не найден. Перед использованием проверить текущий репозиторий и базовый мод.
+- В репозитории встречаются `add_daily_mastery` с папками `air`, `land` и `elite_forces`; вариант с папкой `naval` в доступном срезе не найден. Перед использованием проверить текущий репозиторий и целевую сборку TDF.
 - Изменения нескольких файлов одной задачи объединять в один коммит, когда это технически возможно. Для GitHub Git Data API можно подготовить все изменённые blobs, один tree и один commit; не создавать отдельный коммит на каждый файл.
 - После содержательной переработки KAZ обновить соответствующую заметку в `docs/research/` и перечислить неподтверждённое.
 

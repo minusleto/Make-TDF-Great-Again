@@ -1,6 +1,6 @@
 ---
 name: hoi4-nested-national-spirits
-description: 'Specialist guidance for HOI4/MD/TDF composite national-spirit hubs: multiple hidden idea components, staged progression and a shared tooltip. Use only to design or review this pattern, not ordinary standalone spirits or unrelated long tooltips.'
+description: 'Specialist guidance for HOI4/TDF composite national-spirit hubs: multiple hidden idea components, staged progression and a shared tooltip. Use only to design or review this pattern, not ordinary standalone spirits or unrelated long tooltips.'
 ---
 
 # Вложенные национальные духи HOI4
@@ -114,7 +114,7 @@ description: 'Specialist guidance for HOI4/MD/TDF composite national-spirit hubs
 - `political_power_gain` отображается через `$MODIFIER_POLITICAL_POWER_GAIN$`;
 - `local_resources_factor` отображается через `$MODIFIER_LOCAL_RESOURCES_FACTOR$`.
 
-Это примеры конкретных ключей, а не правило механически добавлять `MODIFIER_` ко всем эффектам. Для неизвестного модификатора сверять ключ с рабочими примерами других стран и общей локализацией HOI4/MD.
+Это примеры конкретных ключей, а не правило механически добавлять `MODIFIER_` ко всем эффектам. Для неизвестного модификатора сверять ключ с рабочими примерами других стран и общей локализацией HOI4 и целевой сборки TDF.
 
 ## 7. Чек-лист ревью
 
@@ -145,6 +145,6 @@ description: 'Specialist guidance for HOI4/MD/TDF composite national-spirit hubs
 
 ## 8. Ограничения
 
-Репозиторий TDF — только срез мода. Некоторые базовые идеи, общие scripted effects и локализационные ключи могут находиться вне него. Отсутствие ключа в текущем срезе не доказывает, что его нет в HOI4/MD.
+Репозиторий TDF — только срез мода. Некоторые базовые идеи, общие scripted effects и локализационные ключи могут находиться вне него. Отсутствие ключа в текущем срезе не доказывает, что его нет в целевой сборке TDF.
 
 Статическая проверка файлов подтверждает согласованность ссылок и структуры, но не заменяет запуск игры. Не заявлять, что tooltip визуально работает, пока он не проверен в игре.
