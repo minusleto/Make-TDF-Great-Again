@@ -777,5 +777,28 @@ remove_dynamic_modifier = { modifier = aral_state_modifier }
         self.assertGreaterEqual(len(issues), 4)
 
 
+
+class AralPictureStripTests(unittest.TestCase):
+    def _effect_blocks(self, source):
+        return audit.blocks(audit.strip_comments(source), 0)
+
+    def test_picture_strip_maps_all_seven_frames(self):
+        path = ROOT / "mdredux" / "common" / "scripted_effects" / "aral_sea_effects.txt"
+        source = path.read_text(encoding="utf-8-sig")
+        effects = self._effect_blocks(source)
+        self.assertEqual(audit.aral_picture_frame_issues(effects), [])
+
+    def test_missing_or_inverted_negative_frame_mapping_is_rejected(self):
+        path = ROOT / "mdredux" / "common" / "scripted_effects" / "aral_sea_effects.txt"
+        source = path.read_text(encoding="utf-8-sig")
+        broken = source.replace(
+            "aral_sea_restoration < -10.01",
+            "aral_sea_restoration > -10.01",
+            1,
+        )
+        findings = audit.aral_picture_frame_issues(self._effect_blocks(broken))
+        self.assertTrue(any("picture frame 2" in message for _, message in findings))
+
+
 if __name__ == "__main__":
     unittest.main()

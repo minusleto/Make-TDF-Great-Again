@@ -393,6 +393,36 @@ def aral_visibility_issues(decisions):
     return issues
 
 
+def aral_picture_frame_issues(effects):
+    """Require the seven-frame satellite strip to represent negative and positive sea levels."""
+    issues = []
+    body = effects.get("update_aral_sea", "")
+    if not re.search(r"set_variable\\s*=\\s*\\{\\s*aral_pic_frame\\s*=\\s*4\\s*\\}", body):
+        issues.append(("scripted effect update_aral_sea", "natural 40 m baseline must use picture frame 4"))
+    mappings = (
+        (3, r"aral_sea_restoration\\s*<\\s*-0\\.01"),
+        (2, r"aral_sea_restoration\\s*<\\s*-10\\.01"),
+        (1, r"aral_sea_restoration\\s*<\\s*-20\\.01"),
+        (5, r"aral_sea_restoration\\s*>\\s*9\\.99"),
+        (6, r"aral_sea_restoration\\s*>\\s*34\\.99"),
+        (7, r"aral_sea_restoration\\s*>\\s*54\\.99"),
+    )
+    for frame, threshold in mappings:
+        pattern = (
+            r"if\\s*=\\s*\\{\\s*limit\\s*=\\s*\\{\\s*check_variable\\s*=\\s*\\{\\s*"
+            + threshold
+            + r"\\s*\\}\\s*\\}\\s*set_variable\\s*=\\s*\\{\\s*aral_pic_frame\\s*=\\s*"
+            + str(frame)
+            + r"\\s*\\}\\s*\\}"
+        )
+        if not re.search(pattern, body):
+            issues.append((
+                "scripted effect update_aral_sea",
+                "sea-level picture frame %d is missing or has the wrong restoration threshold" % frame,
+            ))
+    return issues
+
+
 def aral_recurring_fee_localisation_issues(decisions, effects, localisations, languages):
     """Match the Siberian contract's displayed annual fees to its actual variable debits."""
     issues = []
@@ -629,6 +659,8 @@ def main():
         for area, msg in aral_treasury_cost_issues(decisions, events):
             add("ERROR", area, msg)
         for area, msg in aral_visibility_issues(decisions):
+            add("ERROR", area, msg)
+        for area, msg in aral_picture_frame_issues(effects):
             add("ERROR", area, msg)
         for area, msg in aral_recurring_fee_localisation_issues(decisions, effects, loc, langs):
             add("ERROR", area, msg)

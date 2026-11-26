@@ -65,6 +65,12 @@ Do not remove these conditions merely because another decision uses \`fire_only_
 - Do not remove aral_state_modifier on ownership change. If the state changes hands, its last calculated modifier values are meant to stay there. Recalculation resumes when KAZ owns the coast and the relevant state again passes its ownership check.
 - Set state variables before attaching the dynamic modifier; call force_update_dynamic_modifier = yes after the assignments so the changed values are refreshed immediately.
 
+### GUI water-level representation
+
+- The satellite picture strip has seven frames: frames 1-3 represent levels below the natural 40 m baseline, frame 4 is the baseline, and frames 5-7 represent recovery above it.
+- Keep the negative restoration thresholds mapped to frames 3, 2 and 1 at -0.01, -10.01 and -20.01 respectively; the more negative checks must follow the broader negative check so they override it.
+- Keep the positive thresholds mapped to frames 5, 6 and 7 at 9.99, 34.99 and 54.99. The current restoration range extends down to -30, so frames 1-3 must remain reachable; test the mapping alongside the bar's negative segments.
+
 ### Treasury and costs
 
 - Native cost = N is the Political Power requirement for a decision.

@@ -98,8 +98,11 @@ update_aral_sea = {
 	add_to_variable = { aral_potential = aral_pending }
 	clamp_variable = { var = aral_potential min = -30 max = aral_cap }
 
-	# picture strip frame (7 satellite pictures, 1 = emptiest ... 7 = fullest); the start is frame 4
+	# Picture strip: frames 1-3 show levels below the 40 m baseline; frame 4 is baseline, 5-7 are recovery.
 	set_variable = { aral_pic_frame = 4 }
+	if = { limit = { check_variable = { aral_sea_restoration < -0.01 } } set_variable = { aral_pic_frame = 3 } }
+	if = { limit = { check_variable = { aral_sea_restoration < -10.01 } } set_variable = { aral_pic_frame = 2 } }
+	if = { limit = { check_variable = { aral_sea_restoration < -20.01 } } set_variable = { aral_pic_frame = 1 } }
 	if = { limit = { check_variable = { aral_sea_restoration > 9.99 } } set_variable = { aral_pic_frame = 5 } }
 	if = { limit = { check_variable = { aral_sea_restoration > 34.99 } } set_variable = { aral_pic_frame = 6 } }
 	if = { limit = { check_variable = { aral_sea_restoration > 54.99 } } set_variable = { aral_pic_frame = 7 } }

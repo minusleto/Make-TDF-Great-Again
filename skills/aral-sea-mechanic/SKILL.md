@@ -37,7 +37,7 @@ Use docs/aral-sea/HOI4_SCRIPTING_REVIEW.md as the working checklist. Prove the s
 - Keep triggers inside trigger contexts (available, limit, event trigger) and effects inside effect contexts. Balanced braces or a successful text search do not prove that a command is legal in its current scope.
 - For Aral decisions, cost = N is Political Power; custom_cost_text = cost_X_Y is the shared displayed treasury price; the full cash debit is performed once by treasury_change and modify_treasury_effect. Do not add a treasury affordability gate or a second explicit debt transaction.
 
-The static audit also checks Aral event references, the KAZ-to-SOV sender-scope handoff, and that annual Siberian fees in both localisations match the fee variables actually charged. Static tests do not prove that HOI4 accepts every script token or renders the decision GUI correctly.
+The static audit also checks Aral event references, the KAZ-to-SOV sender-scope handoff, annual Siberian fees in both localisations against the fee variables actually charged, and all seven satellite picture-frame thresholds across negative and positive sea levels. Static tests do not prove that HOI4 accepts every script token or renders the decision GUI correctly.
 
 ## Mechanic model and invariants
 
