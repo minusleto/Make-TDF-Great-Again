@@ -812,6 +812,9 @@ class AgentInstructionConsistencyTests(unittest.TestCase):
         self.assertIn("Never use `owns_state = 717` as a decision-availability gate.", instructions)
         self.assertIn("on the 17 one-shot decisions", instructions)
         self.assertIn("Issue #12 is a historical design record", instructions)
+        self.assertIn("Do not add a KAZ country-history file just to initialize this mechanic", instructions)
+        self.assertIn("the global `on_startup` hook enters KAZ", instructions)
+        self.assertNotIn("plus the KAZ country-history file", instructions)
         self.assertNotIn(
             "All 17 Aral decisions require `owns_state = 717`",
             instructions,

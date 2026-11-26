@@ -3,7 +3,7 @@
 This branch intentionally contains only the Kazakhstan Aral Sea mechanic and its directly related maintenance material. It is a focused snapshot, not a complete TDF/MDC checkout.
 
 ## Scope
-- Keep gameplay content under `mdredux/**` limited to Aral-named files, plus the KAZ country-history file that contains the Aral startup integration call.
+- Keep gameplay content under `mdredux/**` limited to Aral-named files and their standalone `common/on_actions/` integration. Do not add a KAZ country-history file just to initialize this mechanic: the global `on_startup` hook enters KAZ and calls `update_aral_sea`.
 - Keep optional content only under `optional/aral_sea/**`.
 - Keep documentation only under `docs/aral-sea/**`.
 - Keep scripts and tests only under `skills/aral-sea-mechanic/**`.
