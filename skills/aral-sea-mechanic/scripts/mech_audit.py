@@ -375,6 +375,24 @@ def aral_ownership_issues(decisions, effects, code_all):
 
 
 
+
+def aral_visibility_issues(decisions):
+    """Do not duplicate fire_only_once with a decision's own completion flag in visible."""
+    issues = []
+    for decision, body in decisions.items():
+        one_shot = re.search(r"(?m)^\s*fire_only_once\s*=\s*yes\s*$", body)
+        if not one_shot:
+            continue
+        visible = inner(body, "visible") or ""
+        done_flag = decision + "_done"
+        if re.search(r"\bhas_country_flag\s*=\s*" + re.escape(done_flag) + r"\b", visible):
+            issues.append((
+                "decision " + decision,
+                "remove the redundant visible done-flag gate; fire_only_once = yes already prevents a second use",
+            ))
+    return issues
+
+
 def aral_recurring_fee_localisation_issues(decisions, effects, localisations, languages):
     """Match the Siberian contract's displayed annual fees to its actual variable debits."""
     issues = []
@@ -609,6 +627,8 @@ def main():
         add("WARN", area, "project-generated custom-cost suffix convention: " + msg)
     if P == "aral":
         for area, msg in aral_treasury_cost_issues(decisions, events):
+            add("ERROR", area, msg)
+        for area, msg in aral_visibility_issues(decisions):
             add("ERROR", area, msg)
         for area, msg in aral_recurring_fee_localisation_issues(decisions, effects, loc, langs):
             add("ERROR", area, msg)

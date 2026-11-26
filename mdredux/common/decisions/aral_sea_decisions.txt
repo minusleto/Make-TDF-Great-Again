@@ -4,9 +4,6 @@ KAZ_aral_sea_category = {
 	aral_ifas = {
 		icon = generic_political_discourse
 		cost = 25
-		visible = {
-			NOT = { has_country_flag = aral_ifas_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 			controls_state = 717
@@ -34,9 +31,6 @@ KAZ_aral_sea_category = {
 	aral_loan = {
 		icon = generic_political_discourse
 		cost = 40
-		visible = {
-			NOT = { has_country_flag = aral_loan_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 			controls_state = 717
@@ -71,7 +65,6 @@ KAZ_aral_sea_category = {
 	aral_dike = {
 		icon = generic_construction
 		visible = {
-			NOT = { has_country_flag = aral_dike_done }
 			NOT = { has_country_flag = aral_kokaral_done }
 		}
 		available = {
@@ -97,7 +90,6 @@ KAZ_aral_sea_category = {
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_dike done"
-			set_country_flag = aral_dike_done
 			if = {
 				limit = { NOT = { has_country_flag = aral_kokaral_done } }
 				add_to_variable = { aral_pending = 12 tooltip = aral_dike_gain_tt }
@@ -112,9 +104,6 @@ KAZ_aral_sea_category = {
 	#### channel   [unlock group: syrdarya]
 	aral_channel = {
 		icon = generic_construction
-		visible = {
-			NOT = { has_country_flag = aral_channel_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_syrdarya_tt aral_unlocked_syrdarya = yes }
 			controls_state = 717
@@ -153,9 +142,6 @@ KAZ_aral_sea_category = {
 	aral_kokaral = {
 		icon = generic_construction
 		cost = 60
-		visible = {
-			NOT = { has_country_flag = aral_kokaral_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_syrdarya_tt aral_unlocked_syrdarya = yes }
 			controls_state = 717
@@ -192,9 +178,6 @@ KAZ_aral_sea_category = {
 	#### aklak   [unlock group: syrdarya]
 	aral_aklak = {
 		icon = generic_construction
-		visible = {
-			NOT = { has_country_flag = aral_aklak_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_syrdarya_tt aral_unlocked_syrdarya = yes }
 			controls_state = 717
@@ -229,9 +212,6 @@ KAZ_aral_sea_category = {
 	#### irrigation   [unlock group: agri]
 	aral_irrigation = {
 		icon = generic_construction
-		visible = {
-			NOT = { has_country_flag = aral_irrigation_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_agri_tt aral_unlocked_agri = yes }
 			controls_state = 717
@@ -270,9 +250,6 @@ KAZ_aral_sea_category = {
 	#### fish   [unlock group: agri]
 	aral_fish = {
 		icon = generic_research
-		visible = {
-			NOT = { has_country_flag = aral_fish_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_agri_tt aral_unlocked_agri = yes }
 			controls_state = 717
@@ -298,7 +275,6 @@ KAZ_aral_sea_category = {
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_fish done"
-			set_country_flag = aral_fish_done
 			add_to_variable = { aral_relief = 4 tooltip = aral_fish_relief_tt }
 			custom_effect_tooltip = aral_fish_bonus_tt
 			aral_finish = yes
@@ -309,9 +285,6 @@ KAZ_aral_sea_category = {
 	#### saxaul1   [unlock group: program]
 	aral_saxaul1 = {
 		icon = generic_research
-		visible = {
-			NOT = { has_country_flag = aral_saxaul1_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 			controls_state = 717
@@ -345,9 +318,6 @@ KAZ_aral_sea_category = {
 	#### saxaul2   [unlock group: green]
 	aral_saxaul2 = {
 		icon = generic_research
-		visible = {
-			NOT = { has_country_flag = aral_saxaul2_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_green_tt aral_unlocked_green = yes }
 			controls_state = 717
@@ -373,7 +343,6 @@ KAZ_aral_sea_category = {
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_saxaul2 done"
-			set_country_flag = aral_saxaul2_done
 			add_to_variable = { aral_relief = 6 tooltip = aral_saxaul2_relief_tt }
 			aral_finish = yes
 		}
@@ -384,9 +353,6 @@ KAZ_aral_sea_category = {
 	aral_uzb = {
 		icon = generic_political_discourse
 		cost = 40
-		visible = {
-			NOT = { has_country_flag = aral_uzb_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_diplomacy_tt aral_unlocked_diplomacy = yes }
 			controls_state = 717
@@ -414,9 +380,6 @@ KAZ_aral_sea_category = {
 	#### amanotkel   [unlock group: phase2]
 	aral_amanotkel = {
 		icon = generic_construction
-		visible = {
-			NOT = { has_country_flag = aral_amanotkel_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_phase2_tt aral_unlocked_phase2 = yes }
 			controls_state = 717
@@ -453,9 +416,6 @@ KAZ_aral_sea_category = {
 	aral_phase2 = {
 		icon = generic_construction
 		cost = 60
-		visible = {
-			NOT = { has_country_flag = aral_phase2_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_phase2_tt aral_unlocked_phase2 = yes }
 			controls_state = 717
@@ -496,9 +456,6 @@ KAZ_aral_sea_category = {
 	aral_dam2 = {
 		icon = generic_construction
 		cost = 100
-		visible = {
-			NOT = { has_country_flag = aral_dam2_done }
-		}
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_phase2_tt aral_unlocked_phase2 = yes }
 			controls_state = 717
@@ -584,7 +541,6 @@ KAZ_aral_sea_category = {
 		icon = generic_construction
 		cost = 80
 		visible = {
-			NOT = { has_country_flag = aral_sib_canal_done }
 			has_country_flag = aral_sib_ok
 		}
 		available = {
@@ -620,7 +576,6 @@ KAZ_aral_sea_category = {
 		icon = generic_construction
 		cost = 80
 		visible = {
-			NOT = { has_country_flag = aral_sib_pipe_done }
 			has_country_flag = aral_sib_ok
 		}
 		available = {

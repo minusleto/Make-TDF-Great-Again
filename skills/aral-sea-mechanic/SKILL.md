@@ -104,6 +104,14 @@ The generic-cost checker verifies that each decision's `cost_X_Y` key matches th
 
 The static audit is not a substitute for testing in HOI4. Keep event PP conditions, decision PP costs, timer behaviour and actual GUI price display on the in-game checklist. Never claim that a cost label or event option rendered correctly until it has been checked in the target game.
 
+
+### Decision visibility and one-shot flags
+
+- \`fire_only_once = yes\` prevents an ordinary decision from being taken a second time after it has been completed. Do not duplicate that rule with \`visible = { NOT = { has_country_flag = <decision>_done } }\`.
+- Keep completion flags when another decision, event or scripted effect consumes them. Remove a completion flag entirely only when the only writer/reader was the redundant visibility gate.
+- Keep meaningful \`visible\` conditions: hiding the temporary dike once Kokaral is built, showing Siberian supply choices only after Russia approves the study, and showing regional recovery only during the crisis.
+- Repeatable decisions with \`days_re_enable\` use \`visible\` for terminal states/cooldown-chain restrictions; do not treat them as one-shot decisions.
+
 ## Decision source formatting
 
 - In a multiline `visible = {}` block, put the first condition on the immediately following line. Do not leave an empty line after the opening brace.

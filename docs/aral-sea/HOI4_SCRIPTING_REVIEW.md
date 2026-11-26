@@ -35,6 +35,19 @@ Do not use Millennium Dawn as a source of code, modifiers, effects or assumed me
 - In a country_event, ROOT is the recipient. When an event is fired through an effect, the firing effect's ROOT becomes event FROM. This is why the Russia decision path must be traced from the SOV scope to event option a.
 - controls_state = 717 asks whether KAZ controls Kyzylorda. owns_state = 717 asks about legal ownership from country scope; is_owned_by = KAZ is the state-scope ownership check. They answer different questions.
 
+
+## Decision visibility: do not duplicate one-shot behaviour
+
+For ordinary country decisions, \`fire_only_once = yes\` is the engine-level one-use rule. A \`visible\` condition that checks only \`NOT = { has_country_flag = <decision>_done }\` repeats the same restriction and should be removed. Keep the completion flag itself when another project, event or hydrology effect reads it; remove the flag entirely only when it has no other consumer.
+
+Meaningful visibility restrictions stay:
+- \`aral_dike\`: hide the temporary dike after the permanent Kokaral dam is completed.
+- \`aral_sib_canal\` and \`aral_sib_pipe\`: show the mutually exclusive supply choices only after Russia's study result approves the project.
+- \`aral_regional_response\`: show the recovery action only while the regional crisis is active.
+- \`aral_sibaral\`: it is repeatable with a cooldown, so terminal outcomes and an approved study can hide further requests.
+
+Do not remove these conditions merely because another decision uses \`fire_only_once\`; they encode separate state/availability rules.
+
 ## Mechanic contracts
 
 ### Decisions and project timers

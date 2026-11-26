@@ -337,6 +337,53 @@ option = {
         self.assertTrue(any("FROM scope" in message for _, message in findings))
 
 
+
+class OneShotDecisionVisibilityTests(unittest.TestCase):
+    def test_fire_only_once_makes_its_own_done_flag_visibility_gate_redundant(self):
+        decisions = {
+            "aral_ifas": """
+fire_only_once = yes
+visible = { NOT = { has_country_flag = aral_ifas_done } }
+available = { controls_state = 717 }
+"""
+        }
+        findings = audit.aral_visibility_issues(decisions)
+        self.assertTrue(any("redundant visible done-flag gate" in message for _, message in findings))
+
+    def test_repeatable_or_state_gated_decisions_keep_meaningful_visibility(self):
+        decisions = {
+            "aral_sibaral": """
+days_re_enable = 365
+visible = {
+    NOT = { has_country_flag = aral_sib_dead }
+    NOT = { has_country_flag = aral_sib_ok }
+}
+""",
+            "aral_dike": """
+fire_only_once = yes
+visible = { NOT = { has_country_flag = aral_kokaral_done } }
+""",
+            "aral_sib_canal": """
+fire_only_once = yes
+visible = { has_country_flag = aral_sib_ok }
+""",
+        }
+        for decision, body in decisions.items():
+            with self.subTest(decision=decision):
+                self.assertEqual(audit.aral_visibility_issues({decision: body}), [])
+
+    def test_actual_one_shot_decisions_have_no_own_done_flag_in_visible(self):
+        source = (
+            ROOT / "mdredux" / "common" / "decisions" / "aral_sea_decisions.txt"
+        ).read_text(encoding="utf-8-sig")
+        parsed = {}
+        for category_body in audit.blocks(audit.strip_comments(source), 0).values():
+            parsed.update(audit.blocks(category_body, 0))
+        self.assertEqual(audit.aral_visibility_issues(parsed), [])
+        for flag in ("aral_dike_done", "aral_fish_done", "aral_saxaul2_done"):
+            self.assertNotIn(flag, source)
+
+
 class MechanicAuditRegressionTests(unittest.TestCase):
     def test_aral_help_uses_existing_vanilla_help_sprite(self):
         gui = (ROOT / "mdredux" / "interface" / "aral_sea.gui").read_text(encoding="utf-8")
