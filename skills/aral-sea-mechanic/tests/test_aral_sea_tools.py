@@ -810,7 +810,7 @@ class AgentInstructionConsistencyTests(unittest.TestCase):
         )
         self.assertIn("`controls_state = 717` in `available`", instructions)
         self.assertIn("Never use `owns_state = 717` as a decision-availability gate.", instructions)
-        self.assertIn("The 17 one-shot decisions", instructions)
+        self.assertIn("on the 17 one-shot decisions", instructions)
         self.assertIn("Issue #12 is a historical design record", instructions)
         self.assertNotIn(
             "All 17 Aral decisions require `owns_state = 717`",
