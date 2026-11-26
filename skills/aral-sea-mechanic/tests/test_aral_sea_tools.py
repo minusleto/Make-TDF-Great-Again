@@ -57,7 +57,7 @@ class AralSimulatorTests(unittest.TestCase):
         self.assertTrue(decisions)
 
     def test_parser_reads_state_scoped_penalties_and_regional_event_chain(self):
-        constants, _ = simulator.parse(str(ROOT / "mdredux"))
+        constants, projects = simulator.parse(str(ROOT / "mdredux"))
         self.assertEqual(constants["state_weights"], [
             (717, 1.0), (1224, 0.5), (1231, 0.5),
             (1226, 0.5), (1230, 0.25), (718, 0.25),
@@ -71,10 +71,26 @@ class AralSimulatorTests(unittest.TestCase):
         self.assertEqual(constants["regional_warning_delay"], 14)
         self.assertEqual(constants["regional_neglect_days"], 730)
         self.assertEqual(constants["regional_followup_days"], 540)
-        self.assertAlmostEqual(constants["regional_monitor_cost"], 0.05)
+        self.assertAlmostEqual(constants["regional_monitor_cost"], 0.5)
         self.assertEqual(constants["regional_monitor_pp"], 25)
-        self.assertAlmostEqual(constants["regional_response_cost"], 0.10)
+        self.assertAlmostEqual(constants["regional_response_cost"], 1.0)
         self.assertEqual(constants["regional_response_pp"], 50)
+        self.assertAlmostEqual(constants["regional_recovery_cost"], 1.5)
+        self.assertAlmostEqual(constants["sib"]["canal"]["fee"], 0.6)
+        self.assertAlmostEqual(constants["sib"]["pipe"]["fee"], 0.4)
+        self.assertAlmostEqual(constants["sib"]["fee_cap"], 1.500015)
+        expected_money = {
+            "ifas": (0.5, 0.0), "loan": (0.5, 0.0), "dike": (0.5, 0.0),
+            "channel": (0.5, 1.0), "kokaral": (1.5, 3.0), "aklak": (0.5, 0.5),
+            "irrigation": (4.0, 4.0), "fish": (1.0, 0.0), "saxaul1": (1.5, 0.0),
+            "saxaul2": (4.0, 4.0), "uzb": (0.5, 0.0), "amanotkel": (4.0, 4.0),
+            "phase2": (3.0, 7.0), "dam2": (7.5, 17.5), "sibaral": (0.5, 0.0),
+            "sib_canal": (7.5, 32.5), "sib_pipe": (10.0, 40.0), "regional_response": (1.5, 0.0),
+        }
+        for decision, (treasury, debt) in expected_money.items():
+            with self.subTest(decision=decision):
+                self.assertAlmostEqual(projects[decision]["tre"], treasury)
+                self.assertAlmostEqual(projects[decision]["debt"], debt)
         self.assertEqual(constants["regional_spirits"]["neglect"], {
             "stability_factor": -0.02, "political_power_factor": -0.03,
         })
@@ -162,14 +178,14 @@ class SiberianPriceReviewTests(unittest.TestCase):
 option = {
     name = aral_sea.9.a
     trigger = {
-        check_variable = { aral_sib_fee > -0.10001 }
+        check_variable = { aral_sib_fee > -1.00001 }
     }
     multiply_variable = { aral_sib_fee = 1.5 }
 }
 """
         current_fee_limit = simulator.parse_siberian_fee_current_limit(event)
-        self.assertAlmostEqual(current_fee_limit, 0.10001)
-        self.assertAlmostEqual(current_fee_limit * 1.5, 0.150015)
+        self.assertAlmostEqual(current_fee_limit, 1.00001)
+        self.assertAlmostEqual(current_fee_limit * 1.5, 1.500015)
 
     def test_missing_price_acceptance_gate_fails_clearly(self):
         with self.assertRaisesRegex(ValueError, "price-acceptance limit missing"):
@@ -312,7 +328,7 @@ option = {
 visible = { has_country_flag = aral_regional_crisis }
 available = { custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 } }
 cost = 60
-complete_effect = { set_temp_variable = { treasury_change = -0.15 } modify_treasury_effect = yes }
+complete_effect = { set_temp_variable = { treasury_change = -1.5 } modify_treasury_effect = yes }
 remove_effect = {
     remove_dynamic_modifier = { modifier = aral_regional_crisis_modifier }
     clr_country_flag = aral_regional_crisis

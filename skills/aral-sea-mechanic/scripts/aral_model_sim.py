@@ -143,6 +143,7 @@ def parse(root, treasury0=0.245):
         d["clrdike"] = "clr_country_flag = aral_dike" in rm
         d["pending"] = sum(fl(x) for x in re.findall(r"aral_pending = ([\d.]+) tooltip", rm))
         D[n] = d
+    C["regional_recovery_cost"] = D["regional_response"]["tre"]
     return C, D
 
 
@@ -355,6 +356,9 @@ def main():
         C["regional_monitor_cost"], C["regional_monitor_pp"], C["regional_neglect_days"], n["stability_factor"] * 100, n["political_power_factor"] * 100, C["regional_followup_days"]))
     print("second response: %.2f bn + %d PP; continued inaction: permanent spirit (stability %+.1f%%, PP gain %+.1f%%)" % (
         C["regional_response_cost"], C["regional_response_pp"], c["stability_factor"] * 100, c["political_power_factor"] * 100))
+    recovery = D["regional_response"]
+    print("final recovery decision: %.2f bn + %d PP over %d days" % (C["regional_recovery_cost"], recovery["pp"], recovery["days"]))
+    print("annual Siberian water fees: canal %.2f bn / pipe %.2f bn; accepted price-review ceiling %.3f bn" % (C["sib"]["canal"]["fee"], C["sib"]["pipe"]["fee"], C["sib"]["fee_cap"]))
     print("\n# Projects (parsed)")
     print("%-11s %5s %4s %5s %5s %6s %6s  needs / gate / excl" % ("decision", "days", "PP", "tre", "debt", "water", "relief"))
     for n, d in D.items():

@@ -203,8 +203,8 @@ def aral_regional_crisis_issues(events, decisions, effects):
         issues.append(("decision aral_regional_response", "recovery decision must appear only during the permanent crisis"))
     if not re.search(r"owns_state\s*=\s*717", available):
         issues.append(("decision aral_regional_response", "recovery decision must require Kazakhstan to own state 717"))
-    if not re.search(r"treasury_change\s*=\s*-0\.15", complete) or "modify_treasury_effect" not in complete or not re.search(r"cost\s*=\s*60", recovery):
-        issues.append(("decision aral_regional_response", "recovery decision must charge 0.15 bn and 60 PP"))
+    if not re.search(r"treasury_change\s*=\s*-1\.5", complete) or "modify_treasury_effect" not in complete or not re.search(r"cost\s*=\s*60", recovery):
+        issues.append(("decision aral_regional_response", "recovery decision must charge 1.5 bn and 60 PP"))
     if not re.search(r"remove_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_regional_crisis_modifier\s*\}", remove):
         issues.append(("decision aral_regional_response", "completed recovery decision must remove the permanent crisis spirit"))
     if not re.search(r"clr_country_flag\s*=\s*aral_regional_crisis", remove):
