@@ -2498,6 +2498,16 @@ class SkillNavigationTests(unittest.TestCase):
                 offenders.append(str(path.relative_to(self.REPO)))
         self.assertEqual(offenders, [], "Active docs still reference the removed generic skill")
 
+    def test_skill_docs_do_not_treat_another_mod_as_a_source(self):
+        """TDF / MDC is standalone: only TDF files or user-provided target-build files confirm anything."""
+        pattern = re.compile(r"base[- ]MD|pinned base|базов\w* ?(MD|мод)|Millennium Dawn")
+        offenders = []
+        for path in self._skill_md_files() + [self.REPO / "AGENTS.md"]:
+            for number, line in enumerate(path.read_text(encoding="utf-8").split("\n"), 1):
+                if pattern.search(line):
+                    offenders.append("{}:{}".format(path.relative_to(self.REPO), number))
+        self.assertEqual(offenders, [], "Docs name another mod as a source of truth")
+
     def test_skill_docs_have_single_h1_and_front_matter(self):
         problems = []
         for path in self._skill_md_files():

@@ -76,7 +76,7 @@ limits: "Country counts are historical; static checks do not prove runtime visib
 
 ### Примеры из текущего среза
 
-- **GEO:** GEO_army_idea использует custom_modifier_tooltip = GEO_army_tt (Georgian_ideas.txt:579). Ключ GEO_army_tt (MD_focus_GEO_l_english.yml:1021) содержит [GEO_paramilitary_legacy_loc], [GEO_fragmented_command_loc] и другие квадратные ссылки. Компоненты в YML определены с суффиксами loc1, loc2 и т. п., но соответствующие GEO defined_text не найдены в 10 локальных scripted-localisation файлах. Это сильный кандидат на неработающий tooltip: квадратные ссылки не являются статическим включением, а custom_modifier_tooltip не поддерживает scripted localisation. Перед правкой всё равно проверить полный базовый MD и отображение в игре.
+- **GEO:** GEO_army_idea использует custom_modifier_tooltip = GEO_army_tt (Georgian_ideas.txt:579). Ключ GEO_army_tt (MD_focus_GEO_l_english.yml:1021) содержит [GEO_paramilitary_legacy_loc], [GEO_fragmented_command_loc] и другие квадратные ссылки. Компоненты в YML определены с суффиксами loc1, loc2 и т. п., но соответствующие GEO defined_text не найдены в 10 локальных scripted-localisation файлах. Это сильный кандидат на неработающий tooltip: квадратные ссылки не являются статическим включением, а custom_modifier_tooltip не поддерживает scripted localisation. Перед правкой всё равно проверить полную целевую сборку TDF и отображение в игре.
 - **SYR:** SYR_economy_tt (MD_focus_SYR_l_english.yml:2194) также содержит [SYR_pound_loc], [syrian_banking_problem_loc], [SYR_dse_loc], [SYR_pharmacy_loc] и другие scripted-localisation вызовы. Однако потребитель не найден в Syria_Focus_Tree.txt или Syrian_ideas.txt; до определения контекста вызова это не баг. Если он выводится в обычном focus/decision/event tooltip, квадратные вызовы могут быть корректны. Проверить полный набор вызовов и defined_text в доступной базе.
 
 ## 4. Дух-хаб: как собран `POR_portuguese_economy_idea`
@@ -116,7 +116,7 @@ POR_brain_drain_loc1: "\n§gBRAIN DRAIN§!: \n$MODIFIER_GLOBAL_MONTHLY_POPULATIO
 - **swap_ideas:** проверять старую и новую ступени внутри одного блока: удаляется именно предшественник, добавляется следующая ступень; старая не остаётся стакаться с новой и не снимается посторонняя идея.
 - **Статическая карта ступеней:** аудитор связывает идеи через `name = <базовая идея>`, собирает найденные `swap_ideas` между идеями одной семьи и выдаёт WARN-кандидат, когда ступень выдана через `add_idea(s)` без найденной пары `swap_ideas`. Это подсказка для ревью, не доказательство стакания: снятие может выполняться отдельным эффектом, scripted effect или внешним модулем; карта не устанавливает хронологический порядок, взаимную исключительность и runtime-результат.
 - **add_timed_idea:** сверять поле idea, длительность, эффект по истечении времени и взаимодействие с постоянной ступенью/cancel.
-- **Источники выдачи/снятия:** искать в focus, event, decision, scripted effect и доступной country history. Если base MD/history отсутствует, отсутствие локального add_ideas — только кандидат на проверку, а не доказательство неиспользуемой идеи.
+- **Источники выдачи/снятия:** искать в focus, event, decision, scripted effect и доступной country history. Если history или внешние файлы целевой сборки отсутствуют, отсутствие локального add_ideas — только кандидат на проверку, а не доказательство неиспользуемой идеи.
 - **Tooltip:** текст, цифры и цвета должны соответствовать именно активной ступени. Не показывать бонус следующей стадии заранее и не оставлять эффекты снятого компонента в сводке.
 
 on_add без on_remove сам по себе не является автоматической ошибкой: однонаправленный эффект может быть намеренным. Нужно проверить дальнейшее состояние и причины, по которым идея может сниматься.
@@ -153,4 +153,4 @@ on_add без on_remove сам по себе не является автома�
 - [ ] Для режимных духов задан `cancel`; для переживающих гражданскую войну - `allowed_civil_war`.
 - [ ] Скрытый компонент действительно показан игроку через поддерживаемый tooltip-контекст: статическая композиция $KEY$ или defined_text там, где scripted localisation поддерживается. Не предполагать, что custom_modifier_tooltip поддерживает [NAME].
 - [ ] Префикс страны правильный (`POL_` в словацких фокусах - баг).
-- [ ] Проверены источники grant/remove/swap/timed-idea; если локальная выдача не найдена, проверены history и зависимости базового MD до вывода, что дух не используется.
+- [ ] Проверены источники grant/remove/swap/timed-idea; если локальная выдача не найдена, проверены history и внешние зависимости (`docs/research/external-dependencies.md`) до вывода, что дух не используется.

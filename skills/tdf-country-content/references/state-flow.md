@@ -2,7 +2,7 @@
 status: project-reference
 updated: 2026-11-25
 scope: "Static cross-file analysis of flags, variables, arrays, scripted effects/triggers, on_actions, history and direct decision/event links."
-limits: "Evidence candidates only; cannot resolve dynamic scopes, indirect calls, execution order or missing base-MD content and does not simulate HOI4 runtime."
+limits: "Evidence candidates only; cannot resolve dynamic scopes, indirect calls, execution order or missing target-build content and does not simulate HOI4 runtime."
 ---
 
 # Межфайловые связи и жизненный цикл состояния
@@ -24,7 +24,7 @@ limits: "Evidence candidates only; cannot resolve dynamic scopes, indirect calls
 
 Учитываются чтения has_country_flag, has_global_flag, has_state_flag, has_province_flag и записи/снятия соответствующих set_*_flag / clr_*_flag, а также timed flag setters.
 
-Для tag-prefixed IDs аудитор показывает записи без локального читателя и чтения без локального writer, с файлами, строками, командами и типами источника. Это WARN-кандидаты: флаг может читаться или устанавливаться базовым Millennium Dawn, другим модулем, DLC, on_action или скриптом вне checkout. Отсутствие пары в локальном срезе само по себе не доказывает баг.
+Для tag-prefixed IDs аудитор показывает записи без локального читателя и чтения без локального writer, с файлами, строками, командами и типами источника. Это WARN-кандидаты: флаг может читаться или устанавливаться файлами целевой сборки вне среза, другим модулем TDF, DLC, on_action или скриптом вне checkout. Отсутствие пары в локальном срезе само по себе не доказывает баг.
 
 ## Variables и arrays
 
@@ -38,10 +38,10 @@ limits: "Evidence candidates only; cannot resolve dynamic scopes, indirect calls
 
 - Definitions индексируются по всем локальным скриптовым файлам .txt и без расширения в соответствующих папках.
 - Вызовы существующих definitions находятся по точному имени; дубликаты definitions показываются отдельно.
-- Definitions без локального вызова и tag-prefixed TAG_custom_call = yes/no, для которых нет локального определения, являются кандидатами. Вызов может происходить в базовом MD или через отсутствующий скрипт.
+- Definitions без локального вызова и tag-prefixed TAG_custom_call = yes/no, для которых нет локального определения, являются кандидатами. Вызов может происходить во внешнем файле целевой сборки или через отсутствующий скрипт.
 - on_actions индексируются как hooks; отсутствие каталога отражается boolean-флагом.
 
-Неизвестный prefixed call не превращается в ERROR. Перед исправлением сверить базовый MD и формат вызова.
+Неизвестный prefixed call не превращается в ERROR. Перед исправлением запросить у пользователя файл целевой сборки, где ожидается определение, и сверить формат вызова.
 
 ## Lifecycle ideas
 
@@ -49,7 +49,7 @@ on_add / on_remove просматриваются на записи flags, varia
 
 ## Scope и ограничения
 
-В JSON сохраняются количества и частоты ROOT, FROM, PREV, THIS. Само наличие scope marker не доказывает, что команда выполняется в правильном scope. Auditor не разрешает target-scope chains, не симулирует runtime, не может доказать вызов из отсутствующего base MD и строит candidate links для прямых записей и положительных gates decision/event, но не доказывает причинно-следственную связь и корректность scope.
+В JSON сохраняются количества и частоты ROOT, FROM, PREV, THIS. Само наличие scope marker не доказывает, что команда выполняется в правильном scope. Auditor не разрешает target-scope chains, не симулирует runtime, не может доказать вызов из отсутствующих внешних файлов целевой сборки и строит candidate links для прямых записей и положительных gates decision/event, но не доказывает причинно-следственную связь и корректность scope.
 
 Все массивы вида potentially_*, *_without_writer, *_without_local_call, unresolved_* и idea_on_add_without_matching_on_remove читать как WARN / review candidates, а не автоматические ошибки.
 
@@ -75,7 +75,7 @@ python3 -I -m unittest discover -s skills/tdf-country-content/tests -v
 
 Flag links сопоставляют точный ID и отдельно отмечают совместимость setter/getter scope (country/global/state/province). Timed flag setters сравниваются с соответствующим обычным getter scope. Idea links связывают `add_ideas`, `add_idea` и `add_timed_idea` с `has_idea` / `has_ideas`. Проверки внутри `NOT` и `NOR` не трактуются как положительное условие разблокировки. Совпадения внутри того же event ID исключаются, чтобы не считать внутренний цикл межобъектной связью.
 
-Это evidence-кандидаты, а не доказательство корректной цепочки: статический анализ не подтверждает порядок выполнения, совпадение фактического country scope/получателя, отсутствие снятия флага/духа между объектами или влияние scripted effects, которых нет в прямом блоке. Он также не разрешает динамические ID и scope chains, а базовый MD в checkout отсутствует. Поэтому результаты не повышают уровень ERROR и требуют ручной проверки.
+Это evidence-кандидаты, а не доказательство корректной цепочки: статический анализ не подтверждает порядок выполнения, совпадение фактического country scope/получателя, отсутствие снятия флага/духа между объектами или влияние scripted effects, которых нет в прямом блоке. Он также не разрешает динамические ID и scope chains, а внешние файлы целевой сборки в checkout отсутствуют. Поэтому результаты не повышают уровень ERROR и требуют ручной проверки.
 
 ## Связность целых веток — JSON _branch_connectivity
 
@@ -89,9 +89,9 @@ Flag links сопоставляют точный ID и отдельно отме
 - focus → MIO и MIO → focus из visible;
 - прямые event/decision state handoffs, найденные state-flow анализом.
 
-focus_idea_gate_paths — review candidate, если локально определённая идея используется как gate, но среди prerequisite ancestors и событий, вызванных ими, не найден локальный grant. Возможны стартовая выдача через history, decision, on_action, scripted effect или базовый MD; отчёт перечисляет известные локальные writers и не считает отсутствие доказательства доказательством ошибки.
+focus_idea_gate_paths — review candidate, если локально определённая идея используется как gate, но среди prerequisite ancestors и событий, вызванных ими, не найден локальный grant. Возможны стартовая выдача через history, decision, on_action, scripted effect или внешний файл целевой сборки; отчёт перечисляет известные локальные writers и не считает отсутствие доказательства доказательством ошибки.
 
 unresolved_local_event_calls, external_event_calls, tooltip_script_resolution, unreachable_triggered_events и ссылки MIO показываются как отдельные типы кандидатов. Внешние namespace не превращаются в локальный missing ID. Ни один новый candidate не повышает exit code: существующие точные ERROR/WARN правила остаются источником статуса. В JSON данные расположены в _branch_connectivity, краткая статистика выводится при запуске, подробные кандидаты — через --details TAG.
 
-**Ограничения:** prerequisite ancestry — консервативное объединение ID, а не полная симуляция AND/OR, войны, DLC, динамических scope, вероятностей AI или порядка исполнения. Наличие локального пути доказывает только статическую связь вызовов, не успешное выполнение эффекта в игре. Отсутствие локального writer может означать базовый MD/историю/скрипт, которого нет в checkout. Для idea lifecycle локальная выдача лишь подтверждает статическую возможность включения on_add/on_remove в локальную цепочку; она не подтверждает фактическую дату выдачи, снятие духа или выполнение в runtime. Использовать граф для навигации и ручного ревью, не для автоматического вывода о runtime-reachability.
+**Ограничения:** prerequisite ancestry — консервативное объединение ID, а не полная симуляция AND/OR, войны, DLC, динамических scope, вероятностей AI или порядка исполнения. Наличие локального пути доказывает только статическую связь вызовов, не успешное выполнение эффекта в игре. Отсутствие локального writer может означать внешний файл целевой сборки/историю/скрипт, которого нет в checkout. Для idea lifecycle локальная выдача лишь подтверждает статическую возможность включения on_add/on_remove в локальную цепочку; она не подтверждает фактическую дату выдачи, снятие духа или выполнение в runtime. Использовать граф для навигации и ручного ревью, не для автоматического вывода о runtime-reachability.
 
