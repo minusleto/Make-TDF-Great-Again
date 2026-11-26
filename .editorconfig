@@ -1,0 +1,30 @@
+root = true
+
+[*]
+charset = utf-8
+insert_final_newline = true
+
+# Инструменты, документация и конфиги: LF.
+[*.{py,json,toml,yml,yaml}]
+end_of_line = lf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+[.github/**.{yml,yaml}]
+indent_size = 2
+
+# В Markdown два пробела в конце строки значимы (перенос строки).
+[*.md]
+end_of_line = lf
+trim_trailing_whitespace = false
+
+# Игровые файлы: окончания строк НЕ задаются намеренно (в репозитории смесь CRLF/LF);
+# сохраняй исходные окончания файла и не форматируй массово нетронутый legacy (см. AGENTS.md).
+[mdredux/**.txt]
+indent_style = tab
+
+[mdredux/localisation/**.yml]
+charset = utf-8-bom
+indent_style = space
+indent_size = 1

@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # Действия в workflow подключены по тегам (@v4, @v5): Dependabot сам предлагает обновления.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"
+    groups:
+      github-actions:
+        patterns: ["*"]
