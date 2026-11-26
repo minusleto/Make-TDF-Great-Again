@@ -176,9 +176,9 @@ def read_baseline(path: Path) -> Dict[str, List[str]]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
-        raise BaselineInputError("baseline не найден: {}. Создайте его командой `update`.".format(path))
+        raise BaselineInputError("baseline не найден: {}. Создайте его командой `update`.".format(path)) from None
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
-        raise BaselineInputError("не удалось прочитать baseline {}: {}".format(path, exc))
+        raise BaselineInputError("не удалось прочитать baseline {}: {}".format(path, exc)) from exc
     if data.get("schema") != SCHEMA_VERSION or not isinstance(data.get("findings"), dict):
         raise BaselineInputError("неподдерживаемый формат baseline (ожидается schema={})".format(SCHEMA_VERSION))
     return {key: list(items) for key, items in data["findings"].items()}
@@ -206,7 +206,7 @@ def load_report(args) -> dict:
         try:
             return json.loads(Path(args.report).read_text(encoding="utf-8"))
         except (OSError, UnicodeError, json.JSONDecodeError) as exc:
-            raise BaselineInputError("не удалось прочитать отчёт {}: {}".format(args.report, exc))
+            raise BaselineInputError("не удалось прочитать отчёт {}: {}".format(args.report, exc)) from exc
     with tempfile.TemporaryDirectory() as temp:
         out = Path(temp) / "audit.json"
         cmd = [sys.executable, "-I", str(AUDIT_SCRIPT), args.repo, "--json", str(out)]

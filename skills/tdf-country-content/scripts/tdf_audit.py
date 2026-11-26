@@ -7,8 +7,8 @@
     python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --details KAZ
     python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --json audit.json
 
-Скрипт не запускает HOI4 и не содержит базовый мод. Ссылки на отсутствующие в
-срезе внешние namespace/идеи не объявляются ошибками без достаточных оснований.
+Скрипт не запускает HOI4 и не содержит файлов целевой сборки вне среза. Ссылки на
+отсутствующие в срезе внешние namespace/идеи не объявляются ошибками без достаточных оснований.
 Код завершения: 0 — ERROR нет; 1 — найдены ERROR; 2 — ошибка входных файлов/репозитория.
 Тесты: python -m unittest discover -s skills/tdf-country-content/tests -v
 """
@@ -410,7 +410,6 @@ def discover(repo: Union[str, Path]):
 def build_idea_definition_index(repo, countries):
     """Index visible and hidden idea definitions, including unprefixed legacy IDs."""
     mod = Path(repo) / "mdredux"
-    country_tags = set(countries)
     definitions = []
     parse_errors = []
     for path in iter_files(mod / "common" / "ideas", ".txt"):
@@ -538,7 +537,7 @@ def build_content_indexes(repo: Union[str, Path], countries, loc_index):
 
     scripted_refs = defaultdict(set)
     script_ref_re = re.compile(r"\[([A-Z]{3}_[A-Za-z0-9_]+)\]")
-    for key, occurrences in loc_index.items():
+    for occurrences in loc_index.values():
         for occurrence in occurrences:
             for name in script_ref_re.findall(occurrence.value):
                 tag = name[:3]
@@ -1193,7 +1192,7 @@ def build_event_audit(repo, countries, loc_index, event_parsed, content_indexes=
                 "source": str(source_path), "caller": caller, "line": line,
             })
 
-    for tag, country in countries.items():
+    for country in countries.values():
         for focus in find_named_blocks(country["tree_parsed"].root, "focus"):
             focus_id = get_scalar(focus, "id") or "unknown_focus"
             add_references(focus, "focus", country["tree"], focus_id)
@@ -2997,7 +2996,7 @@ def build_state_flow_audit(repo, countries, event_parsed=None):
     effect_calls, trigger_calls, unresolved_script_calls = [], [], []
     for path, parsed in parsed_sources.items():
         rel = source_meta.get(path, {}).get("display_path", _state_flow_relative(path, mod))
-        for entry, depth in _state_flow_entries_with_depth(parsed.root):
+        for entry, _depth in _state_flow_entries_with_depth(parsed.root):
             key = entry.key.value
             if key in effect_ids and (path, entry.line, key, "scripted_effects") not in script_definition_locations:
                 effect_calls.append({"scripted_effect": key, "path": rel, "line": entry.line})
@@ -4387,7 +4386,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         )
 
         columns = ["n_focus", "desc_median"] + ERRORS + WARNS + ["space_indent_lines", "brace_balance"]
-        short = lambda name: name.replace("_", " ")[:11]
+        def short(name: str) -> str:
+            return name.replace("_", " ")[:11]
+
         print("\t".join(["tag"] + [short(col) for col in columns]))
         for tag, result in results.items():
             row = [tag]
@@ -4397,7 +4398,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             print("\t".join(row))
         print("\nERROR-проверки: " + ", ".join(ERRORS) + "\nWARN-проверки: " + ", ".join(WARNS))
         print("event_not_found — ссылка на ID в namespace, который объявлен в срезе, но не содержит такое событие.")
-        print("event_external — namespace не найден в срезе; ссылка может принадлежать базовому моду.")
+        print("event_external — namespace не найден в срезе; определение может находиться в файлах целевой сборки вне среза.")
         print("\nГлобальный аудит событий: {} определений (country_event {}, news_event {}), {} namespace.".format(
             event_report["counts"]["definitions"], event_report["counts"]["country_event"],
             event_report["counts"]["news_event"], event_report["counts"]["namespaces"]))
