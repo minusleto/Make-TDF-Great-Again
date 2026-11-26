@@ -52,7 +52,7 @@ def matching_brace(text: str, opening: int) -> int:
 
 def decision_blocks(text: str) -> dict[str, str]:
     result = {}
-    pattern = re.compile(r"(?m)^\t(aral_[A-Za-z0-9_]+)\s*=\s*\{")
+    pattern = re.compile(r"(?m)^[ \t]+(aral_[A-Za-z0-9_]+)\s*=\s*\{")
     for match in pattern.finditer(text):
         opening = text.find("{", match.start(), match.end())
         closing = matching_brace(text, opening)
