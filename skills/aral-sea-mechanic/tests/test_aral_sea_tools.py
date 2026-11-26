@@ -263,6 +263,80 @@ option = {
             simulator.parse_siberian_fee_current_limit("option = { name = aral_sea.9.a }")
 
 
+
+class AralEventAndRecurringFeeAuditTests(unittest.TestCase):
+    def test_siberian_annual_fee_labels_match_the_actual_treasury_debits(self):
+        decisions = {
+            "aral_sib_canal": """
+remove_effect = { set_variable = { aral_sib_fee = -0.6 } }
+""",
+            "aral_sib_pipe": """
+remove_effect = { set_variable = { aral_sib_fee = -0.4 } }
+""",
+        }
+        effects = {
+            "aral_monthly_tick": """
+set_temp_variable = { treasury_change = aral_sib_fee }
+modify_treasury_effect = yes
+set_temp_variable = { treasury_change = aral_sib_fee }
+modify_treasury_effect = yes
+"""
+        }
+        localisations = {
+            "en": {
+                "aral_sib_canal_tt": "Every year §R0.6 bn§! for the water",
+                "aral_sib_pipe_tt": "Every year §R0.4 bn§! for the water",
+            },
+            "ru": {
+                "aral_sib_canal_tt": "Каждый год §R0,6 млрд $§! за воду",
+                "aral_sib_pipe_tt": "Каждый год §R0,4 млрд $§! за воду",
+            },
+        }
+        self.assertEqual(
+            audit.aral_recurring_fee_localisation_issues(
+                decisions, effects, localisations, ("en", "ru")
+            ),
+            [],
+        )
+        localisations["en"]["aral_sib_canal_tt"] = "Every year §R0.06 bn§! for the water"
+        findings = audit.aral_recurring_fee_localisation_issues(
+            decisions, effects, localisations, ("en", "ru")
+        )
+        self.assertTrue(any(
+            area == "decision aral_sib_canal" and "scripted treasury debit is 0.6 bn" in message
+            for area, message in findings
+        ))
+
+    def test_aral_event_references_and_sov_sender_scope_are_checked(self):
+        decisions = {
+            "aral_sibaral": """
+complete_effect = {
+    SOV = { country_event = { id = aral_sea.4 } }
+}
+"""
+        }
+        effects = {}
+        events = {
+            "aral_sea.4": """
+option = {
+    FROM = { set_country_flag = aral_sib_study }
+}
+"""
+        }
+        event_text = "add_namespace = aral_sea\\n"
+        self.assertEqual(
+            audit.aral_event_reference_issues(decisions, effects, events, event_text),
+            [],
+        )
+        broken = dict(decisions)
+        broken["aral_sibaral"] = broken["aral_sibaral"].replace("aral_sea.4", "aral_sea.99")
+        findings = audit.aral_event_reference_issues(broken, effects, events, event_text)
+        self.assertTrue(any("aral_sea.99" in message for _, message in findings))
+        events["aral_sea.4"] = "option = { set_country_flag = aral_sib_study }"
+        findings = audit.aral_event_reference_issues(decisions, effects, events, event_text)
+        self.assertTrue(any("FROM scope" in message for _, message in findings))
+
+
 class MechanicAuditRegressionTests(unittest.TestCase):
     def test_aral_help_uses_existing_vanilla_help_sprite(self):
         gui = (ROOT / "mdredux" / "interface" / "aral_sea.gui").read_text(encoding="utf-8")

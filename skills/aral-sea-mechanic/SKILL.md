@@ -26,6 +26,19 @@ Do not load every wiki page or every skill reference by default. Search for a sp
 - Keep one commit per coherent task. A documentation/skill-only change must not include unrelated gameplay edits.
 - This branch is a focused snapshot, not the complete target TDF installation. An identifier missing from this branch is unknown, not automatically invalid or supplied by another mod. Check the MDC wiki; if the definition or behaviour is not documented, ask the user for the relevant target TDF file.
 
+## HOI4 scripting review rules
+
+Use docs/aral-sea/HOI4_SCRIPTING_REVIEW.md as the working checklist. Prove the scope of every trigger/effect before judging whether a command is valid.
+
+- on_startup has no country ROOT scope; explicitly enter KAZ before running country effects. The tag-specific on_monthly_KAZ pulse runs only for KAZ, so do not wrap it in generic on_monthly plus original_tag.
+- Event ROOT is the receiving country. When an event is fired from an effect, the firing effect's ROOT becomes event FROM. Trace the exact sending scope before using FROM; its meaning is contextual.
+- controls_state = 717 is a control requirement. owns_state and state-scope is_owned_by test legal ownership and must not be substituted without a mechanic-specific reason.
+- State dynamic modifiers must read variables from their state scope. This mechanic copies the KAZ deficit into state variables, attaches the modifier in that state, and refreshes it after assigning the values. Do not remove the modifier merely because ownership changes.
+- Keep triggers inside trigger contexts (available, limit, event trigger) and effects inside effect contexts. Balanced braces or a successful text search do not prove that a command is legal in its current scope.
+- For Aral decisions, cost = N is Political Power; custom_cost_text = cost_X_Y is the shared displayed treasury price; the full cash debit is performed once by treasury_change and modify_treasury_effect. Do not add a treasury affordability gate or a second explicit debt transaction.
+
+The static audit also checks Aral event references, the KAZ-to-SOV sender-scope handoff, and that annual Siberian fees in both localisations match the fee variables actually charged. Static tests do not prove that HOI4 accepts every script token or renders the decision GUI correctly.
+
 ## Mechanic model and invariants
 
 The design is a long-running restoration system, not a one-off national bonus. Preserve its distinctions:

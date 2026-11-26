@@ -374,6 +374,83 @@ def aral_ownership_issues(decisions, effects, code_all):
     return issues
 
 
+
+def aral_recurring_fee_localisation_issues(decisions, effects, localisations, languages):
+    """Match the Siberian contract's displayed annual fees to its actual variable debits."""
+    issues = []
+    fee_labels = {
+        "aral_sib_canal": "aral_sib_canal_tt",
+        "aral_sib_pipe": "aral_sib_pipe_tt",
+    }
+    tick = effects.get("aral_monthly_tick", "")
+    if len(re.findall(r"treasury_change\s*=\s*aral_sib_fee\b", tick)) != 2:
+        issues.append((
+            "scripted effect aral_monthly_tick",
+            "both Siberian supply routes must charge aral_sib_fee once per year",
+        ))
+
+    for decision, loc_key in fee_labels.items():
+        body = decisions.get(decision, "")
+        remove = inner(body, "remove_effect") or ""
+        fee = re.search(
+            r"set_variable\s*=\s*\{\s*aral_sib_fee\s*=\s*(-?[\d.]+)\s*\}",
+            remove,
+        )
+        if not fee:
+            issues.append(("decision " + decision, "completed supply route must set its annual aral_sib_fee"))
+            continue
+        amount = abs(float(fee.group(1)))
+        if float(fee.group(1)) >= 0:
+            issues.append(("decision " + decision, "annual aral_sib_fee must be negative because it is debited from treasury"))
+        for language in languages:
+            value = localisations.get(language, {}).get(loc_key)
+            if value is None:
+                issues.append(("decision " + decision, "annual fee localisation %s is missing (%s)" % (loc_key, language)))
+                continue
+            displayed = re.search(r"(?<!\d)(\d+(?:[.,]\d+)?)\s*(?:bn|млрд)\b", value, re.IGNORECASE)
+            if not displayed:
+                issues.append(("decision " + decision, "annual fee amount is not parseable in %s localisation key %s" % (language, loc_key)))
+                continue
+            shown_amount = float(displayed.group(1).replace(",", "."))
+            if abs(shown_amount - amount) > 0.0001:
+                issues.append((
+                    "decision " + decision,
+                    "annual fee label %s shows %s bn in %s, but the scripted treasury debit is %s bn"
+                    % (loc_key, displayed.group(1), language, fmt(amount)),
+                ))
+    return issues
+
+
+def aral_event_reference_issues(decisions, effects, events, event_text):
+    """Check Aral event references and the sender-scope handoff in the Russia study route."""
+    issues = []
+    if not re.search(r"(?m)^\s*add_namespace\s*=\s*aral_sea\s*$", event_text):
+        issues.append(("events", "the aral_sea event namespace must be declared before its events"))
+
+    source = "\n".join(decisions.values()) + "\n" + "\n".join(effects.values()) + "\n" + "\n".join(events.values())
+    references = set(re.findall(
+        r"\bcountry_event\s*=\s*(?:\{\s*id\s*=\s*)?(aral_sea\.\d+)",
+        source,
+    ))
+    for event_id in sorted(references):
+        if event_id not in events:
+            issues.append(("events", "Aral event reference %s has no matching country_event definition" % event_id))
+
+    sibaral = decisions.get("aral_sibaral", "")
+    russia_event = events.get("aral_sea.4", "")
+    if not re.search(
+        r"SOV\s*=\s*\{\s*country_event\s*=\s*\{\s*id\s*=\s*aral_sea\.4\b",
+        sibaral,
+    ):
+        issues.append(("decision aral_sibaral", "the initial Siberian study request must send aral_sea.4 to SOV scope"))
+    if not re.search(
+        r"FROM\s*=\s*\{\s*set_country_flag\s*=\s*aral_sib_study\s*\}",
+        russia_event,
+    ):
+        issues.append(("event aral_sea.4", "Russia's study option must mark the sending country through FROM scope"))
+    return issues
+
+
 def num(s):
     try:
         return float(s)
@@ -532,6 +609,10 @@ def main():
         add("WARN", area, "project-generated custom-cost suffix convention: " + msg)
     if P == "aral":
         for area, msg in aral_treasury_cost_issues(decisions, events):
+            add("ERROR", area, msg)
+        for area, msg in aral_recurring_fee_localisation_issues(decisions, effects, loc, langs):
+            add("ERROR", area, msg)
+        for area, msg in aral_event_reference_issues(decisions, effects, events, ev_text):
             add("ERROR", area, msg)
         for area, msg in aral_ownership_issues(decisions, effects, code_all):
             add("ERROR", area, msg)

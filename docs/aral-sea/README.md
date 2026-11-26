@@ -124,6 +124,12 @@ No Kazakhstan history file is included or needs editing. On a new game, `on_star
 
 optional/aral_sea/ holds an obsolete six-focus prototype and a province-photo prototype; neither is copied into the game and neither is required by the active mechanic.
 
+## HOI4 scripting review
+
+The project-specific scripting checklist is in [HOI4_SCRIPTING_REVIEW.md](HOI4_SCRIPTING_REVIEW.md). It documents the scope boundaries used by the startup/monthly hooks, decisions, Russia event chain and state dynamic modifiers, and separates engine semantics from this mechanic's design rules.
+
+The static audit checks event references and verifies that the English and Russian Siberian-water fee tooltips display the same annual amount that the scripted effects debit. CI still cannot replace launching the target TDF build: verify error.log, event sender context, dynamic modifier persistence and the decision GUI in-game.
+
 ## Tools (run from the repository root)
 ```
 python3 -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral
