@@ -26,6 +26,7 @@
 python3 -I skills/tdf-country-content/scripts/tdf_inventory.py .
 python3 -I skills/tdf-country-content/scripts/tdf_audit.py . --require-external-registry
 python3 -I skills/tdf-country-content/scripts/tdf_baseline.py check   # только новые находки относительно baseline
+python3 -I skills/tdf-country-content/scripts/tdf_ship.py --dry-run   # проверить условия отправки через PR
 python3 -I -m unittest discover -s skills/tdf-country-content/tests -v
 ```
 
