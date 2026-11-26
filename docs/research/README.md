@@ -14,6 +14,7 @@ Consolidated reviews and fact-checking notes for TDF / MDC.
 - [Kazakhstan aviation fact-check](2026-10-kazakhstan-aviation-fact-check.md) — China / US / Iran procurement status and recommendations for the 2000–2030 sandbox.
 - [Standard vs MD skill and country trees](2026-10-standard-vs-country-trees.md) — comparison with the Claude/MD skill and static review of Portugal, Russia, Syria, Armenia, Israel, Poland and Kazakhstan.
 - [External dependency registry](external-dependencies.md) — registry of unresolved and external IDs with source policy, status (`confirmed` / `assumption` / `unknown`) and verification evidence; machine-readable copy: `external-dependencies.json`; auditor output: `_external_dependencies`.
+- `audit-baseline.json` — служебный baseline известных ERROR-находок `tdf_audit.py` (отпечатки без номеров строк). Не читать целиком; сравнение и обновление: `skills/tdf-country-content/scripts/tdf_baseline.py check` / `update`.
 
 These documents are research and recommendations, not game-script patches. Findings marked as localisation candidates require checking shared focuses and text overrides before edits. The initial Stage 9 static note remains a partial source review; the executed validation report records the actual unittest and full/per-country auditor results. Neither report claims HOI4 runtime validation.
 
