@@ -5,7 +5,6 @@ KAZ_aral_sea_category = {
 		icon = generic_political_discourse
 		cost = 25
 		visible = {
-
 			NOT = { has_country_flag = aral_ifas_done }
 		}
 		available = {
@@ -36,7 +35,6 @@ KAZ_aral_sea_category = {
 		icon = generic_political_discourse
 		cost = 40
 		visible = {
-
 			NOT = { has_country_flag = aral_loan_done }
 		}
 		available = {
@@ -73,7 +71,6 @@ KAZ_aral_sea_category = {
 	aral_dike = {
 		icon = generic_construction
 		visible = {
-
 			NOT = { has_country_flag = aral_dike_done }
 			NOT = { has_country_flag = aral_kokaral_done }
 		}
@@ -116,7 +113,6 @@ KAZ_aral_sea_category = {
 	aral_channel = {
 		icon = generic_construction
 		visible = {
-
 			NOT = { has_country_flag = aral_channel_done }
 		}
 		available = {
@@ -158,7 +154,6 @@ KAZ_aral_sea_category = {
 		icon = generic_construction
 		cost = 60
 		visible = {
-
 			NOT = { has_country_flag = aral_kokaral_done }
 		}
 		available = {
@@ -198,7 +193,6 @@ KAZ_aral_sea_category = {
 	aral_aklak = {
 		icon = generic_construction
 		visible = {
-
 			NOT = { has_country_flag = aral_aklak_done }
 		}
 		available = {
@@ -236,7 +230,6 @@ KAZ_aral_sea_category = {
 	aral_irrigation = {
 		icon = generic_construction
 		visible = {
-
 			NOT = { has_country_flag = aral_irrigation_done }
 		}
 		available = {
@@ -278,7 +271,6 @@ KAZ_aral_sea_category = {
 	aral_fish = {
 		icon = generic_research
 		visible = {
-
 			NOT = { has_country_flag = aral_fish_done }
 		}
 		available = {
@@ -318,7 +310,6 @@ KAZ_aral_sea_category = {
 	aral_saxaul1 = {
 		icon = generic_research
 		visible = {
-
 			NOT = { has_country_flag = aral_saxaul1_done }
 		}
 		available = {
@@ -355,7 +346,6 @@ KAZ_aral_sea_category = {
 	aral_saxaul2 = {
 		icon = generic_research
 		visible = {
-
 			NOT = { has_country_flag = aral_saxaul2_done }
 		}
 		available = {
@@ -395,7 +385,6 @@ KAZ_aral_sea_category = {
 		icon = generic_political_discourse
 		cost = 40
 		visible = {
-
 			NOT = { has_country_flag = aral_uzb_done }
 		}
 		available = {
@@ -426,7 +415,6 @@ KAZ_aral_sea_category = {
 	aral_amanotkel = {
 		icon = generic_construction
 		visible = {
-
 			NOT = { has_country_flag = aral_amanotkel_done }
 		}
 		available = {
@@ -466,7 +454,6 @@ KAZ_aral_sea_category = {
 		icon = generic_construction
 		cost = 60
 		visible = {
-
 			NOT = { has_country_flag = aral_phase2_done }
 		}
 		available = {
@@ -510,7 +497,6 @@ KAZ_aral_sea_category = {
 		icon = generic_construction
 		cost = 100
 		visible = {
-
 			NOT = { has_country_flag = aral_dam2_done }
 		}
 		available = {
@@ -556,7 +542,6 @@ KAZ_aral_sea_category = {
 		icon = generic_political_discourse
 		cost = 50
 		visible = {
-
 			NOT = { has_country_flag = aral_sib_dead }
 			NOT = { has_country_flag = aral_sib_ok }
 			NOT = { has_country_flag = aral_sib_canal_done }
@@ -599,7 +584,6 @@ KAZ_aral_sea_category = {
 		icon = generic_construction
 		cost = 80
 		visible = {
-
 			NOT = { has_country_flag = aral_sib_canal_done }
 			has_country_flag = aral_sib_ok
 		}
@@ -636,7 +620,6 @@ KAZ_aral_sea_category = {
 		icon = generic_construction
 		cost = 80
 		visible = {
-
 			NOT = { has_country_flag = aral_sib_pipe_done }
 			has_country_flag = aral_sib_ok
 		}

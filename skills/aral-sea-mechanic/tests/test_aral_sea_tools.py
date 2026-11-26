@@ -1,4 +1,5 @@
 import importlib.util
+import re
 import sys
 import gc
 import tempfile
@@ -43,6 +44,24 @@ if = {
   force_update_dynamic_modifier = yes
 }
 """
+
+
+class AralDecisionFormattingTests(unittest.TestCase):
+    def test_multiline_visible_blocks_have_no_leading_blank_line(self):
+        violations = []
+        pattern = re.compile(r"(?m)^[ \t]*visible[ \t]*=[ \t]*\{[ \t]*\n[ \t]*\n")
+        decisions_dir = ROOT / "mdredux" / "common" / "decisions"
+        for path in sorted(decisions_dir.rglob("*.txt")):
+            source = path.read_text(encoding="utf-8-sig")
+            for match in pattern.finditer(source):
+                line = source.count("\n", 0, match.start()) + 1
+                violations.append(f"{path.relative_to(ROOT)}:{line}")
+        self.assertEqual(
+            violations,
+            [],
+            "Blank lines immediately after multiline visible = { blocks: "
+            + ", ".join(violations),
+        )
 
 
 class AralSimulatorTests(unittest.TestCase):

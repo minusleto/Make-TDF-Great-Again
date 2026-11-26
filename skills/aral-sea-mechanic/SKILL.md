@@ -91,6 +91,12 @@ The generic-cost checker verifies that each decision's `cost_X_Y` key matches th
 
 The static audit is not a substitute for testing in HOI4. Keep event PP conditions, decision PP costs, timer behaviour and actual GUI price display on the in-game checklist. Never claim that a cost label or event option rendered correctly until it has been checked in the target game.
 
+## Decision source formatting
+
+- In a multiline `visible = {}` block, put the first condition on the immediately following line. Do not leave an empty line after the opening brace.
+- The Aral unit tests scan `mdredux/common/decisions/**/*.txt` for this regression, so CI catches it before it can be reintroduced.
+- Treat decision files as hand-maintained source. The Aral audit, simulator and cost checker inspect them; they are not formatters or source generators.
+
 ## Efficient Bash and Python work
 
 Four short, purposeful commands are not inherently wasteful. The goal is to avoid broad, repetitive searches and giant opaque commands.
