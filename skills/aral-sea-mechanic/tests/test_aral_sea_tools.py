@@ -241,7 +241,6 @@ custom_cost_text = aral_test_cash
         decisions = {
             "aral_test": """
 cost = 25
-custom_cost_trigger = { always = yes }
 custom_cost_text = cost_0_5
 complete_effect = {
   set_temp_variable = { treasury_change = -0.5 }
@@ -272,7 +271,6 @@ complete_effect = {
     def test_aral_financing_uses_full_treasury_cost_without_debt_or_cash_gates(self):
         decisions = {
             "aral_test": """
-custom_cost_trigger = { always = yes }
 custom_cost_text = cost_4_5
 complete_effect = {
   set_temp_variable = { treasury_change = -4.5 }
@@ -284,7 +282,7 @@ complete_effect = {
             "aral_sea.1": "option = { trigger = { has_political_power = 15 } set_temp_variable = { treasury_change = -0.3 } modify_treasury_effect = yes }"
         }
         self.assertEqual(audit.aral_treasury_cost_issues(decisions, events), [])
-        decisions["aral_test"] = decisions["aral_test"].replace("always = yes", "check_variable = { treasury > 4 }")
+        decisions["aral_test"] = decisions["aral_test"].replace("custom_cost_text = cost_4_5", "custom_cost_trigger = { always = yes }\ncustom_cost_text = cost_4_5")
         events["aral_sea.1"] = events["aral_sea.1"].replace("has_political_power = 15", "check_variable = { treasury > 0.3 }")
         findings = audit.aral_treasury_cost_issues(decisions, events)
         self.assertTrue(any("treasury" in message.lower() for _, message in findings))
@@ -363,7 +361,7 @@ option = {
         decisions = {
             "aral_regional_response": """
 visible = { has_country_flag = aral_regional_crisis }
-available = { custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 } }
+available = { controls_state = 717 }
 cost = 60
 complete_effect = { set_temp_variable = { treasury_change = -1.5 } modify_treasury_effect = yes }
 remove_effect = {
@@ -421,7 +419,7 @@ remove_effect = {
 visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = {
   custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
-  custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
+  controls_state = 717
 }
 fire_only_once = yes
 """
@@ -445,7 +443,7 @@ on_monthly = {
     def test_state_modifier_uses_kaz_scope_and_is_attached_after_state_variables(self):
         decisions = {
             "aral_ifas": """
-available = { aral_unlocked_program = yes owns_state = 717 }
+available = { aral_unlocked_program = yes controls_state = 717 }
 fire_only_once = yes
 """
         }
@@ -472,7 +470,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
     def test_aral_projects_require_coast_for_start_but_are_not_cancelled_mid_timer(self):
         decisions = {
             "aral_ifas": """
-available = { aral_unlocked_program = yes owns_state = 717 }
+available = { aral_unlocked_program = yes controls_state = 717 }
 fire_only_once = yes
 days_remove = 120
 complete_effect = { set_temp_variable = { treasury_change = -0.05 } modify_treasury_effect = yes }
@@ -491,11 +489,11 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         self.assertEqual(audit.aral_ownership_issues(decisions, effects, code), [])
 
         missing_coast = decisions["aral_ifas"].replace(
-            "available = { aral_unlocked_program = yes owns_state = 717 }",
+            "available = { aral_unlocked_program = yes controls_state = 717 }",
             "available = { aral_unlocked_program = yes }",
         )
         issues = audit.aral_ownership_issues({"aral_ifas": missing_coast}, effects, code)
-        self.assertTrue(any("available must require owns_state = 717" in issue[1] for issue in issues))
+        self.assertTrue(any("available must require controls_state = 717" in issue[1] for issue in issues))
 
         cancellable = decisions["aral_ifas"] + "\ncancel_trigger = { NOT = { owns_state = 717 } }\ncancel_effect = {}\n"
         issues = audit.aral_ownership_issues({"aral_ifas": cancellable}, effects, code)
@@ -509,7 +507,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
-available = { aral_unlocked_program = yes owns_state = 717 }
+available = { aral_unlocked_program = yes controls_state = 717 }
 complete_effect = {
   hidden_effect = {
     modify_treasury_effect = yes
@@ -536,7 +534,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
-available = { aral_unlocked_program = yes owns_state = 717 }
+available = { aral_unlocked_program = yes controls_state = 717 }
 fire_only_once = yes
 """
         }
@@ -561,7 +559,7 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
     def test_monthly_tick_effect_itself_requires_ownership(self):
         decisions = {
             "aral_ifas": """
-available = { aral_unlocked_program = yes owns_state = 717 }
+available = { aral_unlocked_program = yes controls_state = 717 }
 fire_only_once = yes
 """
         }
@@ -578,13 +576,13 @@ on_monthly = { effect = { if = { limit = { original_tag = KAZ owns_state = 717 }
         issues = audit.aral_ownership_issues(decisions, effects, code)
         self.assertTrue(any(area == "scripted_effect aral_monthly_tick" for area, _ in issues))
 
-    def test_old_control_gate_or_removal_of_state_modifier_is_flagged(self):
+    def test_old_ownership_gate_or_removal_of_state_modifier_is_flagged(self):
         decisions = {
             "aral_ifas": """
 visible = { NOT = { has_country_flag = aral_ifas_done } }
 available = {
   custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
-  custom_trigger_tooltip = { tooltip = aral_coast_tt controls_state = 717 }
+  owns_state = 717
 }
 """
         }

@@ -165,8 +165,8 @@ def aral_treasury_cost_issues(decisions, events):
             issues.append((area, "missing shared generic treasury cost_text key"))
         elif label.group(1) not in GENERIC_TREASURY_COST_KEYS:
             issues.append((area, "custom_cost_text %s is not a verified shared TDF treasury key" % label.group(1)))
-        if trigger is None or not re.fullmatch(r"\s*always\s*=\s*yes\s*", trigger):
-            issues.append((area, "custom_cost_trigger must be always = yes; current treasury balance must not block financed projects"))
+        if trigger is not None:
+            issues.append((area, "remove the redundant custom_cost_trigger; custom_cost_text displays the price without a treasury affordability gate"))
         if re.search(r"\btreasury\s*>", body):
             issues.append((area, "treasury-balance affordability gate blocks automatic debt financing"))
         if len(debits) != 1 or len(treasury_effects) != 1:
@@ -248,8 +248,8 @@ def aral_regional_crisis_issues(events, decisions, effects):
     remove = inner(recovery, "remove_effect") or ""
     if not re.search(r"has_country_flag\s*=\s*aral_regional_crisis", visible):
         issues.append(("decision aral_regional_response", "recovery decision must appear only during the permanent crisis"))
-    if not re.search(r"owns_state\s*=\s*717", available):
-        issues.append(("decision aral_regional_response", "recovery decision must require Kazakhstan to own state 717"))
+    if not re.search(r"controls_state\s*=\s*717", available):
+        issues.append(("decision aral_regional_response", "recovery decision must require Kazakhstan to control state 717"))
     if not re.search(r"treasury_change\s*=\s*-1\.5", complete) or "modify_treasury_effect" not in complete or not re.search(r"cost\s*=\s*60", recovery):
         issues.append(("decision aral_regional_response", "recovery decision must charge 1.5 bn and 60 PP"))
     if not re.search(r"remove_dynamic_modifier\s*=\s*\{\s*modifier\s*=\s*aral_regional_crisis_modifier\s*\}", remove):
@@ -298,10 +298,12 @@ def aral_ownership_issues(decisions, effects, code_all):
             issues.append(("decision " + decision, "the correct Aral focus-group gate must be present in available"))
         if re.search(r"aral_unlocked_(?:program|syrdarya|agri|green|phase2|diplomacy)\s*=\s*yes", visible):
             issues.append(("decision " + decision, "focus-group gates must not hide the decision; put the gate in available"))
-        if not re.search(r"\bowns_state\s*=\s*717\b", available):
-            issues.append(("decision " + decision, "available must require owns_state = 717"))
-        if re.search(r"\bcontrols_state\s*=\s*717\b", available):
-            issues.append(("decision " + decision, "use owns_state = 717, not controls_state = 717"))
+        if not re.search(r"\bcontrols_state\s*=\s*717\b", available):
+            issues.append(("decision " + decision, "available must require controls_state = 717"))
+        if re.search(r"\bowns_state\s*=\s*717\b", available):
+            issues.append(("decision " + decision, "use controls_state = 717 for the decision gate, not owns_state"))
+        if "aral_req_coast_tt" in available:
+            issues.append(("decision " + decision, "remove the obsolete coast custom_trigger_tooltip; use plain controls_state = 717"))
 
     required_focuses = {
         "aral_unlocked_program": "KAZ_economy",

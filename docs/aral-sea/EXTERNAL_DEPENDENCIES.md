@@ -7,7 +7,7 @@ TDF is a standalone mod. This file records what the focused Aral branch itself d
 | Identifier | Wiki reference | What the wiki establishes |
 |---|---|---|
 | `modify_treasury_effect` | [Economy effects](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/effects/economy.md) | Usage example with `treasury_change`; implementation side effects are not specified by the example |
-| `custom_cost_trigger`, `custom_cost_text` | [Culture and tourism](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/triggers/culture-tourism.md) | Trigger and display-label roles; Aral uses an always-true trigger so the price display does not impose a treasury gate |
+| `custom_cost_trigger`, `custom_cost_text` | [Culture and tourism](https://github.com/minusleto/MDC/blob/main/src/content/docs/code-resource/triggers/culture-tourism.md) | Trigger and display-label roles; Aral uses the display label only and does not add a treasury-availability gate |
 | `cost_X_Y` | Shared `mdredux/localisation/english/MD_decisions_l_english.yml` at the reviewed TDF revision | Existing generic treasury-cost labels; Aral references them directly and does not duplicate their localisation |
 
 Political Power uses native decision `cost = N`. Each Aral project charges its full cash price once in `complete_effect` through `modify_treasury_effect`; the TDF treasury system automatically finances a negative balance through national debt. Aral therefore does not call `modify_debt_effect`, split project prices into treasury/debt components, or gate project/event spending on the current treasury balance. Project timers and non-financial effects remain unchanged.

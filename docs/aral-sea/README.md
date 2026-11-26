@@ -24,6 +24,8 @@ and the older second-dam plan. Design notes and the reason for every choice are 
   unless the first forests stand; rebuilding a washed-out dike costs 0.4 bn, and shelter belts in a salt-storm event cost 0.5 bn.
 - The earth dike lifts the crest to 41 m but is washed out with 3% chance per month until the Kokaral dam stands;
   the sea then falls back to 40 m.
+- Starting an Aral decision requires Kazakhstan to **control** state 717 (Kyzylorda) via `controls_state = 717`.
+  The monthly hydrology and recalculation remain gated separately by Kazakhstan's legal ownership of the coast.
 ## Monetary calibration
 
 Every Aral cash expense is charged once as the **full project price** through
@@ -32,10 +34,10 @@ automatically financed through national debt. Therefore the Aral mechanic must n
 into a treasury portion plus a second `debt_change`, and must not block spending because the current
 treasury balance is below the price.
 
-The decisions keep `custom_cost_trigger = { always = yes }` only to retain the player-facing
-shared cost display; it is not an affordability check. `custom_cost_text` points to the existing
-TDF generic `cost_X_Y` key. Political Power remains a separate native decision `cost = N` where
-specified, and PP requirements in event choices remain intact.
+There is no `custom_cost_trigger` on Aral projects: `custom_cost_text` points directly to the shared
+TDF generic `cost_X_Y` key and displays the full charge. The decision available block handles focus
+and coast-control requirements; no treasury-balance affordability gate is added. Political Power
+remains a separate native decision `cost = N` where specified, and PP requirements in event choices remain intact.
 
 The total cash outlays below are unchanged from the previous combined treasury-plus-debt totals:
 

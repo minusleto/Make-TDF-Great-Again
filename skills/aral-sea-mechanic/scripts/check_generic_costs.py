@@ -95,8 +95,8 @@ def validate_costs(text: str) -> list[str]:
         elif labels[0] not in GENERIC_TREASURY_COST_KEYS:
             findings.append(area + "unverified or project-local cost key " + labels[0])
 
-        if trigger is None or not re.fullmatch(r"\s*always\s*=\s*yes\s*", trigger):
-            findings.append(area + "custom_cost_trigger must be always = yes; treasury balance must not gate the project")
+        if trigger is not None:
+            findings.append(area + "remove custom_cost_trigger; custom_cost_text displays the price without a treasury-balance gate")
         if re.search(r"\btreasury\s*>", body):
             findings.append(area + "treasury-balance affordability check remains")
 
