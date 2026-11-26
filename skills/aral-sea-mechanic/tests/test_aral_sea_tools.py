@@ -142,7 +142,6 @@ class GenericTreasuryCostCheckerTests(unittest.TestCase):
         source = """
 KAZ_aral_sea_category = {
     aral_test = {
-        custom_cost_trigger = { always = yes }
         custom_cost_text = cost_4_5
         complete_effect = {
             set_temp_variable = { treasury_change = -4.5 }
@@ -177,7 +176,6 @@ KAZ_aral_sea_category = {
         source = """
 KAZ_aral_sea_category = {
     aral_test = {
-        custom_cost_trigger = { always = yes }
         custom_cost_text = aral_custom_cost_label
         complete_effect = {
             set_temp_variable = { treasury_change = -0.5 }
