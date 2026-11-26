@@ -7,6 +7,8 @@ on:
       - "mdredux/**"
       - "skills/tdf-country-content/**"
       - "docs/research/external-dependencies.*"
+      - "docs/research/audit-baseline.json"
+      - "ruff.toml"
       - ".github/workflows/tdf-audit-validation.yml"
   pull_request:
     branches: [main]
@@ -14,16 +16,23 @@ on:
       - "mdredux/**"
       - "skills/tdf-country-content/**"
       - "docs/research/external-dependencies.*"
+      - "docs/research/audit-baseline.json"
+      - "ruff.toml"
       - ".github/workflows/tdf-audit-validation.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: tdf-audit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   unit-tests:
     name: Auditor and inventory unit tests
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -33,10 +42,15 @@ jobs:
           python-version: "3.12"
       - name: Run all auditor unit tests
         run: python -m unittest discover -s skills/tdf-country-content/tests -v
+      - name: Lint Python tooling (ruff)
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.17.6
+          ruff check .
 
   full-audit:
     name: Full repository audit
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -60,7 +74,7 @@ jobs:
             {
               echo "### Full repository audit"
               echo "- Completed; content ERROR findings are recorded in the uploaded JSON/log artifact."
-              echo "- Auditor exit code: 1 (content findings; report-only, does not fail this job)."
+              echo "- Auditor exit code: 1 (known content findings are tracked in docs/research/audit-baseline.json; only NEW findings fail the baseline step)."
             } >> "$GITHUB_STEP_SUMMARY"
           elif [ "$status" -ne 0 ]; then
             echo "Full audit could not complete (exit code $status); see uploaded report."
@@ -84,6 +98,22 @@ jobs:
           python -I skills/tdf-country-content/scripts/tdf_inventory.py . --json reports/inventory.json > reports/inventory.log
           cat reports/inventory.log
 
+      - name: Check for new findings against baseline
+        shell: bash
+        run: |
+          set +e
+          python -I skills/tdf-country-content/scripts/tdf_baseline.py check --report reports/full-audit.json --max-samples 20 > reports/baseline-check.log 2>&1
+          status=$?
+          set -e
+          cat reports/baseline-check.log
+          {
+            echo "### Baseline check"
+            echo '```'
+            cat reports/baseline-check.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+
       - name: Upload full audit report
         if: always()
         uses: actions/upload-artifact@v7
@@ -95,8 +125,11 @@ jobs:
 
   country-audit:
     name: Country audit (${{ matrix.tag }})
+    # Отчёты по странам нужны редко, а полный аудит уже покрывает все теги: запуск только вручную.
+    if: github.event_name == 'workflow_dispatch'
     needs: [unit-tests]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       max-parallel: 4
