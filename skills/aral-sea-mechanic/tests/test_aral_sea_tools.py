@@ -800,5 +800,23 @@ class AralPictureStripTests(unittest.TestCase):
         self.assertTrue(any("picture frame 2" in message for _, message in findings))
 
 
+
+class AgentInstructionConsistencyTests(unittest.TestCase):
+    def test_agent_instructions_match_the_active_aral_control_contract(self):
+        instructions = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn(
+            "All 18 active decisions in the KAZ Aral category, including regional recovery, require",
+            instructions,
+        )
+        self.assertIn("`controls_state = 717` in `available`", instructions)
+        self.assertIn("Never use `owns_state = 717` as a decision-availability gate.", instructions)
+        self.assertIn("The 17 one-shot decisions", instructions)
+        self.assertIn("Issue #12 is a historical design record", instructions)
+        self.assertNotIn(
+            "All 17 Aral decisions require `owns_state = 717`",
+            instructions,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

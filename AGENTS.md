@@ -11,12 +11,12 @@ This branch intentionally contains only the Kazakhstan Aral Sea mechanic and its
 - Base-MD definitions are external. Track the Aral-specific verified dependencies in `docs/aral-sea/EXTERNAL_DEPENDENCIES.md`.
 
 ## Required mechanic invariants
-- All 17 Aral decisions require `owns_state = 717` in `available`.
-- Do not use `controls_state = 717` as a substitute.
+- All 18 active decisions in the KAZ Aral category, including regional recovery, require `controls_state = 717` in `available`. Never use `owns_state = 717` as a decision-availability gate.
 - Do not add ownership-based `cancel_trigger` or `cancel_effect`: a project already started continues its timer after loss of state 717.
-- Keep `fire_only_once = yes` on the 16 one-shot decisions; `aral_sibaral` keeps its re-enable behaviour.
-- The monthly tick and `update_aral_sea` recalculation require KAZ ownership of state 717.
+- Keep `fire_only_once = yes` on the 17 one-shot decisions; `aral_sibaral` is the repeatable exception and keeps its `days_re_enable = 365` behaviour.
+- The monthly tick and `update_aral_sea` recalculation require KAZ legal ownership of state 717 through their internal `owns_state = 717` guards.
 - State dynamic modifiers remain attached to their states when ownership changes; state construction effects remain limited to states KAZ currently owns.
+- Issue #12 is a historical design record and contains superseded ownership and cost instructions. When it conflicts with the active code, `docs/aral-sea/README.md`, or `docs/aral-sea/HOI4_SCRIPTING_REVIEW.md`, follow the current code and current branch documentation; do not restore obsolete issue text.
 - Keep EN/RU localisation in sync, preserving UTF-8 BOM and CRLF in YML.
 - Do not install the optional six-focus prototype over the live KAZ focus tree.
 
