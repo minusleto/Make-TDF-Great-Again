@@ -59,89 +59,37 @@ When changing a variable, threshold or formula, search every writer and reader: 
 | GUI | `mdredux/common/scripted_guis/aral_sea_category_gui.txt`, `mdredux/interface/aral_sea.gui`, `mdredux/interface/aral_sea.gfx`, `mdredux/gfx/interface/aral_sea/` |
 | Localisation | `mdredux/localisation/english/aral_sea_l_english.yml`, `mdredux/localisation/russian/aral_sea_l_russian.yml` |
 | Optional content | `optional/aral_sea/` |
-| Documentation and tools | `docs/aral-sea/README.md`, `skills/aral-sea-mechanic/scripts/generate_cost_localisation.py`, `skills/aral-sea-mechanic/scripts/mech_audit.py`, `skills/aral-sea-mechanic/scripts/aral_model_sim.py` |
+| Documentation and tools | `docs/aral-sea/README.md`, `skills/aral-sea-mechanic/scripts/check_generic_costs.py`, `skills/aral-sea-mechanic/scripts/mech_audit.py`, `skills/aral-sea-mechanic/scripts/aral_model_sim.py` |
 
 Use the current tree to confirm exact paths before editing; do not copy this table blindly if the layout changes.
 
-## Decision costs: keep the layers separate
+## Aral treasury costs: use the TDF debt system
 
-A decision can have several different costs. Review them independently:
+Keep the cost layers explicit, but do not manufacture a second debt transaction:
 
-| Element | Role | What to verify |
+| Element | Role | Aral contract |
 |---|---|---|
-| `cost` | Political Power cost charged by the decision system | The number is intentional and visible to the player where the UI requires it |
-| `custom_cost_text` | Localisation key used to display a custom cost | The displayed text accurately explains the actual treasury/debt terms and does not hide a PP cost |
-| `custom_cost_trigger` | Gate that decides whether the custom cost is affordable | Its threshold and comparison operator agree with the amount actually charged |
-| `treasury_change` + `modify_treasury_effect` | Actual treasury transaction | It is executed exactly once, in the intended completion path |
-| `debt_change` + `modify_debt_effect` | Actual debt transaction | Sign, units, timing and displayed amount match the real effect |
+| `cost` | Native Political Power cost | Keep the existing `cost = N`; PP is separate from treasury |
+| `custom_cost_trigger` | Controls the custom-cost availability/display state | Use `custom_cost_trigger = { always = yes }`; current treasury must not gate a cash purchase |
+| `custom_cost_text` | Player-facing treasury price | Use the shared TDF `cost_X_Y` key matching the full cash price |
+| `treasury_change` + `modify_treasury_effect` | Actual cash transaction | Charge the complete project/event price exactly once |
+| `debt_change` + `modify_debt_effect` | Explicit debt transaction | Do not use for Aral cash expenses: the TDF treasury system automatically finances a negative balance |
 
-Important distinctions:
+Important rules:
 
-- `custom_cost_text` is presentation; it does not itself deduct money.
-- `custom_cost_trigger` is an affordability condition; it does not itself charge money.
-- `cost` is not the same thing as a treasury amount. Do not remove or add one merely because the other exists.
-- Do not assume that `cost` and `custom_cost_text` are incompatible. Inspect a working decision and the actual engine/MDC contract before changing that combination.
-- Inspect the full decision block: `visible`, `available`, `custom_cost_trigger`, `custom_cost_text`, `cost`, `complete_effect`, `remove_effect`, timeout/cancel behaviour and AI weight. A cost deducted at start must not be charged again at completion.
-- Compare the affordability threshold with the amount paid, including edge cases where treasury equals the price. Be deliberate about strict versus inclusive comparisons.
-- For debt-financed projects, distinguish the amount paid from treasury and the amount added to debt. Never infer the debt sign or unit from the label; confirm it against a known-working `modify_debt_effect` pattern.
-- A decision that can time out or be cancelled needs an explicit review of whether the money/PP is kept, refunded or never charged.
+- A project with a total price of 4.5 bn charges `treasury_change = -4.5`; do not charge 1.5 bn from the treasury and then separately add 3 bn to debt.
+- Never add a `treasury > N` condition to an Aral decision or cash-cost event option. A negative treasury balance is financed by the TDF debt system; it must not prevent the project from starting.
+- Keep PP requirements. A decision's native `cost = N` remains a real PP cost, and event options may retain `has_political_power = N`.
+- Do not change project prices by splitting them into a treasury portion and an explicit debt portion. The displayed `cost_X_Y` and the single treasury debit must match the full cash price.
+- The existing shared `cost_X_Y` labels live in the parent TDF `MD_decisions_l_english.yml`; do not recreate project-specific `*_cost_label`, `_blocked` or `_tooltip` variants in Aral localisations.
+- Yearly Siberian fees and event expenses use the same treasury-only mechanism. Keep non-cash conditions such as PP requirements and the Siberian contract's price cap.
+- Run `skills/aral-sea-mechanic/scripts/check_generic_costs.py mdredux`, the static audit, unit tests and simulator after changing a cost.
 
-### Mixed treasury and political-power costs: verification boundary
+## Cost validation and tests
 
-The MDC wiki documents `custom_cost_trigger` as an affordability condition and `custom_cost_text` as the displayed custom-cost label. It does not document `ai_hint_pp_cost` or the use of `has_political_power` inside this custom-cost pattern. Do not copy a combined-cost recipe from another mod or assert that these helpers are supported. The current Aral decisions contain these fields, but their target-engine behaviour remains unverified until the relevant TDF definitions are checked. Ask the user for the source file before relying on undocumented behaviour.
+The generic-cost checker verifies that each decision's `cost_X_Y` key matches the full negative `treasury_change`, that the debit is applied once, and that no treasury-balance gate or direct debt transaction remains. Regression tests also verify that the simulator can take the treasury below zero and continue scheduling projects.
 
-Do not assume that `cost` and `custom_cost_text` are incompatible. Keep the player-facing cost explicit, and verify actual PP/treasury affordability and deductions against the target TDF files. The parent Aral category owns the KAZ-only `allowed` gate, so do not repeat it in every child decision.
-
-
-### Generated custom-cost localisation
-
-The MDC wiki documents the roles of `custom_cost_trigger` and `custom_cost_text`, but does not document automatic `_blocked` or `_tooltip` suffix handling. The Aral generator currently creates these keys as a project-local presentation convention. The static audit may check that generated EN/RU files are aligned, but must not present suffix handling as a verified engine contract. Confirm that behaviour using the target TDF GUI/effect source before relying on it in-game.
-
-
-For every custom cost:
-
-- Show every real component of the price: treasury, PP and debt-financed portion where relevant.
-- Ensure the label and tooltip agree with the actual cost effects and affordability gate.
-- Keep English and Russian key sets aligned.
-- Check that the display for an unaffordable decision remains meaningful and does not expose a misleading price.
-- If a key or behaviour is not defined in available TDF files or documented in the MDC wiki, leave it unknown and request the exact target source file. Do not assign it to another mod by assumption.
-
-A repeated error pattern across many decisions and both languages is usually a generator/contract problem, not dozens of unrelated manual mistakes. Diagnose the common source before editing each decision.
-
-## Generator workflow
-
-Some generation scripts may live in a temporary work directory (for example, `/tmp`) rather than in Git. Treat such a script as an external working artifact, not as an authoritative repository file. Before using it, confirm that it exists, inspect the current version and identify exactly which files it writes.
-
-1. Find the source data for the decisions and the functions that emit code/localisation. Trace one simple treasury-only decision, one PP-plus-treasury decision and one debt-financed decision from data definition through generated code and both localisation outputs.
-2. Make the source data the single source of truth for amounts, days, gates, dependencies, flags and displayed prices. Avoid separately hardcoding a second copy of the same amounts in audit logic.
-3. Make generation deterministic and idempotent: running it twice without changing input should produce no diff.
-4. Generate only intended Aral files. Do not let a generator rewrite unrelated country files or normalise entire localisation files.
-5. Preserve repository formatting: HOI4 script files use tabs and CRLF; localisation YML uses UTF-8 BOM and CRLF. Verify raw bytes after generation, not just the editor display.
-6. Before replacing existing output, inspect the diff and confirm the generator has not removed hand-maintained text or keys.
-7. If the generator cannot provide a safe dry run, write to temporary output first and compare it with the tracked files before copying anything back.
-
-When changing a generator, do not patch its output files manually unless the generator is intentionally no longer the source of truth. Otherwise the next generation will erase the manual fix.
-
-## Audit design and tests
-
-The mechanic audit is a static checker, not a substitute for testing in HOI4. Its rules must reflect a verified project/engine contract.
-
-- Keep audit checks narrow and explainable. One check should validate one invariant and report the exact decision/key/file involved.
-- Do not make the audit stricter than the source of truth. In particular, do not classify a missing base-mod localisation key as a local defect without proving that the key is expected to be supplied by this repository.
-- For custom-cost checks, validate the whole chain: displayed key(s), PP cost, treasury gate, treasury deduction, debt addition and tooltip values. Only enforce localisation variants that have been confirmed as part of the engine contract.
-- Avoid string searches that treat comments, unrelated decisions or similar names as real references. Use the existing parser helpers where possible; improve parsing only when a reproducible false positive/negative justifies it.
-- A systemic failure repeated for N decisions in two languages should be summarised as one likely generator defect with N affected decisions, not presented as 2N independent root causes.
-- Add small regression fixtures for each cost shape: no custom cost, treasury only, PP only, PP plus treasury, treasury plus debt, repeated/recurring decision and any confirmed blocked/hover localisation behaviour.
-- Test audit exit codes: 0 for clean, non-zero for detected errors and a distinct code for invalid input/read failures if the script implements one.
-- Run the audit against a clean baseline before attributing old warnings to a new patch. Compare before/after results; do not demand a perfectly clean repository if pre-existing warnings are unrelated.
-
-Useful baseline commands from the repository root:
-
-    python3 -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral
-    python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux
-    python3 -I skills/aral-sea-mechanic/scripts/aral_model_sim.py mdredux --income 0.03 --route dam2 --dike yes --once --seed 5
-
-The simulator derives its report from the current code, but it is still a model. It does not prove that HOI4 executes the script as intended.
+The static audit is not a substitute for testing in HOI4. Keep event PP conditions, decision PP costs, timer behaviour and actual GUI price display on the in-game checklist. Never claim that a cost label or event option rendered correctly until it has been checked in the target game.
 
 ## Efficient Bash and Python work
 

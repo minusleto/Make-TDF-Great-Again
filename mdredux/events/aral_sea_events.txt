@@ -10,7 +10,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = aral_sea.1.a
-		trigger = { check_variable = { treasury > 0.3 } has_political_power = 15 }
+		trigger = { has_political_power = 15 }
 		ai_chance = { base = 3 }
 		set_temp_variable = { treasury_change = -0.3 }
 		modify_treasury_effect = yes
@@ -37,7 +37,6 @@ country_event = {
 	immediate = { aral_dike_lost = yes }
 	option = {
 		name = aral_sea.2.a
-		trigger = { check_variable = { treasury > 0.4 } }
 		ai_chance = { base = 2 }
 		set_temp_variable = { treasury_change = -0.4 }
 		modify_treasury_effect = yes
@@ -61,7 +60,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = aral_sea.3.a
-		trigger = { check_variable = { treasury > 0.5 } }
 		ai_chance = { base = 1 }
 		set_temp_variable = { treasury_change = -0.5 }
 		modify_treasury_effect = yes
@@ -187,7 +185,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = aral_sea.10.a
-		trigger = { check_variable = { treasury > 0.5 } has_political_power = 25 }
+		trigger = { has_political_power = 25 }
 		ai_chance = { base = 2 }
 		custom_effect_tooltip = aral_sea.10.a_tt
 		set_temp_variable = { treasury_change = -0.5 }
@@ -214,7 +212,7 @@ country_event = {
 	trigger = { has_country_flag = aral_regional_neglect_started }
 	option = {
 		name = aral_sea.11.a
-		trigger = { check_variable = { treasury > 1 } has_political_power = 50 }
+		trigger = { has_political_power = 50 }
 		ai_chance = { base = 2 }
 		custom_effect_tooltip = aral_sea.11.a_tt
 		set_temp_variable = { treasury_change = -1 }

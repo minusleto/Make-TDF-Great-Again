@@ -3,7 +3,7 @@
 
 Everything is parsed from the mod files, nothing is typed in:
   common/scripted_effects/aral_sea_effects.txt   level formula, drift, fill, yearly hydrology, dike risk
-  common/decisions/aral_sea_decisions.txt        length, price, debt, water, relief, requirements, gates
+  common/decisions/aral_sea_decisions.txt        length, full cash price, water, relief, requirements, gates
   events/aral_sea_events.txt                     dry-year loss, dike rebuild, price of the choices
   --treasury                  starting treasury (default: KAZ 2000 baseline, 0.245 bn)
 Treasury income and political power per month are not defined by this mechanic's source files, so
@@ -133,7 +133,6 @@ def parse(root, treasury0=0.245):
         d = {"days": int(re.search(r"days_remove = (\d+)", b).group(1)),
              "pp": int(re.search(r"^\s*cost = (\d+)", b, re.M).group(1)) if re.search(r"^\s*cost = (\d+)", b, re.M) else 0,
              "tre": abs(fl(re.search(r"treasury_change = (-?[\d.]+)", ce).group(1))),
-             "debt": fl(re.search(r"debt_change = (-?[\d.]+)", ce).group(1)) if "debt_change" in ce else 0.0,
              "relief": sum(fl(x) for x in re.findall(r"aral_relief = ([\d.]+)", rm)),
              "needs": re.findall(r"has_country_flag = aral_(\w+)_done", av),
              "excl": re.findall(r"NOT = \{ has_country_flag = aral_(\w+)_started", av),
@@ -158,7 +157,7 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
     if dike_policy == "no":
         remaining.remove("dike")
     dike = False
-    spent_t = spent_d = 0.0
+    spent_t = 0.0
     dry = breaks = 0
     log, lv = [], []
     S = C["sib"]
@@ -190,12 +189,11 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
                 continue
             if d["gate"] and level(C, r) <= d["gate"]:
                 continue
-            if tre <= d["tre"] or pp < d["pp"]:
+            if pp < d["pp"]:
                 continue
             tre -= d["tre"]
             pp -= d["pp"]
             spent_t += d["tre"]
-            spent_d += d["debt"]
             started.add(n)
             running.append((day + d["days"], n))
             remaining.remove(n)
@@ -205,7 +203,7 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
         if sib != "no":
             if st == "idle" and day >= dead_until and "ifas" in done and "loan" in done:
                 d = D["sibaral"]
-                if tre > d["tre"] and pp >= d["pp"]:
+                if pp >= d["pp"]:
                     tre -= d["tre"]; pp -= d["pp"]; spent_t += d["tre"]; sibs["spent"] += d["tre"]; sibs["attempts"] += 1
                     accepted = rng.random() * 100 < S["accept"]
                     st, nxt = "request", day + d["days"]
@@ -225,8 +223,8 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
                     st, dead_until = "idle", day + S["dead_days"]; sibs["dead"] += 1
             if st == "ok" and "kokaral" in done:
                 d = D["sib_" + sib]
-                if tre > d["tre"] and pp >= d["pp"]:
-                    tre -= d["tre"]; pp -= d["pp"]; spent_t += d["tre"]; spent_d += d["debt"]; sibs["spent"] += d["tre"] + d["debt"]
+                if pp >= d["pp"]:
+                    tre -= d["tre"]; pp -= d["pp"]; spent_t += d["tre"]; sibs["spent"] += d["tre"]
                     st, nxt = "build", day + d["days"]
             if st == "build" and day >= nxt:
                 st = "online"; sibs["online"] = mth; fee_now = S[sib]["fee"]
@@ -250,7 +248,7 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
             x = rng.random()
             if x < C["p_dry"]:
                 dry += 1
-                if buy and tre > C["dry_buy"] and pp >= C["dry_pp"]:
+                if buy and pp >= C["dry_pp"]:
                     tre -= C["dry_buy"]
                     pp -= C["dry_pp"]
                     spent_t += C["dry_buy"]
@@ -270,7 +268,7 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
             breaks += 1
             pend = 0.0          # the washed-out dike takes everything above the natural level
             r = min(r, 0.0)
-            if rebuild and tre > C["dike_rebuild"]:
+            if rebuild:
                 tre -= C["dike_rebuild"]
                 spent_t += C["dike_rebuild"]
                 pend += C["dike_rebuild_pts"]
@@ -284,7 +282,7 @@ def run(C, D, income, pp_m, route, dike_policy, buy, rebuild, months, rng, trace
         if cap - r < 0.01:
             pend = 0.0
         lv.append(level(C, r))
-    return {"lv": lv, "dry": dry, "breaks": breaks, "spent": spent_t + spent_d, "log": log, "done": done, "sib": sibs}
+    return {"lv": lv, "dry": dry, "breaks": breaks, "spent": spent_t, "treasury": tre, "log": log, "done": done, "sib": sibs}
 
 
 def first(lv, L):
@@ -360,16 +358,15 @@ def main():
     print("final recovery decision: %.2f bn + %d PP over %d days" % (C["regional_recovery_cost"], recovery["pp"], recovery["days"]))
     print("annual Siberian water fees: canal %.2f bn / pipe %.2f bn; accepted price-review ceiling %.3f bn" % (C["sib"]["canal"]["fee"], C["sib"]["pipe"]["fee"], C["sib"]["fee_cap"]))
     print("\n# Projects (parsed)")
-    print("%-11s %5s %4s %5s %5s %6s %6s  needs / gate / excl" % ("decision", "days", "PP", "tre", "debt", "water", "relief"))
+    print("%-11s %5s %4s %7s %6s %6s  needs / gate / excl" % ("decision", "days", "PP", "cash", "water", "relief"))
     for n, d in D.items():
-        print("%-11s %5d %4d %5.2f %5.2f %6g %6g  %s" % (n, d["days"], d["pp"], d["tre"], d["debt"], d["pending"], d["relief"],
+        print("%-11s %5d %4d %7.2f %6g %6g  %s" % (n, d["days"], d["pp"], d["tre"], d["pending"], d["relief"],
               ",".join(d["needs"]) + (" lvl>%g" % d["gate"] if d["gate"] else "") + (" excl(%s)" % ",".join(d["excl"]) if d["excl"] else "") + (" [dike]" if d["dike"] else "")))
     for route in ("phase2", "dam2"):
         skip = "dam2" if route == "phase2" else "phase2"
         water = min(sum(d["pending"] for k, d in D.items() if k not in (skip, "dike") and not k.startswith("sib")), dict(C["caps"])[route])
         tre = sum(d["tre"] for k, d in D.items() if k != skip and not k.startswith("sib"))
-        dbt = sum(d["debt"] for k, d in D.items() if k != skip and not k.startswith("sib"))
-        print("route %-6s: water %g -> ceiling %.1f m; relief %g; money %.2f treasury + %.2f debt = %.2f bn" % (route, water, level(C, water), sum(d["relief"] for d in D.values()), tre, dbt, tre + dbt))
+        print("route %-6s: water %g -> ceiling %.1f m; relief %g; full project cash outlay %.2f bn" % (route, water, level(C, water), sum(d["relief"] for d in D.values()), tre))
     nothing = run(C, D, 0, 0, "phase2", "no", False, False, 600, random.Random(1))["lv"]
     print("do nothing: the level hovers around the natural level (lowest %.1f m after dry years, %.1f m at the end)" % (min(nothing), nothing[-1]))
 

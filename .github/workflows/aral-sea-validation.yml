@@ -37,8 +37,8 @@ jobs:
         run: python -m compileall -q skills/aral-sea-mechanic/scripts skills/aral-sea-mechanic/tests
       - name: Run Aral mechanic unit tests
         run: python -m unittest discover -s skills/aral-sea-mechanic/tests -v
-      - name: Check generated EN/RU custom-cost localisation
-        run: python -I skills/aral-sea-mechanic/scripts/generate_cost_localisation.py
+      - name: Check shared generic treasury cost references
+        run: python -I skills/aral-sea-mechanic/scripts/check_generic_costs.py mdredux
       - name: Audit Aral mechanic
         run: python -I skills/aral-sea-mechanic/scripts/mech_audit.py mdredux --prefix aral
       - name: Simulate Aral restoration paths

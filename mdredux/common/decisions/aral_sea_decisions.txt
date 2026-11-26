@@ -12,10 +12,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 0.5 }
-		}
-		custom_cost_text = aral_ifas_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
 		days_remove = 120
 		fire_only_once = yes
 		complete_effect = {
@@ -46,10 +44,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 0.5 }
-		}
-		custom_cost_text = aral_loan_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
 		days_remove = 540
 		fire_only_once = yes
 		highlight_states = {
@@ -87,8 +83,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.5 } }
-		custom_cost_text = aral_dike_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
 		days_remove = 180
 		fire_only_once = yes
 		highlight_states = {
@@ -131,8 +127,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.5 } }
-		custom_cost_text = aral_channel_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_1_5
 		days_remove = 360
 		fire_only_once = yes
 		highlight_states = {
@@ -146,10 +142,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_channel"
 			custom_effect_tooltip = aral_channel_cost_tt
-			set_temp_variable = { treasury_change = -0.5 }
+			set_temp_variable = { treasury_change = -1.5 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 1 }
-			modify_debt_effect = yes
 
 		}
 		remove_effect = {
@@ -176,10 +170,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 1.5 }
-		}
-		custom_cost_text = aral_kokaral_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_4_5
 		days_remove = 730
 		fire_only_once = yes
 		highlight_states = {
@@ -192,10 +184,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_kokaral"
 			custom_effect_tooltip = aral_kokaral_cost_tt
-			set_temp_variable = { treasury_change = -1.5 }
+			set_temp_variable = { treasury_change = -4.5 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 3 }
-			modify_debt_effect = yes
 
 		}
 		remove_effect = {
@@ -221,8 +211,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.5 } }
-		custom_cost_text = aral_aklak_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_1_0
 		days_remove = 270
 		fire_only_once = yes
 		highlight_states = {
@@ -235,10 +225,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_aklak"
 			custom_effect_tooltip = aral_aklak_cost_tt
-			set_temp_variable = { treasury_change = -0.5 }
+			set_temp_variable = { treasury_change = -1 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 0.5 }
-			modify_debt_effect = yes
 
 		}
 		remove_effect = {
@@ -262,8 +250,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_channel has_country_flag = aral_channel_done }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 4 } }
-		custom_cost_text = aral_irrigation_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_8_0
 		days_remove = 540
 		fire_only_once = yes
 		highlight_states = {
@@ -277,10 +265,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_irrigation"
 			custom_effect_tooltip = aral_irrigation_cost_tt
-			set_temp_variable = { treasury_change = -4 }
+			set_temp_variable = { treasury_change = -8 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 4 }
-			modify_debt_effect = yes
 
 		}
 		remove_effect = {
@@ -308,8 +294,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 1 } }
-		custom_cost_text = aral_fish_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_1_0
 		days_remove = 365
 		fire_only_once = yes
 		highlight_states = {
@@ -347,8 +333,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_unlock_program_tt aral_unlocked_program = yes }
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 1.5 } }
-		custom_cost_text = aral_saxaul1_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_1_5
 		days_remove = 540
 		fire_only_once = yes
 		highlight_states = {
@@ -387,8 +373,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_saxaul1 has_country_flag = aral_saxaul1_done }
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 4 } }
-		custom_cost_text = aral_saxaul2_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_8_0
 		days_remove = 900
 		fire_only_once = yes
 		highlight_states = {
@@ -401,10 +387,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_saxaul2"
 			custom_effect_tooltip = aral_saxaul2_cost_tt
-			set_temp_variable = { treasury_change = -4 }
+			set_temp_variable = { treasury_change = -8 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 4 }
-			modify_debt_effect = yes
 
 		}
 		remove_effect = {
@@ -429,10 +413,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 			custom_trigger_tooltip = { tooltip = aral_req_ifas has_country_flag = aral_ifas_done }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 0.5 }
-		}
-		custom_cost_text = aral_uzb_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
 		days_remove = 365
 		fire_only_once = yes
 		complete_effect = {
@@ -464,8 +446,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_aklak has_country_flag = aral_aklak_done }
 			custom_trigger_tooltip = { tooltip = aral_req_irrigation has_country_flag = aral_irrigation_done }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 4 } }
-		custom_cost_text = aral_amanotkel_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_8_0
 		days_remove = 720
 		fire_only_once = yes
 		highlight_states = {
@@ -478,10 +460,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_amanotkel"
 			custom_effect_tooltip = aral_amanotkel_cost_tt
-			set_temp_variable = { treasury_change = -4 }
+			set_temp_variable = { treasury_change = -8 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 4 }
-			modify_debt_effect = yes
 
 		}
 		remove_effect = {
@@ -508,10 +488,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 			custom_trigger_tooltip = { tooltip = aral_excl_phase2_tt NOT = { has_country_flag = aral_dam2_started } }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 3 }
-		}
-		custom_cost_text = aral_phase2_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_10_0
 		days_remove = 900
 		fire_only_once = yes
 		highlight_states = {
@@ -524,10 +502,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_phase2"
 			custom_effect_tooltip = aral_phase2_cost_tt
-			set_temp_variable = { treasury_change = -3 }
+			set_temp_variable = { treasury_change = -10 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 7 }
-			modify_debt_effect = yes
 			hidden_effect = {
 				set_country_flag = aral_phase2_started
 			}
@@ -558,10 +534,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_level check_variable = { aral_sea_level > 41.49 } }
 			custom_trigger_tooltip = { tooltip = aral_excl_dam2_tt NOT = { has_country_flag = aral_phase2_started } }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 7.5 }
-		}
-		custom_cost_text = aral_dam2_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_25_0
 		days_remove = 1095
 		fire_only_once = yes
 		highlight_states = {
@@ -574,10 +548,8 @@ KAZ_aral_sea_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_dam2"
 			custom_effect_tooltip = aral_dam2_cost_tt
-			set_temp_variable = { treasury_change = -7.5 }
+			set_temp_variable = { treasury_change = -25 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 17.5 }
-			modify_debt_effect = yes
 			hidden_effect = {
 				set_country_flag = aral_dam2_started
 			}
@@ -612,10 +584,8 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_ifas has_country_flag = aral_ifas_done }
 			custom_trigger_tooltip = { tooltip = aral_req_loan has_country_flag = aral_loan_done }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 0.5 }
-		}
-		custom_cost_text = aral_sibaral_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
 		days_remove = 540
 		days_re_enable = 365
 		complete_effect = {
@@ -654,19 +624,15 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 			custom_trigger_tooltip = { tooltip = aral_excl_sib_canal_tt NOT = { has_country_flag = aral_sib_pipe_started } }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 7.5 }
-		}
-		custom_cost_text = aral_sib_canal_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_40_0
 		days_remove = 2920
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_canal"
 			custom_effect_tooltip = aral_sib_canal_cost_tt
-			set_temp_variable = { treasury_change = -7.5 }
+			set_temp_variable = { treasury_change = -40 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 32.5 }
-			modify_debt_effect = yes
 			hidden_effect = {
 				set_country_flag = aral_sib_canal_started
 			}
@@ -696,19 +662,15 @@ KAZ_aral_sea_category = {
 			custom_trigger_tooltip = { tooltip = aral_req_kokaral has_country_flag = aral_kokaral_done }
 			custom_trigger_tooltip = { tooltip = aral_excl_sib_pipe_tt NOT = { has_country_flag = aral_sib_canal_started } }
 		}
-		custom_cost_trigger = {
-			check_variable = { treasury > 10 }
-		}
-		custom_cost_text = aral_sib_pipe_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_50_0
 		days_remove = 1825
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_pipe"
 			custom_effect_tooltip = aral_sib_pipe_cost_tt
-			set_temp_variable = { treasury_change = -10 }
+			set_temp_variable = { treasury_change = -50 }
 			modify_treasury_effect = yes
-			set_temp_variable = { debt_change = 40 }
-			modify_debt_effect = yes
 			hidden_effect = {
 				set_country_flag = aral_sib_pipe_started
 			}
@@ -730,8 +692,8 @@ KAZ_aral_sea_category = {
 		available = {
 			custom_trigger_tooltip = { tooltip = aral_req_coast_tt owns_state = 717 }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 1.5 } }
-		custom_cost_text = aral_regional_response_cost_label
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_1_5
 		cost = 60
 		days_remove = 365
 		fire_only_once = yes

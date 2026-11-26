@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-GENERATOR_PATH = Path(__file__).resolve().parents[1] / "scripts" / "generate_cost_localisation.py"
+COST_CHECK_PATH = Path(__file__).resolve().parents[1] / "scripts" / "check_generic_costs.py"
 AUDIT_PATH = ROOT / "skills" / "aral-sea-mechanic" / "scripts" / "mech_audit.py"
 SIMULATOR_PATH = ROOT / "skills" / "aral-sea-mechanic" / "scripts" / "aral_model_sim.py"
 
@@ -20,7 +20,7 @@ def load_module(name, path):
     return module
 
 
-generator = load_module("aral_cost_generator", GENERATOR_PATH)
+cost_checker = load_module("aral_cost_checker", COST_CHECK_PATH)
 audit = load_module("aral_mech_audit", AUDIT_PATH)
 simulator = load_module("aral_sea_simulator", SIMULATOR_PATH)
 
@@ -79,18 +79,30 @@ class AralSimulatorTests(unittest.TestCase):
         self.assertAlmostEqual(constants["sib"]["canal"]["fee"], 0.6)
         self.assertAlmostEqual(constants["sib"]["pipe"]["fee"], 0.4)
         self.assertAlmostEqual(constants["sib"]["fee_cap"], 1.500015)
-        expected_money = {
-            "ifas": (0.5, 0.0), "loan": (0.5, 0.0), "dike": (0.5, 0.0),
-            "channel": (0.5, 1.0), "kokaral": (1.5, 3.0), "aklak": (0.5, 0.5),
-            "irrigation": (4.0, 4.0), "fish": (1.0, 0.0), "saxaul1": (1.5, 0.0),
-            "saxaul2": (4.0, 4.0), "uzb": (0.5, 0.0), "amanotkel": (4.0, 4.0),
-            "phase2": (3.0, 7.0), "dam2": (7.5, 17.5), "sibaral": (0.5, 0.0),
-            "sib_canal": (7.5, 32.5), "sib_pipe": (10.0, 40.0), "regional_response": (1.5, 0.0),
+        expected_costs = {
+            "ifas": 0.5,
+            "loan": 0.5,
+            "dike": 0.5,
+            "channel": 1.5,
+            "kokaral": 4.5,
+            "aklak": 1.0,
+            "irrigation": 8.0,
+            "fish": 1.0,
+            "saxaul1": 1.5,
+            "saxaul2": 8.0,
+            "uzb": 0.5,
+            "amanotkel": 8.0,
+            "phase2": 10.0,
+            "dam2": 25.0,
+            "sibaral": 0.5,
+            "sib_canal": 40.0,
+            "sib_pipe": 50.0,
+            "regional_response": 1.5,
         }
-        for decision, (treasury, debt) in expected_money.items():
+        for decision, cash_cost in expected_costs.items():
             with self.subTest(decision=decision):
-                self.assertAlmostEqual(projects[decision]["tre"], treasury)
-                self.assertAlmostEqual(projects[decision]["debt"], debt)
+                self.assertAlmostEqual(projects[decision]["tre"], cash_cost)
+                self.assertNotIn("debt", projects[decision])
         self.assertEqual(constants["regional_spirits"]["neglect"], {
             "stability_factor": -0.02, "political_power_factor": -0.03,
         })
@@ -98,6 +110,17 @@ class AralSimulatorTests(unittest.TestCase):
             "stability_factor": -0.04, "political_power_factor": -0.05,
         })
 
+
+    def test_projects_can_be_started_with_negative_treasury(self):
+        import random
+        constants, projects = simulator.parse(str(ROOT / "mdredux"))
+        result = simulator.run(
+            constants, projects, income=0.0, pp_m=0.0, route="phase2",
+            dike_policy="no", buy=False, rebuild=False, months=1,
+            rng=random.Random(1),
+        )
+        self.assertLess(result["treasury"], 0.0)
+        self.assertGreater(result["spent"], 0.0)
 
     def test_script_readers_close_files(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -114,62 +137,56 @@ class AralSimulatorTests(unittest.TestCase):
                 )
 
 
-class CostLocalisationGeneratorTests(unittest.TestCase):
-    def setUp(self):
-        self.decisions = """
+class GenericTreasuryCostCheckerTests(unittest.TestCase):
+    def test_full_price_uses_shared_key_without_a_treasury_balance_gate(self):
+        source = """
 KAZ_aral_sea_category = {
-\taral_test = {
-\t\tcustom_cost_trigger = { check_variable = { treasury > 0.1 } }
-\t\tcustom_cost_text = aral_test_cost
-\t\tcomplete_effect = { custom_effect_tooltip = aral_test_cost_tt }
-\t}
+    aral_test = {
+        custom_cost_trigger = { always = yes }
+        custom_cost_text = cost_4_5
+        complete_effect = {
+            set_temp_variable = { treasury_change = -4.5 }
+            modify_treasury_effect = yes
+        }
+    }
 }
 """
-        self.localisations = {
-            "en": """l_english:
- aral_test_cost: "$0.1 bn + 10 PP"
- aral_test_cost_tt: "Total cost: $0.2 bn; borrowed: $0.1 bn."
-""",
-            "ru": """l_russian:
- aral_test_cost: "0,1 млрд $ + 10 ПВ"
- aral_test_cost_tt: "Полная стоимость: 0,2 млрд $; в долг: 0,1 млрд $."
-""",
+        self.assertEqual(cost_checker.validate_costs(source), [])
+
+    def test_old_cash_threshold_and_explicit_debt_are_rejected(self):
+        source = """
+KAZ_aral_sea_category = {
+    aral_test = {
+        custom_cost_trigger = { check_variable = { treasury > 4 } }
+        custom_cost_text = cost_4_5
+        complete_effect = {
+            set_temp_variable = { treasury_change = -1.5 }
+            modify_treasury_effect = yes
+            set_temp_variable = { debt_change = 3 }
+            modify_debt_effect = yes
         }
+    }
+}
+"""
+        findings = cost_checker.validate_costs(source)
+        self.assertTrue(any("treasury" in finding.lower() for finding in findings))
+        self.assertTrue(any("debt" in finding.lower() for finding in findings))
+        self.assertTrue(any("does not match" in finding.lower() for finding in findings))
 
-    def test_generates_blocked_and_hover_keys_from_existing_sources(self):
-        generated = generator.generate_entries(self.decisions, self.localisations)
-        self.assertEqual(generated["en"]["aral_test_cost_blocked"], "§R$0.1 bn + 10 PP§!")
-        self.assertEqual(
-            generated["en"]["aral_test_cost_tooltip"],
-            "Total cost: $0.2 bn; borrowed: $0.1 bn.",
-        )
-        self.assertEqual(generated["ru"]["aral_test_cost_blocked"], "§R0,1 млрд $ + 10 ПВ§!")
-
-    def test_merge_is_idempotent(self):
-        generated = generator.generate_entries(self.decisions, self.localisations)
-        first, added1 = generator.merge_missing_keys(
-            self.localisations["en"], generated["en"], "en"
-        )
-        second, added2 = generator.merge_missing_keys(first, generated["en"], "en")
-        self.assertEqual(len(added1), 2)
-        self.assertEqual(added2, [])
-        self.assertIn(' aral_test_cost_blocked: "', first)
-        self.assertNotIn(' aral_test_cost_blocked:0 "', first)
-        self.assertEqual(first, second)
-
-    def test_conflicting_generated_key_is_not_overwritten(self):
-        generated = generator.generate_entries(self.decisions, self.localisations)
-        text = self.localisations["en"] + ' aral_test_cost_blocked: "wrong"\n'
-        with self.assertRaises(ValueError):
-            generator.merge_missing_keys(text, generated["en"], "en")
-
-    def test_missing_source_tooltip_fails_clearly(self):
-        broken = dict(self.localisations)
-        broken["en"] = broken["en"].replace(
-            ' aral_test_cost_tt: "Total cost: $0.2 bn; borrowed: $0.1 bn."\n', ""
-        )
-        with self.assertRaisesRegex(ValueError, "missing full cost tooltip"):
-            generator.generate_entries(self.decisions, broken)
+    def test_only_confirmed_generic_price_keys_are_allowed(self):
+        source = """
+KAZ_aral_sea_category = {
+    aral_test = {
+        custom_cost_trigger = { always = yes }
+        custom_cost_text = aral_custom_cost_label
+        complete_effect = {
+            set_temp_variable = { treasury_change = -0.5 }
+            modify_treasury_effect = yes
+        }
+    }
+}
+"""
+        self.assertTrue(cost_checker.validate_costs(source))
 
 
 class SiberianPriceReviewTests(unittest.TestCase):
@@ -224,10 +241,10 @@ custom_cost_text = aral_test_cash
         decisions = {
             "aral_test": """
 cost = 25
-custom_cost_trigger = { check_variable = { treasury > 0.05 } }
-custom_cost_text = aral_test_cost
+custom_cost_trigger = { always = yes }
+custom_cost_text = cost_0_5
 complete_effect = {
-  set_temp_variable = { treasury_change = -0.05 }
+  set_temp_variable = { treasury_change = -0.5 }
   modify_treasury_effect = yes
 }
 """
@@ -251,6 +268,26 @@ complete_effect = {
         }
         findings = audit.aral_decision_cost_issues(legacy)
         self.assertTrue(any("native decision cost = N" in message for _, message in findings))
+
+    def test_aral_financing_uses_full_treasury_cost_without_debt_or_cash_gates(self):
+        decisions = {
+            "aral_test": """
+custom_cost_trigger = { always = yes }
+custom_cost_text = cost_4_5
+complete_effect = {
+  set_temp_variable = { treasury_change = -4.5 }
+  modify_treasury_effect = yes
+}
+"""
+        }
+        events = {
+            "aral_sea.1": "option = { trigger = { has_political_power = 15 } set_temp_variable = { treasury_change = -0.3 } modify_treasury_effect = yes }"
+        }
+        self.assertEqual(audit.aral_treasury_cost_issues(decisions, events), [])
+        decisions["aral_test"] = decisions["aral_test"].replace("always = yes", "check_variable = { treasury > 4 }")
+        events["aral_sea.1"] = events["aral_sea.1"].replace("has_political_power = 15", "check_variable = { treasury > 0.3 }")
+        findings = audit.aral_treasury_cost_issues(decisions, events)
+        self.assertTrue(any("treasury" in message.lower() for _, message in findings))
 
     def test_category_allowed_must_not_be_duplicated_in_each_aral_decision(self):
         decisions = {
@@ -370,28 +407,13 @@ remove_effect = {
         self.assertTrue(any("aral_sea_restoration" in message for _, message in findings))
         self.assertTrue(any(area == "scripted effect update_aral_sea" for area, _ in findings))
 
-    def test_custom_cost_suffixes_are_implicitly_referenced(self):
-        decisions = {
-            "aral_test": """
-custom_cost_text = aral_test_cost
-"""
-        }
+    def test_shared_generic_cost_keys_do_not_require_local_suffix_entries(self):
+        decisions = {"aral_test": "custom_cost_text = cost_4_5"}
+        self.assertEqual(audit.implied_custom_cost_localisation_keys(decisions), set())
         self.assertEqual(
-            audit.implied_custom_cost_localisation_keys(decisions),
-            {"aral_test_cost_blocked", "aral_test_cost_tooltip"},
+            audit.custom_cost_blocked_key_issues(decisions, {"en": {}, "ru": {}}, ["en", "ru"]),
+            [],
         )
-
-    def test_missing_blocked_variant_is_detected_as_a_project_convention(self):
-        decisions = {"aral_test": "custom_cost_text = aral_test_cost"}
-        loc = {
-            "en": {"aral_test_cost": "$0.1 bn"},
-            "ru": {"aral_test_cost": "0,1 млрд $"},
-        }
-        issues = audit.custom_cost_blocked_key_issues(decisions, loc, ["en", "ru"])
-        self.assertEqual(len(issues), 2)
-        loc["en"]["aral_test_cost_blocked"] = "§R$0.1 bn§!"
-        loc["ru"]["aral_test_cost_blocked"] = "§R0,1 млрд $§!"
-        self.assertEqual(audit.custom_cost_blocked_key_issues(decisions, loc, ["en", "ru"]), [])
 
     def test_valid_aral_decision_and_update_ownership_contract_has_no_findings(self):
         decisions = {

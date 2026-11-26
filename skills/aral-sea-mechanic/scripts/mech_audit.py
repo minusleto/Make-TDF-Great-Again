@@ -18,6 +18,10 @@ CAPITALS = ["Moscow", "Beijing", "Astana", "Nur-Sultan", "Tashkent", "Ankara", "
             "Астан", "Анкар", "Тегеран", "Бишкек", "Душанбе"]
 YEAR_RE = re.compile(r"\b(?:200\d|201\d|202[0-5])\b")
 OUT = collections.defaultdict(list)
+GENERIC_TREASURY_COST_KEYS = {
+    "cost_0_5", "cost_1_0", "cost_1_5", "cost_3_0", "cost_4_0", "cost_4_5",
+    "cost_7_5", "cost_8_0", "cost_10_0", "cost_25_0", "cost_40_0", "cost_50_0",
+}
 
 
 def add(sev, area, msg):
@@ -87,7 +91,10 @@ def custom_cost_blocked_key_issues(decisions, loc, langs):
         match = re.search(r"custom_cost_text\s*=\s*(\S+)", body)
         if not match:
             continue
-        blocked = match.group(1) + "_blocked"
+        base = match.group(1)
+        if base.startswith("cost_"):
+            continue  # shared TDF generic treasury keys own their blocked variants
+        blocked = base + "_blocked"
         for lang in langs:
             if blocked not in loc.get(lang, {}):
                 issues.append(("decision " + decision, "blocked custom-cost key %s is missing (%s)" % (blocked, lang)))
@@ -101,8 +108,9 @@ def implied_custom_cost_localisation_keys(decisions):
         match = re.search(r"custom_cost_text\s*=\s*(\S+)", body)
         if match:
             base = match.group(1)
-            implied.add(base + "_blocked")
-            implied.add(base + "_tooltip")
+            if not base.startswith("cost_"):
+                implied.add(base + "_blocked")
+                implied.add(base + "_tooltip")
     return implied
 
 
@@ -138,6 +146,45 @@ def aral_decision_cost_issues(decisions):
                 "use the native decision cost = N for political power; remove ai_hint_pp_cost, has_political_power custom gating and manual PP debits",
             ))
     return issues
+
+def aral_expected_cost_key(amount):
+    return "cost_" + format(amount, ".1f").replace(".", "_")
+
+
+def aral_treasury_cost_issues(decisions, events):
+    """Aral cash costs are full treasury debits; the TDF economy finances negative balances."""
+    issues = []
+    for decision, body in decisions.items():
+        area = "decision " + decision
+        label = re.search(r"custom_cost_text\s*=\s*(\S+)", body)
+        trigger = inner(body, "custom_cost_trigger")
+        complete = inner(body, "complete_effect") or ""
+        debits = re.findall(r"treasury_change\s*=\s*(-?[\d.]+)", complete)
+        treasury_effects = re.findall(r"modify_treasury_effect\s*=\s*yes", complete)
+        if not label:
+            issues.append((area, "missing shared generic treasury cost_text key"))
+        elif label.group(1) not in GENERIC_TREASURY_COST_KEYS:
+            issues.append((area, "custom_cost_text %s is not a verified shared TDF treasury key" % label.group(1)))
+        if trigger is None or not re.fullmatch(r"\s*always\s*=\s*yes\s*", trigger):
+            issues.append((area, "custom_cost_trigger must be always = yes; current treasury balance must not block financed projects"))
+        if re.search(r"\btreasury\s*>", body):
+            issues.append((area, "treasury-balance affordability gate blocks automatic debt financing"))
+        if len(debits) != 1 or len(treasury_effects) != 1:
+            issues.append((area, "charge the full project price with exactly one treasury_change and one modify_treasury_effect"))
+        elif float(debits[0]) >= 0:
+            issues.append((area, "project treasury_change must be a negative full cash cost"))
+        elif label and label.group(1) != aral_expected_cost_key(abs(float(debits[0]))):
+            issues.append((area, "generic price key %s does not match full treasury debit %s" % (label.group(1), abs(float(debits[0])))))
+        if re.search(r"debt_change\s*=|modify_debt_effect\s*=\s*yes", body):
+            issues.append((area, "explicit debt transaction duplicates the TDF automatic negative-treasury financing"))
+
+    for event_id, body in events.items():
+        if re.search(r"check_variable\s*=\s*\{\s*treasury\s*>", body):
+            issues.append(("event " + event_id, "treasury-balance gate blocks a cash expense that should be financed automatically"))
+        if re.search(r"debt_change\s*=|modify_debt_effect\s*=\s*yes", body):
+            issues.append(("event " + event_id, "event expenses must use the treasury effect only; do not add debt separately"))
+    return issues
+
 
 def aral_localisation_style_issues(text):
     """The project omits the optional Paradox :0 localisation version suffix."""
@@ -445,9 +492,6 @@ def main():
         cct = re.search(r"custom_cost_text\s*=\s*(\S+)", b)
         cce = inner(b, "complete_effect") or ""
         cre = inner(b, "remove_effect") or ""
-        tre = re.search(r"treasury_change\s*=\s*(-?[\d.]+)", cce)
-        dbt = re.search(r"debt_change\s*=\s*(-?[\d.]+)", cce)
-        thr = re.search(r"custom_cost_trigger\s*=\s*\{\s*check_variable\s*=\s*\{\s*treasury\s*>\s*([\d.]+)", b)
         for k in (n, n + "_desc"):
             for lg in langs:
                 if k not in loc[lg]:
@@ -467,26 +511,6 @@ def main():
                 for lg in langs:
                     if not re.search(r"(?<!\d)" + c + r"(?!\d)", loc[lg].get(tk, "")):
                         add("WARN", area, "political-power cost %s not in tooltip %s (%s)" % (c, tk, lg))
-        if tre and thr:
-            v, th = abs(float(tre.group(1))), float(thr.group(1))
-            if th < v - 0.0101:
-                add("ERROR", area, "treasury gate %s is lower than the price %s: the decision can be started without the money" % (th, v))
-            elif th > v + 1e-9:
-                add("WARN", area, "treasury gate %s is higher than the price %s" % (th, v))
-        if tre and cct:
-            v = abs(float(tre.group(1)))
-            for lg in langs:
-                lab = loc[lg].get(cct.group(1), "")
-                if fmt(v) not in lab.replace(",", "."):
-                    add("WARN", area, "price %s not found in cost label (%s): '%s'" % (fmt(v), lg, lab))
-        if tre and dbt:
-            v, d = abs(float(tre.group(1))), float(dbt.group(1))
-            for tk in re.findall(r"custom_effect_tooltip\s*=\s*(\S+_cost_tt)", cce):
-                for lg in langs:
-                    s = loc[lg].get(tk, "").replace(",", ".")
-                    miss = [x for x in (fmt(v), fmt(d), fmt(v + d)) if x not in s]
-                    if miss:
-                        add("WARN", area, "tooltip %s (%s) lacks %s (treasury %s + debt %s)" % (tk, lg, ",".join(miss), fmt(v), fmt(d)))
         for var, val, tk in re.findall(r"add_to_variable\s*=\s*\{\s*(\w+)\s*=\s*(-?[\d.]+)\s*tooltip\s*=\s*(\w+)", cre):
             for lg in langs:
                 s = loc[lg].get(tk)
@@ -501,6 +525,8 @@ def main():
     for area, msg in custom_cost_blocked_key_issues(decisions, loc, langs):
         add("WARN", area, "project-generated custom-cost suffix convention: " + msg)
     if P == "aral":
+        for area, msg in aral_treasury_cost_issues(decisions, events):
+            add("ERROR", area, msg)
         for area, msg in aral_ownership_issues(decisions, effects, code_all):
             add("ERROR", area, msg)
         for area, msg in aral_initialization_issues(effects):
@@ -641,7 +667,7 @@ def main():
             add("WARN", "effects", "%s is defined but never called" % n)
     if ext:
         add("INFO", "effects", "identifiers with '= yes' not defined in the available TDF files; check MDC Wiki and request the target TDF definition if undocumented: " + ", ".join(sorted(ext)))
-    for ext_name in ("modify_treasury_effect", "modify_debt_effect"):
+    for ext_name in ("modify_treasury_effect",):
         if ext_name in code_all and not re.search(r"\b" + ext_name + r"\b", wiki + repo_common):
             add("INFO", "effects", "%s is not documented with an implementation in the available TDF references; request the target TDF effect definition before relying on its side effects" % ext_name)
 
@@ -709,12 +735,13 @@ def main():
 
 
 RULES = """ERROR  yml without BOM / bare LF / brace mismatch / duplicate loc key / EN-RU key parity
-ERROR  decision: loc key missing, blocked custom-cost localisation missing, cost charged but not shown in label, treasury gate below price,
+ERROR  decision: loc key missing, generic treasury price key differs from the full debit, non-always treasury gate, duplicate debt transaction,
        tooltip number differs from the code, undefined scripted trigger
+ERROR  Aral events and decisions must not gate treasury spending on current balance; negative treasury is financed by TDF debt
 ERROR  flag checked but never set; variable read but never written; effect called but undefined
 ERROR  event: missing title/desc/option keys; scripted GUI element missing in .gui; sprite/texture missing
 ERROR  Aral: decisions, monthly tick and recalculation are gated by KAZ ownership of state 717; state modifier is persistent
-WARN   spaces, no ai_will_do, no decision log line, generated cost-label suffix convention, price not in label/tooltip, variable written but never read,
+WARN   spaces, no ai_will_do, no decision log line, variable written but never read,
        event length/label rules, banned phrases, years in text, modifier IDs absent from supplied MDC/TDF references, unused effects
 INFO   hardcoded capitals, flags set but unused, undocumented cost helpers, unresolved TDF identifiers, unreferenced loc keys"""
 
