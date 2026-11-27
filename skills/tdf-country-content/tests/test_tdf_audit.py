@@ -2508,6 +2508,45 @@ class SkillNavigationTests(unittest.TestCase):
                     offenders.append("{}:{}".format(path.relative_to(self.REPO), number))
         self.assertEqual(offenders, [], "Docs name another mod as a source of truth")
 
+    @staticmethod
+    def _github_slug(heading):
+        heading = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", heading)
+        heading = re.sub(r"<[^>]+>", "", heading).replace("`", "").replace("*", "")
+        heading = re.sub(r"[^\w\- ]", "", heading.strip().lower(), flags=re.UNICODE)
+        return heading.replace(" ", "-")
+
+    def _markdown_anchors(self, path):
+        seen, anchors, in_fence = {}, set(), False
+        for line in path.read_text(encoding="utf-8", errors="replace").split("\n"):
+            if line.lstrip().startswith(("```", "~~~")):
+                in_fence = not in_fence
+                continue
+            if in_fence:
+                continue
+            anchors.update(a.lower() for a in re.findall(r"<a\s+(?:id|name)=[\"']([^\"']+)[\"']", line))
+            match = re.match(r"^#{1,6}\s+(.*?)\s*#*\s*$", line)
+            if match:
+                slug = self._github_slug(match.group(1))
+                count = seen.get(slug, 0)
+                seen[slug] = count + 1
+                anchors.add(slug if count == 0 else "{}-{}".format(slug, count))
+        return anchors
+
+    def test_markdown_anchor_links_resolve(self):
+        """Ссылки вида file.md#раздел должны вести на заголовок или явный <a id> (в wiki якоря явные)."""
+        broken = []
+        for path in sorted(self.REPO.rglob("*.md")):
+            if ".git" in path.relative_to(self.REPO).parts:
+                continue
+            text = re.sub(r"```.*?```", "", path.read_text(encoding="utf-8", errors="replace"), flags=re.S)
+            for target, anchor in re.findall(r"\]\(([^)\s#]*)#([^)\s]+)\)", text):
+                if re.match(r"^(https?:|mailto:)", target):
+                    continue
+                dest = path if not target else (path.parent / target).resolve()
+                if dest.is_file() and anchor.lower() not in self._markdown_anchors(dest):
+                    broken.append("{} -> {}#{}".format(path.relative_to(self.REPO), target or "(self)", anchor))
+        self.assertEqual(broken, [], "Broken #anchor links")
+
     def test_skill_docs_have_single_h1_and_front_matter(self):
         problems = []
         for path in self._skill_md_files():
