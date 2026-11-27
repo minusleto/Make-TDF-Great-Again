@@ -29,7 +29,6 @@ guiTypes = {
 			Orientation = "CENTER_UP"
 			position = { x = 195 y = 7 }
 			pdx_tooltip = "ARAL_HELP_TT"
-			pdx_tooltip_delayed = "ARAL_HELP_TT"
 		}
 		iconType = {
 			name = "aral_picture"

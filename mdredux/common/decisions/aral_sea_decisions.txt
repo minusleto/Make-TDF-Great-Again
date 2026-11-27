@@ -13,7 +13,6 @@ KAZ_aral_sea_category = {
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_ifas"
-			custom_effect_tooltip = aral_ifas_cost_tt
 			set_temp_variable = { treasury_change = -0.5 }
 			modify_treasury_effect = yes
 
@@ -47,7 +46,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_loan"
-			custom_effect_tooltip = aral_loan_cost_tt
 			set_temp_variable = { treasury_change = -0.5 }
 			modify_treasury_effect = yes
 
@@ -83,7 +81,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_dike"
-			custom_effect_tooltip = aral_dike_cost_tt
 			set_temp_variable = { treasury_change = -0.5 }
 			modify_treasury_effect = yes
 
@@ -122,7 +119,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_channel"
-			custom_effect_tooltip = aral_channel_cost_tt
 			set_temp_variable = { treasury_change = -1.5 }
 			modify_treasury_effect = yes
 
@@ -159,7 +155,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_kokaral"
-			custom_effect_tooltip = aral_kokaral_cost_tt
 			set_temp_variable = { treasury_change = -4.5 }
 			modify_treasury_effect = yes
 
@@ -195,7 +190,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_aklak"
-			custom_effect_tooltip = aral_aklak_cost_tt
 			set_temp_variable = { treasury_change = -1 }
 			modify_treasury_effect = yes
 
@@ -230,7 +224,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_irrigation"
-			custom_effect_tooltip = aral_irrigation_cost_tt
 			set_temp_variable = { treasury_change = -8 }
 			modify_treasury_effect = yes
 
@@ -268,7 +261,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_fish"
-			custom_effect_tooltip = aral_fish_cost_tt
 			set_temp_variable = { treasury_change = -1 }
 			modify_treasury_effect = yes
 
@@ -301,7 +293,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_saxaul1"
-			custom_effect_tooltip = aral_saxaul1_cost_tt
 			set_temp_variable = { treasury_change = -1.5 }
 			modify_treasury_effect = yes
 
@@ -336,7 +327,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_saxaul2"
-			custom_effect_tooltip = aral_saxaul2_cost_tt
 			set_temp_variable = { treasury_change = -8 }
 			modify_treasury_effect = yes
 
@@ -363,7 +353,6 @@ KAZ_aral_sea_category = {
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_uzb"
-			custom_effect_tooltip = aral_uzb_cost_tt
 			set_temp_variable = { treasury_change = -0.5 }
 			modify_treasury_effect = yes
 
@@ -398,7 +387,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_amanotkel"
-			custom_effect_tooltip = aral_amanotkel_cost_tt
 			set_temp_variable = { treasury_change = -8 }
 			modify_treasury_effect = yes
 
@@ -435,7 +423,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_phase2"
-			custom_effect_tooltip = aral_phase2_cost_tt
 			set_temp_variable = { treasury_change = -10 }
 			modify_treasury_effect = yes
 			hidden_effect = {
@@ -476,7 +463,6 @@ KAZ_aral_sea_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_dam2"
-			custom_effect_tooltip = aral_dam2_cost_tt
 			set_temp_variable = { treasury_change = -25 }
 			modify_treasury_effect = yes
 			hidden_effect = {
@@ -517,7 +503,6 @@ KAZ_aral_sea_category = {
 		days_re_enable = 365
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_sibaral"
-			custom_effect_tooltip = aral_sibaral_cost_tt
 			custom_effect_tooltip = aral_sibaral_tt
 			SOV = { country_event = { id = aral_sea.4 } }
 			set_temp_variable = { treasury_change = -0.5 }
@@ -554,7 +539,6 @@ KAZ_aral_sea_category = {
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_canal"
-			custom_effect_tooltip = aral_sib_canal_cost_tt
 			set_temp_variable = { treasury_change = -40 }
 			modify_treasury_effect = yes
 			hidden_effect = {
@@ -589,7 +573,6 @@ KAZ_aral_sea_category = {
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_sib_pipe"
-			custom_effect_tooltip = aral_sib_pipe_cost_tt
 			set_temp_variable = { treasury_change = -50 }
 			modify_treasury_effect = yes
 			hidden_effect = {
@@ -619,7 +602,6 @@ KAZ_aral_sea_category = {
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision aral_regional_response"
-			custom_effect_tooltip = aral_regional_response_cost_tt
 			set_temp_variable = { treasury_change = -1.5 }
 			modify_treasury_effect = yes
 		}

@@ -75,6 +75,7 @@ Do not remove these conditions merely because another decision uses \`fire_only_
 
 - Native cost = N is the Political Power requirement for a decision.
 - custom_cost_text = cost_X_Y points to the shared TDF treasury price label. It is display information; the cash operation is the scripted treasury effect.
+- Do not add a second `custom_effect_tooltip` with an `aral_*_cost_tt` key: it repeats the treasury amount; native `cost = N` displays Political Power separately.
 - Charge the full cash amount once with a negative treasury_change followed by modify_treasury_effect = yes. TDF's treasury system handles a negative balance through its debt mechanism.
 - Do not add a positive-balance treasury gate or a second debt_change / modify_debt_effect transaction. Do not add an empty custom_cost_trigger = { always = yes } placeholder.
 - The annual Siberian fee is stored as a negative aral_sib_fee and applied through the monthly KAZ tick's annual branch. English and Russian labels must show the same absolute amount as that variable.

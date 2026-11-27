@@ -390,6 +390,51 @@ class MechanicAuditRegressionTests(unittest.TestCase):
         self.assertIn('spriteType = "GFX_help_button"', gui)
         self.assertNotIn("GFX_help_button_custom", gui)
 
+    def test_aral_decisions_do_not_duplicate_generic_treasury_cost_tooltips(self):
+        decisions = (
+            ROOT / "mdredux" / "common" / "decisions" / "aral_sea_decisions.txt"
+        ).read_text(encoding="utf-8-sig")
+        self.assertNotRegex(decisions, r"custom_effect_tooltip\s*=\s*aral_\w+_cost_tt\b")
+        self.assertEqual(len(re.findall(r"custom_cost_text\s*=\s*cost_", decisions)), 18)
+        self.assertEqual(len(re.findall(r"treasury_change\s*=\s*-?[\d.]+", decisions)), 18)
+        self.assertEqual(len(re.findall(r"modify_treasury_effect\s*=\s*yes", decisions)), 18)
+        for language in ("english", "russian"):
+            loc_path = ROOT / "mdredux" / "localisation" / language / (
+                "aral_sea_l_" + language + ".yml"
+            )
+            localisation = loc_path.read_text(encoding="utf-8-sig")
+            self.assertNotRegex(localisation, r"(?m)^ aral_\w+_cost_tt:")
+
+        self.assertEqual(
+            audit.aral_redundant_cost_tooltip_issues(
+                {"aral_test": "custom_effect_tooltip = aral_test_cost_tt"},
+                {"en": {"aral_test_cost_tt": "Treasury cost"}, "ru": {}},
+                ("en", "ru"),
+            ),
+            [
+                ("decision aral_test", "remove redundant project cost tooltip aral_test_cost_tt"),
+                ("localisation en", "remove obsolete duplicate cost tooltip key aral_test_cost_tt"),
+            ],
+        )
+        self.assertEqual(
+            audit.aral_redundant_cost_tooltip_issues(
+                {"aral_test": "custom_cost_text = cost_1_5"},
+                {"en": {}, "ru": {}},
+                ("en", "ru"),
+            ),
+            [],
+        )
+
+    def test_aral_help_icon_uses_only_one_handler_for_the_same_tooltip(self):
+        gui = (ROOT / "mdredux" / "interface" / "aral_sea.gui").read_text(encoding="utf-8")
+        self.assertEqual(audit.aral_help_tooltip_issues(gui), [])
+        duplicated = (
+            'iconType = { name = "aral_help_icon" '
+            'pdx_tooltip = "ARAL_HELP_TT" '
+            'pdx_tooltip_delayed = "ARAL_HELP_TT" }'
+        )
+        self.assertTrue(audit.aral_help_tooltip_issues(duplicated))
+
     def test_aral_dynamic_modifiers_use_existing_vanilla_icons(self):
         source = (
             ROOT / "mdredux" / "common" / "dynamic_modifiers" / "aral_sea_modifiers.txt"

@@ -85,6 +85,7 @@ Keep the cost layers explicit, but do not manufacture a second debt transaction:
 | `cost` | Native Political Power cost | Keep the existing `cost = N`; PP is separate from treasury |
 | `custom_cost_trigger` | Optional eligibility check for a custom resource | Omit it for Aral treasury prices; there is no treasury-balance gate |
 | `custom_cost_text` | Player-facing treasury price | Use the shared TDF `cost_X_Y` key matching the full cash price |
+| `custom_effect_tooltip` | Do not add project-specific `aral_*_cost_tt` entries beside the shared price: they repeat the amount already displayed by `custom_cost_text`; native `cost = N` displays PP separately |
 | `treasury_change` + `modify_treasury_effect` | Actual cash transaction | Charge the complete project/event price exactly once |
 | `debt_change` + `modify_debt_effect` | Explicit debt transaction | Do not use for Aral cash expenses: the TDF treasury system automatically finances a negative balance |
 
@@ -95,6 +96,7 @@ Important rules:
 - Keep PP requirements. A decision's native `cost = N` remains a real PP cost, and event options may retain `has_political_power = N`.
 - Do not change project prices by splitting them into a treasury portion and an explicit debt portion. The displayed `cost_X_Y` and the single treasury debit must match the full cash price.
 - The existing shared `cost_X_Y` labels live in the parent TDF `MD_decisions_l_english.yml`; use `custom_cost_text` directly without an empty `custom_cost_trigger`. Do not recreate project-specific `*_cost_label`, `_blocked` or `_tooltip` variants in Aral localisations.
+- Do not add `custom_effect_tooltip = aral_*_cost_tt` to decisions or define matching localisation keys: the generic `custom_cost_text = cost_X_Y` already displays the treasury price, while native `cost = N` displays Political Power.
 - Yearly Siberian fees and event expenses use the same treasury-only mechanism. Keep non-cash conditions such as PP requirements and the Siberian contract's price cap.
 - Run `skills/aral-sea-mechanic/scripts/check_generic_costs.py mdredux`, the static audit, unit tests and simulator after changing a cost.
 

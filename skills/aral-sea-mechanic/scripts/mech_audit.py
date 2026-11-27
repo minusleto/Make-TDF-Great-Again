@@ -170,6 +170,37 @@ def aral_treasury_cost_issues(decisions, events):
     return issues
 
 
+def aral_redundant_cost_tooltip_issues(decisions, localisations, languages):
+    """The shared custom_cost_text already displays treasury costs; project cost tooltips duplicate it."""
+    issues = []
+    for decision, body in decisions.items():
+        for key in re.findall(r"custom_effect_tooltip\s*=\s*(aral_\w+_cost_tt)\b", body):
+            issues.append(("decision " + decision, "remove redundant project cost tooltip " + key))
+    for language in languages:
+        for key in localisations.get(language, {}):
+            if re.fullmatch(r"aral_\w+_cost_tt", key):
+                issues.append(("localisation " + language, "remove obsolete duplicate cost tooltip key " + key))
+    return issues
+
+
+def aral_help_tooltip_issues(gui_text):
+    """The Aral help icon must not bind one localisation key to immediate and delayed tooltips."""
+    for match in re.finditer(r"\biconType\s*=\s*\{", gui_text):
+        end = match_brace(gui_text, match.end() - 1)
+        if end < 0:
+            continue
+        body = gui_text[match.start():end + 1]
+        if not re.search(r'name\s*=\s*"aral_help_icon"', body):
+            continue
+        immediate = set(re.findall(r'pdx_tooltip\s*=\s*"([^"]+)"', body))
+        delayed = set(re.findall(r'pdx_tooltip_delayed\s*=\s*"([^"]+)"', body))
+        duplicates = immediate & delayed
+        if duplicates:
+            return [("gui aral_help_icon", "same tooltip key is assigned to both pdx_tooltip and pdx_tooltip_delayed: " + ", ".join(sorted(duplicates)))]
+        return []
+    return [("gui", "aral_help_icon block not found")]
+
+
 def aral_localisation_style_issues(text):
     """The project omits the optional Paradox :0 localisation version suffix."""
     issues = []
@@ -640,6 +671,8 @@ def main():
     if P == "aral":
         for area, msg in aral_treasury_cost_issues(decisions, events):
             add("ERROR", area, msg)
+        for area, msg in aral_redundant_cost_tooltip_issues(decisions, loc, langs):
+            add("ERROR", area, msg)
         for area, msg in aral_visibility_issues(decisions):
             add("ERROR", area, msg)
         for area, msg in aral_picture_frame_issues(effects):
@@ -793,6 +826,9 @@ def main():
             add("INFO", "effects", "%s is not documented with an implementation in the available TDF references; request the target TDF effect definition before relying on its side effects" % ext_name)
 
     # ---------- J. scripted GUI vs .gui / .gfx ----------
+    if P == "aral":
+        for area, msg in aral_help_tooltip_issues(gui_text):
+            add("ERROR", area, msg)
     gui_names = set(re.findall(r'\bname\s*=\s*"?([\w.\-]+)"?', gui_text))
     sg_names = set()
     for sec in ("effects", "triggers", "properties"):
