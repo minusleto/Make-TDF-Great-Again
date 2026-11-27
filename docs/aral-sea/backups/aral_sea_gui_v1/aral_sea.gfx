@@ -1,0 +1,12 @@
+spriteTypes = {
+	spriteType = { name = "GFX_aral_picture_strip" texturefile = "gfx/interface/aral_sea/aral_sea_picture_strip.dds" noOfFrames = 7 }
+	spriteType = { name = "GFX_aral_picture_frame" texturefile = "gfx/interface/aral_sea/picture_frame.dds" }
+	spriteType = { name = "GFX_aral_bar_bg" texturefile = "gfx/interface/aral_sea/bar_bg.dds" }
+	spriteType = { name = "GFX_aral_bar_seg" texturefile = "gfx/interface/aral_sea/bar_seg.dds" }
+	spriteType = { name = "GFX_aral_hover" texturefile = "gfx/interface/aral_sea/hover.dds" }
+	spriteType = { name = "GFX_aral_banner" texturefile = "gfx/interface/aral_sea/banner.dds" }
+	spriteType = { name = "GFX_aral_bar_pend" texturefile = "gfx/interface/aral_sea/bar_pend.dds" }
+	spriteType = { name = "GFX_aral_bar_neg" texturefile = "gfx/interface/aral_sea/bar_neg.dds" }
+	spriteType = { name = "GFX_aral_milestone_zero" texturefile = "gfx/interface/aral_sea/milestone_zero.dds" }
+	spriteType = { name = "GFX_aral_milestone" texturefile = "gfx/interface/aral_sea/milestone.dds" }
+}

@@ -3,6 +3,27 @@ guiTypes = {
 		name = "aral_sea_decisions_container"
 		position = { x = 0 y = 0 }
 		size = { width = 100% height = 414 }
+		iconType = {
+			name = "aral_panel_background"
+			spriteType = "GFX_aral_panel_bg"
+			Orientation = "CENTER_UP"
+			position = { x = -220 y = 0 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "aral_header_background"
+			spriteType = "GFX_aral_header_bg"
+			Orientation = "CENTER_UP"
+			position = { x = -210 y = 4 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "aral_progress_panel_background"
+			spriteType = "GFX_aral_progress_panel_bg"
+			Orientation = "CENTER_UP"
+			position = { x = -210 y = 263 }
+			alwaystransparent = yes
+		}
 		instantTextBoxType = {
 			name = "aral_level"
 			Orientation = "CENTER_UP"

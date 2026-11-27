@@ -1,0 +1,851 @@
+guiTypes = {
+	containerWindowType = {
+		name = "aral_sea_decisions_container"
+		position = { x = 0 y = 0 }
+		size = { width = 100% height = 414 }
+		instantTextBoxType = {
+			name = "aral_level"
+			Orientation = "CENTER_UP"
+			position = { x = -220 y = 8 }
+			maxWidth = 220
+			maxHeight = 24
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_LEVEL"
+			format = centre
+		}
+		instantTextBoxType = {
+			name = "aral_percent"
+			Orientation = "CENTER_UP"
+			position = { x = 0 y = 8 }
+			maxWidth = 220
+			maxHeight = 24
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_PERCENT"
+			format = centre
+		}
+		iconType = {
+			name = "aral_help_icon"
+			spriteType = "GFX_help_button"
+			Orientation = "CENTER_UP"
+			position = { x = 195 y = 7 }
+			pdx_tooltip = "ARAL_HELP_TT"
+			pdx_tooltip_delayed = "ARAL_HELP_TT"
+		}
+		iconType = {
+			name = "aral_picture"
+			spriteType = "GFX_aral_picture_strip"
+			Orientation = "CENTER_UP"
+			position = { x = -200 y = 40 }
+		}
+		iconType = {
+			name = "aral_picture_frame"
+			spriteType = "GFX_aral_picture_frame"
+			Orientation = "CENTER_UP"
+			position = { x = -204 y = 36 }
+		}
+		iconType = {
+			name = "aral_bar_bg"
+			spriteType = "GFX_aral_bar_bg"
+			Orientation = "CENTER_UP"
+			position = { x = -202 y = 277 }
+		}
+		iconType = {
+			name = "aral_bar_neg_1"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -114 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_2"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -120 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_3"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -126 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_4"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -132 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_5"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -138 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_6"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -145 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_7"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -151 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_8"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -157 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_9"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -163 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_10"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -169 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_11"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -175 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_12"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -182 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_13"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -188 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_14"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -194 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_neg_15"
+			spriteType = "GFX_aral_bar_neg"
+			Orientation = "CENTER_UP"
+			position = { x = -200 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_1"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -108 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_2"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -102 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_3"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -95 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_4"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -89 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_5"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -83 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_6"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -77 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_7"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -71 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_8"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -65 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_9"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -58 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_10"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -52 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_11"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -46 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_12"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -40 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_13"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -34 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_14"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -28 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_15"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -22 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_16"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -15 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_17"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -9 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_18"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = -3 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_19"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 3 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_20"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 9 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_21"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 15 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_22"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 22 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_23"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 28 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_24"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 34 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_25"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 40 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_26"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 46 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_27"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 52 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_28"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 58 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_29"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 65 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_30"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 71 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_31"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 77 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_32"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 83 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_33"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 89 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_34"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 95 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_35"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 102 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_36"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 108 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_37"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 114 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_38"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 120 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_39"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 126 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_40"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 132 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_41"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 138 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_42"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 145 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_43"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 151 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_44"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 157 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_45"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 163 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_46"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 169 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_47"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 175 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_48"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 182 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_49"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 188 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_seg_50"
+			spriteType = "GFX_aral_bar_seg"
+			Orientation = "CENTER_UP"
+			position = { x = 194 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_1"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -108 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_2"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -102 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_3"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -95 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_4"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -89 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_5"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -83 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_6"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -77 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_7"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -71 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_8"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -65 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_9"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -58 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_10"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -52 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_11"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -46 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_12"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -40 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_13"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -34 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_14"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -28 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_15"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -22 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_16"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -15 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_17"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -9 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_18"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = -3 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_19"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 3 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_20"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 9 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_21"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 15 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_22"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 22 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_23"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 28 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_24"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 34 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_25"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 40 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_26"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 46 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_27"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 52 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_28"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 58 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_29"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 65 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_30"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 71 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_31"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 77 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_32"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 83 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_33"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 89 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_34"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 95 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_35"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 102 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_36"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 108 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_37"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 114 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_38"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 120 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_39"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 126 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_40"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 132 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_41"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 138 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_42"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 145 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_43"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 151 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_44"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 157 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_45"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 163 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_46"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 169 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_47"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 175 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_48"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 182 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_49"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 188 y = 279 }
+		}
+		iconType = {
+			name = "aral_bar_pend_50"
+			spriteType = "GFX_aral_bar_pend"
+			Orientation = "CENTER_UP"
+			position = { x = 194 y = 279 }
+		}
+		iconType = {
+			name = "aral_tick_0"
+			spriteType = "GFX_aral_milestone_zero"
+			Orientation = "CENTER_UP"
+			position = { x = -112 y = 274 }
+			pdx_tooltip = "ARAL_TICK_0"
+		}
+		iconType = {
+			name = "aral_tick_415"
+			spriteType = "GFX_aral_milestone"
+			Orientation = "CENTER_UP"
+			position = { x = -66 y = 274 }
+			pdx_tooltip = "ARAL_TICK_415"
+		}
+		iconType = {
+			name = "aral_tick_46"
+			spriteType = "GFX_aral_milestone"
+			Orientation = "CENTER_UP"
+			position = { x = 72 y = 274 }
+			pdx_tooltip = "ARAL_TICK_46"
+		}
+		iconType = {
+			name = "aral_tick_42"
+			spriteType = "GFX_aral_milestone"
+			Orientation = "CENTER_UP"
+			position = { x = -51 y = 274 }
+			pdx_tooltip = "ARAL_TICK_42"
+		}
+		iconType = {
+			name = "aral_tick_44"
+			spriteType = "GFX_aral_milestone"
+			Orientation = "CENTER_UP"
+			position = { x = 11 y = 274 }
+			pdx_tooltip = "ARAL_TICK_44"
+		}
+		instantTextBoxType = {
+			name = "aral_min"
+			Orientation = "CENTER_UP"
+			position = { x = -202 y = 303 }
+			maxWidth = 60
+			maxHeight = 18
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_MIN"
+			format = left
+		}
+		instantTextBoxType = {
+			name = "aral_zero"
+			Orientation = "CENTER_UP"
+			position = { x = -138 y = 303 }
+			maxWidth = 60
+			maxHeight = 18
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_ZERO"
+			format = centre
+		}
+		instantTextBoxType = {
+			name = "aral_full"
+			Orientation = "CENTER_UP"
+			position = { x = 142 y = 303 }
+			maxWidth = 60
+			maxHeight = 18
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_FULL"
+			format = right
+		}
+		instantTextBoxType = {
+			name = "aral_status"
+			Orientation = "CENTER_UP"
+			position = { x = -130 y = 322 }
+			maxWidth = 260
+			maxHeight = 24
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_STATUS"
+			format = centre
+		}
+		instantTextBoxType = {
+			name = "aral_trend"
+			Orientation = "CENTER_UP"
+			position = { x = -200 y = 346 }
+			maxWidth = 400
+			maxHeight = 22
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_TREND"
+			format = centre
+		}
+		iconType = {
+			name = "aral_trend_hover"
+			spriteType = "GFX_aral_hover"
+			Orientation = "CENTER_UP"
+			position = { x = -200 y = 345 }
+			pdx_tooltip = "ARAL_TREND_TT"
+		}
+		iconType = {
+			name = "aral_banner"
+			spriteType = "GFX_aral_banner"
+			Orientation = "CENTER_UP"
+			position = { x = -220 y = 372 }
+		}
+		instantTextBoxType = {
+			name = "aral_banner_text"
+			Orientation = "CENTER_UP"
+			position = { x = -130 y = 378 }
+			maxWidth = 260
+			maxHeight = 24
+			font = "hoi_18mbs"
+			text = "ARAL_GUI_BANNER"
+			format = centre
+		}
+	}
+}
