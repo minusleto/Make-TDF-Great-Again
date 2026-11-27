@@ -12,7 +12,7 @@
 - [v45-B — модульная редакция](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/brief-rework/brief_v45_B_modular.txt);
 - [Liberal Rework.drawio.xml](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/Liberal%20Rework.drawio.xml);
 - [Копия Greece Draft.drawio (2).xml](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/%D0%9A%D0%BE%D0%BF%D0%B8%D1%8F%20Greece%20Draft.drawio%20(2).xml);
-- [berberlus.drawio.xml](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/berberlus.drawio.xml);
+- [berberlus.drawio.xml (теперь `Казахстан и Италия.drawio.xml`)](https://github.com/minusleto/Make-TDF-Great-Again/blob/main/drafts/%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%20%D0%B8%20%D0%98%D1%82%D0%B0%D0%BB%D0%B8%D1%8F.drawio.xml);
 - библиотечный [Georgia_Economy_All_Variants_With_Notes.drawio](https://github.com/minusleto/Make-TDF-Great-Again) и текущие реализации GEO/KAZ;
 - существующие статические аудиты и инвентаризация деревьев.
 
