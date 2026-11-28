@@ -2563,6 +2563,29 @@ class SkillNavigationTests(unittest.TestCase):
                 problems.append((str(path.relative_to(self.REPO)), h1, status_lines))
         self.assertEqual(problems, [], "Duplicated H1 or front matter (spliced content?)")
 
+class IdeaDefinitionIndexTests(unittest.TestCase):
+    def test_all_idea_groups_are_indexed_not_only_country_and_hidden(self):
+        """Идеи компаний и структур лежат в своих группах ideas; индекс обязан видеть их все."""
+        source = (
+            "ideas = {\n\tcountry = {\n\t\tTST_a = { }\n\t}\n"
+            "\thidden_ideas = {\n\t\tTST_h = { }\n\t}\n"
+            "\tcompanies_slot = {\n\t\tTST_company_idea = {\n"
+            "\t\t\ton_add = { country_event = { id = tst.1 } }\n\t\t}\n\t}\n}\n"
+        )
+        with tempfile.TemporaryDirectory() as temp:
+            ideas_dir = Path(temp) / "mdredux" / "common" / "ideas"
+            ideas_dir.mkdir(parents=True)
+            (ideas_dir / "x.txt").write_text(source, encoding="utf-8")
+            definitions, errors = audit.build_idea_definition_index(temp, {})
+        by_id = {item["id"]: item for item in definitions}
+        self.assertEqual(errors, [])
+        self.assertEqual(sorted(by_id), ["TST_a", "TST_company_idea", "TST_h"])
+        self.assertEqual(by_id["TST_company_idea"]["group"], "companies_slot")
+        self.assertEqual(by_id["TST_company_idea"]["visibility"], "visible")
+        self.assertEqual(by_id["TST_h"]["visibility"], "hidden")
+        self.assertEqual(by_id["TST_company_idea"]["lifecycle_event_calls"][0]["target"], "tst.1")
+
+
 if __name__ == "__main__":
     unittest.main()
 
