@@ -118,13 +118,13 @@ def build_idea_definition_index(repo, countries):
                 match = re.match(r"^([A-Z]{3})_[A-Za-z0-9_]+$", entry.key.value)
                 if match:
                     tags_in_file.add(match.group(1))
-            for group_name in ("country", "hidden_ideas"):
-                for group_entry in direct_entries(ideas_block, group_name):
-                    if not isinstance(group_entry.value, Block):
-                        continue
-                    for entry in group_entry.value.entries:
-                        if isinstance(entry, Entry) and isinstance(entry.value, Block):
-                            raw_definitions.append((entry.key.value, entry.value, group_name, entry.line))
+            for group_entry in ideas_block.entries:
+                if not isinstance(group_entry.value, Block):
+                    continue
+                group_name = group_entry.key.value
+                for entry in group_entry.value.entries:
+                    if isinstance(entry, Entry) and isinstance(entry.value, Block):
+                        raw_definitions.append((entry.key.value, entry.value, group_name, entry.line))
 
         fallback_tag = None
         if not path.name.startswith("AA_") and len(tags_in_file) == 1:
