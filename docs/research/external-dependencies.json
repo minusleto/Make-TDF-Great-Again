@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_reviewed": "2026-11-26",
+  "last_reviewed": "2026-11-28",
   "status_definitions": {
     "confirmed": "Exact definition/key found in the TDF repository or in a target TDF source file explicitly supplied by the user; verification_origin and an exact file path are required.",
     "assumption": "Indirect evidence exists, but the exact definition is not verified; this status never suppresses an audit finding.",
@@ -274,9 +274,9 @@
     {
       "type": "equipment",
       "id": "CV_MR_Fighter2",
-      "status": "unknown",
-      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
-      "checked_at": "2026-11-26",
+      "status": "confirmed",
+      "expected_source": "Точное определение находится в исходниках TDF в этом репозитории.",
+      "checked_at": "2026-11-28",
       "where_used": [
         {
           "repository": "TDF",
@@ -285,15 +285,23 @@
           "usage": "add_equipment_to_stockpile type reference"
         }
       ],
-      "verification": [],
-      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
+      "verification": [
+        {
+          "kind": "TDF local definition",
+          "path": "mdredux/common/units/equipment/MD_x_plane_airframes.txt",
+          "line": 1651,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/common/units/equipment/MD_x_plane_airframes.txt#L1651"
+        }
+      ],
+      "notes": "Точное определение проверено непосредственно в локальном исходнике TDF. Это подтверждение относится только к указанному определению и пути.",
+      "verification_origin": "tdf_local"
     },
     {
       "type": "equipment",
       "id": "transport_plane3",
-      "status": "unknown",
-      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
-      "checked_at": "2026-11-26",
+      "status": "confirmed",
+      "expected_source": "Точное определение находится в исходниках TDF в этом репозитории.",
+      "checked_at": "2026-11-28",
       "where_used": [
         {
           "repository": "TDF",
@@ -302,15 +310,23 @@
           "usage": "add_equipment_to_stockpile type reference"
         }
       ],
-      "verification": [],
-      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
+      "verification": [
+        {
+          "kind": "TDF local definition",
+          "path": "mdredux/common/units/equipment/MD_x_plane_airframes.txt",
+          "line": 2332,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/common/units/equipment/MD_x_plane_airframes.txt#L2332"
+        }
+      ],
+      "notes": "Точное определение проверено непосредственно в локальном исходнике TDF. Это подтверждение относится только к указанному определению и пути.",
+      "verification_origin": "tdf_local"
     },
     {
       "type": "technology",
       "id": "tech_combat_radar",
-      "status": "unknown",
-      "expected_source": "Не подтверждено в доступных исходниках TDF; требуется соответствующий файл целевой сборки от пользователя.",
-      "checked_at": "2026-11-26",
+      "status": "confirmed",
+      "expected_source": "Точное определение находится в исходниках TDF в этом репозитории.",
+      "checked_at": "2026-11-28",
       "where_used": [
         {
           "repository": "TDF",
@@ -319,8 +335,16 @@
           "usage": "has_tech = tech_combat_radar"
         }
       ],
-      "verification": [],
-      "notes": "В доступных исходниках TDF есть ссылка или зависимость от этого ID, но точное определение не подтверждено в разрешённом источнике. Оставить unknown до проверки файла TDF или файла целевой сборки, предоставленного пользователем."
+      "verification": [
+        {
+          "kind": "TDF local definition",
+          "path": "mdredux/common/technologies/MTG_naval.txt",
+          "line": 3726,
+          "url": "https://github.com/minusleto/Make-TDF-Great-Again/blob/main/mdredux/common/technologies/MTG_naval.txt#L3726"
+        }
+      ],
+      "notes": "Точное определение проверено непосредственно в локальном исходнике TDF. Это подтверждение относится только к указанному определению и пути.",
+      "verification_origin": "tdf_local"
     },
     {
       "type": "event",
